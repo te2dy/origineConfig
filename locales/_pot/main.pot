@@ -1,0 +1,91 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Last-Translator: Teddy\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Origine"
+msgstr ""
+
+msgid "Origine Settings"
+msgstr ""
+
+msgid "Activation"
+msgstr ""
+
+msgid "Enable extension settings"
+msgstr ""
+
+msgid "Design"
+msgstr ""
+
+msgid "Color scheme"
+msgstr ""
+
+msgid "Follow system"
+msgstr ""
+
+msgid "Light"
+msgstr ""
+
+msgid "Dark"
+msgstr ""
+
+msgid "Text formatting"
+msgstr ""
+
+msgid "Font family"
+msgstr ""
+
+msgid "Serif (default)"
+msgstr ""
+
+msgid "Sans serif"
+msgstr ""
+
+msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
+msgstr ""
+
+msgid "Font size"
+msgstr ""
+
+msgid "11pt"
+msgstr ""
+
+msgid "12pt (default)"
+msgstr ""
+
+msgid "13pt"
+msgstr ""
+
+msgid "Text align"
+msgstr ""
+
+msgid "Left (default)"
+msgstr ""
+
+msgid "Justified"
+msgstr ""
+
+msgid "Enable automatic hyphenation"
+msgstr ""
+
+msgid "Disabled by default, automatic hyphenation is recommended when text alignment is set to \"justified\"."
+msgstr ""
+
+msgid "HTML header"
+msgstr ""
+
+msgid "Allows you to add information to your pages without displaying it on your readers' screen."
+msgstr ""
+
+msgid "Add meta tag <code>generator</code>"
+msgstr ""
+
+msgid "Add Open Graph tags"
+msgstr ""
+
+msgid "Add Twitter Cards tags"
+msgstr ""

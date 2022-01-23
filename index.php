@@ -116,21 +116,21 @@ if (!empty($_POST)) {
         <p>
           <?php echo form::checkbox('activation', 1, $activation); ?>
 
-          <label for="activation" class="classic"><?php echo __('Activer les réglages de l’extension'); ?></label>
+          <label for="activation" class="classic"><?php echo __('Enable extension settings'); ?></label>
         </p>
       </div>
 
       <div class="fieldset">
-        <h3><?php echo __('Apparence'); ?></h3>
+        <h3><?php echo __('Design'); ?></h3>
 
         <p class="field wide">
-          <label for="color_scheme" class="classic"><?php echo __('Schéma de couleurs'); ?></label>
+          <label for="color_scheme" class="classic"><?php echo __('Color scheme'); ?></label>
 
           <?php
           $combo_color_scheme = array(
-            __('Suivre le système (par défaut)') => 'system',
-            __('Clair')                          => 'light',
-            __('Sombre')                         => 'dark',
+            __('Follow system') => 'system',
+            __('Light')         => 'light',
+            __('Dark')          => 'dark',
           );
 
           echo form::combo('color_scheme', $combo_color_scheme, $color_scheme);
@@ -139,15 +139,15 @@ if (!empty($_POST)) {
       </div>
 
       <div class="fieldset">
-        <h3><?php echo __('Mise en forme du texte'); ?></h3>
+        <h3><?php echo __('Text formatting'); ?></h3>
 
         <p class="field wide">
-          <label for="content_font_family" class="classic"><?php echo __('Famille de police d’écriture'); ?></label>
+          <label for="content_font_family" class="classic"><?php echo __('Font family'); ?></label>
 
           <?php
           $combo_font_family = array(
-            __('Avec empattements (par défaut)') => 'serif',
-            __('Sans empattements')              => 'sans-serif',
+            __('Serif (default)') => 'serif',
+            __('Sans serif')      => 'sans-serif',
           );
 
           echo form::combo('content_font_family', $combo_font_family, $content_font_family);
@@ -155,19 +155,19 @@ if (!empty($_POST)) {
         </p>
 
         <p class="form-note">
-          <?php echo __('Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargements ainsi qu’une continuité graphique avec le système.'); ?>
+          <?php echo __('In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system.'); ?>
         </p>
 
         <p class="field wide">
           <label for="content_font_size" class="classic">
-            <?php echo __('Taille du texte'); ?>
+            <?php echo __('Font size'); ?>
           </label>
 
           <?php
           $combo_font_size = [
-              __('11 pt')              => 11,
-              __('12 pt (par défaut)') => 12,
-              __('13 pt')              => 13,
+              __('11pt')              => 11,
+              __('12pt (default)') => 12,
+              __('13pt')              => 13,
           ];
 
           echo form::combo('content_font_size', $combo_font_size, $content_font_size);
@@ -176,13 +176,13 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="content_text_align" class="classic">
-            <?php echo __('Alignement du texte'); ?>
+            <?php echo __('Text align'); ?>
           </label>
 
           <?php
           $combo_text_align = [
-              __('Gauche (par défaut)') => 'left',
-              __('Justifié')            => 'justify',
+              __('Left (default)') => 'left',
+              __('Justified')      => 'justify',
           ];
 
           echo form::combo('content_text_align', $combo_text_align, $content_text_align);
@@ -191,27 +191,27 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="content_hyphens" class="classic">
-            <?php echo __('Activer la césure automatique'); ?>
+            <?php echo __('Enable automatic hyphenation'); ?>
           </label>
 
           <?php echo form::checkbox('content_hyphens', 1, $content_hyphens); ?>
         </p>
 
         <p class="form-note">
-          <?php echo __('Désactivées par défaut, la césure automatique est recommandées lorsque l’alignement du texte est réglé sur « justifié ».'); ?>
+          <?php echo __('Disabled by default, automatic hyphenation is recommended when text alignment is set to "justified".'); ?>
         </p>
       </div>
 
       <div class="fieldset">
-        <h3><?php echo __('En-tête HTML des pages'); ?></h3>
+        <h3><?php echo __('HTML header'); ?></h3>
 
         <p class="form-note">
-          <?php echo __('Permet d’ajouter des informations dans vos pages sans les afficher à l’écran de vos lecteurs.'); ?>
+          <?php echo __("Allows you to add information to your pages without displaying it on your readers' screen."); ?>
         </p>
 
         <p class="field wide">
           <label for="meta_generator" class="classic">
-            <?php echo __('Ajouter la balise meta <code>generator</code>'); ?>
+            <?php echo __('Add meta tag <code>generator</code>'); ?>
           </label>
 
           <?php echo form::checkbox('meta_generator', 1, $meta_generator); ?>
@@ -219,7 +219,7 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="meta_og" class="classic">
-            <?php echo __('Ajouter des balises Open Graph'); ?>
+            <?php echo __('Add Open Graph tags'); ?>
           </label>
 
           <?php echo form::checkbox('meta_og', 1, $meta_og); ?>
@@ -227,7 +227,7 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="meta_twitter" class="classic">
-            <?php echo __('Ajouter des balises pour les cartes Twitter'); ?>
+            <?php echo __('Add Twitter Cards tags'); ?>
           </label>
 
           <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
