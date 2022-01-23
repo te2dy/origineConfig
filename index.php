@@ -18,7 +18,8 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
 
     // Head
     $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false);
-    $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph', false);
+    $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false);
+    $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false);
   } catch (Exception $e) {
     $core->error->add($e->getMessage());
   }
@@ -36,6 +37,7 @@ $content_hyphens     = (bool) $core->blog->settings->origineConfig->content_hyph
 // Head
 $meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
 $meta_og        = (bool) $core->blog->settings->origineConfig->meta_og;
+$meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
 
 if (!empty($_POST)) {
   try {
@@ -51,6 +53,7 @@ if (!empty($_POST)) {
     // Head
     $meta_generator = !empty($_POST['meta_generator']);
     $meta_og        = !empty($_POST['meta_og']);
+    $meta_twitter   = !empty($_POST['meta_twitter']);
 
     // Save.
     $core->blog->settings->addNamespace('origineConfig');
@@ -67,6 +70,7 @@ if (!empty($_POST)) {
     // Head
     $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
     $core->blog->settings->origineConfig->put('meta_og', $meta_og);
+    $core->blog->settings->origineConfig->put('meta_twitter', $meta_twitter);
 
     $core->blog->triggerBlog();
 
@@ -191,6 +195,14 @@ if (!empty($_POST)) {
           </label>
 
           <?php echo form::checkbox('meta_og', 1, $meta_og); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="meta_twitter" class="classic">
+            <?php echo __('Ajouter des balises pour les cartes Twitter'); ?>
+          </label>
+
+          <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
         </p>
       </div>
 

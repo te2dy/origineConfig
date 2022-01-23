@@ -24,7 +24,8 @@ try {
 
   // Head
   $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false, true);
-  $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph', false, true);
+  $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false, true);
+  $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false, true);
 
   $core->setVersion('origineConfig', $new_version);
 
