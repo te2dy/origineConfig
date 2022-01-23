@@ -7,38 +7,66 @@ $core->blog->settings->addNamespace('origineConfig');
 
 if (is_null($core->blog->settings->origineConfig->activation)) {
   try {
+    // Activation
     $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable the settings', false);
+
+    // Content Formatting
     $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false);
     $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false);
     $core->blog->settings->origineConfig->put('content_text_align', 'left', 'string', 'Text align', false);
     $core->blog->settings->origineConfig->put('content_hyphens', false, 'boolean', 'Hyphenation', false);
+
+    // Head
+    $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false);
+    $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph', false);
   } catch (Exception $e) {
     $core->error->add($e->getMessage());
   }
 }
 
-$activation          = (bool) $core->blog->settings->origineConfig->activation;
+// Activation
+$activation = (bool) $core->blog->settings->origineConfig->activation;
+
+// Content formatting
 $content_font_family = (string) $core->blog->settings->origineConfig->content_font_family;
 $content_font_size   = (int) $core->blog->settings->origineConfig->content_font_size;
 $content_text_align  = (string) $core->blog->settings->origineConfig->content_text_align;
 $content_hyphens     = (bool) $core->blog->settings->origineConfig->content_hyphens;
 
+// Head
+$meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
+$meta_og        = (bool) $core->blog->settings->origineConfig->meta_og;
+
 if (!empty($_POST)) {
   try {
-    $activation          = !empty($_POST['activation']);
+    // Activation
+    $activation = !empty($_POST['activation']);
+
+    // Content formatting
     $content_font_family = trim(html::escapeHTML($_POST['content_font_family']));
     $content_font_size   = abs((int) $_POST['content_font_size']);
     $content_text_align  = trim(html::escapeHTML($_POST['content_text_align']));
     $content_hyphens     = !empty($_POST['content_hyphens']);
 
+    // Head
+    $meta_generator = !empty($_POST['meta_generator']);
+    $meta_og        = !empty($_POST['meta_og']);
+
     // Save.
     $core->blog->settings->addNamespace('origineConfig');
 
+    // Activation
     $core->blog->settings->origineConfig->put('activation', $activation);
+
+    // Content formatting
     $core->blog->settings->origineConfig->put('content_font_family', $content_font_family);
     $core->blog->settings->origineConfig->put('content_font_size', $content_font_size);
     $core->blog->settings->origineConfig->put('content_text_align', $content_text_align);
     $core->blog->settings->origineConfig->put('content_hyphens', $content_hyphens);
+
+    // Head
+    $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
+    $core->blog->settings->origineConfig->put('meta_og', $meta_og);
 
     $core->blog->triggerBlog();
 
@@ -140,6 +168,30 @@ if (!empty($_POST)) {
             <?php echo __('Désactivées par défaut, la césure automatique est recommandées lorsque l’alignement du texte est réglé sur « justifié ».'); ?>
           </p>
         </div>
+      </div>
+
+      <div class="fieldset">
+        <h3><?php echo __('En-tête HTML des pages'); ?></h3>
+
+        <p class="form-note">
+          <?php echo __('Permet d’ajouter des informations dans vos pages sans les afficher à l’écran de vos lecteurs.'); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="meta_generator" class="classic">
+            <?php echo __('Ajouter la balise meta <code>generator</code>'); ?>
+          </label>
+
+          <?php echo form::checkbox('meta_generator', 1, $meta_generator); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="meta_og" class="classic">
+            <?php echo __('Ajouter des balises Open Graph'); ?>
+          </label>
+
+          <?php echo form::checkbox('meta_og', 1, $meta_og); ?>
+        </p>
       </div>
 
       <p>
