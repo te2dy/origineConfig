@@ -89,3 +89,9 @@ msgstr ""
 
 msgid "Add Twitter Cards tags"
 msgstr ""
+
+msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
+msgstr ""
+
+msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
+msgstr ""
