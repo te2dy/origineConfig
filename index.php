@@ -10,6 +10,9 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     // Activation
     $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable the settings', false);
 
+    // Design
+    $core->blog->settings->origineConfig->put('color_scheme', 'system', 'string', 'Color scheme', false);
+
     // Content Formatting
     $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false);
     $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false);
@@ -28,6 +31,9 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
 // Activation
 $activation = (bool) $core->blog->settings->origineConfig->activation;
 
+// Design
+$color_scheme = (string) $core->blog->settings->origineConfig->color_scheme;
+
 // Content formatting
 $content_font_family = (string) $core->blog->settings->origineConfig->content_font_family;
 $content_font_size   = (int) $core->blog->settings->origineConfig->content_font_size;
@@ -44,6 +50,9 @@ if (!empty($_POST)) {
     // Activation
     $activation = !empty($_POST['activation']);
 
+    // Design
+    $color_scheme = trim(html::escapeHTML($_POST['color_scheme']));
+
     // Content formatting
     $content_font_family = trim(html::escapeHTML($_POST['content_font_family']));
     $content_font_size   = abs((int) $_POST['content_font_size']);
@@ -55,11 +64,14 @@ if (!empty($_POST)) {
     $meta_og        = !empty($_POST['meta_og']);
     $meta_twitter   = !empty($_POST['meta_twitter']);
 
-    // Save.
+    // Save
     $core->blog->settings->addNamespace('origineConfig');
 
     // Activation
     $core->blog->settings->origineConfig->put('activation', $activation);
+
+    // Design
+    $core->blog->settings->origineConfig->put('color_scheme', $color_scheme);
 
     // Content formatting
     $core->blog->settings->origineConfig->put('content_font_family', $content_font_family);
@@ -109,69 +121,85 @@ if (!empty($_POST)) {
       </div>
 
       <div class="fieldset">
+        <h3><?php echo __('Apparence'); ?></h3>
+
+        <p class="field wide">
+          <label for="color_scheme" class="classic"><?php echo __('Schéma de couleurs'); ?></label>
+
+          <?php
+          $combo_color_scheme = array(
+            __('Suivre le système (par défaut)') => 'system',
+            __('Clair')                          => 'light',
+            __('Sombre')                         => 'dark',
+          );
+
+          echo form::combo('color_scheme', $combo_color_scheme, $color_scheme);
+          ?>
+        </p>
+      </div>
+
+      <div class="fieldset">
         <h3><?php echo __('Mise en forme du texte'); ?></h3>
 
-        <div>
-          <p class="field wide">
-            <label for="content_font_family" class="classic"><?php echo __('Famille de police d’écriture'); ?></label>
+        <p class="field wide">
+          <label for="content_font_family" class="classic"><?php echo __('Famille de police d’écriture'); ?></label>
 
-            <?php
-            $combo_font_family = array(
-              __('Avec empattements (par défaut)') => 'serif',
-              __('Sans empattements')              => 'sans-serif',
-            );
+          <?php
+          $combo_font_family = array(
+            __('Avec empattements (par défaut)') => 'serif',
+            __('Sans empattements')              => 'sans-serif',
+          );
 
-            echo form::combo('content_font_family', $combo_font_family, $content_font_family);
-            ?>
-          </p>
+          echo form::combo('content_font_family', $combo_font_family, $content_font_family);
+          ?>
+        </p>
 
-          <p class="form-note">
-            <?php echo __('Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargements ainsi qu’une continuité graphique avec le système.'); ?>
-          </p>
+        <p class="form-note">
+          <?php echo __('Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargements ainsi qu’une continuité graphique avec le système.'); ?>
+        </p>
 
-          <p class="field wide">
-            <label for="content_font_size" class="classic">
-              <?php echo __('Taille du texte'); ?>
-            </label>
+        <p class="field wide">
+          <label for="content_font_size" class="classic">
+            <?php echo __('Taille du texte'); ?>
+          </label>
 
-            <?php
-            $combo_font_size = [
-                __('11 pt')              => 11,
-                __('12 pt (par défaut)') => 12,
-                __('13 pt')              => 13,
-            ];
+          <?php
+          $combo_font_size = [
+              __('11 pt')              => 11,
+              __('12 pt (par défaut)') => 12,
+              __('13 pt')              => 13,
+          ];
 
-            echo form::combo('content_font_size', $combo_font_size, $content_font_size);
-            ?>
-          </p>
+          echo form::combo('content_font_size', $combo_font_size, $content_font_size);
+          ?>
+        </p>
 
-          <p class="field wide">
-            <label for="content_text_align" class="classic">
-              <?php echo __('Alignement du texte'); ?>
-            </label>
+        <p class="field wide">
+          <label for="content_text_align" class="classic">
+            <?php echo __('Alignement du texte'); ?>
+          </label>
 
-            <?php
-            $combo_text_align = [
-                __('Gauche (par défaut)') => 'left',
-                __('Justifié')            => 'justify',
-            ];
+          <?php
+          $combo_text_align = [
+              __('Gauche (par défaut)') => 'left',
+              __('Justifié')            => 'justify',
+          ];
 
-            echo form::combo('content_text_align', $combo_text_align, $content_text_align);
-            ?>
-          </p>
+          echo form::combo('content_text_align', $combo_text_align, $content_text_align);
+          ?>
+        </p>
 
-          <p class="field wide">
-            <label for="content_hyphens" class="classic">
-              <?php echo __('Activer la césure automatique'); ?>
-            </label>
+        <p class="field wide">
+          <label for="content_hyphens" class="classic">
+            <?php echo __('Activer la césure automatique'); ?>
+          </label>
 
-            <?php echo form::checkbox('content_hyphens', 1, $content_hyphens); ?>
-          </p>
+          <?php echo form::checkbox('content_hyphens', 1, $content_hyphens); ?>
+        </p>
 
-          <p class="form-note">
-            <?php echo __('Désactivées par défaut, la césure automatique est recommandées lorsque l’alignement du texte est réglé sur « justifié ».'); ?>
-          </p>
-        </div>
+        <p class="form-note">
+          <?php echo __('Désactivées par défaut, la césure automatique est recommandées lorsque l’alignement du texte est réglé sur « justifié ».'); ?>
+        </p>
       </div>
 
       <div class="fieldset">

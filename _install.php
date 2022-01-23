@@ -16,6 +16,9 @@ try {
   // Activation
   $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable the settings', false, true);
 
+  // Design
+  $core->blog->settings->origineConfig->put('color_scheme', 'system', 'string', 'Color scheme', false, true);
+
   // Content formatting
   $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false, true);
   $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false, true);
