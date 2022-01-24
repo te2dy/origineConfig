@@ -73,7 +73,7 @@ msgid "Enable automatic hyphenation"
 msgstr "Activer la césure automatique"
 
 msgid "Disabled by default, automatic hyphenation is recommended when text alignment is set to \"justified\"."
-msgstr "Désactivées par défaut, la césure automatique est recommandée lorsque l’alignement du texte est réglé sur « justifié »."
+msgstr "Désactivée par défaut, la césure automatique est recommandée lorsque l’alignement du texte est réglé sur « justifié »."
 
 msgid "HTML header"
 msgstr "En-tête HTML"
