@@ -18,6 +18,7 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false);
     $core->blog->settings->origineConfig->put('content_text_align', 'left', 'string', 'Text align', false);
     $core->blog->settings->origineConfig->put('content_hyphens', false, 'boolean', 'Hyphenation', false);
+    $core->blog->settings->origineConfig->put('content_link_color', 'red', 'string', 'Link color', false);
 
     // Head
     $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false);
@@ -39,6 +40,7 @@ $content_font_family = (string) $core->blog->settings->origineConfig->content_fo
 $content_font_size   = (int) $core->blog->settings->origineConfig->content_font_size;
 $content_text_align  = (string) $core->blog->settings->origineConfig->content_text_align;
 $content_hyphens     = (bool) $core->blog->settings->origineConfig->content_hyphens;
+$content_link_color  = (string) $core->blog->settings->origineConfig->content_link_color;
 
 // Head
 $meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
@@ -58,6 +60,7 @@ if (!empty($_POST)) {
     $content_font_size   = abs((int) $_POST['content_font_size']);
     $content_text_align  = trim(html::escapeHTML($_POST['content_text_align']));
     $content_hyphens     = !empty($_POST['content_hyphens']);
+    $content_link_color  = trim(html::escapeHTML($_POST['content_link_color']));
 
     // Head
     $meta_generator = !empty($_POST['meta_generator']);
@@ -78,6 +81,7 @@ if (!empty($_POST)) {
     $core->blog->settings->origineConfig->put('content_font_size', $content_font_size);
     $core->blog->settings->origineConfig->put('content_text_align', $content_text_align);
     $core->blog->settings->origineConfig->put('content_hyphens', $content_hyphens);
+    $core->blog->settings->origineConfig->put('content_link_color', $content_link_color);
 
     // Head
     $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
@@ -127,11 +131,11 @@ if (!empty($_POST)) {
           <label for="color_scheme" class="classic"><?php echo __('Color scheme'); ?></label>
 
           <?php
-          $combo_color_scheme = array(
+          $combo_color_scheme = [
             __('Follow system') => 'system',
             __('Light')         => 'light',
             __('Dark')          => 'dark',
-          );
+          ];
 
           echo form::combo('color_scheme', $combo_color_scheme, $color_scheme);
           ?>
@@ -145,10 +149,10 @@ if (!empty($_POST)) {
           <label for="content_font_family" class="classic"><?php echo __('Font family'); ?></label>
 
           <?php
-          $combo_font_family = array(
+          $combo_font_family = [
             __('Serif (default)') => 'serif',
             __('Sans serif')      => 'sans-serif',
-          );
+          ];
 
           echo form::combo('content_font_family', $combo_font_family, $content_font_family);
           ?>
@@ -200,6 +204,24 @@ if (!empty($_POST)) {
         <p class="form-note">
           <?php echo __('Disabled by default, automatic hyphenation is recommended when text alignment is set to "justified".'); ?>
         </p>
+
+        <p class="field wide">
+          <label for="content_link_color" class="classic">
+            <?php echo __('Link color'); ?>
+          </label>
+
+          <?php
+          $combo_link_color = [
+              __('Red (default)') => 'red',
+              __('Blue')          => 'blue',
+              __('Green')         => 'green',
+              __('Orange')        => 'orange',
+              __('Purple')        => 'purple',
+          ];
+
+          echo form::combo('content_link_color', $combo_link_color, $content_link_color);
+          ?>
+        </p>
       </div>
 
       <div class="fieldset">
@@ -244,13 +266,11 @@ if (!empty($_POST)) {
         <?php
         if ($core->plugins->moduleExists('maintenance') === true) {
           printf(
-            //,  (Servicing › Purge).
             __('If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge).'),
             html::escapeURL($core->adminurl->get('admin.plugin', ['p' => 'maintenance']))
           );
         } else {
           printf(
-            //, ,  Plugin Management page.
             __('If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page.'),
             html::escapeURL($core->adminurl->get('admin.plugins') . '#plugin-deactivate')
           );

@@ -95,3 +95,21 @@ msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pens
 
 msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
 msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> en utilisant l’extension Entretien, que vous pouvez activer depuis la page <a href="%s">Gestion des plugins</a>."
+
+msgid "Link color"
+msgstr "Couleur des liens"
+
+msgid "Red (default)"
+msgstr "Rouge (par défaut)"
+
+msgid "Blue"
+msgstr "Bleu"
+
+msgid "Green"
+msgstr "Vert"
+
+msgid "Orange"
+msgstr "Orange"
+
+msgid "Purple"
+msgstr "Violet"
