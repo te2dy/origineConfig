@@ -4,7 +4,7 @@ origineConfig est une extension qui permet de personnaliser le thème [Origine](
 
 ## Présentation
 
-origineConfig offre diverses options de personnalisation de l’apparence du thème. Vous pouvez aussi ajout des balises `meta` dans l’en-tête pour améliorer le référencement.
+origineConfig offre diverses options de personnalisation de l’apparence du thème. Vous pouvez aussi ajouter des balises `meta` dans l’en-tête pour améliorer le référencement.
 
 ## Téléchargement
 
