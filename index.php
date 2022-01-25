@@ -3,6 +3,30 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
+function origineConfigArrayToCSS($rules, $rule_type = '')
+{
+  $css = '';
+
+  if ($rules) {
+    foreach ($rules as $key => $value) {
+      if (is_array($value) && !empty($value)) {
+        $selector   = $key;
+        $properties = $value;
+
+        $css .= $selector . '{';
+
+        foreach ($properties as $property => $rule) {
+          $css .= $property . ':' . str_replace(', ', ',', $rule) . ';';
+        }
+
+        $css .= '}';
+      }
+    }
+  }
+
+  return $css;
+}
+
 $core->blog->settings->addNamespace('origineConfig');
 
 if (is_null($core->blog->settings->origineConfig->activation)) {
@@ -10,20 +34,24 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     // Activation
     $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable the settings', false);
 
-    // Design
+    // Appearance
     $core->blog->settings->origineConfig->put('color_scheme', 'system', 'string', 'Color scheme', false);
+    $core->blog->settings->origineConfig->put('content_link_color', 'red', 'string', 'Link color', false);
+    $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition on link hover', false);
 
     // Content Formatting
     $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false);
     $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false);
     $core->blog->settings->origineConfig->put('content_text_align', 'left', 'string', 'Text align', false);
     $core->blog->settings->origineConfig->put('content_hyphens', false, 'boolean', 'Hyphenation', false);
-    $core->blog->settings->origineConfig->put('content_link_color', 'red', 'string', 'Link color', false);
 
     // Head
     $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false);
     $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false);
     $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false);
+
+    // All styles
+    $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'Origine styles', false);
   } catch (Exception $e) {
     $core->error->add($e->getMessage());
   }
@@ -32,40 +60,48 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
 // Activation
 $activation = (bool) $core->blog->settings->origineConfig->activation;
 
-// Design
-$color_scheme = (string) $core->blog->settings->origineConfig->color_scheme;
+// Appearance
+$color_scheme        = (string) $core->blog->settings->origineConfig->color_scheme;
+$content_link_color  = (string) $core->blog->settings->origineConfig->content_link_color;
+$css_transition      = (bool) $core->blog->settings->origineConfig->css_transition;
 
 // Content formatting
 $content_font_family = (string) $core->blog->settings->origineConfig->content_font_family;
 $content_font_size   = (int) $core->blog->settings->origineConfig->content_font_size;
 $content_text_align  = (string) $core->blog->settings->origineConfig->content_text_align;
 $content_hyphens     = (bool) $core->blog->settings->origineConfig->content_hyphens;
-$content_link_color  = (string) $core->blog->settings->origineConfig->content_link_color;
 
 // Head
 $meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
 $meta_og        = (bool) $core->blog->settings->origineConfig->meta_og;
 $meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
 
+// All styles
+$origine_styles   = (bool) $core->blog->settings->origineConfig->origine_styles;
+
 if (!empty($_POST)) {
   try {
     // Activation
     $activation = !empty($_POST['activation']);
 
-    // Design
-    $color_scheme = trim(html::escapeHTML($_POST['color_scheme']));
+    // Appearance
+    $color_scheme        = trim(html::escapeHTML($_POST['color_scheme']));
+    $content_link_color  = trim(html::escapeHTML($_POST['content_link_color']));
+    $css_transition      = !empty($_POST['css_transition']);
 
     // Content formatting
     $content_font_family = trim(html::escapeHTML($_POST['content_font_family']));
     $content_font_size   = abs((int) $_POST['content_font_size']);
     $content_text_align  = trim(html::escapeHTML($_POST['content_text_align']));
     $content_hyphens     = !empty($_POST['content_hyphens']);
-    $content_link_color  = trim(html::escapeHTML($_POST['content_link_color']));
 
     // Head
     $meta_generator = !empty($_POST['meta_generator']);
     $meta_og        = !empty($_POST['meta_og']);
     $meta_twitter   = !empty($_POST['meta_twitter']);
+
+    // All Styles
+    $origine_styles  = trim(html::escapeHTML($_POST['origine_styles']));
 
     // Save
     $core->blog->settings->addNamespace('origineConfig');
@@ -73,20 +109,175 @@ if (!empty($_POST)) {
     // Activation
     $core->blog->settings->origineConfig->put('activation', $activation);
 
-    // Design
+    // Appearance
     $core->blog->settings->origineConfig->put('color_scheme', $color_scheme);
+    $core->blog->settings->origineConfig->put('content_link_color', $content_link_color);
+    $core->blog->settings->origineConfig->put('css_transition', $css_transition);
 
     // Content formatting
     $core->blog->settings->origineConfig->put('content_font_family', $content_font_family);
     $core->blog->settings->origineConfig->put('content_font_size', $content_font_size);
     $core->blog->settings->origineConfig->put('content_text_align', $content_text_align);
     $core->blog->settings->origineConfig->put('content_hyphens', $content_hyphens);
-    $core->blog->settings->origineConfig->put('content_link_color', $content_link_color);
 
     // Head
     $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
     $core->blog->settings->origineConfig->put('meta_og', $meta_og);
     $core->blog->settings->origineConfig->put('meta_twitter', $meta_twitter);
+
+    /**
+     * Save Styles
+     */
+     $link_colors = [
+       'red'    => [
+         'light' => '#de0000',
+         'dark'  => '#f14646',
+       ],
+       'blue'   => [
+         'light' => '#0057B7',
+         'dark'  => '#529ff5',
+       ],
+       'green'  => [
+         'light' => '#006400',
+         'dark'  => '#18af18',
+       ],
+       'orange' => [
+         'light' => '#ff8c00',
+         'dark'  => '#ffab2e',
+       ],
+       'purple' => [
+         'light' => '#800080',
+         'dark'  => '#9a389a',
+       ],
+     ];
+
+     $the_color = array_key_exists($content_link_color, $link_colors) ? $content_link_color : 'red';
+
+     $css            = [];
+     $css_root_array = [];
+     $css_root       = '';
+
+     if ($color_scheme === 'system') {
+       $css_root_array[':root']['--color-background']             = '#fff';
+       $css_root_array[':root']['--color-text-primary']           = '#000';
+       $css_root_array[':root']['--color-text-secondary']         = '#595959';
+       $css_root_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
+       $css_root_array[':root']['--color-border']                 = '#aaa';
+       $css_root_array[':root']['--color-input-text']             = '#000';
+       $css_root_array[':root']['--color-input-text-hover']       = '#fff';
+       $css_root_array[':root']['--color-input-background']       = '#eaeaea';
+       $css_root_array[':root']['--color-input-background-hover'] = '#000';
+
+       $css_root .= origineConfigArrayToCSS($css_root_array);
+
+       // Resets $css_root_array to set colors for dark scheme.
+       $css_root_array = [];
+
+       $css_root_array[':root']['--color-background']             = '#16161D';
+       $css_root_array[':root']['--color-text-primary']           = '#d9d9d9';
+       $css_root_array[':root']['--color-text-secondary']         = '#8c8c8c';
+       $css_root_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
+       $css_root_array[':root']['--color-border']                 = '#aaa';
+       $css_root_array[':root']['--color-input-text']             = '#d9d9d9';
+       $css_root_array[':root']['--color-input-text-hover']       = '#fff';
+       $css_root_array[':root']['--color-input-background']       = '#333333';
+       $css_root_array[':root']['--color-input-background-hover'] = '#262626';
+
+       $css_root .= '@media (prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_array) . '}';
+     } elseif ($color_scheme === 'dark') {
+       $css_root_array[':root']['--color-background']             = '#16161D';
+       $css_root_array[':root']['--color-text-primary']           = '#d9d9d9';
+       $css_root_array[':root']['--color-text-secondary']         = '#8c8c8c';
+       $css_root_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
+       $css_root_array[':root']['--color-border']                 = '#aaa';
+       $css_root_array[':root']['--color-input-text']             = '#d9d9d9';
+       $css_root_array[':root']['--color-input-text-hover']       = '#fff';
+       $css_root_array[':root']['--color-input-background']       = '#333333';
+       $css_root_array[':root']['--color-input-background-hover'] = '#262626';
+
+       $css_root .= origineConfigArrayToCSS($css_root_array);
+     } else {
+       $css_root_array[':root']['--color-background']             = '#fff';
+       $css_root_array[':root']['--color-text-primary']           = '#000';
+       $css_root_array[':root']['--color-text-secondary']         = '#595959';
+       $css_root_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
+       $css_root_array[':root']['--color-border']                 = '#aaa';
+       $css_root_array[':root']['--color-input-text']             = '#000';
+       $css_root_array[':root']['--color-input-text-hover']       = '#fff';
+       $css_root_array[':root']['--color-input-background']       = '#eaeaea';
+       $css_root_array[':root']['--color-input-background-hover'] = '#000';
+
+       $css_root .= origineConfigArrayToCSS($css_root_array);
+     }
+
+     // Transitions
+     if ( $css_transition === true ) {
+       $css['a']['transition'] = 'all .2s ease-in-out';
+       $css['a:active, a:focus, a:hover']['transition'] = 'all .2s ease-in-out';
+     }
+
+    // Font family
+    if ($content_font_family !== ('sans-serif' || 'mono') ) {
+      $css['body']['font-family'] = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+    } elseif ($content_font_family === 'sans-serif') {
+      $css['body']['font-family'] = '-apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif';
+    } else {
+      $css['body']['font-family'] = 'Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace';
+    }
+
+    // Font size
+    if ($content_font_size) {
+      $css['body']['font-size'] = abs((int) $content_font_size) . 'pt';
+    }
+
+    // Text align
+    if ($content_text_align === 'justify') {
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['text-align'] = 'justify';
+    }
+
+    // Hyphens
+    if ($content_hyphens === true ) {
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'auto';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'auto';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'auto';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'auto';
+
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphenate-limit-chars'] = '5 2 2';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-chars']    = '5 2 2';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-chars']     = '5 2 2';
+
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-lines'] = '2';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-lines']  = '2';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-lines']      = '2';
+
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphenate-limit-last'] = 'always';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-last']    = 'always';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-last']     = 'always';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-last']         = 'always';
+    } else {
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'none';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'none';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'none';
+      $css['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'none';
+    }
+
+    $css_last = '';
+
+    // Redured motion
+    if ( $css_transition === true ) {
+      $css_last .= '@media(prefers-reduced-motion:reduce){';
+
+      $css_redured_motion = [];
+
+      $css_redured_motion['a']['transition']                          = 'none';
+      $css_redured_motion['a:active, a:focus, a:hover']['transition'] = 'none';
+
+      $css_last = origineConfigArrayToCSS($css_redured_motion);
+
+      $css_last .= '}';
+    }
+
+    $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css_root . origineConfigArrayToCSS($css), ENT_NOQUOTES) . $css_last);
 
     $core->blog->triggerBlog();
 
@@ -114,18 +305,16 @@ if (!empty($_POST)) {
     ?>
 
     <form action="<?php echo $p_url; ?>" method="post">
-      <div class="fieldset">
-        <h3><?php echo __('Activation'); ?></h3>
+      <p>
+        <?php echo form::checkbox('activation', 1, $activation); ?>
 
-        <p>
-          <?php echo form::checkbox('activation', 1, $activation); ?>
+        <label for="activation" class="classic"><?php echo __('Enable extension settings'); ?></label>
+      </p>
 
-          <label for="activation" class="classic"><?php echo __('Enable extension settings'); ?></label>
-        </p>
-      </div>
+      <h3><?php echo __('Design'); ?></h3>
 
       <div class="fieldset">
-        <h3><?php echo __('Design'); ?></h3>
+        <h4><?php echo __('Colors'); ?></h4>
 
         <p class="field wide">
           <label for="color_scheme" class="classic"><?php echo __('Color scheme'); ?></label>
@@ -140,10 +329,53 @@ if (!empty($_POST)) {
           echo form::combo('color_scheme', $combo_color_scheme, $color_scheme);
           ?>
         </p>
-      </div>
 
-      <div class="fieldset">
-        <h3><?php echo __('Text formatting'); ?></h3>
+        <p class="field wide">
+          <label for="content_link_color" class="classic">
+            <?php echo __('Link color'); ?>
+          </label>
+
+          <?php
+          $combo_link_color = [
+              __('Red (default)') => 'red',
+              __('Blue')          => 'blue',
+              __('Green')         => 'green',
+              __('Orange')        => 'orange',
+              __('Purple')        => 'purple',
+          ];
+
+          echo form::combo('content_link_color', $combo_link_color, $content_link_color);
+          ?>
+        </p>
+
+        <!-- A METTRE EN PLACE. -->
+        <p class="field wide">
+          <label for="css_transition" class="classic">
+            <?php echo __('Fade effect when hovering links'); ?>
+          </label>
+
+          <?php echo form::checkbox('css_transition', 1, $css_transition); ?>
+        </p>
+
+        <h4><?php echo __('Layout'); ?></h4>
+
+        <p class="field wide">
+          <label for="" class="classic">
+            <?php echo __('Header and footer alignment'); ?>
+          </label>
+
+          <?php
+          $combo_tb_align = [
+              __('Left')   => 'left',
+              __('Center') => 'center',
+              __('Right')  => 'right',
+          ];
+
+          echo form::combo('', $combo_tb_align, '');
+          ?>
+        </p>
+
+        <h4><?php echo __('Text formatting'); ?></h4>
 
         <p class="field wide">
           <label for="content_font_family" class="classic"><?php echo __('Font family'); ?></label>
@@ -152,6 +384,7 @@ if (!empty($_POST)) {
           $combo_font_family = [
             __('Serif (default)') => 'serif',
             __('Sans serif')      => 'sans-serif',
+            __('Monospace')       => 'monospace',
           ];
 
           echo form::combo('content_font_family', $combo_font_family, $content_font_family);
@@ -204,29 +437,11 @@ if (!empty($_POST)) {
         <p class="form-note">
           <?php echo __('Disabled by default, automatic hyphenation is recommended when text alignment is set to "justified".'); ?>
         </p>
-
-        <p class="field wide">
-          <label for="content_link_color" class="classic">
-            <?php echo __('Link color'); ?>
-          </label>
-
-          <?php
-          $combo_link_color = [
-              __('Red (default)') => 'red',
-              __('Blue')          => 'blue',
-              __('Green')         => 'green',
-              __('Orange')        => 'orange',
-              __('Purple')        => 'purple',
-          ];
-
-          echo form::combo('content_link_color', $combo_link_color, $content_link_color);
-          ?>
-        </p>
       </div>
 
-      <div class="fieldset">
-        <h3><?php echo __('HTML header'); ?></h3>
+      <h3><?php echo __('Advanced settings'); ?></h3>
 
+      <div class="fieldset">
         <p class="form-note">
           <?php echo __("Allows you to add information to your pages without displaying it on your readers' screen."); ?>
         </p>
@@ -253,6 +468,47 @@ if (!empty($_POST)) {
           </label>
 
           <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
+        </p>
+      </div>
+
+      <!-- A METTRE EN PLACE. -->
+      <h3><?php echo __('Post settings'); ?></h3>
+
+      <div class="fieldset">
+        <h4>Author</h4>
+
+        <p class="field wide">
+          <label for="" class="classic">
+            <?php echo __('Display the author name on full posts'); ?>
+          </label>
+
+          <?php echo form::checkbox('', 1, ''); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="" class="classic">
+            <?php echo __('Display the author name on posts in the post list'); ?>
+          </label>
+
+          <?php echo form::checkbox('', 1, ''); ?>
+        </p>
+
+        <h4>Comments</h4>
+
+        <p class="field wide">
+          <label for="" class="classic">
+            <?php echo __('Add a link to the comment feed below the comment section'); ?>
+          </label>
+
+          <?php echo form::checkbox('', 1, ''); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="" class="classic">
+            <?php echo __('Add a trackback link below the comment section'); ?>
+          </label>
+
+          <?php echo form::checkbox('', 1, ''); ?>
         </p>
       </div>
 
