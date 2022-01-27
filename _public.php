@@ -40,11 +40,11 @@ class origineConfig
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->activation == true) {
+    if ($core->blog->settings->origineConfig->activation === true) {
 
       // Social tags
-      if ($core->blog->settings->origineConfig->meta_og == true
-        || $core->blog->settings->origineConfig->meta_twitter == true
+      if ($core->blog->settings->origineConfig->meta_og === true
+        || $core->blog->settings->origineConfig->meta_twitter === true
       ) {
         global $_ctx;
 
@@ -53,6 +53,8 @@ class origineConfig
           'description' => '',
           'url'         => '',
           'image'       => '',
+          'image_alt'   => '',
+          'image_width' => '',
           'site_name'   => html::escapeHTML($core->blog->name),
         );
 
@@ -72,6 +74,7 @@ class origineConfig
                 $social_tags['image_alt'] = $alt[1];
               }
             }
+
             break;
 
             case 'post' :
@@ -117,41 +120,41 @@ class origineConfig
         if (!empty($social_tags)) {
 
           // OpenGraph
-          if ($core->blog->settings->origineConfig->meta_og == true) {
+          if ($core->blog->settings->origineConfig->meta_og === true) {
 
             // Title
-            echo $social_tags['title'] ? '<meta property="og:title" content="' . $social_tags['title'] . '" />' . "\n" : '';
+            echo $social_tags['title'] ? '<meta property="og:title" content="' . html::escapeHTML($social_tags['title']) . '" />' . "\n" : '';
 
             // Description
-            echo $social_tags['description'] ? '<meta property="og:description" content="' . $social_tags['description'] . '" />' . "\n" : '';
+            echo $social_tags['description'] ? '<meta property="og:description" content="' . html::escapeHTML($social_tags['description']) . '" />' . "\n" : '';
 
             // URL
-            echo $social_tags['url'] ? '<meta property="og:url" content="' . $social_tags['url'] . '" />' . "\n" : '';
+            echo $social_tags['url'] ? '<meta property="og:url" content="' . html::escapeURL($social_tags['url']) . '" />' . "\n" : '';
 
             // Site name
-            echo $social_tags['site_name'] ? '<meta property="og:site_name" content="' . $social_tags['site_name'] . '" />' . "\n" : '';
+            echo $social_tags['site_name'] ? '<meta property="og:site_name" content="' . html::escapeHTML($social_tags['site_name']) . '" />' . "\n" : '';
 
             // Image
-            echo $social_tags['image'] ? '<meta property="og:image" content="' . $social_tags['image'] . '" />' . "\n" : '';
-            echo $social_tags['image_alt'] ? '<meta property="og:image:alt" content="' . $social_tags['image_alt'] . '" />' . "\n" : '';
+            echo $social_tags['image'] ? '<meta property="og:image" content="' . html::escapeURL($social_tags['image']) . '" />' . "\n" : '';
+            echo $social_tags['image_alt'] ? '<meta property="og:image:alt" content="' . html::escapeHTML($social_tags['image_alt']) . '" />' . "\n" : '';
           }
 
           // Twitter
-          if ($core->blog->settings->origineConfig->meta_twitter == true) {
+          if ($core->blog->settings->origineConfig->meta_twitter === true) {
             echo '<meta property="twitter:card" content="summary" />' . "\n";
 
             // Title
-            echo $social_tags['title'] ? '<meta property="twitter:title" content="' . $social_tags['title'] . '" />' . "\n" : '';
+            echo $social_tags['title'] ? '<meta property="twitter:title" content="' . html::escapeHTML($social_tags['title']) . '" />' . "\n" : '';
 
             // Description
-            echo $social_tags['description'] ? '<meta property="twitter:description" content="' . $social_tags['description'] . '" />' . "\n" : '';
+            echo $social_tags['description'] ? '<meta property="twitter:description" content="' . html::escapeHTML($social_tags['description']) . '" />' . "\n" : '';
 
             // URL
-            echo $social_tags['url'] ? '<meta property="twitter:url" content="' . $social_tags['url'] . '" />' . "\n" : '';
+            echo $social_tags['url'] ? '<meta property="twitter:url" content="' . html::escapeURL($social_tags['url']) . '" />' . "\n" : '';
 
             // Image
-            echo $social_tags['image'] ? '<meta property="twitter:image" content="' . $social_tags['image'] . '" />' . "\n" : '';
-            echo $social_tags['image_alt'] ? '<meta property="twitter:image:alt" content="' . $social_tags['image_alt'] . '" />' . "\n" : '';
+            echo $social_tags['image'] ? '<meta property="twitter:image" content="' . html::escapeURL($social_tags['image']) . '" />' . "\n" : '';
+            echo $social_tags['image_alt'] ? '<meta property="twitter:image:alt" content="' . html::escapeHTML($social_tags['image_alt']) . '" />' . "\n" : '';
           }
         }
       }
@@ -161,7 +164,7 @@ class origineConfig
        */
 
       // Generator
-      if ($core->blog->settings->origineConfig->meta_generator == true) {
+      if ($core->blog->settings->origineConfig->meta_generator === true) {
         echo '<meta name="generator" content="Dotclear" />' . "\n";
       }
     }
