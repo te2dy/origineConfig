@@ -56,6 +56,11 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false);
     $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false);
 
+    // Post settings
+    $core->blog->settings->origineConfig->put('post_author_name', false, 'boolean', 'Author name on posts', false);
+    $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false);
+    $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false);
+
     // All styles
     $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'Origine styles', false);
   } catch (Exception $e) {
@@ -83,6 +88,11 @@ $content_hyphens     = (bool) $core->blog->settings->origineConfig->content_hyph
 $meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
 $meta_og        = (bool) $core->blog->settings->origineConfig->meta_og;
 $meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
+
+// Post settings
+$post_author_name      = (bool) $core->blog->settings->origineConfig->post_author_name;
+$post_list_author_name = (bool) $core->blog->settings->origineConfig->post_list_author_name;
+$comment_links         = (bool) $core->blog->settings->origineConfig->comment_links;
 
 // All styles
 $origine_styles = (bool) $core->blog->settings->origineConfig->origine_styles;
@@ -115,6 +125,11 @@ if (!empty($_POST)) {
     $meta_og        = !empty($_POST['meta_og']);
     $meta_twitter   = !empty($_POST['meta_twitter']);
 
+    // Post settings
+    $post_author_name      = !empty($_POST['post_author_name']);
+    $post_list_author_name = !empty($_POST['post_list_author_name']);
+    $comment_links         = !empty($_POST['comment_links']);
+
     // All Styles
     $origine_styles = trim(html::escapeHTML($_POST['origine_styles']));
 
@@ -142,6 +157,11 @@ if (!empty($_POST)) {
     $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
     $core->blog->settings->origineConfig->put('meta_og', $meta_og);
     $core->blog->settings->origineConfig->put('meta_twitter', $meta_twitter);
+
+    // Post settings
+    $core->blog->settings->origineConfig->put('post_author_name', $post_author_name);
+    $core->blog->settings->origineConfig->put('post_list_author_name', $post_list_author_name);
+    $core->blog->settings->origineConfig->put('comment_links', $comment_links);
 
     /**
      * And save styles too!
@@ -201,7 +221,7 @@ if (!empty($_POST)) {
       $css_root_array[':root']['--color-input-background']       = '#333333';
       $css_root_array[':root']['--color-input-background-hover'] = '#262626';
 
-      $css_root .= '@media (prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_array) . '}';
+      $css_root .= '@media (prefers-color-scheme:dark) {' . origineConfigArrayToCSS($css_root_array) . '}';
     } elseif ($color_scheme === 'dark') {
       $css_root_array[':root']['--color-background']             = '#16161D';
       $css_root_array[':root']['--color-text-primary']           = '#d9d9d9';
@@ -296,7 +316,7 @@ if (!empty($_POST)) {
       $css_redured_motion['a']['transition']                          = 'none';
       $css_redured_motion['a:active, a:focus, a:hover']['transition'] = 'none';
 
-      $css_last = '@media(prefers-reduced-motion:reduce){' . origineConfigArrayToCSS($css_redured_motion) . '}';
+      $css_last = '@media(prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_redured_motion) . '}';
     }
 
     $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css_root . origineConfigArrayToCSS($css), ENT_NOQUOTES) . $css_last);
@@ -503,7 +523,7 @@ if (!empty($_POST)) {
             <?php echo __('Display the author name on full posts'); ?>
           </label>
 
-          <?php echo form::checkbox('', 1, ''); ?>
+          <?php echo form::checkbox('post_author_name', 1, $post_author_name); ?>
         </p>
 
         <p class="field wide">
@@ -511,25 +531,17 @@ if (!empty($_POST)) {
             <?php echo __('Display the author name on posts in the post list'); ?>
           </label>
 
-          <?php echo form::checkbox('', 1, ''); ?>
+          <?php echo form::checkbox('post_list_author_name', 1, $post_list_author_name); ?>
         </p>
 
         <h4>Comments</h4>
 
         <p class="field wide">
-          <label for="" class="classic">
-            <?php echo __('Add a link to the comment feed below the comment section'); ?>
+          <label for="comment_links" class="classic">
+            <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
           </label>
 
-          <?php echo form::checkbox('', 1, ''); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="" class="classic">
-            <?php echo __('Add a trackback link below the comment section'); ?>
-          </label>
-
-          <?php echo form::checkbox('', 1, ''); ?>
+          <?php echo form::checkbox('comment_links', 1, $comment_links); ?>
         </p>
       </div>
 
