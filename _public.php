@@ -241,7 +241,7 @@ class origineConfig
           echo '<span class="footer-social-links-icon-container">';
           echo '<svg class="footer-social-links-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">';
           echo '<title>' . html::escapeHTML($site) . '</title>';
-          echo $social_svg[$site]; // TO ESCAPE?
+          echo strip_tags($social_svg[$site], '<path>');
           echo '</svg>';
           echo '</span>';
           echo '</a>';
