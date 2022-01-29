@@ -67,6 +67,9 @@ msgstr ""
 msgid "Layout"
 msgstr ""
 
+msgid "Header and footer alignment"
+msgstr ""
+
 msgid "Text formatting"
 msgstr ""
 

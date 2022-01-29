@@ -67,6 +67,9 @@ msgstr "Ajouter une transition de couleur au survol des liens"
 msgid "Layout"
 msgstr "Mise en page"
 
+msgid "Header and footer alignment"
+msgstr "Alignement de l’en-tête et du pied de page"
+
 msgid "Text formatting"
 msgstr "Mise en forme du texte"
 
