@@ -139,6 +139,21 @@ msgstr "Commentaires"
 msgid "Add a link to the comment feed and trackbacks below the comment section"
 msgstr "Ajouter un lien vers le fil des commentaires et les commentaires sous la section des billets"
 
+msgid "Allow visitors to send email to authors of posts and pages"
+msgstr "Permettre aux visiteur d’envoyer des courriels aux auteurs de billets et de pages"
+
+msgid "No (default)"
+msgstr "Non (par défaut)"
+
+msgid "Only when comments are open"
+msgstr "Seulement quand les commentaires sont ouverts"
+
+msgid "Always"
+msgstr "Toujours"
+
+msgid "Please note that if this option is enabled, the email address of authors will be public."
+msgstr "Veuillez noter que si cette option est activée, l’adresse électronique des auteurs sera publique."
+
 msgid "Footer settings"
 msgstr "Paramètres du pied de page"
 
@@ -185,7 +200,7 @@ msgid "Add Open Graph meta tags"
 msgstr "Ajouter des balises meta Open Graph"
 
 msgid "Add Twitter Cards meta tags"
-msgstr "Ajouter des balise meta Cartes Twitter"
+msgstr "Ajouter des balises meta Cartes Twitter"
 
 msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
 msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> avec l’extension <a href="%s">Entretien</a> (Entretien › Purger)."

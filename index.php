@@ -59,7 +59,8 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     // Post settings
     $core->blog->settings->origineConfig->put('post_author_name', false, 'boolean', 'Author name on posts', false);
     $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false);
-    $core->blog->settings->origineConfig->put('comment_links', '', 'string', 'Link to the comment feed and trackbacks', false);
+    $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false);
+    $core->blog->settings->origineConfig->put('email_author', 'disabled', 'string', 'Option to email the author of a post', false);
 
     // Footer settings
     $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dorclear and Origine credits', false);
@@ -105,6 +106,7 @@ $meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
 $post_author_name      = (bool) $core->blog->settings->origineConfig->post_author_name;
 $post_list_author_name = (bool) $core->blog->settings->origineConfig->post_list_author_name;
 $comment_links         = (bool) $core->blog->settings->origineConfig->comment_links;
+$email_author          = (string) $core->blog->settings->origineConfig->email_author;
 
 // Footer settings
 $footer_credits        = (bool) $core->blog->settings->origineConfig->footer_credits;
@@ -153,6 +155,7 @@ if (!empty($_POST)) {
     $post_author_name      = !empty($_POST['post_author_name']);
     $post_list_author_name = !empty($_POST['post_list_author_name']);
     $comment_links         = !empty($_POST['comment_links']);
+    $email_author          = trim(html::escapeHTML($_POST['email_author']));
 
     // Footer settings
     $footer_credits        = !empty($_POST['footer_credits']);
@@ -198,6 +201,7 @@ if (!empty($_POST)) {
     $core->blog->settings->origineConfig->put('post_author_name', $post_author_name);
     $core->blog->settings->origineConfig->put('post_list_author_name', $post_list_author_name);
     $core->blog->settings->origineConfig->put('comment_links', $comment_links);
+    $core->blog->settings->origineConfig->put('email_author', $email_author);
 
     // Footer settings
     $core->blog->settings->origineConfig->put('footer_credits', $footer_credits);
@@ -591,6 +595,26 @@ if (!empty($_POST)) {
           </label>
 
           <?php echo form::checkbox('comment_links', 1, $comment_links); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="email_author" class="classic">
+            <?php echo __('Allow visitors to send email to authors of posts and pages'); ?>
+          </label>
+
+          <?php
+          $combo_email_author = [
+            __('No (default)')                => 'disabled',
+            __('Only when comments are open') => 'comments_open',
+            __('Always')                      => 'always',
+          ];
+
+          echo form::combo('email_author', $combo_email_author, $email_author);
+          ?>
+        </p>
+
+        <p class="form-note warn">
+          <?php echo __('Please note that if this option is enabled, the email address of authors will be public.'); ?>
         </p>
       </div>
 

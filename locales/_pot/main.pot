@@ -139,6 +139,21 @@ msgstr ""
 msgid "Add a link to the comment feed and trackbacks below the comment section"
 msgstr ""
 
+msgid "Allow visitors to send email to the author of posts ans pages"
+msgstr ""
+
+msgid "No (default)"
+msgstr ""
+
+msgid "Only when comments are open"
+msgstr ""
+
+msgid "Always"
+msgstr ""
+
+msgid "Please note that if this option is enabled, the email address of authors will be public."
+msgstr ""
+
 msgid "Footer settings"
 msgstr ""
 

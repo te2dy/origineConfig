@@ -36,6 +36,7 @@ try {
   $core->blog->settings->origineConfig->put('post_author_name', false, 'boolean', 'Author name on posts', false, true);
   $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false, true);
   $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false, true);
+  $core->blog->settings->origineConfig->put('email_author', 'disabled', 'string', 'Option to email the author of a post', false, true);
 
   // Footer settings
   $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dorclear and Origine credits', false, true);
