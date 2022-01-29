@@ -6,8 +6,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+# admin.php
+
 msgid "Origine"
 msgstr "Origine"
+
+# index.php
 
 msgid "Origine Settings"
 msgstr "Réglages d’Origine"
@@ -18,83 +22,26 @@ msgstr "Activation"
 msgid "Enable extension settings"
 msgstr "Activer les réglages de l’extension"
 
+msgid "If you do not check this box, the settings below will be ignored."
+msgstr "Si vous ne cochez pas cette case, les paramètres ci-dessous seront ignorés."
+
 msgid "Design"
 msgstr "Apparence"
+
+msgid "Colors"
+msgstr "Couleurs"
 
 msgid "Color scheme"
 msgstr "Schéma de couleurs"
 
-msgid "Follow system"
-msgstr "Suivre le système (par défaut)"
+msgid "System (default)"
+msgstr "Système (par défaut)"
 
 msgid "Light"
 msgstr "Clair"
 
 msgid "Dark"
 msgstr "Sombre"
-
-msgid "Text formatting"
-msgstr "Mise en forme du texte"
-
-msgid "Font family"
-msgstr "Famille de police d’écriture"
-
-msgid "Serif (default)"
-msgstr "Avec empattements (par défaut)"
-
-msgid "Sans serif"
-msgstr "Sans empattement"
-
-msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
-msgstr "Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargements ainsi qu’une continuité graphique avec le système."
-
-msgid "Font size"
-msgstr "Taille du texte"
-
-msgid "11pt"
-msgstr "11 pt"
-
-msgid "12pt (default)"
-msgstr "12 pt (par défaut)"
-
-msgid "13pt"
-msgstr "13 pt"
-
-msgid "Text align"
-msgstr "Alignement du texte"
-
-msgid "Left (default)"
-msgstr "Gauche"
-
-msgid "Justified"
-msgstr "Justifié"
-
-msgid "Enable automatic hyphenation"
-msgstr "Activer la césure automatique"
-
-msgid "Disabled by default, automatic hyphenation is recommended when text alignment is set to \"justified\"."
-msgstr "Désactivée par défaut, la césure automatique est recommandée lorsque l’alignement du texte est réglé sur « justifié »."
-
-msgid "HTML header"
-msgstr "En-tête HTML"
-
-msgid "Allows you to add information to your pages without displaying it on your readers' screen."
-msgstr "Permet d’ajouter des informations dans vos pages sans les afficher à l’écran de vos lecteurs."
-
-msgid "Add meta tag <code>generator</code>"
-msgstr "Ajouter la balise meta <code>generator</code>"
-
-msgid "Add Open Graph tags"
-msgstr "Ajouter des balises Open Graph"
-
-msgid "Add Twitter Cards tags"
-msgstr "Ajouter des balises Cartes Twitter"
-
-msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
-msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> avec l’extension <a href="%s">Entretien</a> (Entretien › Purger)."
-
-msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
-msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> en utilisant l’extension Entretien, que vous pouvez activer depuis la page <a href="%s">Gestion des plugins</a>."
 
 msgid "Link color"
 msgstr "Couleur des liens"
@@ -113,3 +60,132 @@ msgstr "Orange"
 
 msgid "Purple"
 msgstr "Violet"
+
+msgid "Add a color transition on link hover"
+msgstr "Ajouter une transition de couleur au survol des liens"
+
+msgid "Layout"
+msgstr "Mise en page"
+
+msgid "Text formatting"
+msgstr "Mise en forme du texte"
+
+msgid "Font family"
+msgstr "Famille de police d’écriture"
+
+msgid "Serif (default)"
+msgstr "Avec empattements (par défaut)"
+
+msgid "Sans serif"
+msgstr "Sans empattement"
+
+msgid "Monospace"
+msgstr "Espacement fixe"
+
+msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
+msgstr "Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargements ainsi qu’une continuité graphique avec le système."
+
+msgid "Font size"
+msgstr "Taille du texte"
+
+msgid "10pt"
+msgstr "10 pt"
+
+msgid "11pt"
+msgstr "11 pt"
+
+msgid "12pt (default)"
+msgstr "12 pt (par défaut)"
+
+msgid "13pt"
+msgstr "13 pt"
+
+msgid "14pt"
+msgstr "14 pt"
+
+msgid "Text align"
+msgstr "Alignement du texte"
+
+msgid "Left (default)"
+msgstr "Gauche (par défaut)"
+
+msgid "Justify"
+msgstr "Justifié"
+
+msgid "Enable automatic hyphenation"
+msgstr "Activer la césure automatique"
+
+msgid "Disabled by default, automatic hyphenation is recommended when text alignment is set to \"justify\"."
+msgstr "Désactivée par défaut, la césure automatique est recommandée lorsque l’alignement du texte est réglé sur « justifié »."
+
+msgid "Post settings"
+msgstr "Paramètres des billets"
+
+msgid "Author"
+msgstr "Auteur"
+
+msgid "Display the author name on posts"
+msgstr "Afficher le nom de l’auteur sur les billets"
+
+msgid "Display the author name in the post list"
+msgstr "Afficher le nom de l’auteur dans la liste des billets"
+
+msgid "Comments"
+msgstr "Commentaires"
+
+msgid "Add a link to the comment feed and trackbacks below the comment section"
+msgstr "Ajouter un lien vers le fil des commentaires et les commentaires sous la section des billets"
+
+msgid "Footer settings"
+msgstr "Paramètres du pied de page"
+
+msgid "Add a link to support Dotclear and Origine"
+msgstr "Ajouter un lien pour soutenir Dotclear et Origine"
+
+msgid "Link to your Diaspora* profile"
+msgstr "Lien vers votre profil Diaspora*"
+
+msgid "Link to your Discord server"
+msgstr "Lien vers votre serveur Discord"
+
+msgid "Link to your Facebook profile or page"
+msgstr "Lien vers votre profil ou votre page Facebook"
+
+msgid "Link to a GitHub page"
+msgstr "Lien vers une page GitHub"
+
+msgid "Link to your Mastodon profile"
+msgstr "Lien vers votre profil Mastodon"
+
+msgid "Your Signal number or a group link"
+msgstr "Votre numéro sur Signal ou un lien de groupe"
+
+msgid "Link to your TikTok profile"
+msgstr "Lien vers votre profil TikTok"
+
+msgid "Your Twitter username"
+msgstr "Votre nom d’utilisateur Twitter"
+
+msgid "Your WhatsApp number or a group link"
+msgstr "Votre numéro sur WhatsApp ou un lien de groupe"
+
+msgid "Advanced settings"
+msgstr "Paramètres avancés"
+
+msgid "Allows you to add information to your pages without displaying it on your readers' screen."
+msgstr "Permet d’ajouter des informations dans vos pages sans les afficher à l’écran de vos lecteurs."
+
+msgid "Add <code>generator</code> meta tag"
+msgstr "Ajouter la balise meta <code>generator</code>"
+
+msgid "Add Open Graph meta tags"
+msgstr "Ajouter des balises meta Open Graph"
+
+msgid "Add Twitter Cards meta tags"
+msgstr "Ajouter des balise meta Cartes Twitter"
+
+msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
+msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> avec l’extension <a href="%s">Entretien</a> (Entretien › Purger)."
+
+msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
+msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> en utilisant l’extension Entretien, que vous pouvez activer depuis la page <a href="%s">Gestion des plugins</a>."

@@ -37,6 +37,18 @@ try {
   $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false, true);
   $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false, true);
 
+  // Footer settings
+  $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dorclear and Origine credits', false, true);
+  $core->blog->settings->origineConfig->put('social_links_diaspora', '', 'string', 'Link to Diaspora account', false, true);
+  $core->blog->settings->origineConfig->put('social_links_discord', '', 'string', 'Link to Discord server', false, true);
+  $core->blog->settings->origineConfig->put('social_links_facebook', '', 'string', 'Link to Facebook account', false, true);
+  $core->blog->settings->origineConfig->put('social_links_github', '', 'string', 'Link to GitHub account', false, true);
+  $core->blog->settings->origineConfig->put('social_links_mastodon', '', 'string', 'Link to Mastodon account', false, true);
+  $core->blog->settings->origineConfig->put('social_links_signal', '', 'string', 'Link to a Signal number or group', false, true);
+  $core->blog->settings->origineConfig->put('social_links_tiktok', '', 'string', 'Link to TikTok account', false, true);
+  $core->blog->settings->origineConfig->put('social_links_twitter', '', 'string', 'Link to Twitter account', false, true);
+  $core->blog->settings->origineConfig->put('social_links_whatsapp', '', 'string', 'Link to a WhatsApp number or group', false, true);
+
   // All styles
   $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'Origine styles', false, true);
 

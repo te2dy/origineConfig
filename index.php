@@ -1,6 +1,6 @@
 <?php
 if (!defined('DC_CONTEXT_ADMIN')) {
-    return;
+  return;
 }
 
 /**
@@ -59,7 +59,19 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     // Post settings
     $core->blog->settings->origineConfig->put('post_author_name', false, 'boolean', 'Author name on posts', false);
     $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false);
-    $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false);
+    $core->blog->settings->origineConfig->put('comment_links', '', 'string', 'Link to the comment feed and trackbacks', false);
+
+    // Footer settings
+    $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dorclear and Origine credits', false);
+    $core->blog->settings->origineConfig->put('social_links_diaspora', '', 'string', 'Link to Diaspora account', false);
+    $core->blog->settings->origineConfig->put('social_links_discord', '', 'string', 'Link to Discord server', false);
+    $core->blog->settings->origineConfig->put('social_links_facebook', '', 'string', 'Link to Facebook account', false);
+    $core->blog->settings->origineConfig->put('social_links_github', '', 'string', 'Link to GitHub account', false);
+    $core->blog->settings->origineConfig->put('social_links_mastodon', '', 'string', 'Link to Mastodon account', false);
+    $core->blog->settings->origineConfig->put('social_links_signal', '', 'string', 'Link to a Signal number or group', false);
+    $core->blog->settings->origineConfig->put('social_links_tiktok', '', 'string', 'Link to TikTok account', false);
+    $core->blog->settings->origineConfig->put('social_links_twitter', '', 'string', 'Link to Twitter account', false);
+    $core->blog->settings->origineConfig->put('social_links_whatsapp', '', 'string', 'Link to WhatsApp number or group', false);
 
     // All styles
     $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'Origine styles', false);
@@ -93,6 +105,18 @@ $meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
 $post_author_name      = (bool) $core->blog->settings->origineConfig->post_author_name;
 $post_list_author_name = (bool) $core->blog->settings->origineConfig->post_list_author_name;
 $comment_links         = (bool) $core->blog->settings->origineConfig->comment_links;
+
+// Footer settings
+$footer_credits        = (bool) $core->blog->settings->origineConfig->footer_credits;
+$social_links_diaspora = (string) $core->blog->settings->origineConfig->social_links_diaspora;
+$social_links_discord  = (string) $core->blog->settings->origineConfig->social_links_discord;
+$social_links_facebook = (string) $core->blog->settings->origineConfig->social_links_facebook;
+$social_links_github   = (string) $core->blog->settings->origineConfig->social_links_github;
+$social_links_mastodon = (string) $core->blog->settings->origineConfig->social_links_mastodon;
+$social_links_signal   = (string) $core->blog->settings->origineConfig->social_links_signal;
+$social_links_tiktok   = (string) $core->blog->settings->origineConfig->social_links_tiktok;
+$social_links_twitter  = (string) $core->blog->settings->origineConfig->social_links_twitter;
+$social_links_whatsapp = (string) $core->blog->settings->origineConfig->social_links_whatsapp;
 
 // All styles
 $origine_styles = (bool) $core->blog->settings->origineConfig->origine_styles;
@@ -130,6 +154,18 @@ if (!empty($_POST)) {
     $post_list_author_name = !empty($_POST['post_list_author_name']);
     $comment_links         = !empty($_POST['comment_links']);
 
+    // Footer settings
+    $footer_credits        = !empty($_POST['footer_credits']);
+    $social_links_diaspora = trim(html::escapeHTML($_POST['social_links_diaspora']));
+    $social_links_discord  = trim(html::escapeHTML($_POST['social_links_discord']));
+    $social_links_facebook = trim(html::escapeHTML($_POST['social_links_facebook']));
+    $social_links_github   = trim(html::escapeHTML($_POST['social_links_github']));
+    $social_links_mastodon = trim(html::escapeHTML($_POST['social_links_mastodon']));
+    $social_links_signal   = trim(html::escapeHTML($_POST['social_links_signal']));
+    $social_links_tiktok   = trim(html::escapeHTML($_POST['social_links_tiktok']));
+    $social_links_twitter  = trim(html::escapeHTML($_POST['social_links_twitter']));
+    $social_links_whatsapp = trim(html::escapeHTML($_POST['social_links_whatsapp']));
+
     // All Styles
     $origine_styles = trim(html::escapeHTML($_POST['origine_styles']));
 
@@ -162,6 +198,18 @@ if (!empty($_POST)) {
     $core->blog->settings->origineConfig->put('post_author_name', $post_author_name);
     $core->blog->settings->origineConfig->put('post_list_author_name', $post_list_author_name);
     $core->blog->settings->origineConfig->put('comment_links', $comment_links);
+
+    // Footer settings
+    $core->blog->settings->origineConfig->put('footer_credits', $footer_credits);
+    $core->blog->settings->origineConfig->put('social_links_diaspora', $social_links_diaspora);
+    $core->blog->settings->origineConfig->put('social_links_discord', $social_links_discord);
+    $core->blog->settings->origineConfig->put('social_links_facebook', $social_links_facebook);
+    $core->blog->settings->origineConfig->put('social_links_github', $social_links_github);
+    $core->blog->settings->origineConfig->put('social_links_mastodon', $social_links_mastodon);
+    $core->blog->settings->origineConfig->put('social_links_signal', $social_links_signal);
+    $core->blog->settings->origineConfig->put('social_links_tiktok', $social_links_tiktok);
+    $core->blog->settings->origineConfig->put('social_links_twitter', $social_links_twitter);
+    $core->blog->settings->origineConfig->put('social_links_whatsapp', $social_links_whatsapp);
 
     /**
      * And save styles too!
@@ -264,7 +312,7 @@ if (!empty($_POST)) {
     }
 
     // Font family
-    if ($content_font_family !== ('sans-serif' || 'mono') ) {
+    if ($content_font_family === 'serif') {
       $css['body']['font-family'] = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
     } elseif ($content_font_family === 'sans-serif') {
       $css['body']['font-family'] = '-apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif';
@@ -319,6 +367,33 @@ if (!empty($_POST)) {
       $css_last = '@media(prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_redured_motion) . '}';
     }
 
+    $css['.footer-social-links ul']['list-style']   = 'none';
+    $css['.footer-social-links ul']['margin']       = '0';
+    $css['.footer-social-links ul']['padding-left'] = '0';
+    $css['.footer-social-links ul li']['display']   = 'inline-block';
+    $css['.footer-social-links ul li']['margin']    = '.25em';
+
+    $css['.footer-social-links a']['display']          = 'inline-block';
+
+    $css['.footer-social-links-icon-container']['align-items']      = 'center';
+    $css['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
+    $css['.footer-social-links-icon-container']['display']          = 'flex';
+    $css['.footer-social-links-icon-container']['justify-content']  = 'center';
+    $css['.footer-social-links-icon-container']['width']            = '28px';
+    $css['.footer-social-links-icon-container']['height']           = '28px';
+
+    $css['.footer-social-links-icon']['border']          = '0';
+    $css['.footer-social-links-icon']['fill']            = 'var(--color-input-text)';
+    $css['.footer-social-links-icon']['stroke']          = 'none';
+    $css['.footer-social-links-icon']['stroke-linecap']  = 'round';
+    $css['.footer-social-links-icon']['stroke-linejoin'] = 'round';
+    $css['.footer-social-links-icon']['stroke-width']    = '0';
+    $css['.footer-social-links-icon']['vertical-align']  = 'middle';
+    $css['.footer-social-links-icon']['width']           = '18px';
+
+    $css['.footer-social-links a:hover .footer-social-links-icon-container']['background-color']               = 'var(--color-input-background-hover)';
+    $css['.footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
+
     $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css_root . origineConfigArrayToCSS($css), ENT_NOQUOTES) . $css_last);
 
     $core->blog->triggerBlog();
@@ -353,19 +428,25 @@ if (!empty($_POST)) {
         <label for="activation" class="classic"><?php echo __('Enable extension settings'); ?></label>
       </p>
 
+      <p class="form-note">
+        <?php echo __('If you do not check this box, the settings below will be ignored.'); ?>
+      </p>
+
       <h3><?php echo __('Design'); ?></h3>
 
       <div class="fieldset">
         <h4><?php echo __('Colors'); ?></h4>
 
         <p class="field wide">
-          <label for="color_scheme" class="classic"><?php echo __('Color scheme'); ?></label>
+          <label for="color_scheme" class="classic">
+            <?php echo __('Color scheme'); ?>
+          </label>
 
           <?php
           $combo_color_scheme = [
-            __('Follow system') => 'system',
-            __('Light')         => 'light',
-            __('Dark')          => 'dark',
+            __('System (default)') => 'system',
+            __('Light')            => 'light',
+            __('Dark')             => 'dark',
           ];
 
           echo form::combo('color_scheme', $combo_color_scheme, $color_scheme);
@@ -390,10 +471,9 @@ if (!empty($_POST)) {
           ?>
         </p>
 
-        <!-- A METTRE EN PLACE. -->
         <p class="field wide">
           <label for="css_transition" class="classic">
-            <?php echo __('Fade effect when hovering links'); ?>
+            <?php echo __('Add a color transition on link hover'); ?>
           </label>
 
           <?php echo form::checkbox('css_transition', 1, $css_transition); ?>
@@ -408,8 +488,8 @@ if (!empty($_POST)) {
 
           <?php
           $combo_tb_align = [
-              __('Left')   => 'left',
-              __('Center') => 'center',
+              __('Left (default)') => 'left',
+              __('Center')         => 'center',
           ];
 
           echo form::combo('tb_align', $combo_tb_align, $tb_align);
@@ -443,9 +523,11 @@ if (!empty($_POST)) {
 
           <?php
           $combo_font_size = [
-              __('11pt')              => 11,
+              __('10pt')           => 10,
+              __('11pt')           => 11,
               __('12pt (default)') => 12,
-              __('13pt')              => 13,
+              __('13pt')           => 13,
+              __('14pt')           => 14,
           ];
 
           echo form::combo('content_font_size', $combo_font_size, $content_font_size);
@@ -476,7 +558,123 @@ if (!empty($_POST)) {
         </p>
 
         <p class="form-note">
-          <?php echo __('Disabled by default, automatic hyphenation is recommended when text alignment is set to "justified".'); ?>
+          <?php echo __('Disabled by default, automatic hyphenation is recommended when text alignment is set to "justify".'); ?>
+        </p>
+      </div>
+
+      <h3><?php echo __('Post settings'); ?></h3>
+
+      <div class="fieldset">
+        <h4><?php echo __('Author'); ?></h4>
+
+        <p class="field wide">
+          <label for="" class="classic">
+            <?php echo __('Display the author name on posts'); ?>
+          </label>
+
+          <?php echo form::checkbox('post_author_name', 1, $post_author_name); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="" class="classic">
+            <?php echo __('Display the author name in the post list'); ?>
+          </label>
+
+          <?php echo form::checkbox('post_list_author_name', 1, $post_list_author_name); ?>
+        </p>
+
+        <h4><?php echo __('Comments'); ?></h4>
+
+        <p class="field wide">
+          <label for="comment_links" class="classic">
+            <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
+          </label>
+
+          <?php echo form::checkbox('comment_links', 1, $comment_links); ?>
+        </p>
+      </div>
+
+      <h3><?php echo __('Footer settings'); ?></h3>
+
+      <div class="fieldset">
+        <p class="field wide">
+          <label for="footer_credits" class="classic">
+            <?php echo __('Add a link to support Dotclear and Origine'); ?>
+          </label>
+
+          <?php echo form::checkbox('footer_credits', 1, $footer_credits); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_diaspora" class="classic">
+            <?php echo __('Link to your Diaspora* profile'); ?>
+          </label>
+
+          <?php echo form::field('social_links_diaspora', 30, 255, html::escapeHTML($social_links_diaspora)); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_discord" class="classic">
+            <?php echo __('Link to your Discord server'); ?>
+          </label>
+
+          <?php echo form::field('social_links_discord', 30, 255, html::escapeHTML($social_links_discord)); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_facebook" class="classic">
+            <?php echo __('Link to your Facebook profile or page'); ?>
+          </label>
+
+          <?php echo form::field('social_links_facebook', 30, 255, html::escapeHTML($social_links_facebook)); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_github" class="classic">
+            <?php echo __('Link to a GitHub page'); ?>
+          </label>
+
+          <?php echo form::field('social_links_github', 30, 255, html::escapeHTML($social_links_github)); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_mastodon" class="classic">
+            <?php echo __('Link to your Mastodon profile'); ?>
+          </label>
+
+          <?php echo form::field('social_links_mastodon', 30, 255, html::escapeHTML($social_links_mastodon)); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_signal" class="classic">
+            <?php echo __('Your Signal number or a group link'); ?>
+          </label>
+
+          <?php echo form::field('social_links_signal', 30, 255, html::escapeHTML($social_links_signal)); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_tiktok" class="classic">
+            <?php echo __('Link to your TikTok profile'); ?>
+          </label>
+
+          <?php echo form::field('social_links_tiktok', 30, 255, html::escapeHTML($social_links_tiktok)); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_twitter" class="classic">
+            <?php echo __('Your Twitter username'); ?>
+          </label>
+
+          <?php echo form::field('social_links_twitter', 30, 255, html::escapeHTML($social_links_twitter)); ?>
+        </p>
+
+        <p class="field wide">
+          <label for="social_links_whatsapp" class="classic">
+            <?php echo __('Your WhatsApp number or a group link'); ?>
+          </label>
+
+          <?php echo form::field('social_links_whatsapp', 30, 255, html::escapeHTML($social_links_whatsapp)); ?>
         </p>
       </div>
 
@@ -489,7 +687,7 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="meta_generator" class="classic">
-            <?php echo __('Add meta tag <code>generator</code>'); ?>
+            <?php echo __('Add <code>generator</code> meta tag'); ?>
           </label>
 
           <?php echo form::checkbox('meta_generator', 1, $meta_generator); ?>
@@ -497,7 +695,7 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="meta_og" class="classic">
-            <?php echo __('Add Open Graph tags'); ?>
+            <?php echo __('Add Open Graph meta tags'); ?>
           </label>
 
           <?php echo form::checkbox('meta_og', 1, $meta_og); ?>
@@ -505,43 +703,10 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="meta_twitter" class="classic">
-            <?php echo __('Add Twitter Cards tags'); ?>
+            <?php echo __('Add Twitter Cards meta tags'); ?>
           </label>
 
           <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
-        </p>
-      </div>
-
-      <!-- A METTRE EN PLACE. -->
-      <h3><?php echo __('Post settings'); ?></h3>
-
-      <div class="fieldset">
-        <h4>Author</h4>
-
-        <p class="field wide">
-          <label for="" class="classic">
-            <?php echo __('Display the author name on full posts'); ?>
-          </label>
-
-          <?php echo form::checkbox('post_author_name', 1, $post_author_name); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="" class="classic">
-            <?php echo __('Display the author name on posts in the post list'); ?>
-          </label>
-
-          <?php echo form::checkbox('post_list_author_name', 1, $post_list_author_name); ?>
-        </p>
-
-        <h4>Comments</h4>
-
-        <p class="field wide">
-          <label for="comment_links" class="classic">
-            <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
-          </label>
-
-          <?php echo form::checkbox('comment_links', 1, $comment_links); ?>
         </p>
       </div>
 

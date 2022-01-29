@@ -6,8 +6,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+# admin.php
+
 msgid "Origine"
 msgstr ""
+
+# index.php
 
 msgid "Origine Settings"
 msgstr ""
@@ -18,82 +22,25 @@ msgstr ""
 msgid "Enable extension settings"
 msgstr ""
 
+msgid "If you do not check this box, the settings below will be ignored."
+msgstr ""
+
 msgid "Design"
+msgstr ""
+
+msgid "Colors"
 msgstr ""
 
 msgid "Color scheme"
 msgstr ""
 
-msgid "Follow system"
+msgid "System (default)"
 msgstr ""
 
 msgid "Light"
 msgstr ""
 
 msgid "Dark"
-msgstr ""
-
-msgid "Text formatting"
-msgstr ""
-
-msgid "Font family"
-msgstr ""
-
-msgid "Serif (default)"
-msgstr ""
-
-msgid "Sans serif"
-msgstr ""
-
-msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
-msgstr ""
-
-msgid "Font size"
-msgstr ""
-
-msgid "11pt"
-msgstr ""
-
-msgid "12pt (default)"
-msgstr ""
-
-msgid "13pt"
-msgstr ""
-
-msgid "Text align"
-msgstr ""
-
-msgid "Left (default)"
-msgstr ""
-
-msgid "Justified"
-msgstr ""
-
-msgid "Enable automatic hyphenation"
-msgstr ""
-
-msgid "Disabled by default, automatic hyphenation is recommended when text alignment is set to \"justified\"."
-msgstr ""
-
-msgid "HTML header"
-msgstr ""
-
-msgid "Allows you to add information to your pages without displaying it on your readers' screen."
-msgstr ""
-
-msgid "Add meta tag <code>generator</code>"
-msgstr ""
-
-msgid "Add Open Graph tags"
-msgstr ""
-
-msgid "Add Twitter Cards tags"
-msgstr ""
-
-msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
-msgstr ""
-
-msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
 msgstr ""
 
 msgid "Link color"
@@ -112,4 +59,133 @@ msgid "Orange"
 msgstr ""
 
 msgid "Purple"
+msgstr ""
+
+msgid "Add a color transition on link hover"
+msgstr ""
+
+msgid "Layout"
+msgstr ""
+
+msgid "Text formatting"
+msgstr ""
+
+msgid "Font family"
+msgstr ""
+
+msgid "Serif (default)"
+msgstr ""
+
+msgid "Sans serif"
+msgstr ""
+
+msgid "Monospace"
+msgstr ""
+
+msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
+msgstr ""
+
+msgid "Font size"
+msgstr ""
+
+msgid "10pt"
+msgstr ""
+
+msgid "11pt"
+msgstr ""
+
+msgid "12pt (default)"
+msgstr ""
+
+msgid "13pt"
+msgstr ""
+
+msgid "14pt"
+msgstr ""
+
+msgid "Text align"
+msgstr ""
+
+msgid "Left (default)"
+msgstr ""
+
+msgid "Justify"
+msgstr ""
+
+msgid "Enable automatic hyphenation"
+msgstr ""
+
+msgid "Disabled by default, automatic hyphenation is recommended when text alignment is set to \"justify\"."
+msgstr ""
+
+msgid "Post settings"
+msgstr ""
+
+msgid "Author"
+msgstr ""
+
+msgid "Display the author name on posts"
+msgstr ""
+
+msgid "Display the author name in the post list"
+msgstr ""
+
+msgid "Comments"
+msgstr ""
+
+msgid "Add a link to the comment feed and trackbacks below the comment section"
+msgstr ""
+
+msgid "Footer settings"
+msgstr ""
+
+msgid "Add a link to support Dotclear and Origine"
+msgstr ""
+
+msgid "Link to your Diaspora* profile"
+msgstr ""
+
+msgid "Link to your Discord server"
+msgstr ""
+
+msgid "Link to your Facebook profile or page"
+msgstr ""
+
+msgid "Link to a GitHub page"
+msgstr ""
+
+msgid "Link to your Mastodon profile"
+msgstr ""
+
+msgid "Your Signal number or a group link"
+msgstr ""
+
+msgid "Link to your TikTok profile"
+msgstr ""
+
+msgid "Your Twitter username"
+msgstr ""
+
+msgid "Your WhatsApp number or a group link"
+msgstr ""
+
+msgid "Advanced settings"
+msgstr ""
+
+msgid "Allows you to add information to your pages without displaying it on your readers' screen."
+msgstr ""
+
+msgid "Add <code>generator</code> meta tag"
+msgstr ""
+
+msgid "Add Open Graph meta tags"
+msgstr ""
+
+msgid "Add Twitter Cards meta tags"
+msgstr ""
+
+msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
+msgstr ""
+
+msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
 msgstr ""
