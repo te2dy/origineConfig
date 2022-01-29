@@ -9,7 +9,7 @@ $core->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterContent
 class origineConfig
 {
   /**
-   * DOCUMENTATION
+   * Displays an array of CSS as inline styles.
    */
   public static function origineConfigArrayToCSS($rules, $rule_type = '')
   {
@@ -35,6 +35,14 @@ class origineConfig
     return $css;
   }
 
+  /**
+   * Displays some content in the <head> section.
+   *
+   * Displayable tags:
+   * - Open Graph
+   * - Twitter Cards
+   * - Generator
+   */
   public static function publicHeadContent()
   {
     global $core;
@@ -159,7 +167,7 @@ class origineConfig
       }
 
       /**
-       * Meta
+       * Other meta
        */
 
       // Generator
@@ -170,7 +178,10 @@ class origineConfig
   }
 
   /**
+   * Displays some content in the footer.
    *
+   * Displayable:
+   * - Social links
    */
   public static function publicFooterContent()
   {
