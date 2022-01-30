@@ -14,7 +14,10 @@ msgstr "Origine"
 # index.php
 
 msgid "Origine Settings"
-msgstr "Réglages d’Origine"
+msgstr "Paramètres d’Origine"
+
+msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>."
+msgstr "Cette extension n’est destinée qu’à personnaliser le thème Origine. Pour l’utiliser, veuillez <a href="%s">installer et/ou activer Origine</a>."
 
 msgid "Activation"
 msgstr "Activation"

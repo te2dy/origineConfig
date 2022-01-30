@@ -394,8 +394,8 @@ if (!empty($_POST)) {
     $css_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
     $css_array['.footer-social-links-icon-container']['display']          = 'flex';
     $css_array['.footer-social-links-icon-container']['justify-content']  = 'center';
-    $css_array['.footer-social-links-icon-container']['width']            = '28px';
-    $css_array['.footer-social-links-icon-container']['height']           = '28px';
+    $css_array['.footer-social-links-icon-container']['width']            = '1.5rem';
+    $css_array['.footer-social-links-icon-container']['height']           = '1.5rem';
 
     $css_array['.footer-social-links-icon']['border']          = '0';
     $css_array['.footer-social-links-icon']['fill']            = 'var(--color-input-text)';
@@ -404,7 +404,7 @@ if (!empty($_POST)) {
     $css_array['.footer-social-links-icon']['stroke-linejoin'] = 'round';
     $css_array['.footer-social-links-icon']['stroke-width']    = '0';
     $css_array['.footer-social-links-icon']['vertical-align']  = 'middle';
-    $css_array['.footer-social-links-icon']['width']           = '18px';
+    $css_array['.footer-social-links-icon']['width']           = '1rem';
 
     $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
 
@@ -437,345 +437,349 @@ if (!empty($_POST)) {
     );
 
     echo dcPage::notices();
-    ?>
 
-    <p>Texte de présentation</p>
+    if ($core->blog->settings->system->theme !== 'origine') :
+      echo '<p>' . sprintf(
+        __('This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>.'), html::escapeURL($core->adminurl->get('admin.blog.theme'))) . '</p>';
+    else :
+      ?>
 
-    <form action="<?php echo $p_url; ?>" method="post">
-      <p>
-        <?php echo form::checkbox('activation', 1, $activation); ?>
+      <form action="<?php echo $p_url; ?>" method="post">
+        <p>
+          <?php echo form::checkbox('activation', 1, $activation); ?>
 
-        <label for="activation" class="classic"><?php echo __('Enable extension settings'); ?></label>
-      </p>
-
-      <p class="form-note">
-        <?php echo __('If you do not check this box, the settings below will be ignored.'); ?>
-      </p>
-
-      <h3><?php echo __('Design'); ?></h3>
-
-      <div class="fieldset">
-        <h4><?php echo __('Colors'); ?></h4>
-
-        <p class="field wide">
-          <label for="color_scheme" class="classic">
-            <?php echo __('Color scheme'); ?>
-          </label>
-
-          <?php
-          $combo_color_scheme = [
-            __('System (default)') => 'system',
-            __('Light')            => 'light',
-            __('Dark')             => 'dark',
-          ];
-
-          echo form::combo('color_scheme', $combo_color_scheme, $color_scheme);
-          ?>
-        </p>
-
-        <p class="field wide">
-          <label for="content_link_color" class="classic">
-            <?php echo __('Link color'); ?>
-          </label>
-
-          <?php
-          $combo_link_color = [
-              __('Red (default)') => 'red',
-              __('Blue')          => 'blue',
-              __('Green')         => 'green',
-              __('Orange')        => 'orange',
-              __('Purple')        => 'purple',
-          ];
-
-          echo form::combo('content_link_color', $combo_link_color, $content_link_color);
-          ?>
-        </p>
-
-        <p class="field wide">
-          <label for="css_transition" class="classic">
-            <?php echo __('Add a color transition on link hover'); ?>
-          </label>
-
-          <?php echo form::checkbox('css_transition', 1, $css_transition); ?>
-        </p>
-
-        <h4><?php echo __('Layout'); ?></h4>
-
-        <p class="field wide">
-          <label for="" class="classic">
-            <?php echo __('Header and footer alignment'); ?>
-          </label>
-
-          <?php
-          $combo_tb_align = [
-              __('Left (default)') => 'left',
-              __('Center')         => 'center',
-          ];
-
-          echo form::combo('tb_align', $combo_tb_align, $tb_align);
-          ?>
-        </p>
-
-        <h4><?php echo __('Text formatting'); ?></h4>
-
-        <p class="field wide">
-          <label for="content_font_family" class="classic"><?php echo __('Font family'); ?></label>
-
-          <?php
-          $combo_font_family = [
-            __('Serif (default)') => 'serif',
-            __('Sans serif')      => 'sans-serif',
-            __('Monospace')       => 'monospace',
-          ];
-
-          echo form::combo('content_font_family', $combo_font_family, $content_font_family);
-          ?>
+          <label for="activation" class="classic"><?php echo __('Enable extension settings'); ?></label>
         </p>
 
         <p class="form-note">
-          <?php echo __('In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system.'); ?>
+          <?php echo __('If you do not check this box, the settings below will be ignored.'); ?>
         </p>
 
-        <p class="field wide">
-          <label for="content_font_size" class="classic">
-            <?php echo __('Font size'); ?>
-          </label>
+        <h3><?php echo __('Design'); ?></h3>
 
-          <?php
-          $combo_font_size = [
-              __('10pt')           => 10,
-              __('11pt')           => 11,
-              __('12pt (default)') => 12,
-              __('13pt')           => 13,
-              __('14pt')           => 14,
-          ];
+        <div class="fieldset">
+          <h4><?php echo __('Colors'); ?></h4>
 
-          echo form::combo('content_font_size', $combo_font_size, $content_font_size);
-          ?>
-        </p>
+          <p class="field wide">
+            <label for="color_scheme" class="classic">
+              <?php echo __('Color scheme'); ?>
+            </label>
 
-        <p class="field wide">
-          <label for="content_text_align" class="classic">
-            <?php echo __('Text align'); ?>
-          </label>
+            <?php
+            $combo_color_scheme = [
+              __('System (default)') => 'system',
+              __('Light')            => 'light',
+              __('Dark')             => 'dark',
+            ];
 
-          <?php
-          $combo_text_align = [
-              __('Left (default)')                  => 'left',
-              __('Justify')                         => 'justify',
-              __('Justify except on small screens') => 'justify_not_mobile',
-          ];
+            echo form::combo('color_scheme', $combo_color_scheme, $color_scheme);
+            ?>
+          </p>
 
-          echo form::combo('content_text_align', $combo_text_align, $content_text_align);
-          ?>
-        </p>
+          <p class="field wide">
+            <label for="content_link_color" class="classic">
+              <?php echo __('Link color'); ?>
+            </label>
 
-        <p class="field wide">
-          <label for="content_hyphens" class="classic">
-            <?php echo __('Automatic hyphenation'); ?>
-          </label>
+            <?php
+            $combo_link_color = [
+                __('Red (default)') => 'red',
+                __('Blue')          => 'blue',
+                __('Green')         => 'green',
+                __('Orange')        => 'orange',
+                __('Purple')        => 'purple',
+            ];
 
-          <?php
-          $combo_content_hyphens = [
-              __('Disable (default)')              => 'disabled',
-              __('Enable')                         => 'enabled',
-              __('Enable except on small screens') => 'enabled_not_mobile',
-          ];
+            echo form::combo('content_link_color', $combo_link_color, $content_link_color);
+            ?>
+          </p>
 
-          echo form::combo('content_hyphens', $combo_content_hyphens, $content_hyphens);
-          ?>
-        </p>
-      </div>
+          <p class="field wide">
+            <label for="css_transition" class="classic">
+              <?php echo __('Add a color transition on link hover'); ?>
+            </label>
 
-      <h3><?php echo __('Post settings'); ?></h3>
+            <?php echo form::checkbox('css_transition', 1, $css_transition); ?>
+          </p>
 
-      <div class="fieldset">
-        <h4><?php echo __('Author'); ?></h4>
+          <h4><?php echo __('Layout'); ?></h4>
 
-        <p class="field wide">
-          <label for="" class="classic">
-            <?php echo __('Display the author name on posts'); ?>
-          </label>
+          <p class="field wide">
+            <label for="" class="classic">
+              <?php echo __('Header and footer alignment'); ?>
+            </label>
 
-          <?php echo form::checkbox('post_author_name', 1, $post_author_name); ?>
-        </p>
+            <?php
+            $combo_tb_align = [
+                __('Left (default)') => 'left',
+                __('Center')         => 'center',
+            ];
 
-        <p class="field wide">
-          <label for="" class="classic">
-            <?php echo __('Display the author name in the post list'); ?>
-          </label>
+            echo form::combo('tb_align', $combo_tb_align, $tb_align);
+            ?>
+          </p>
 
-          <?php echo form::checkbox('post_list_author_name', 1, $post_list_author_name); ?>
-        </p>
+          <h4><?php echo __('Text formatting'); ?></h4>
 
-        <h4><?php echo __('Comments'); ?></h4>
+          <p class="field wide">
+            <label for="content_font_family" class="classic"><?php echo __('Font family'); ?></label>
 
-        <p class="field wide">
-          <label for="comment_links" class="classic">
-            <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
-          </label>
+            <?php
+            $combo_font_family = [
+              __('Serif (default)') => 'serif',
+              __('Sans serif')      => 'sans-serif',
+              __('Monospace')       => 'monospace',
+            ];
 
-          <?php echo form::checkbox('comment_links', 1, $comment_links); ?>
-        </p>
+            echo form::combo('content_font_family', $combo_font_family, $content_font_family);
+            ?>
+          </p>
 
-        <p class="field wide">
-          <label for="email_author" class="classic">
-            <?php echo __('Allow visitors to send email to authors of posts and pages'); ?>
-          </label>
+          <p class="form-note">
+            <?php echo __('In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system.'); ?>
+          </p>
 
-          <?php
-          $combo_email_author = [
-            __('No (default)')                => 'disabled',
-            __('Only when comments are open') => 'comments_open',
-            __('Always')                      => 'always',
-          ];
+          <p class="field wide">
+            <label for="content_font_size" class="classic">
+              <?php echo __('Font size'); ?>
+            </label>
 
-          echo form::combo('email_author', $combo_email_author, $email_author);
-          ?>
+            <?php
+            $combo_font_size = [
+                __('10pt')           => 10,
+                __('11pt')           => 11,
+                __('12pt (default)') => 12,
+                __('13pt')           => 13,
+                __('14pt')           => 14,
+            ];
+
+            echo form::combo('content_font_size', $combo_font_size, $content_font_size);
+            ?>
+          </p>
+
+          <p class="field wide">
+            <label for="content_text_align" class="classic">
+              <?php echo __('Text align'); ?>
+            </label>
+
+            <?php
+            $combo_text_align = [
+                __('Left (default)')                  => 'left',
+                __('Justify')                         => 'justify',
+                __('Justify except on small screens') => 'justify_not_mobile',
+            ];
+
+            echo form::combo('content_text_align', $combo_text_align, $content_text_align);
+            ?>
+          </p>
+
+          <p class="field wide">
+            <label for="content_hyphens" class="classic">
+              <?php echo __('Automatic hyphenation'); ?>
+            </label>
+
+            <?php
+            $combo_content_hyphens = [
+                __('Disable (default)')              => 'disabled',
+                __('Enable')                         => 'enabled',
+                __('Enable except on small screens') => 'enabled_not_mobile',
+            ];
+
+            echo form::combo('content_hyphens', $combo_content_hyphens, $content_hyphens);
+            ?>
+          </p>
+        </div>
+
+        <h3><?php echo __('Post settings'); ?></h3>
+
+        <div class="fieldset">
+          <h4><?php echo __('Author'); ?></h4>
+
+          <p class="field wide">
+            <label for="" class="classic">
+              <?php echo __('Display the author name on posts'); ?>
+            </label>
+
+            <?php echo form::checkbox('post_author_name', 1, $post_author_name); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="" class="classic">
+              <?php echo __('Display the author name in the post list'); ?>
+            </label>
+
+            <?php echo form::checkbox('post_list_author_name', 1, $post_list_author_name); ?>
+          </p>
+
+          <h4><?php echo __('Comments'); ?></h4>
+
+          <p class="field wide">
+            <label for="comment_links" class="classic">
+              <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
+            </label>
+
+            <?php echo form::checkbox('comment_links', 1, $comment_links); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="email_author" class="classic">
+              <?php echo __('Allow visitors to send email to authors of posts and pages'); ?>
+            </label>
+
+            <?php
+            $combo_email_author = [
+              __('No (default)')                => 'disabled',
+              __('Only when comments are open') => 'comments_open',
+              __('Always')                      => 'always',
+            ];
+
+            echo form::combo('email_author', $combo_email_author, $email_author);
+            ?>
+          </p>
+
+          <p class="form-note warn">
+            <?php echo __('Please note that if this option is enabled, the email address of authors will be public.'); ?>
+          </p>
+        </div>
+
+        <h3><?php echo __('Footer settings'); ?></h3>
+
+        <div class="fieldset">
+          <p class="field wide">
+            <label for="footer_credits" class="classic">
+              <?php echo __('Add a link to support Dotclear and Origine'); ?>
+            </label>
+
+            <?php echo form::checkbox('footer_credits', 1, $footer_credits); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_diaspora" class="classic">
+              <?php echo __('Link to your Diaspora* profile'); ?>
+            </label>
+
+            <?php echo form::field('social_links_diaspora', 30, 255, html::escapeHTML($social_links_diaspora)); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_discord" class="classic">
+              <?php echo __('Link to your Discord server'); ?>
+            </label>
+
+            <?php echo form::field('social_links_discord', 30, 255, html::escapeHTML($social_links_discord)); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_facebook" class="classic">
+              <?php echo __('Link to your Facebook profile or page'); ?>
+            </label>
+
+            <?php echo form::field('social_links_facebook', 30, 255, html::escapeHTML($social_links_facebook)); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_github" class="classic">
+              <?php echo __('Link to a GitHub page'); ?>
+            </label>
+
+            <?php echo form::field('social_links_github', 30, 255, html::escapeHTML($social_links_github)); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_mastodon" class="classic">
+              <?php echo __('Link to your Mastodon profile'); ?>
+            </label>
+
+            <?php echo form::field('social_links_mastodon', 30, 255, html::escapeHTML($social_links_mastodon)); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_signal" class="classic">
+              <?php echo __('Your Signal number or a group link'); ?>
+            </label>
+
+            <?php echo form::field('social_links_signal', 30, 255, html::escapeHTML($social_links_signal)); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_tiktok" class="classic">
+              <?php echo __('Link to your TikTok profile'); ?>
+            </label>
+
+            <?php echo form::field('social_links_tiktok', 30, 255, html::escapeHTML($social_links_tiktok)); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_twitter" class="classic">
+              <?php echo __('Your Twitter username (without @)'); ?>
+            </label>
+
+            <?php echo form::field('social_links_twitter', 30, 255, html::escapeHTML($social_links_twitter)); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="social_links_whatsapp" class="classic">
+              <?php echo __('Your WhatsApp number or a group link'); ?>
+            </label>
+
+            <?php echo form::field('social_links_whatsapp', 30, 255, html::escapeHTML($social_links_whatsapp)); ?>
+          </p>
+        </div>
+
+        <h3><?php echo __('Advanced settings'); ?></h3>
+
+        <div class="fieldset">
+          <p class="form-note">
+            <?php echo __("Allows you to add information to your pages without displaying it on your readers' screen."); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="meta_generator" class="classic">
+              <?php echo __('Add <code>generator</code> meta tag'); ?>
+            </label>
+
+            <?php echo form::checkbox('meta_generator', 1, $meta_generator); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="meta_og" class="classic">
+              <?php echo __('Add Open Graph meta tags'); ?>
+            </label>
+
+            <?php echo form::checkbox('meta_og', 1, $meta_og); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="meta_twitter" class="classic">
+              <?php echo __('Add Twitter Cards meta tags'); ?>
+            </label>
+
+            <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
+          </p>
+        </div>
+
+        <p>
+          <?php echo $core->formNonce(); ?>
+
+          <input type="submit" value="<?php echo __('Save'); ?>" />
         </p>
 
         <p class="form-note warn">
-          <?php echo __('Please note that if this option is enabled, the email address of authors will be public.'); ?>
+          <?php
+          if ($core->plugins->moduleExists('maintenance') === true) {
+            printf(
+              __('If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge).'),
+              html::escapeURL($core->adminurl->get('admin.plugin', ['p' => 'maintenance']))
+            );
+          } else {
+            printf(
+              __('If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page.'),
+              html::escapeURL($core->adminurl->get('admin.plugins') . '#plugin-deactivate')
+            );
+          }
+          ?>
         </p>
-      </div>
-
-      <h3><?php echo __('Footer settings'); ?></h3>
-
-      <div class="fieldset">
-        <p class="field wide">
-          <label for="footer_credits" class="classic">
-            <?php echo __('Add a link to support Dotclear and Origine'); ?>
-          </label>
-
-          <?php echo form::checkbox('footer_credits', 1, $footer_credits); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_diaspora" class="classic">
-            <?php echo __('Link to your Diaspora* profile'); ?>
-          </label>
-
-          <?php echo form::field('social_links_diaspora', 30, 255, html::escapeHTML($social_links_diaspora)); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_discord" class="classic">
-            <?php echo __('Link to your Discord server'); ?>
-          </label>
-
-          <?php echo form::field('social_links_discord', 30, 255, html::escapeHTML($social_links_discord)); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_facebook" class="classic">
-            <?php echo __('Link to your Facebook profile or page'); ?>
-          </label>
-
-          <?php echo form::field('social_links_facebook', 30, 255, html::escapeHTML($social_links_facebook)); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_github" class="classic">
-            <?php echo __('Link to a GitHub page'); ?>
-          </label>
-
-          <?php echo form::field('social_links_github', 30, 255, html::escapeHTML($social_links_github)); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_mastodon" class="classic">
-            <?php echo __('Link to your Mastodon profile'); ?>
-          </label>
-
-          <?php echo form::field('social_links_mastodon', 30, 255, html::escapeHTML($social_links_mastodon)); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_signal" class="classic">
-            <?php echo __('Your Signal number or a group link'); ?>
-          </label>
-
-          <?php echo form::field('social_links_signal', 30, 255, html::escapeHTML($social_links_signal)); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_tiktok" class="classic">
-            <?php echo __('Link to your TikTok profile'); ?>
-          </label>
-
-          <?php echo form::field('social_links_tiktok', 30, 255, html::escapeHTML($social_links_tiktok)); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_twitter" class="classic">
-            <?php echo __('Your Twitter username (without @)'); ?>
-          </label>
-
-          <?php echo form::field('social_links_twitter', 30, 255, html::escapeHTML($social_links_twitter)); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="social_links_whatsapp" class="classic">
-            <?php echo __('Your WhatsApp number or a group link'); ?>
-          </label>
-
-          <?php echo form::field('social_links_whatsapp', 30, 255, html::escapeHTML($social_links_whatsapp)); ?>
-        </p>
-      </div>
-
-      <h3><?php echo __('Advanced settings'); ?></h3>
-
-      <div class="fieldset">
-        <p class="form-note">
-          <?php echo __("Allows you to add information to your pages without displaying it on your readers' screen."); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="meta_generator" class="classic">
-            <?php echo __('Add <code>generator</code> meta tag'); ?>
-          </label>
-
-          <?php echo form::checkbox('meta_generator', 1, $meta_generator); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="meta_og" class="classic">
-            <?php echo __('Add Open Graph meta tags'); ?>
-          </label>
-
-          <?php echo form::checkbox('meta_og', 1, $meta_og); ?>
-        </p>
-
-        <p class="field wide">
-          <label for="meta_twitter" class="classic">
-            <?php echo __('Add Twitter Cards meta tags'); ?>
-          </label>
-
-          <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
-        </p>
-      </div>
-
-      <p>
-        <?php echo $core->formNonce(); ?>
-
-        <input type="submit" value="<?php echo __('Save'); ?>" />
-      </p>
-
-      <p class="form-note warn">
-        <?php
-        if ($core->plugins->moduleExists('maintenance') === true) {
-          printf(
-            __('If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge).'),
-            html::escapeURL($core->adminurl->get('admin.plugin', ['p' => 'maintenance']))
-          );
-        } else {
-          printf(
-            __('If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page.'),
-            html::escapeURL($core->adminurl->get('admin.plugins') . '#plugin-deactivate')
-          );
-        }
-        ?>
-      </p>
-    </form>
+      </form>
+    <?php endif; ?>
   </body>
 </html>

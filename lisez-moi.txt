@@ -1,0 +1,39 @@
+= origineConfig, un plugin pour personnaliser le thème Origine pour Dotclear =
+
+Nom de l’extension : origineConfig
+Description : Un plugin de personnalisation du thème Origine
+Auteur : Teddy
+Licence : GPLv3 ou ultérieure
+Adresse de la licence : https://www.gnu.org/licenses/gpl-3.0.fr.html
+
+== Note ==
+Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disposition librement par la communauté Dotclear.
+
+== Notes de version ==
+
+=== 0.3 ===
+- Première version de production.
+
+== Ressources ==
+
+origineConfig remercie les auteurs des ressources suivantes qui lui ont permis de réaliser cette extension :
+
+Simple Icons
+Auteur : Simple Icons
+Adresse : https://github.com/simple-icons/simple-icons
+Licence : CC0-1.0
+
+socialMeta
+Auteur : Franck Paul
+Adresse : https://github.com/franck-paul/socialMeta
+Licence : inconnue
+
+socialShare
+Auteur : Franck Paul
+Adresse : https://github.com/franck-paul/socialShare
+Licence : GPL-2.0
+
+System font stack
+Auteur : Tom MacWright
+Adresse : https://github.com/tmcw/systemfontstack
+Licence : inconnue
