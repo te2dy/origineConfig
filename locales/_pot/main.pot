@@ -67,6 +67,9 @@ msgstr ""
 msgid "Add a color transition on link hover"
 msgstr ""
 
+msgid "Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion."
+msgstr ""
+
 msgid "Layout"
 msgstr ""
 

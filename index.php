@@ -88,7 +88,6 @@ $activation = (bool) $core->blog->settings->origineConfig->activation;
 $color_scheme       = (string) $core->blog->settings->origineConfig->color_scheme;
 $content_link_color = (string) $core->blog->settings->origineConfig->content_link_color;
 $css_transition     = (bool) $core->blog->settings->origineConfig->css_transition;
-$css_transition     = (bool) $core->blog->settings->origineConfig->css_transition;
 $tb_align           = (string) $core->blog->settings->origineConfig->tb_align;
 
 // Content formatting
@@ -304,6 +303,10 @@ if (!empty($_POST)) {
     if ($css_transition === true) {
       $css_array['a']['transition'] = 'all .2s ease-in-out';
       $css_array['a:active, a:focus, a:hover']['transition'] = 'all .2s ease-in-out';
+
+      $css_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
+
+      $css_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
     }
 
     // Header and footer alignment
@@ -368,20 +371,6 @@ if (!empty($_POST)) {
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'none';
     }
 
-    $css .= origineConfigArrayToCSS($css_array);
-
-    // Redured motion
-    if ( $css_transition === true ) {
-      $css_array = [];
-
-      $css_array['a']['transition']                          = 'none';
-      $css_array['a:active, a:focus, a:hover']['transition'] = 'none';
-
-      $css .= '@media(prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
-    }
-
-    $css_array = [];
-
     $css_array['.footer-social-links ul']['list-style']                 = 'none';
     $css_array['.footer-social-links ul']['margin']                     = '0';
     $css_array['.footer-social-links ul']['padding-left']               = '0';
@@ -396,6 +385,7 @@ if (!empty($_POST)) {
     $css_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
     $css_array['.footer-social-links-icon-container']['display']          = 'flex';
     $css_array['.footer-social-links-icon-container']['justify-content']  = 'center';
+    $css_array['.footer-social-links-icon-container']['transition']       = 'all .2s ease-in-out';
     $css_array['.footer-social-links-icon-container']['width']            = '1.5rem';
     $css_array['.footer-social-links-icon-container']['height']           = '1.5rem';
 
@@ -405,14 +395,38 @@ if (!empty($_POST)) {
     $css_array['.footer-social-links-icon']['stroke-linecap']  = 'round';
     $css_array['.footer-social-links-icon']['stroke-linejoin'] = 'round';
     $css_array['.footer-social-links-icon']['stroke-width']    = '0';
+    $css_array['.footer-social-links-icon']['transition']      = 'all .2s ease-in-out';
     $css_array['.footer-social-links-icon']['vertical-align']  = 'middle';
     $css_array['.footer-social-links-icon']['width']           = '1rem';
 
     $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
+    $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['transition']       = 'all .2s ease-in-out';
 
-    $css_array['.footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
+    $css_array['.footer-social-links a:hover .footer-social-links-icon']['fill']       = 'var(--color-input-text-hover)';
+    $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
 
     $css .= origineConfigArrayToCSS($css_array);
+
+    if ( $css_transition === true ) {
+      $css_array = [];
+
+      $css_array['a']['transition']                          = 'none';
+      $css_array['a:active, a:focus, a:hover']['transition'] = 'none';
+
+      $css_array['input[type="submit"], .form-submit, .button']['transition'] = 'none';
+
+      $css_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'none';
+
+      $css_array['.footer-social-links-icon-container']['transition'] = 'none';
+
+      $css_array['.footer-social-links-icon']['transition'] = 'none';
+
+      $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['transition'] = 'none';
+
+      $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'none';
+
+      $css .= '@media(prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
+    }
 
     $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css, ENT_NOQUOTES));
 
@@ -502,6 +516,10 @@ if (!empty($_POST)) {
             </label>
 
             <?php echo form::checkbox('css_transition', 1, $css_transition); ?>
+          </p>
+
+          <p class="form-note">
+            <?php echo __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.'); ?>
           </p>
 
           <h4><?php echo __('Layout'); ?></h4>

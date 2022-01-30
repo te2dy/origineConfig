@@ -67,6 +67,9 @@ msgstr "Violet"
 msgid "Add a color transition on link hover"
 msgstr "Ajouter une transition de couleur au survol des liens"
 
+msgid "Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion."
+msgstr "Accessibilité&nbsp;: les transitions sont automatiquement désactivées quand l’utilisateur a demandé à son système de minimiser les animations non essentielles."
+
 msgid "Layout"
 msgstr "Mise en page"
 
