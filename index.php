@@ -382,13 +382,15 @@ if (!empty($_POST)) {
 
     $css_array = [];
 
-    $css_array['.footer-social-links ul']['list-style']   = 'none';
-    $css_array['.footer-social-links ul']['margin']       = '0';
-    $css_array['.footer-social-links ul']['padding-left'] = '0';
-    $css_array['.footer-social-links ul li']['display']   = 'inline-block';
-    $css_array['.footer-social-links ul li']['margin']    = '.25em';
+    $css_array['.footer-social-links ul']['list-style']                 = 'none';
+    $css_array['.footer-social-links ul']['margin']                     = '0';
+    $css_array['.footer-social-links ul']['padding-left']               = '0';
+    $css_array['.footer-social-links ul li']['display']                 = 'inline-block';
+    $css_array['.footer-social-links ul li']['margin']                  = '.25em';
+    $css_array['.footer-social-links ul li:first-child']['margin-left'] = '0';
+    $css_array['.footer-social-links ul li:last-child']['margin-right'] = '0';
 
-    $css_array['.footer-social-links a']['display']          = 'inline-block';
+    $css_array['.footer-social-links a']['display'] = 'inline-block';
 
     $css_array['.footer-social-links-icon-container']['align-items']      = 'center';
     $css_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
