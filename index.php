@@ -49,7 +49,7 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false);
     $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false);
     $core->blog->settings->origineConfig->put('content_text_align', 'left', 'string', 'Text align', false);
-    $core->blog->settings->origineConfig->put('content_hyphens', false, 'boolean', 'Hyphenation', false);
+    $core->blog->settings->origineConfig->put('content_hyphens', '', 'string', 'Hyphenation', false);
 
     // Head
     $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false);
@@ -95,7 +95,7 @@ $tb_align           = (string) $core->blog->settings->origineConfig->tb_align;
 $content_font_family = (string) $core->blog->settings->origineConfig->content_font_family;
 $content_font_size   = (int) $core->blog->settings->origineConfig->content_font_size;
 $content_text_align  = (string) $core->blog->settings->origineConfig->content_text_align;
-$content_hyphens     = (bool) $core->blog->settings->origineConfig->content_hyphens;
+$content_hyphens     = (string) $core->blog->settings->origineConfig->content_hyphens;
 
 // Head
 $meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
@@ -144,7 +144,7 @@ if (!empty($_POST)) {
     $content_font_family = trim(html::escapeHTML($_POST['content_font_family']));
     $content_font_size   = abs((int) $_POST['content_font_size']);
     $content_text_align  = trim(html::escapeHTML($_POST['content_text_align']));
-    $content_hyphens     = !empty($_POST['content_hyphens']);
+    $content_hyphens     = trim(html::escapeHTML($_POST['content_hyphens']));
 
     // Head
     $meta_generator = !empty($_POST['meta_generator']);
@@ -243,162 +243,176 @@ if (!empty($_POST)) {
 
     $the_color = array_key_exists($content_link_color, $link_colors) ? $content_link_color : 'red';
 
-    $css            = [];
-    $css_root_array = [];
-    $css_root       = '';
+    $css       = '';
+    $css_array = [];
 
     if ($color_scheme === 'system') {
-      $css_root_array[':root']['--color-background']             = '#fff';
-      $css_root_array[':root']['--color-text-primary']           = '#000';
-      $css_root_array[':root']['--color-text-secondary']         = '#595959';
-      $css_root_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
-      $css_root_array[':root']['--color-border']                 = '#aaa';
-      $css_root_array[':root']['--color-input-text']             = '#000';
-      $css_root_array[':root']['--color-input-text-hover']       = '#fff';
-      $css_root_array[':root']['--color-input-background']       = '#eaeaea';
-      $css_root_array[':root']['--color-input-background-hover'] = '#000';
+      $css_array[':root']['--color-background']             = '#fff';
+      $css_array[':root']['--color-text-primary']           = '#000';
+      $css_array[':root']['--color-text-secondary']         = '#595959';
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
+      $css_array[':root']['--color-border']                 = '#aaa';
+      $css_array[':root']['--color-input-text']             = '#000';
+      $css_array[':root']['--color-input-text-hover']       = '#fff';
+      $css_array[':root']['--color-input-background']       = '#eaeaea';
+      $css_array[':root']['--color-input-background-hover'] = '#000';
 
-      $css_root .= origineConfigArrayToCSS($css_root_array);
+      $css .= origineConfigArrayToCSS($css_array);
 
-      // Resets $css_root_array to set the colors for the dark scheme.
-      $css_root_array = [];
+      $css_array = [];
 
-      $css_root_array[':root']['--color-background']             = '#16161D';
-      $css_root_array[':root']['--color-text-primary']           = '#d9d9d9';
-      $css_root_array[':root']['--color-text-secondary']         = '#8c8c8c';
-      $css_root_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
-      $css_root_array[':root']['--color-border']                 = '#aaa';
-      $css_root_array[':root']['--color-input-text']             = '#d9d9d9';
-      $css_root_array[':root']['--color-input-text-hover']       = '#fff';
-      $css_root_array[':root']['--color-input-background']       = '#333333';
-      $css_root_array[':root']['--color-input-background-hover'] = '#262626';
+      $css_array[':root']['--color-background']             = '#16161D';
+      $css_array[':root']['--color-text-primary']           = '#d9d9d9';
+      $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
+      $css_array[':root']['--color-border']                 = '#aaa';
+      $css_array[':root']['--color-input-text']             = '#d9d9d9';
+      $css_array[':root']['--color-input-text-hover']       = '#fff';
+      $css_array[':root']['--color-input-background']       = '#333333';
+      $css_array[':root']['--color-input-background-hover'] = '#262626';
 
-      $css_root .= '@media (prefers-color-scheme:dark) {' . origineConfigArrayToCSS($css_root_array) . '}';
+      $css .= '@media (prefers-color-scheme:dark) {' . origineConfigArrayToCSS($css_array) . '}';
     } elseif ($color_scheme === 'dark') {
-      $css_root_array[':root']['--color-background']             = '#16161D';
-      $css_root_array[':root']['--color-text-primary']           = '#d9d9d9';
-      $css_root_array[':root']['--color-text-secondary']         = '#8c8c8c';
-      $css_root_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
-      $css_root_array[':root']['--color-border']                 = '#aaa';
-      $css_root_array[':root']['--color-input-text']             = '#d9d9d9';
-      $css_root_array[':root']['--color-input-text-hover']       = '#fff';
-      $css_root_array[':root']['--color-input-background']       = '#333333';
-      $css_root_array[':root']['--color-input-background-hover'] = '#262626';
+      $css_array[':root']['--color-background']             = '#16161D';
+      $css_array[':root']['--color-text-primary']           = '#d9d9d9';
+      $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
+      $css_array[':root']['--color-border']                 = '#aaa';
+      $css_array[':root']['--color-input-text']             = '#d9d9d9';
+      $css_array[':root']['--color-input-text-hover']       = '#fff';
+      $css_array[':root']['--color-input-background']       = '#333333';
+      $css_array[':root']['--color-input-background-hover'] = '#262626';
 
-      $css_root .= origineConfigArrayToCSS($css_root_array);
+      $css .= origineConfigArrayToCSS($css_array);
     } else {
-      $css_root_array[':root']['--color-background']             = '#fff';
-      $css_root_array[':root']['--color-text-primary']           = '#000';
-      $css_root_array[':root']['--color-text-secondary']         = '#595959';
-      $css_root_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
-      $css_root_array[':root']['--color-border']                 = '#aaa';
-      $css_root_array[':root']['--color-input-text']             = '#000';
-      $css_root_array[':root']['--color-input-text-hover']       = '#fff';
-      $css_root_array[':root']['--color-input-background']       = '#eaeaea';
-      $css_root_array[':root']['--color-input-background-hover'] = '#000';
+      $css_array[':root']['--color-background']             = '#fff';
+      $css_array[':root']['--color-text-primary']           = '#000';
+      $css_array[':root']['--color-text-secondary']         = '#595959';
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
+      $css_array[':root']['--color-border']                 = '#aaa';
+      $css_array[':root']['--color-input-text']             = '#000';
+      $css_array[':root']['--color-input-text-hover']       = '#fff';
+      $css_array[':root']['--color-input-background']       = '#eaeaea';
+      $css_array[':root']['--color-input-background-hover'] = '#000';
 
-      $css_root .= origineConfigArrayToCSS($css_root_array);
+      $css .= origineConfigArrayToCSS($css_array);
     }
+
+    $css_array = [];
 
     // Transitions
     if ($css_transition === true) {
-      $css['a']['transition'] = 'all .2s ease-in-out';
-      $css['a:active, a:focus, a:hover']['transition'] = 'all .2s ease-in-out';
+      $css_array['a']['transition'] = 'all .2s ease-in-out';
+      $css_array['a:active, a:focus, a:hover']['transition'] = 'all .2s ease-in-out';
     }
 
     // Header and footer alignment
     if ($tb_align === 'left') {
-      $css['#site-header']['text-align'] = 'left';
-      $css['#site-footer']['text-align'] = 'left';
+      $css_array['#site-header']['text-align'] = 'left';
+      $css_array['#site-footer']['text-align'] = 'left';
     } else {
-      $css['#site-header']['text-align'] = 'center';
-      $css['#site-footer']['text-align'] = 'center';
+      $css_array['#site-header']['text-align'] = 'center';
+      $css_array['#site-footer']['text-align'] = 'center';
     }
 
     // Font family
     if ($content_font_family === 'serif') {
-      $css['body']['font-family'] = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+      $css_array['body']['font-family'] = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
     } elseif ($content_font_family === 'sans-serif') {
-      $css['body']['font-family'] = '-apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif';
+      $css_array['body']['font-family'] = '-apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif';
     } else {
-      $css['body']['font-family'] = 'Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace';
+      $css_array['body']['font-family'] = 'Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace';
     }
 
     // Font size
     if ($content_font_size) {
-      $css['body']['font-size'] = abs((int) $content_font_size) . 'pt';
+      $css_array['body']['font-size'] = abs((int) $content_font_size) . 'pt';
     }
 
     // Text align
     if ($content_text_align === 'justify') {
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['text-align'] = 'justify';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['text-align'] = 'justify';
+    } elseif ($content_text_align === 'justify_not_mobile') {
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
+
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['text-align'] = 'justify';
+
+      $css       .= '@media only screen and (min-width: 380px) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css_array  = [];
     }
 
     // Hyphens
     if ($content_hyphens === true ) {
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'auto';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'auto';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'auto';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'auto';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'auto';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'auto';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'auto';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'auto';
 
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphenate-limit-chars'] = '5 2 2';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-chars']    = '5 2 2';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-chars']     = '5 2 2';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphenate-limit-chars'] = '5 2 2';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-chars']    = '5 2 2';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-chars']     = '5 2 2';
 
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-lines'] = '2';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-lines']  = '2';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-lines']      = '2';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-lines'] = '2';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-lines']  = '2';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-lines']      = '2';
 
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphenate-limit-last'] = 'always';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-last']    = 'always';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-last']     = 'always';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-last']         = 'always';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphenate-limit-last'] = 'always';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-last']    = 'always';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-last']     = 'always';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-last']         = 'always';
     } else {
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'none';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'none';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'none';
-      $css['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'none';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'none';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'none';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'none';
+      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'none';
     }
 
-    $css_last = '';
+    $css .= origineConfigArrayToCSS($css_array);
 
     // Redured motion
     if ( $css_transition === true ) {
-      $css_redured_motion                                             = [];
-      $css_redured_motion['a']['transition']                          = 'none';
-      $css_redured_motion['a:active, a:focus, a:hover']['transition'] = 'none';
+      $css_array = [];
 
-      $css_last = '@media(prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_redured_motion) . '}';
+      $css_array['a']['transition']                          = 'none';
+      $css_array['a:active, a:focus, a:hover']['transition'] = 'none';
+
+      $css .= '@media(prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
     }
 
-    $css['.footer-social-links ul']['list-style']   = 'none';
-    $css['.footer-social-links ul']['margin']       = '0';
-    $css['.footer-social-links ul']['padding-left'] = '0';
-    $css['.footer-social-links ul li']['display']   = 'inline-block';
-    $css['.footer-social-links ul li']['margin']    = '.25em';
+    $css_array = [];
 
-    $css['.footer-social-links a']['display']          = 'inline-block';
+    $css_array['.footer-social-links ul']['list-style']   = 'none';
+    $css_array['.footer-social-links ul']['margin']       = '0';
+    $css_array['.footer-social-links ul']['padding-left'] = '0';
+    $css_array['.footer-social-links ul li']['display']   = 'inline-block';
+    $css_array['.footer-social-links ul li']['margin']    = '.25em';
 
-    $css['.footer-social-links-icon-container']['align-items']      = 'center';
-    $css['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
-    $css['.footer-social-links-icon-container']['display']          = 'flex';
-    $css['.footer-social-links-icon-container']['justify-content']  = 'center';
-    $css['.footer-social-links-icon-container']['width']            = '28px';
-    $css['.footer-social-links-icon-container']['height']           = '28px';
+    $css_array['.footer-social-links a']['display']          = 'inline-block';
 
-    $css['.footer-social-links-icon']['border']          = '0';
-    $css['.footer-social-links-icon']['fill']            = 'var(--color-input-text)';
-    $css['.footer-social-links-icon']['stroke']          = 'none';
-    $css['.footer-social-links-icon']['stroke-linecap']  = 'round';
-    $css['.footer-social-links-icon']['stroke-linejoin'] = 'round';
-    $css['.footer-social-links-icon']['stroke-width']    = '0';
-    $css['.footer-social-links-icon']['vertical-align']  = 'middle';
-    $css['.footer-social-links-icon']['width']           = '18px';
+    $css_array['.footer-social-links-icon-container']['align-items']      = 'center';
+    $css_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
+    $css_array['.footer-social-links-icon-container']['display']          = 'flex';
+    $css_array['.footer-social-links-icon-container']['justify-content']  = 'center';
+    $css_array['.footer-social-links-icon-container']['width']            = '28px';
+    $css_array['.footer-social-links-icon-container']['height']           = '28px';
 
-    $css['.footer-social-links a:hover .footer-social-links-icon-container']['background-color']               = 'var(--color-input-background-hover)';
-    $css['.footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
+    $css_array['.footer-social-links-icon']['border']          = '0';
+    $css_array['.footer-social-links-icon']['fill']            = 'var(--color-input-text)';
+    $css_array['.footer-social-links-icon']['stroke']          = 'none';
+    $css_array['.footer-social-links-icon']['stroke-linecap']  = 'round';
+    $css_array['.footer-social-links-icon']['stroke-linejoin'] = 'round';
+    $css_array['.footer-social-links-icon']['stroke-width']    = '0';
+    $css_array['.footer-social-links-icon']['vertical-align']  = 'middle';
+    $css_array['.footer-social-links-icon']['width']           = '18px';
 
-    $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css_root . origineConfigArrayToCSS($css), ENT_NOQUOTES) . $css_last);
+    $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
+
+    $css_array['.footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
+
+    $css .= origineConfigArrayToCSS($css_array);
+
+    $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css, ENT_NOQUOTES));
 
     $core->blog->triggerBlog();
 
@@ -411,7 +425,7 @@ if (!empty($_POST)) {
 ?>
 <html>
   <head>
-  	<title><?php echo(__('Origine Settings')); ?></title>
+  	<title><?php echo __('Origine Settings'); ?></title>
   </head>
   <body>
     <?php
@@ -424,6 +438,8 @@ if (!empty($_POST)) {
 
     echo dcPage::notices();
     ?>
+
+    <p>Texte de présentation</p>
 
     <form action="<?php echo $p_url; ?>" method="post">
       <p>
@@ -545,8 +561,9 @@ if (!empty($_POST)) {
 
           <?php
           $combo_text_align = [
-              __('Left (default)') => 'left',
-              __('Justified')      => 'justify',
+              __('Left (default)')                  => 'left',
+              __('Justify')                         => 'justify',
+              __('Justify except on small screens') => 'justify_not_mobile',
           ];
 
           echo form::combo('content_text_align', $combo_text_align, $content_text_align);
@@ -555,14 +572,18 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="content_hyphens" class="classic">
-            <?php echo __('Enable automatic hyphenation'); ?>
+            <?php echo __('Automatic hyphenation'); ?>
           </label>
 
-          <?php echo form::checkbox('content_hyphens', 1, $content_hyphens); ?>
-        </p>
+          <?php
+          $combo_content_hyphens = [
+              __('Disable (default)')              => 'disabled',
+              __('Enable')                         => 'enabled',
+              __('Enable except on small screens') => 'enabled_not_mobile',
+          ];
 
-        <p class="form-note">
-          <?php echo __('Disabled by default, automatic hyphenation is recommended when text alignment is set to "justify".'); ?>
+          echo form::combo('content_hyphens', $combo_content_hyphens, $content_hyphens);
+          ?>
         </p>
       </div>
 

@@ -115,10 +115,19 @@ msgstr ""
 msgid "Justify"
 msgstr ""
 
-msgid "Enable automatic hyphenation"
+msgid "Justify except on small screens"
 msgstr ""
 
-msgid "Disabled by default, automatic hyphenation is recommended when text alignment is set to \"justify\"."
+msgid "Automatic hyphenation"
+msgstr ""
+
+msgid "Disable (default)"
+msgstr ""
+
+msgid "Enable"
+msgstr ""
+
+msgid "Enable except on small screens"
 msgstr ""
 
 msgid "Post settings"

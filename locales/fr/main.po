@@ -115,11 +115,20 @@ msgstr "Gauche (par défaut)"
 msgid "Justify"
 msgstr "Justifié"
 
-msgid "Enable automatic hyphenation"
-msgstr "Activer la césure automatique"
+msgid "Justify except on small screens"
+msgstr "Justifié, sauf sur les petits écrans"
 
-msgid "Disabled by default, automatic hyphenation is recommended when text alignment is set to \"justify\"."
-msgstr "Désactivée par défaut, la césure automatique est recommandée lorsque l’alignement du texte est réglé sur « justifié »."
+msgid "Automatic hyphenation"
+msgstr "Césure automatique"
+
+msgid "Disable (default)"
+msgstr "Désactiver (par défaut)"
+
+msgid "Enable"
+msgstr "Activer"
+
+msgid "Enable except on small screens"
+msgstr "Activer, sauf sur les petits écrans"
 
 msgid "Post settings"
 msgstr "Paramètres des billets"
