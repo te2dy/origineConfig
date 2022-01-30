@@ -190,8 +190,8 @@ msgstr "Votre numéro sur Signal ou un lien de groupe"
 msgid "Link to your TikTok profile"
 msgstr "Lien vers votre profil TikTok"
 
-msgid "Your Twitter username"
-msgstr "Votre nom d’utilisateur Twitter"
+msgid "Your Twitter username (without @)"
+msgstr "Votre nom d’utilisateur Twitter (sans @)"
 
 msgid "Your WhatsApp number or a group link"
 msgstr "Votre numéro sur WhatsApp ou un lien de groupe"

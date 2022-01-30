@@ -708,7 +708,7 @@ if (!empty($_POST)) {
 
         <p class="field wide">
           <label for="social_links_twitter" class="classic">
-            <?php echo __('Your Twitter username'); ?>
+            <?php echo __('Your Twitter username (without @)'); ?>
           </label>
 
           <?php echo form::field('social_links_twitter', 30, 255, html::escapeHTML($social_links_twitter)); ?>

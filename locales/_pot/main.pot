@@ -190,7 +190,7 @@ msgstr ""
 msgid "Link to your TikTok profile"
 msgstr ""
 
-msgid "Your Twitter username"
+msgid "Your Twitter username (without @)"
 msgstr ""
 
 msgid "Your WhatsApp number or a group link"
