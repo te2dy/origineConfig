@@ -371,42 +371,65 @@ if (!empty($_POST)) {
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'none';
     }
 
-    $css_array['.footer-social-links ul']['list-style']                 = 'none';
-    $css_array['.footer-social-links ul']['margin']                     = '0';
-    $css_array['.footer-social-links ul']['padding-left']               = '0';
-    $css_array['.footer-social-links ul li']['display']                 = 'inline-block';
-    $css_array['.footer-social-links ul li']['margin']                  = '.25em';
-    $css_array['.footer-social-links ul li:first-child']['margin-left'] = '0';
-    $css_array['.footer-social-links ul li:last-child']['margin-right'] = '0';
-
-    $css_array['.footer-social-links a']['display'] = 'inline-block';
-
-    $css_array['.footer-social-links-icon-container']['align-items']      = 'center';
-    $css_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
-    $css_array['.footer-social-links-icon-container']['display']          = 'flex';
-    $css_array['.footer-social-links-icon-container']['justify-content']  = 'center';
-    $css_array['.footer-social-links-icon-container']['transition']       = 'all .2s ease-in-out';
-    $css_array['.footer-social-links-icon-container']['width']            = '1.5rem';
-    $css_array['.footer-social-links-icon-container']['height']           = '1.5rem';
-
-    $css_array['.footer-social-links-icon']['border']          = '0';
-    $css_array['.footer-social-links-icon']['fill']            = 'var(--color-input-text)';
-    $css_array['.footer-social-links-icon']['stroke']          = 'none';
-    $css_array['.footer-social-links-icon']['stroke-linecap']  = 'round';
-    $css_array['.footer-social-links-icon']['stroke-linejoin'] = 'round';
-    $css_array['.footer-social-links-icon']['stroke-width']    = '0';
-    $css_array['.footer-social-links-icon']['transition']      = 'all .2s ease-in-out';
-    $css_array['.footer-social-links-icon']['vertical-align']  = 'middle';
-    $css_array['.footer-social-links-icon']['width']           = '1rem';
-
-    $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
-    $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['transition']       = 'all .2s ease-in-out';
-
-    $css_array['.footer-social-links a:hover .footer-social-links-icon']['fill']       = 'var(--color-input-text-hover)';
-    $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
-
     $css .= origineConfigArrayToCSS($css_array);
 
+    // Social links
+    if ($social_links_diaspora
+      || $social_links_discord
+      || $social_links_facebook
+      || $social_links_github
+      || $social_links_mastodon
+      || $social_links_signal
+      || $social_links_tiktok
+      || $social_links_twitter
+      || $social_links_whatsapp
+    ) {
+      $css_array = [];
+
+      $css_array['.footer-social-links ul']['list-style']                 = 'none';
+      $css_array['.footer-social-links ul']['margin']                     = '0';
+      $css_array['.footer-social-links ul']['padding-left']               = '0';
+      $css_array['.footer-social-links ul li']['display']                 = 'inline-block';
+      $css_array['.footer-social-links ul li']['margin']                  = '.25em';
+      $css_array['.footer-social-links ul li:first-child']['margin-left'] = '0';
+      $css_array['.footer-social-links ul li:last-child']['margin-right'] = '0';
+
+      $css_array['.footer-social-links a']['display'] = 'inline-block';
+
+      $css_array['.footer-social-links-icon-container']['align-items']      = 'center';
+      $css_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
+      $css_array['.footer-social-links-icon-container']['display']          = 'flex';
+      $css_array['.footer-social-links-icon-container']['justify-content']  = 'center';
+      $css_array['.footer-social-links-icon-container']['transition']       = 'all .2s ease-in-out';
+      $css_array['.footer-social-links-icon-container']['width']            = '1.5rem';
+      $css_array['.footer-social-links-icon-container']['height']           = '1.5rem';
+
+      $css_array['.footer-social-links-icon']['border']          = '0';
+      $css_array['.footer-social-links-icon']['fill']            = 'var(--color-input-text)';
+      $css_array['.footer-social-links-icon']['stroke']          = 'none';
+      $css_array['.footer-social-links-icon']['stroke-linecap']  = 'round';
+      $css_array['.footer-social-links-icon']['stroke-linejoin'] = 'round';
+      $css_array['.footer-social-links-icon']['stroke-width']    = '0';
+      $css_array['.footer-social-links-icon']['transition']      = 'all .2s ease-in-out';
+      $css_array['.footer-social-links-icon']['width']           = '1rem';
+
+      $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
+      $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['transition']       = 'all .2s ease-in-out';
+
+      $css_array['.footer-social-links a:hover .footer-social-links-icon']['fill']       = 'var(--color-input-text-hover)';
+      $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
+
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
+
+      $css_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-input-text)';
+
+      $css .= '@media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white) {';
+      $css .= origineConfigArrayToCSS($css_array);
+      $css .= '}';
+    }
+
+    // Accessibility
     if ( $css_transition === true ) {
       $css_array = [];
 
@@ -425,7 +448,7 @@ if (!empty($_POST)) {
 
       $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'none';
 
-      $css .= '@media(prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css .= '@media (prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
     }
 
     $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css, ENT_NOQUOTES));
