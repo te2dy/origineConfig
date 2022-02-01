@@ -11,6 +11,9 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 0.4.1 - 1er février 2022 ===
+- Correction : bogue césures.
+
 === 0.4 - 1er février 2022 ===
 - Ajout : option pour ajouter un logo.
 - Ajout : transitions pour les boutons.
