@@ -430,7 +430,7 @@ if (!empty($_POST)) {
     }
 
     // Accessibility
-    if ( $css_transition === true ) {
+    if ($css_transition === true) {
       $css_array = [];
 
       $css_array['a']['transition']                          = 'none';
@@ -440,13 +440,24 @@ if (!empty($_POST)) {
 
       $css_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'none';
 
-      $css_array['.footer-social-links-icon-container']['transition'] = 'none';
+      if ($social_links_diaspora
+        || $social_links_discord
+        || $social_links_facebook
+        || $social_links_github
+        || $social_links_mastodon
+        || $social_links_signal
+        || $social_links_tiktok
+        || $social_links_twitter
+        || $social_links_whatsapp
+      ) {
+        $css_array['.footer-social-links-icon-container']['transition'] = 'none';
 
-      $css_array['.footer-social-links-icon']['transition'] = 'none';
+        $css_array['.footer-social-links-icon']['transition'] = 'none';
 
-      $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['transition'] = 'none';
+        $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['transition'] = 'none';
 
-      $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'none';
+        $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'none';
+      }
 
       $css .= '@media (prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
     }
