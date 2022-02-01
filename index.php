@@ -268,9 +268,8 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-input-background']       = '#eaeaea';
       $css_array[':root']['--color-input-background-hover'] = '#000';
 
-      $css .= origineConfigArrayToCSS($css_array);
-
-      $css_array = [];
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
 
       $css_array[':root']['--color-background']             = '#16161D';
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
@@ -282,7 +281,8 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-input-background']       = '#333333';
       $css_array[':root']['--color-input-background-hover'] = '#262626';
 
-      $css .= '@media (prefers-color-scheme:dark) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css       .= '@media (prefers-color-scheme:dark) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css_array  = [];
     } elseif ($color_scheme === 'dark') {
       $css_array[':root']['--color-background']             = '#16161D';
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
@@ -294,7 +294,8 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-input-background']       = '#333333';
       $css_array[':root']['--color-input-background-hover'] = '#262626';
 
-      $css .= origineConfigArrayToCSS($css_array);
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
     } else {
       $css_array[':root']['--color-background']             = '#fff';
       $css_array[':root']['--color-text-primary']           = '#000';
@@ -306,10 +307,9 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-input-background']       = '#eaeaea';
       $css_array[':root']['--color-input-background-hover'] = '#000';
 
-      $css .= origineConfigArrayToCSS($css_array);
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
     }
-
-    $css_array = [];
 
     // Transitions
     if ($css_transition === true) {
@@ -319,6 +319,9 @@ if (!empty($_POST)) {
       $css_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
 
       $css_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
+
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
     }
 
     // Header and footer alignment
@@ -329,6 +332,9 @@ if (!empty($_POST)) {
       $css_array['#site-header']['text-align'] = 'center';
       $css_array['#site-footer']['text-align'] = 'center';
     }
+
+    $css       .= origineConfigArrayToCSS($css_array);
+    $css_array  = [];
 
     // Logo
     if ($logo_url) {
@@ -344,6 +350,9 @@ if (!empty($_POST)) {
       } else {
         $css_array['.site-logo']['width'] = '100%';
       }
+
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
     }
 
     // Font family
@@ -360,13 +369,16 @@ if (!empty($_POST)) {
       $css_array['body']['font-size'] = abs((int) $content_font_size) . 'pt';
     }
 
+    $css       .= origineConfigArrayToCSS($css_array);
+    $css_array  = [];
+
     // Text align
     if ($content_text_align === 'justify') {
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['text-align'] = 'justify';
-    } elseif ($content_text_align === 'justify_not_mobile') {
+
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];
-
+    } elseif ($content_text_align === 'justify_not_mobile') {
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['text-align'] = 'justify';
 
       $css       .= '@media only screen and (min-width: 380px) {' . origineConfigArrayToCSS($css_array) . '}';
@@ -374,7 +386,7 @@ if (!empty($_POST)) {
     }
 
     // Hyphens
-    if ($content_hyphens === true ) {
+    if ($content_hyphens !== 'disabled' ) {
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'auto';
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'auto';
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'auto';
@@ -392,14 +404,15 @@ if (!empty($_POST)) {
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-last']    = 'always';
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-last']     = 'always';
       $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-last']         = 'always';
-    } else {
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'none';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'none';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'none';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'none';
-    }
 
-    $css .= origineConfigArrayToCSS($css_array);
+      if ($content_hyphens !== 'enabled_not_mobile') {
+        $css       .= origineConfigArrayToCSS($css_array);
+        $css_array  = [];
+      } else {
+        $css       .= '@media only screen and (min-width: 380px) {' . origineConfigArrayToCSS($css_array) . '}';
+        $css_array  = [];
+      }
+    }
 
     // Social links
     if ($social_links_diaspora
@@ -412,8 +425,6 @@ if (!empty($_POST)) {
       || $social_links_twitter
       || $social_links_whatsapp
     ) {
-      $css_array = [];
-
       $css_array['.footer-social-links ul']['list-style']                 = 'none';
       $css_array['.footer-social-links ul']['margin']                     = '0';
       $css_array['.footer-social-links ul']['padding-left']               = '0';
@@ -452,15 +463,12 @@ if (!empty($_POST)) {
 
       $css_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-input-text)';
 
-      $css .= '@media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white) {';
-      $css .= origineConfigArrayToCSS($css_array);
-      $css .= '}';
+      $css       .= '@media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css_array  = [];
     }
 
     // Accessibility
     if ($css_transition === true) {
-      $css_array = [];
-
       $css_array['a']['transition']                          = 'none';
       $css_array['a:active, a:focus, a:hover']['transition'] = 'none';
 
@@ -487,7 +495,8 @@ if (!empty($_POST)) {
         $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'none';
       }
 
-      $css .= '@media (prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css       .= '@media (prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css_array  = [];
     }
 
     $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css, ENT_NOQUOTES));
