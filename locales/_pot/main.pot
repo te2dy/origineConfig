@@ -16,7 +16,7 @@ msgstr ""
 msgid "Origine Settings"
 msgstr ""
 
-msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>."
+msgid "This plugin is only meant to customize themes of the Origine family. To use it, please <a href="%s">install and/or activate one of them</a>."
 msgstr ""
 
 msgid "Activation"

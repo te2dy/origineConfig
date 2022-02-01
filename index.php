@@ -480,17 +480,19 @@ if (!empty($_POST)) {
   <body>
     <?php
     echo dcPage::breadcrumb(
-      array(
+      [
         html::escapeHTML($core->blog->name) => '',
         __('Origine Settings')              => '',
-      )
+      ]
     );
 
     echo dcPage::notices();
 
-    if ($core->blog->settings->system->theme !== 'origine') :
+    $themes_customizable = ['origine', 'origineFull'];
+
+    if (!in_array($core->blog->settings->system->theme, $themes_customizable, true)) :
       echo '<p>' . sprintf(
-        __('This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>.'), html::escapeURL($core->adminurl->get('admin.blog.theme'))) . '</p>';
+        __('This plugin is only meant to customize themes of the Origine family. To use it, please <a href="%s">install and/or activate one of them</a>.'), html::escapeURL($core->adminurl->get('admin.blog.theme'))) . '</p>';
     else :
       ?>
 
