@@ -44,6 +44,9 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     $core->blog->settings->origineConfig->put('content_link_color', 'red', 'string', 'Link color', false);
     $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition on link hover', false);
     $core->blog->settings->origineConfig->put('tb_align', 'left', 'string', 'Header and footer alignment', false);
+    $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'Site logo URL', false);
+    $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'Site logo x2 URL', false);
+    $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'Site logo x2 URL', false);
 
     // Content Formatting
     $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false);
@@ -89,6 +92,9 @@ $color_scheme       = (string) $core->blog->settings->origineConfig->color_schem
 $content_link_color = (string) $core->blog->settings->origineConfig->content_link_color;
 $css_transition     = (bool) $core->blog->settings->origineConfig->css_transition;
 $tb_align           = (string) $core->blog->settings->origineConfig->tb_align;
+$logo_url           = (string) $core->blog->settings->origineConfig->logo_url;
+$logo_url_2x        = (string) $core->blog->settings->origineConfig->logo_url_2x;
+$logo_type          = (string) $core->blog->settings->origineConfig->logo_type;
 
 // Content formatting
 $content_font_family = (string) $core->blog->settings->origineConfig->content_font_family;
@@ -138,6 +144,9 @@ if (!empty($_POST)) {
     $content_link_color = trim(html::escapeHTML($_POST['content_link_color']));
     $css_transition     = !empty($_POST['css_transition']);
     $tb_align           = trim(html::escapeHTML($_POST['tb_align']));
+    $logo_url           = trim(html::escapeHTML($_POST['logo_url']));
+    $logo_url_2x        = trim(html::escapeHTML($_POST['logo_url_2x']));
+    $logo_type          = trim(html::escapeHTML($_POST['logo_type']));
 
     // Content formatting
     $content_font_family = trim(html::escapeHTML($_POST['content_font_family']));
@@ -184,6 +193,9 @@ if (!empty($_POST)) {
     $core->blog->settings->origineConfig->put('content_link_color', $content_link_color);
     $core->blog->settings->origineConfig->put('css_transition', $css_transition);
     $core->blog->settings->origineConfig->put('tb_align', $tb_align);
+    $core->blog->settings->origineConfig->put('logo_url', $logo_url);
+    $core->blog->settings->origineConfig->put('logo_url_2x', $logo_url_2x);
+    $core->blog->settings->origineConfig->put('logo_type', $logo_type);
 
     // Content formatting
     $core->blog->settings->origineConfig->put('content_font_family', $content_font_family);
@@ -316,6 +328,22 @@ if (!empty($_POST)) {
     } else {
       $css_array['#site-header']['text-align'] = 'center';
       $css_array['#site-footer']['text-align'] = 'center';
+    }
+
+    // Logo
+    if ($logo_url) {
+      $css_array['.site-logo']['margin-bottom'] = '1em';
+
+      if ($logo_type === 'square') {
+        $css_array['.site-logo']['max-height'] = '150px';
+        $css_array['.site-logo']['max-width']  = '150px';
+      } elseif ($logo_type === 'round') {
+        $css_array['.site-logo']['border-radius'] = '50%';
+        $css_array['.site-logo']['max-height']    = '150px';
+        $css_array['.site-logo']['max-width']     = '150px';
+      } else {
+        $css_array['.site-logo']['width'] = '100%';
+      }
     }
 
     // Font family
@@ -573,6 +601,48 @@ if (!empty($_POST)) {
 
             echo form::combo('tb_align', $combo_tb_align, $tb_align);
             ?>
+          </p>
+
+          <h4><?php echo __('Logo'); ?></h4>
+
+          <p class="field wide">
+            <label for="logo_type" class="classic">
+              <?php echo __('Logo type'); ?>
+            </label>
+
+            <?php
+            $combo_logo_type = [
+              __('Square (default)') => 'square',
+              __('Round')            => 'round',
+              __('Banner')           => 'banner',
+            ];
+
+            echo form::combo('logo_type', $combo_logo_type, $logo_type);
+            ?>
+          </p>
+
+          <p class="field wide">
+            <label for="logo_url" class="classic">
+              <?php echo __('URL of your logo'); ?>
+            </label>
+
+            <?php echo form::field('logo_url', 30, 255, html::escapeHTML($logo_url)); ?>
+          </p>
+
+          <p class="form-note">
+            <?php echo __('Recommanded size: 150×150px (square and round) or 480px wide (banner).'); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="logo_url_2x" class="classic">
+              <?php echo __('URL of your logo for screens with doubled pixel density'); ?>
+            </label>
+
+            <?php echo form::field('logo_url_2x', 30, 255, html::escapeHTML($logo_url_2x)); ?>
+          </p>
+
+          <p class="form-note">
+            <?php echo __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide).'); ?>
           </p>
 
           <h4><?php echo __('Text formatting'); ?></h4>

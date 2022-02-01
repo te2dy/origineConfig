@@ -21,6 +21,9 @@ try {
   $core->blog->settings->origineConfig->put('content_link_color', 'red', 'string', 'Link color', false, true);
   $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition on link hover', false, true);
   $core->blog->settings->origineConfig->put('tb_align', 'left', 'string', 'Header and footer alignment', false, true);
+  $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'Site logo URL', false, true);
+  $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'Site logo 2x URL', false, true);
+  $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'Site logo x2 URL', false, true);
 
   $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false, true);
   $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false, true);

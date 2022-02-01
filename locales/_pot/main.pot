@@ -76,6 +76,33 @@ msgstr ""
 msgid "Header and footer alignment"
 msgstr ""
 
+msgid "Logo"
+msgstr ""
+
+msgid "Logo type"
+msgstr ""
+
+msgid "Square (default)"
+msgstr ""
+
+msgid "Round"
+msgstr ""
+
+msgid "Banner"
+msgstr ""
+
+msgid "URL of your logo"
+msgstr ""
+
+msgid "Recommanded size: 150×150px (square and round) or 480px wide (banner)."
+msgstr ""
+
+msgid "URL of your logo for screens with doubled pixel density"
+msgstr ""
+
+msgid "To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide)."
+msgstr ""
+
 msgid "Text formatting"
 msgstr ""
 

@@ -76,6 +76,33 @@ msgstr "Mise en page"
 msgid "Header and footer alignment"
 msgstr "Alignement de l’en-tête et du pied de page"
 
+msgid "Logo"
+msgstr "Logo"
+
+msgid "Logo type"
+msgstr "Type de logo"
+
+msgid "Square (default)"
+msgstr "Carré (par défaut)"
+
+msgid "Round"
+msgstr "Rond"
+
+msgid "Banner"
+msgstr "Bannière"
+
+msgid "URL of your logo"
+msgstr "Adresse de votre logo"
+
+msgid "Recommanded size: 150×150px (square and round) or 480px wide (banner)."
+msgstr "Taille recommandée&nbsp;: 150 × 150 px (carré et rond) ou 480 px de large (bannière)."
+
+msgid "URL of your logo for screens with doubled pixel density"
+msgstr "Adresse de votre logo pour les écrans avec une double densité de pixels"
+
+msgid "To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide)."
+msgstr "Pour assurer un bon affichage sur les écrans avec une double densité de pixels (Retina), veuillez fournir une image deux fois plus grande que la précédente (300 × 300 px ou 960 px de large)."
+
 msgid "Text formatting"
 msgstr "Mise en forme du texte"
 
