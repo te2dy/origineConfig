@@ -277,9 +277,9 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
-      $css_array[':root']['--color-input-text-hover']       = '#fff';
+      $css_array[':root']['--color-input-text-hover']       = '#16161D';
       $css_array[':root']['--color-input-background']       = '#333333';
-      $css_array[':root']['--color-input-background-hover'] = '#262626';
+      $css_array[':root']['--color-input-background-hover'] = '#d9d9d9';
 
       $css       .= '@media (prefers-color-scheme:dark) {' . origineConfigArrayToCSS($css_array) . '}';
       $css_array  = [];
@@ -290,9 +290,9 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
-      $css_array[':root']['--color-input-text-hover']       = '#fff';
+      $css_array[':root']['--color-input-text-hover']       = '#16161D';
       $css_array[':root']['--color-input-background']       = '#333333';
-      $css_array[':root']['--color-input-background-hover'] = '#262626';
+      $css_array[':root']['--color-input-background-hover'] = '#d9d9d9';
 
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];
