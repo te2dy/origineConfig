@@ -338,6 +338,7 @@ if (!empty($_POST)) {
 
     // Logo
     if ($logo_url) {
+      $css_array['.site-logo']['display']       = 'block';
       $css_array['.site-logo']['margin-bottom'] = '1em';
 
       if ($logo_type === 'square') {
