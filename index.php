@@ -262,6 +262,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
+      $css_array[':root']['--color-link-complementary']     = 'var(--color-background)';
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#000';
       $css_array[':root']['--color-input-text-hover']       = '#fff';
@@ -275,6 +276,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
+      $css_array[':root']['--color-link-complementary']     = 'var(--color-background)';
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
       $css_array[':root']['--color-input-text-hover']       = '#16161D';
@@ -288,6 +290,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
+      $css_array[':root']['--color-link-complementary']     = 'var(--color-background)';
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
       $css_array[':root']['--color-input-text-hover']       = '#16161D';
@@ -301,6 +304,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
+      $css_array[':root']['--color-link-complementary']     = 'var(--color-background)';
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#000';
       $css_array[':root']['--color-input-text-hover']       = '#fff';
