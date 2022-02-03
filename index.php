@@ -317,8 +317,11 @@ if (!empty($_POST)) {
 
     // Transitions
     if ($css_transition === true) {
-      $css_array['a']['transition'] = 'all .2s ease-in-out';
+      $css_array['a']['transition']                          = 'all .2s ease-in-out';
       $css_array['a:active, a:focus, a:hover']['transition'] = 'all .2s ease-in-out';
+
+      $css_array['a .post-meta']['transition']       = 'all .2s ease-in-out';
+      $css_array['a:hover .post-meta']['transition'] = 'all .2s ease-in-out';
 
       $css_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
 
@@ -476,6 +479,8 @@ if (!empty($_POST)) {
     if ($css_transition === true) {
       $css_array['a']['transition']                          = 'none';
       $css_array['a:active, a:focus, a:hover']['transition'] = 'none';
+
+      $css_array['a .post-meta, a:hover .post-meta']['transition'] = 'none';
 
       $css_array['input[type="submit"], .form-submit, .button']['transition'] = 'none';
 
