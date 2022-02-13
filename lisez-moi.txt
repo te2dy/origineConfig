@@ -11,6 +11,12 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 0.4.2 - 13 février 2022 ===
+- Amélioration : couleurs au pointage avec les tabulations (accessibilité).
+- Correction : bogue césures.
+- Modification : couleurs par défaut au survol des boutons du thème sombre.
+- Modifications mineures de la feuille de styles.
+
 === 0.4.1 - 1er février 2022 ===
 - Correction : bogue césures.
 
