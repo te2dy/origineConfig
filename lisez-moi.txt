@@ -11,6 +11,10 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 0.5-beta - 16 février 2022 ===
+- Amélioration : harmonisation entre le thème et l’extension.
+- Mise à jour : traductions.
+
 === 0.4.2 - 13 février 2022 ===
 - Amélioration : couleurs au pointage avec les tabulations (accessibilité).
 - Correction : bogue césures.
