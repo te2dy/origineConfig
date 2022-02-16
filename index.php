@@ -37,35 +37,40 @@ $core->blog->settings->addNamespace('origineConfig');
 if (is_null($core->blog->settings->origineConfig->activation)) {
   try {
     // Activation
-    $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable origineConfig settings', false);
+    $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable the plugin settings', false, true);
 
-    // Appearance
+    /**
+     * Appearance
+     */
+
+    // Colors
     $core->blog->settings->origineConfig->put('color_scheme', 'system', 'string', 'Color scheme', false);
-    $core->blog->settings->origineConfig->put('content_link_color', 'red', 'string', 'Link color', false);
-    $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition on link hover', false);
-    $core->blog->settings->origineConfig->put('tb_align', 'left', 'string', 'Header and footer alignment', false);
-    $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'Site logo URL', false);
-    $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'Site logo x2 URL', false);
-    $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'Site logo x2 URL', false);
+    $core->blog->settings->origineConfig->put('link_color', 'red', 'string', 'Link color', false);
+    $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition when hovering links', false);
 
-    // Content Formatting
+    // Layout
+    $core->blog->settings->origineConfig->put('header_footer_align', 'left', 'string', 'Header & footer alignment', false);
+    $core->blog->settings->origineConfig->put('post_list_type', 'standard', 'string', 'Post list appearance', false);
+
+    // Logo
+    $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'URL of the logo', false);
+    $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'URL of the logo (Retina)', false);
+    $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'The type of the image', false);
+
+    // Text Formatting
     $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false);
-    $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false);
+    $core->blog->settings->origineConfig->put('content_font_size', 100, 'integer', 'Font size', false);
     $core->blog->settings->origineConfig->put('content_text_align', 'left', 'string', 'Text align', false);
     $core->blog->settings->origineConfig->put('content_hyphens', '', 'string', 'Hyphenation', false);
 
-    // Head
-    $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false);
-    $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false);
-    $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false);
-
-    // Post settings
-    $core->blog->settings->origineConfig->put('post_author_name', false, 'boolean', 'Author name on posts', false);
+    // Post Settings
+    $core->blog->settings->origineConfig->put('post_author_name', 'disabled', 'string', 'Author name on posts', false);
     $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false);
+    $core->blog->settings->origineConfig->put('post_list_comments', false, 'boolean', 'Display a link to comments in the post list', false);
     $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false);
-    $core->blog->settings->origineConfig->put('email_author', 'disabled', 'string', 'Option to email the author of a post', false);
+    $core->blog->settings->origineConfig->put('post_email_author', 'disabled', 'string', 'Option to email the author of a post', false);
 
-    // Footer settings
+    // Footer Settings
     $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dorclear and Origine credits', false);
     $core->blog->settings->origineConfig->put('social_links_diaspora', '', 'string', 'Link to Diaspora account', false);
     $core->blog->settings->origineConfig->put('social_links_discord', '', 'string', 'Link to Discord server', false);
@@ -75,10 +80,18 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     $core->blog->settings->origineConfig->put('social_links_signal', '', 'string', 'Link to a Signal number or group', false);
     $core->blog->settings->origineConfig->put('social_links_tiktok', '', 'string', 'Link to TikTok account', false);
     $core->blog->settings->origineConfig->put('social_links_twitter', '', 'string', 'Link to Twitter account', false);
-    $core->blog->settings->origineConfig->put('social_links_whatsapp', '', 'string', 'Link to WhatsApp number or group', false);
+    $core->blog->settings->origineConfig->put('social_links_whatsapp', '', 'string', 'Link to a WhatsApp number or group', false);
 
-    // All styles
-    $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'Origine styles', false);
+    // Advanced Settings
+    $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false);
+    $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false);
+    $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false);
+
+    // All styles in one string
+    $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'All theme styles', false);
+
+    $core->blog->triggerBlog();
+    http::redirect($p_url);
   } catch (Exception $e) {
     $core->error->add($e->getMessage());
   }
@@ -87,33 +100,38 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
 // Activation
 $activation = (bool) $core->blog->settings->origineConfig->activation;
 
-// Appearance
-$color_scheme       = (string) $core->blog->settings->origineConfig->color_scheme;
-$content_link_color = (string) $core->blog->settings->origineConfig->content_link_color;
-$css_transition     = (bool) $core->blog->settings->origineConfig->css_transition;
-$tb_align           = (string) $core->blog->settings->origineConfig->tb_align;
-$logo_url           = (string) $core->blog->settings->origineConfig->logo_url;
-$logo_url_2x        = (string) $core->blog->settings->origineConfig->logo_url_2x;
-$logo_type          = (string) $core->blog->settings->origineConfig->logo_type;
+/**
+ * Appearance
+ */
 
-// Content formatting
+// Colors
+$color_scheme   = (string) $core->blog->settings->origineConfig->color_scheme;
+$link_color     = (string) $core->blog->settings->origineConfig->link_color;
+$css_transition = (bool) $core->blog->settings->origineConfig->css_transition;
+
+// Layout
+$header_footer_align = (string) $core->blog->settings->origineConfig->header_footer_align;
+$post_list_type      = (string) $core->blog->settings->origineConfig->post_list_type;
+
+// Logo
+$logo_url    = (string) $core->blog->settings->origineConfig->logo_url;
+$logo_url_2x = (string) $core->blog->settings->origineConfig->logo_url_2x;
+$logo_type   = (string) $core->blog->settings->origineConfig->logo_type;
+
+// Text Formatting
 $content_font_family = (string) $core->blog->settings->origineConfig->content_font_family;
 $content_font_size   = (int) $core->blog->settings->origineConfig->content_font_size;
 $content_text_align  = (string) $core->blog->settings->origineConfig->content_text_align;
 $content_hyphens     = (string) $core->blog->settings->origineConfig->content_hyphens;
 
-// Head
-$meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
-$meta_og        = (bool) $core->blog->settings->origineConfig->meta_og;
-$meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
-
-// Post settings
-$post_author_name      = (bool) $core->blog->settings->origineConfig->post_author_name;
+// Post Settings
+$post_author_name      = (string) $core->blog->settings->origineConfig->post_author_name;
 $post_list_author_name = (bool) $core->blog->settings->origineConfig->post_list_author_name;
+$post_list_comments    = (bool) $core->blog->settings->origineConfig->post_list_comments;
 $comment_links         = (bool) $core->blog->settings->origineConfig->comment_links;
-$email_author          = (string) $core->blog->settings->origineConfig->email_author;
+$post_email_author     = (string) $core->blog->settings->origineConfig->post_email_author;
 
-// Footer settings
+// Footer Settings
 $footer_credits        = (bool) $core->blog->settings->origineConfig->footer_credits;
 $social_links_diaspora = (string) $core->blog->settings->origineConfig->social_links_diaspora;
 $social_links_discord  = (string) $core->blog->settings->origineConfig->social_links_discord;
@@ -124,6 +142,11 @@ $social_links_signal   = (string) $core->blog->settings->origineConfig->social_l
 $social_links_tiktok   = (string) $core->blog->settings->origineConfig->social_links_tiktok;
 $social_links_twitter  = (string) $core->blog->settings->origineConfig->social_links_twitter;
 $social_links_whatsapp = (string) $core->blog->settings->origineConfig->social_links_whatsapp;
+
+// Advanced Settings
+$meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
+$meta_og        = (bool) $core->blog->settings->origineConfig->meta_og;
+$meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
 
 // All styles
 $origine_styles = (bool) $core->blog->settings->origineConfig->origine_styles;
@@ -139,33 +162,38 @@ if (!empty($_POST)) {
     // Activation
     $activation = !empty($_POST['activation']);
 
-    // Appearance
-    $color_scheme       = trim(html::escapeHTML($_POST['color_scheme']));
-    $content_link_color = trim(html::escapeHTML($_POST['content_link_color']));
-    $css_transition     = !empty($_POST['css_transition']);
-    $tb_align           = trim(html::escapeHTML($_POST['tb_align']));
-    $logo_url           = trim(html::escapeHTML($_POST['logo_url']));
-    $logo_url_2x        = trim(html::escapeHTML($_POST['logo_url_2x']));
-    $logo_type          = trim(html::escapeHTML($_POST['logo_type']));
+    /**
+     * Appearance
+     */
 
-    // Content formatting
+    // Colors
+    $color_scheme   = trim(html::escapeHTML($_POST['color_scheme']));
+    $link_color     = trim(html::escapeHTML($_POST['link_color']));
+    $css_transition = !empty($_POST['css_transition']);
+
+    // Layout
+    $header_footer_align = trim(html::escapeHTML($_POST['header_footer_align']));
+    $post_list_type      = trim(html::escapeHTML($_POST['post_list_type']));
+
+    // Logo
+    $logo_url    = trim(html::escapeHTML($_POST['logo_url']));
+    $logo_url_2x = trim(html::escapeHTML($_POST['logo_url_2x']));
+    $logo_type   = trim(html::escapeHTML($_POST['logo_type']));
+
+    // Text formatting
     $content_font_family = trim(html::escapeHTML($_POST['content_font_family']));
     $content_font_size   = abs((int) $_POST['content_font_size']);
     $content_text_align  = trim(html::escapeHTML($_POST['content_text_align']));
     $content_hyphens     = trim(html::escapeHTML($_POST['content_hyphens']));
 
-    // Head
-    $meta_generator = !empty($_POST['meta_generator']);
-    $meta_og        = !empty($_POST['meta_og']);
-    $meta_twitter   = !empty($_POST['meta_twitter']);
-
-    // Post settings
-    $post_author_name      = !empty($_POST['post_author_name']);
+    // Post Settings
+    $post_author_name      = trim(html::escapeHTML($_POST['post_author_name']));
     $post_list_author_name = !empty($_POST['post_list_author_name']);
+    $post_list_comments    = !empty($_POST['post_list_comments']);
     $comment_links         = !empty($_POST['comment_links']);
-    $email_author          = trim(html::escapeHTML($_POST['email_author']));
+    $post_email_author     = trim(html::escapeHTML($_POST['post_email_author']));
 
-    // Footer settings
+    // Footer Settings
     $footer_credits        = !empty($_POST['footer_credits']);
     $social_links_diaspora = trim(html::escapeHTML($_POST['social_links_diaspora']));
     $social_links_discord  = trim(html::escapeHTML($_POST['social_links_discord']));
@@ -176,6 +204,11 @@ if (!empty($_POST)) {
     $social_links_tiktok   = trim(html::escapeHTML($_POST['social_links_tiktok']));
     $social_links_twitter  = trim(html::escapeHTML($_POST['social_links_twitter']));
     $social_links_whatsapp = trim(html::escapeHTML($_POST['social_links_whatsapp']));
+
+    // Advanced Settings
+    $meta_generator = !empty($_POST['meta_generator']);
+    $meta_og        = !empty($_POST['meta_og']);
+    $meta_twitter   = !empty($_POST['meta_twitter']);
 
     // All Styles
     $origine_styles = trim(html::escapeHTML($_POST['origine_styles']));
@@ -188,31 +221,36 @@ if (!empty($_POST)) {
     // Activation
     $core->blog->settings->origineConfig->put('activation', $activation);
 
-    // Appearance
+    /**
+     * Appearance
+     */
+
+    // Colors
     $core->blog->settings->origineConfig->put('color_scheme', $color_scheme);
-    $core->blog->settings->origineConfig->put('content_link_color', $content_link_color);
+    $core->blog->settings->origineConfig->put('link_color', $link_color);
     $core->blog->settings->origineConfig->put('css_transition', $css_transition);
-    $core->blog->settings->origineConfig->put('tb_align', $tb_align);
+
+    // Layout
+    $core->blog->settings->origineConfig->put('header_footer_align', $header_footer_align);
+    $core->blog->settings->origineConfig->put('post_list_type', $post_list_type);
+
+    // Logo
     $core->blog->settings->origineConfig->put('logo_url', $logo_url);
     $core->blog->settings->origineConfig->put('logo_url_2x', $logo_url_2x);
     $core->blog->settings->origineConfig->put('logo_type', $logo_type);
 
-    // Content formatting
+    // Text Formatting
     $core->blog->settings->origineConfig->put('content_font_family', $content_font_family);
     $core->blog->settings->origineConfig->put('content_font_size', $content_font_size);
     $core->blog->settings->origineConfig->put('content_text_align', $content_text_align);
     $core->blog->settings->origineConfig->put('content_hyphens', $content_hyphens);
 
-    // Head section
-    $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
-    $core->blog->settings->origineConfig->put('meta_og', $meta_og);
-    $core->blog->settings->origineConfig->put('meta_twitter', $meta_twitter);
-
-    // Post settings
+    // Post Settings
     $core->blog->settings->origineConfig->put('post_author_name', $post_author_name);
     $core->blog->settings->origineConfig->put('post_list_author_name', $post_list_author_name);
+    $core->blog->settings->origineConfig->put('post_list_comments', $post_list_comments);
     $core->blog->settings->origineConfig->put('comment_links', $comment_links);
-    $core->blog->settings->origineConfig->put('email_author', $email_author);
+    $core->blog->settings->origineConfig->put('post_email_author', $post_email_author);
 
     // Footer settings
     $core->blog->settings->origineConfig->put('footer_credits', $footer_credits);
@@ -226,33 +264,38 @@ if (!empty($_POST)) {
     $core->blog->settings->origineConfig->put('social_links_twitter', $social_links_twitter);
     $core->blog->settings->origineConfig->put('social_links_whatsapp', $social_links_whatsapp);
 
+    // Advanced Settings
+    $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
+    $core->blog->settings->origineConfig->put('meta_og', $meta_og);
+    $core->blog->settings->origineConfig->put('meta_twitter', $meta_twitter);
+
     /**
      * And save styles too!
      */
     $link_colors = [
       'red'    => [
-        'light' => '#de0000',
-        'dark'  => '#f14646',
+        'light' => ['#de0000', '#fff'],
+        'dark'  => ['#f14646', '#fff'],
       ],
       'blue'   => [
-        'light' => '#0057B7',
-        'dark'  => '#529ff5',
+        'light' => ['#0057B7', '#fff'],
+        'dark'  => ['#529ff5', '#000'],
       ],
       'green'  => [
-        'light' => '#006400',
-        'dark'  => '#18af18',
+        'light' => ['#006400', '#fff'],
+        'dark'  => ['#18af18', '#000'],
       ],
       'orange' => [
-        'light' => '#ff8c00',
-        'dark'  => '#ffab2e',
+        'light' => ['#ff8c00', '#fff'],
+        'dark'  => ['#ffab2e', '#000'],
       ],
       'purple' => [
-        'light' => '#800080',
-        'dark'  => '#9a389a',
+        'light' => ['#800080', '#fff'],
+        'dark'  => ['#9a389a', '#fff'],
       ],
     ];
 
-    $the_color = array_key_exists($content_link_color, $link_colors) ? $content_link_color : 'red';
+    $the_color = array_key_exists($link_color, $link_colors) ? $link_color : 'red';
 
     $css       = '';
     $css_array = [];
@@ -261,8 +304,8 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-background']             = '#fff';
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
-      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
-      $css_array[':root']['--color-link-complementary']     = 'var(--color-background)';
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'][0];
+      $css_array[':root']['--color-link-complementary']     = $link_colors[$the_color]['light'][1];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#000';
       $css_array[':root']['--color-input-text-hover']       = '#fff';
@@ -272,28 +315,28 @@ if (!empty($_POST)) {
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];
 
-      $css_array[':root']['--color-background']             = '#16161D';
+      $css_array[':root']['--color-background']             = '#16161d';
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
-      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
-      $css_array[':root']['--color-link-complementary']     = 'var(--color-background)';
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'][0];
+      $css_array[':root']['--color-link-complementary']     = $link_colors[$the_color]['dark'][1];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
-      $css_array[':root']['--color-input-text-hover']       = '#16161D';
+      $css_array[':root']['--color-input-text-hover']       = '#16161d';
       $css_array[':root']['--color-input-background']       = '#333333';
       $css_array[':root']['--color-input-background-hover'] = '#d9d9d9';
 
       $css       .= '@media (prefers-color-scheme:dark) {' . origineConfigArrayToCSS($css_array) . '}';
       $css_array  = [];
     } elseif ($color_scheme === 'dark') {
-      $css_array[':root']['--color-background']             = '#16161D';
+      $css_array[':root']['--color-background']             = '#16161d';
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
-      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
-      $css_array[':root']['--color-link-complementary']     = 'var(--color-background)';
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'][0];
+      $css_array[':root']['--color-link-complementary']     = $link_colors[$the_color]['dark'][1];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
-      $css_array[':root']['--color-input-text-hover']       = '#16161D';
+      $css_array[':root']['--color-input-text-hover']       = '#16161d';
       $css_array[':root']['--color-input-background']       = '#333333';
       $css_array[':root']['--color-input-background-hover'] = '#d9d9d9';
 
@@ -303,8 +346,8 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-background']             = '#fff';
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
-      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
-      $css_array[':root']['--color-link-complementary']     = 'var(--color-background)';
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'][0];
+      $css_array[':root']['--color-link-complementary']     = $link_colors[$the_color]['light'][1];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#000';
       $css_array[':root']['--color-input-text-hover']       = '#fff';
@@ -332,7 +375,7 @@ if (!empty($_POST)) {
     }
 
     // Header and footer alignment
-    if ($tb_align === 'left') {
+    if ($header_footer_align === 'left') {
       $css_array['#site-header']['text-align'] = 'left';
       $css_array['#site-footer']['text-align'] = 'left';
     } else {
@@ -345,8 +388,8 @@ if (!empty($_POST)) {
 
     // Logo
     if ($logo_url) {
-      $css_array['.site-logo']['display']       = 'block';
-      $css_array['.site-logo']['margin-bottom'] = '1em';
+      $css_array['.site-logo']['display']       = 'inline-block';
+      $css_array['.site-logo']['margin-bottom'] = '1rem';
 
       if ($logo_type === 'square') {
         $css_array['.site-logo']['max-height'] = '150px';
@@ -374,7 +417,7 @@ if (!empty($_POST)) {
 
     // Font size
     if ($content_font_size) {
-      $css_array['body']['font-size'] = abs((int) $content_font_size) . 'pt';
+      $css_array['body']['font-size'] = abs((int) $content_font_size / 100) . 'em';
     }
 
     $css       .= origineConfigArrayToCSS($css_array);
@@ -447,7 +490,6 @@ if (!empty($_POST)) {
       $css_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
       $css_array['.footer-social-links-icon-container']['display']          = 'flex';
       $css_array['.footer-social-links-icon-container']['justify-content']  = 'center';
-      $css_array['.footer-social-links-icon-container']['transition']       = 'all .2s ease-in-out';
       $css_array['.footer-social-links-icon-container']['width']            = '1.5rem';
       $css_array['.footer-social-links-icon-container']['height']           = '1.5rem';
 
@@ -457,14 +499,18 @@ if (!empty($_POST)) {
       $css_array['.footer-social-links-icon']['stroke-linecap']  = 'round';
       $css_array['.footer-social-links-icon']['stroke-linejoin'] = 'round';
       $css_array['.footer-social-links-icon']['stroke-width']    = '0';
-      $css_array['.footer-social-links-icon']['transition']      = 'all .2s ease-in-out';
       $css_array['.footer-social-links-icon']['width']           = '1rem';
 
-      $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
-      $css_array['.footer-social-links a:hover .footer-social-links-icon-container']['transition']       = 'all .2s ease-in-out';
+      $css_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
 
-      $css_array['.footer-social-links a:hover .footer-social-links-icon']['fill']       = 'var(--color-input-text-hover)';
-      $css_array['.footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
+      $css_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill']       = 'var(--color-input-text-hover)';
+
+      if ($css_transition === true) {
+        $css_array['.footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
+        $css_array['.footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
+        $css_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
+        $css_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
+      }
 
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];
@@ -576,7 +622,7 @@ if (!empty($_POST)) {
           </p>
 
           <p class="field wide">
-            <label for="content_link_color" class="classic">
+            <label for="link_color" class="classic">
               <?php echo __('Link color'); ?>
             </label>
 
@@ -589,7 +635,7 @@ if (!empty($_POST)) {
                 __('Purple')        => 'purple',
             ];
 
-            echo form::combo('content_link_color', $combo_link_color, $content_link_color);
+            echo form::combo('link_color', $combo_link_color, $link_color);
             ?>
           </p>
 
@@ -613,12 +659,26 @@ if (!empty($_POST)) {
             </label>
 
             <?php
-            $combo_tb_align = [
+            $combo_header_footer_align = [
                 __('Left (default)') => 'left',
                 __('Center')         => 'center',
             ];
 
-            echo form::combo('tb_align', $combo_tb_align, $tb_align);
+            echo form::combo('header_footer_align', $combo_header_footer_align, $header_footer_align);
+            ?>
+          </p>
+
+          <p class="field wide">
+            <label for="post_list_type" class="classic"><?php echo __('Displaying of posts in the post list'); ?></label>
+
+            <?php
+            $combo_post_list_type = [
+              __('Standard (default)') => 'standard',
+              __('On one line')        => 'short',
+              __('Full post')          => 'full',
+            ];
+
+            echo form::combo('post_list_type', $combo_post_list_type, $post_list_type);
             ?>
           </p>
 
@@ -691,11 +751,11 @@ if (!empty($_POST)) {
 
             <?php
             $combo_font_size = [
-                __('10pt')           => 10,
-                __('11pt')           => 11,
-                __('12pt (default)') => 12,
-                __('13pt')           => 13,
-                __('14pt')           => 14,
+                __('80%')                => 80,
+                __('90%')                => 90,
+                __('100% (recommended)') => 100,
+                __('110%')               => 110,
+                __('120%')               => 120,
             ];
 
             echo form::combo('content_font_size', $combo_font_size, $content_font_size);
@@ -742,10 +802,18 @@ if (!empty($_POST)) {
 
           <p class="field wide">
             <label for="" class="classic">
-              <?php echo __('Display the author name on posts'); ?>
+              <?php echo __('Author name on posts'); ?>
             </label>
 
-            <?php echo form::checkbox('post_author_name', 1, $post_author_name); ?>
+            <?php
+            $combo_post_author_name = [
+                __('Not displayed (default)')     => 'disabled',
+                __('Next to the date')            => 'date',
+                __('Below the post as signature') => 'signature',
+            ];
+
+            echo form::combo('post_author_name', $combo_post_author_name, $post_author_name);
+            ?>
           </p>
 
           <p class="field wide">
@@ -759,6 +827,14 @@ if (!empty($_POST)) {
           <h4><?php echo __('Comments'); ?></h4>
 
           <p class="field wide">
+            <label for="post_list_comments" class="classic">
+              <?php echo __('Display the number of comments in the post list (only if the post has comments)'); ?>
+            </label>
+
+            <?php echo form::checkbox('post_list_comments', 1, $post_list_comments); ?>
+          </p>
+
+          <p class="field wide">
             <label for="comment_links" class="classic">
               <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
             </label>
@@ -767,23 +843,23 @@ if (!empty($_POST)) {
           </p>
 
           <p class="field wide">
-            <label for="email_author" class="classic">
+            <label for="post_email_author" class="classic">
               <?php echo __('Allow visitors to send email to authors of posts and pages'); ?>
             </label>
 
             <?php
-            $combo_email_author = [
+            $combo_post_email_author = [
               __('No (default)')                => 'disabled',
               __('Only when comments are open') => 'comments_open',
               __('Always')                      => 'always',
             ];
 
-            echo form::combo('email_author', $combo_email_author, $email_author);
+            echo form::combo('post_email_author', $combo_post_email_author, $post_email_author);
             ?>
           </p>
 
           <p class="form-note warn">
-            <?php echo __('Please note that if this option is enabled, the email address of authors will be public.'); ?>
+            <?php printf(__('If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin.'), 'https://plugins.dotaddict.org/dc2/details/signal'); ?>
           </p>
         </div>
 
@@ -900,6 +976,10 @@ if (!empty($_POST)) {
             </label>
 
             <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
+          </p>
+
+          <p class="form-note warn">
+            <?php printf(__('To add meta tags in the header, you can also try the <a href="%s">socialMeta</a> extension instead.'), 'https://plugins.dotaddict.org/dc2/details/socialMeta'); ?>
           </p>
         </div>
 

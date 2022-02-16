@@ -7,8 +7,32 @@ $core->addBehavior('publicHeadContent', ['origineConfig', 'publicHeadContent']);
 $core->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterContent']);
 $core->addBehavior('publicEntryAfterContent', ['origineConfig', 'publicEntryAfterContent']);
 
+$core->tpl->addValue('origineConfigLogo', ['origineConfig', 'origineConfigLogo']);
+$core->tpl->addValue('origineConfigEntriesAuthorName', ['origineConfig', 'origineConfigEntriesAuthorName']);
+$core->tpl->addValue('origineConfigEntryAuthorNameNextToDate', ['origineConfig', 'origineConfigEntryAuthorNameNextToDate']);
+$core->tpl->addValue('origineConfigEntryAuthorNameSignature', ['origineConfig', 'origineConfigEntryAuthorNameSignature']);
+$core->tpl->addValue('origineConfigEmailAuthor', ['origineConfig', 'origineConfigEmailAuthor']);
+$core->tpl->addValue('origineConfigPostListComments', ['origineConfig', 'origineConfigPostListComments']);
+
 class origineConfig
 {
+  /**
+   * Returns true if the plugin origineConfig
+   * is installed and activated.
+   */
+  public static function origineConfigActivationStatus()
+  {
+    global $core;
+
+    if ($core->plugins->moduleExists('origineConfig') === true
+      && $core->blog->settings->origineConfig->activation === true
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /**
    * Displays an array of CSS as inline styles.
    */
@@ -253,7 +277,13 @@ class origineConfig
         echo '<ul>';
 
         foreach ($social_links as $site => $link) {
-          if ($site === 'Twitter') {
+          if ($site === 'Signal') {
+            if (substr($link, 0, 1) === '+') {
+              $link = 'https://signal.me/#p/' . $link;
+            } else {
+              $link = $link;
+            }
+          } elseif ($site === 'Twitter') {
             $link = 'https://twitter.com/' . $link;
           }
 
@@ -282,6 +312,7 @@ class origineConfig
   {
     $output = '';
 
+    /*
     $output .= 'Partager&nbsp;:';
 
     $output .= '<span class="share-button">';
@@ -291,7 +322,196 @@ class origineConfig
     $output .= '</svg>';
     $output .= 'Twitter';
     $output .= '</span>';
+    */
 
     echo $output;
+  }
+
+  /**
+   * Displays a logo in the header.
+   */
+  public static function origineConfigLogo($attr)
+  {
+    global $core;
+
+    if ($core->blog->settings->origineConfig->activation === true && $core->blog->settings->origineConfig->logo_url !== '') {
+      $src_image = $core->blog->settings->origineConfig->logo_url ? $core->blog->settings->origineConfig->logo_url : '';
+
+      if ($src_image !== '') {
+        $src_image_2x = $core->blog->settings->origineConfig->logo_url_2x ? $core->blog->settings->origineConfig->logo_url_2x : '';
+
+        if ($src_image_2x !== '') {
+          $srcset = ' srcset="' . $src_image_2x . ' 2x"';
+        } else {
+          $srcset = '';
+        }
+
+        $link_open  = ($attr['link_home'] === '1') ? '<a href="' . $core->blog->url . '">' : '';
+        $link_close = ($attr['link_home'] === '1') ? '</a>' : '';
+
+        return $link_open . '<img alt="' . __('Header image') . '" class="site-logo" src="' . $src_image . '"' . $srcset . ' />' . $link_close;
+      }
+    }
+  }
+
+  /* DOCUMENTATION */
+  public static function origineConfigEntryAuthorNameNextToDate()
+  {
+    global $core;
+
+    if ($core->blog->settings->origineConfig->activation === true) {
+      if ($core->blog->settings->origineConfig->post_author_name === 'date') {
+        $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+
+        $output .= '/ <span class="post-author-name" rel="author">';
+
+        $output .= '<?php if ($_ctx->posts->user_url) {';
+        $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+        $output .= '} ?>';
+
+        $output .= '<?php if ($_ctx->posts->user_displayname) {';
+        $output .= 'echo $_ctx->posts->user_displayname;';
+        $output .= '} elseif ($_ctx->posts->user_firstname) {';
+        $output .= 'echo $_ctx->posts->user_firstname;';
+        $output .= 'if ($_ctx->posts->user_name) {';
+        $output .= 'echo " " . $_ctx->posts->user_name;';
+        $output .= '} } else {';
+        $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+        $output .= '} ?>';
+
+        $output .= '<?php if ($_ctx->posts->user_url) {';
+        $output .= 'echo "</a>";';
+        $output .= '} ?>';
+
+        $output .= '</span>';
+
+        $output .= '<?php endif; ?>';
+
+        return $output;
+      }
+    }
+  }
+
+  /* DOCUMENTATION */
+  public static function origineConfigEntriesAuthorName()
+  {
+    global $core;
+
+    if ($core->blog->settings->origineConfig->activation === true) {
+      if ($core->blog->settings->origineConfig->post_list_author_name === true) {
+        $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+
+        $output .= '/ <span class="post-author-name" rel="author">';
+
+        $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->post_list_type === "short") {';
+        $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+        $output .= '} ?>';
+
+        $output .= '<?php if ($_ctx->posts->user_displayname) {';
+        $output .= 'echo $_ctx->posts->user_displayname;';
+        $output .= '} elseif ($_ctx->posts->user_firstname) {';
+        $output .= 'echo $_ctx->posts->user_firstname;';
+        $output .= 'if ($_ctx->posts->user_name) {';
+        $output .= 'echo " " . $_ctx->posts->user_name;';
+        $output .= '} } else {';
+        $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+        $output .= '} ?>';
+
+        $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->post_list_type === "short") {';
+        $output .= 'echo "</a>";';
+        $output .= '} ?>';
+
+        $output .= '</span>';
+
+        $output .= '<?php endif; ?>';
+
+        return $output;
+      }
+    }
+  }
+
+  /* DOCUMENTATION */
+  public static function origineConfigEntryAuthorNameSignature()
+  {
+    global $core;
+
+    if ($core->blog->settings->origineConfig->activation === true) {
+      if ($core->blog->settings->origineConfig->post_author_name === 'signature') {
+        $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+
+        $output .= '<p class="post-author-name" rel="author">';
+
+        $output .= '<?php if ($_ctx->posts->user_url) {';
+        $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+        $output .= '} ?>';
+
+        $output .= '<?php if ($_ctx->posts->user_displayname) {';
+        $output .= 'echo $_ctx->posts->user_displayname;';
+        $output .= '} elseif ($_ctx->posts->user_firstname) {';
+        $output .= 'echo $_ctx->posts->user_firstname;';
+        $output .= 'if ($_ctx->posts->user_name) {';
+        $output .= 'echo " " . $_ctx->posts->user_name;';
+        $output .= '} } else {';
+        $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+        $output .= '} ?>';
+
+        $output .= '<?php if ($_ctx->posts->user_url) {';
+        $output .= 'echo "</a>";';
+        $output .= '} ?>';
+
+        $output .= '</p>';
+
+        $output .= '<?php endif; ?>';
+
+        return $output;
+      }
+    }
+  }
+
+  /**
+   * Displays a link to reply to the author of the post by email.
+   */
+  public static function origineConfigEmailAuthor()
+  {
+    global $core, $_ctx;
+
+    if ($core->blog->settings->origineConfig->activation === true && $core->blog->settings->origineConfig->post_email_author !== 'disabled') {
+      if ($core->blog->settings->origineConfig->post_email_author === 'always'
+        || ($core->blog->settings->origineConfig->post_email_author === 'comments_open'
+          && $_ctx->posts->post_open_comment === '1'
+          && $_ctx->posts->user_email
+        )
+      ) {
+        $output = '<div class="comment-private">';
+
+        $output .= '<h3>' . __('Private comment') . '</h3>';
+
+        $output .= '<a class="button" href="mailto:' . urlencode($_ctx->posts->user_email);
+        $output .= '?subject=' . htmlentities($_ctx->posts->post_title, ENT_NOQUOTES);
+        $output .= '">';
+        $output .= __('Reply to the author by email');
+        $output .= '</a>';
+
+        $output .= '</div>';
+
+        return $output;
+      }
+    }
+  }
+
+  /* DOCUMENTATION */
+  public static function origineConfigPostListComments($attr)
+  {
+    global $core;
+
+    if ($core->blog->settings->origineConfig->activation === true && $core->blog->settings->origineConfig->post_list_comments === true) {
+      if ($attr['context'] === 'standard') {
+        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<div class=\"post-list-comment\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a></div>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<div class=\"post-list-comment\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a></div>"; } } ?>';
+      } elseif ($attr['context'] === 'short') {
+        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<span class=\"post-list-comment\">/ <a href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a></span>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<span class=\"post-list-comment\">/ <a href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a></span>"; } } ?>';
+      } elseif ($attr['context'] === 'full') {
+        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<div class=\"post-meta\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a></div>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<div class=\"post-meta\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a></div>"; } } ?>';
+      }
+    }
   }
 }

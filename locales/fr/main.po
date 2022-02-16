@@ -73,6 +73,18 @@ msgstr "Accessibilité&nbsp;: les transitions sont automatiquement désactivées
 msgid "Layout"
 msgstr "Mise en page"
 
+msgid "Displaying of posts in the post list"
+msgstr "Affichage des billets dans la liste des billets"
+
+msgid "Standard (default)"
+msgstr "Standard (par défaut)"
+
+msgid "On one line"
+msgstr "Sur une ligne"
+
+msgid "Full post"
+msgstr "Billet complet"
+
 msgid "Header and footer alignment"
 msgstr "Alignement de l’en-tête et du pied de page"
 
@@ -124,20 +136,20 @@ msgstr "Dans tous les cas, votre thème chargera les polices du système de l’
 msgid "Font size"
 msgstr "Taille du texte"
 
-msgid "10pt"
-msgstr "10 pt"
+msgid "80%"
+msgstr "80 %"
 
-msgid "11pt"
-msgstr "11 pt"
+msgid "90%"
+msgstr "90 %"
 
-msgid "12pt (default)"
-msgstr "12 pt (par défaut)"
+msgid "100% (recommended)"
+msgstr "100 % (recommandé)"
 
-msgid "13pt"
-msgstr "13 pt"
+msgid "110%"
+msgstr "110 %"
 
-msgid "14pt"
-msgstr "14 pt"
+msgid "120%"
+msgstr "120 %"
 
 msgid "Text align"
 msgstr "Alignement du texte"
@@ -169,6 +181,18 @@ msgstr "Paramètres des billets"
 msgid "Author"
 msgstr "Auteur"
 
+msgid "Author name on posts"
+msgstr "Nom de l’auteur sur les billets"
+
+msgid "Not displayed (default)"
+msgstr "Non affiché (par défaut)"
+
+msgid "Next to the date"
+msgstr "Après la date"
+
+msgid "Below the post as signature"
+msgstr "Sous le billet comme signature"
+
 msgid "Display the author name on posts"
 msgstr "Afficher le nom de l’auteur sur les billets"
 
@@ -177,6 +201,12 @@ msgstr "Afficher le nom de l’auteur dans la liste des billets"
 
 msgid "Comments"
 msgstr "Commentaires"
+
+msgid "1 comment"
+msgstr "1 commentaire"
+
+msgid "Display the number of comments in the post list (only if the post has comments)"
+msgstr "Afficher le nombre de commentaires dans la liste des billets (seulement si le billet a des commentaires)"
 
 msgid "Add a link to the comment feed and trackbacks below the comment section"
 msgstr "Ajouter un lien vers le fil des commentaires et les commentaires sous la section des billets"
@@ -193,8 +223,8 @@ msgstr "Seulement quand les commentaires sont ouverts"
 msgid "Always"
 msgstr "Toujours"
 
-msgid "Please note that if this option is enabled, the email address of authors will be public."
-msgstr "Veuillez noter que si cette option est activée, l’adresse électronique des auteurs sera publique."
+msgid "If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin."
+msgstr "Si cette option est activée, l’adresse électronique des auteurs sera rendue publique. Si vous préférez ne pas dévoiler d’adresses électroniques, essayez l’extension <a href="%s">Signal</a>."
 
 msgid "Footer settings"
 msgstr "Paramètres du pied de page"
@@ -243,6 +273,9 @@ msgstr "Ajouter des balises meta Open Graph"
 
 msgid "Add Twitter Cards meta tags"
 msgstr "Ajouter des balises meta Cartes Twitter"
+
+msgid "To add meta tags in the header, you can also try the <a href="%s">socialMeta</a> extension instead."
+msgstr "Pour ajouter des balises meta dans l’en-tête, vous pouvez aussi essayer, à la place, l’extension <a href="%s">socialMeta</a>."
 
 msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
 msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> avec l’extension <a href="%s">Entretien</a> (Entretien › Purger)."

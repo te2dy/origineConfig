@@ -14,34 +14,40 @@ try {
   $core->blog->settings->addNamespace('origineConfig');
 
   // Activation
-  $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable the settings', false, true);
+  $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable the plugin settings', false, true);
 
-  // Appearance
+  /**
+   * Appearance
+   */
+
+  // Colors
   $core->blog->settings->origineConfig->put('color_scheme', 'system', 'string', 'Color scheme', false, true);
-  $core->blog->settings->origineConfig->put('content_link_color', 'red', 'string', 'Link color', false, true);
-  $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition on link hover', false, true);
-  $core->blog->settings->origineConfig->put('tb_align', 'left', 'string', 'Header and footer alignment', false, true);
-  $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'Site logo URL', false, true);
-  $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'Site logo 2x URL', false, true);
-  $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'Site logo x2 URL', false, true);
+  $core->blog->settings->origineConfig->put('link_color', 'red', 'string', 'Link color', false, true);
+  $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition when hovering links', false, true);
 
+  // Layout
+  $core->blog->settings->origineConfig->put('header_footer_align', 'left', 'string', 'Header & footer alignment', false, true);
+  $core->blog->settings->origineConfig->put('post_list_type', 'standard', 'string', 'Post list appearance', false, true);
+
+  // Logo
+  $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'URL of the logo', false, true);
+  $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'URL of the logo (Retina)', false, true);
+  $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'The type of the image', false, true);
+
+  // Text Formatting
   $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false, true);
-  $core->blog->settings->origineConfig->put('content_font_size', 12, 'integer', 'Font size', false, true);
+  $core->blog->settings->origineConfig->put('content_font_size', 100, 'integer', 'Font size', false, true);
   $core->blog->settings->origineConfig->put('content_text_align', 'left', 'string', 'Text align', false, true);
   $core->blog->settings->origineConfig->put('content_hyphens', '', 'string', 'Hyphenation', false, true);
 
-  // Head
-  $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false, true);
-  $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false, true);
-  $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false, true);
-
-  // Post settings
-  $core->blog->settings->origineConfig->put('post_author_name', false, 'boolean', 'Author name on posts', false, true);
+  // Post Settings
+  $core->blog->settings->origineConfig->put('post_author_name', 'disabled', 'string', 'Author name on posts', false, true);
   $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false, true);
+  $core->blog->settings->origineConfig->put('post_list_comments', false, 'boolean', 'Display a link to comments in the post list', false, true);
   $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false, true);
-  $core->blog->settings->origineConfig->put('email_author', 'disabled', 'string', 'Option to email the author of a post', false, true);
+  $core->blog->settings->origineConfig->put('post_email_author', 'disabled', 'string', 'Option to email the author of a post', false, true);
 
-  // Footer settings
+  // Footer Settings
   $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dorclear and Origine credits', false, true);
   $core->blog->settings->origineConfig->put('social_links_diaspora', '', 'string', 'Link to Diaspora account', false, true);
   $core->blog->settings->origineConfig->put('social_links_discord', '', 'string', 'Link to Discord server', false, true);
@@ -53,8 +59,13 @@ try {
   $core->blog->settings->origineConfig->put('social_links_twitter', '', 'string', 'Link to Twitter account', false, true);
   $core->blog->settings->origineConfig->put('social_links_whatsapp', '', 'string', 'Link to a WhatsApp number or group', false, true);
 
-  // All styles
-  $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'Origine styles', false, true);
+  // Advanced Settings
+  $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false, true);
+  $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false, true);
+  $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false, true);
+
+  // All styles in one string
+  $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'All theme styles', false, true);
 
   $core->setVersion('origineConfig', $new_version);
 

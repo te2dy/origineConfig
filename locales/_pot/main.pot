@@ -73,6 +73,18 @@ msgstr ""
 msgid "Layout"
 msgstr ""
 
+msgid "Displaying of posts in the post list"
+msgstr ""
+
+msgid "Standard (default)"
+msgstr ""
+
+msgid "On one line"
+msgstr ""
+
+msgid "Full post"
+msgstr ""
+
 msgid "Header and footer alignment"
 msgstr ""
 
@@ -124,19 +136,19 @@ msgstr ""
 msgid "Font size"
 msgstr ""
 
-msgid "10pt"
+msgid "80%"
 msgstr ""
 
-msgid "11pt"
+msgid "90%"
 msgstr ""
 
-msgid "12pt (default)"
+msgid "100% (recommended)"
 msgstr ""
 
-msgid "13pt"
+msgid "110%"
 msgstr ""
 
-msgid "14pt"
+msgid "120%"
 msgstr ""
 
 msgid "Text align"
@@ -169,6 +181,18 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
+msgid "Author name on posts"
+msgstr ""
+
+msgid "Not displayed (default)"
+msgstr ""
+
+msgid "Next to the date"
+msgstr ""
+
+msgid "Below the post as signature"
+msgstr ""
+
 msgid "Display the author name on posts"
 msgstr ""
 
@@ -176,6 +200,12 @@ msgid "Display the author name in the post list"
 msgstr ""
 
 msgid "Comments"
+msgstr ""
+
+msgid "1 comment"
+msgstr ""
+
+msgid "Display the number of comments in the post list (only if the post has comments)"
 msgstr ""
 
 msgid "Add a link to the comment feed and trackbacks below the comment section"
@@ -193,7 +223,7 @@ msgstr ""
 msgid "Always"
 msgstr ""
 
-msgid "Please note that if this option is enabled, the email address of authors will be public."
+msgid "If this option is enabled, the email address of authors will be public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin."
 msgstr ""
 
 msgid "Footer settings"
@@ -242,6 +272,9 @@ msgid "Add Open Graph meta tags"
 msgstr ""
 
 msgid "Add Twitter Cards meta tags"
+msgstr ""
+
+msgid "To add meta tags in the header, you can also try the <a href="%s">socialMeta</a> extension instead."
 msgstr ""
 
 msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
