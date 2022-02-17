@@ -149,7 +149,7 @@ $meta_og        = (bool) $core->blog->settings->origineConfig->meta_og;
 $meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
 
 // All styles
-$origine_styles = (bool) $core->blog->settings->origineConfig->origine_styles;
+$origine_styles = (string) $core->blog->settings->origineConfig->origine_styles;
 
 if (!empty($_POST)) {
   try {
@@ -209,9 +209,6 @@ if (!empty($_POST)) {
     $meta_generator = !empty($_POST['meta_generator']);
     $meta_og        = !empty($_POST['meta_og']);
     $meta_twitter   = !empty($_POST['meta_twitter']);
-
-    // All Styles
-    $origine_styles = trim(html::escapeHTML($_POST['origine_styles']));
 
     /**
      * Save settings in the database.
@@ -978,7 +975,7 @@ if (!empty($_POST)) {
             <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
           </p>
 
-          <p class="form-note warn">
+          <p class="form-note info">
             <?php printf(__('To add meta tags in the header, you can also try the <a href="%s">socialMeta</a> extension instead.'), 'https://plugins.dotaddict.org/dc2/details/socialMeta'); ?>
           </p>
         </div>
