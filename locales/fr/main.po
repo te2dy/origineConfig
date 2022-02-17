@@ -224,7 +224,7 @@ msgid "Always"
 msgstr "Toujours"
 
 msgid "If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin."
-msgstr "Si cette option est activée, l’adresse électronique des auteurs sera rendue publique. Si vous préférez ne pas dévoiler d’adresses électroniques, essayez l’extension <a href="%s">Signal</a>."
+msgstr "Si cette option est activée, l’adresse électronique des auteurs sera rendue publique. Si vous préférez ne pas dévoiler d’adresse électronique, essayez l’extension <a href="%s">Signal</a>."
 
 msgid "Footer settings"
 msgstr "Paramètres du pied de page"
