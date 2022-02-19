@@ -421,13 +421,15 @@ if (!empty($_POST)) {
     $css_array  = [];
 
     // Text align
+    $content_text = '.content p, .content ol li, .content ul li, .post-excerpt, .text p, .text ol li, .text ul li';
+
     if ($content_text_align === 'justify') {
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['text-align'] = 'justify';
+      $css_array[$content_text]['text-align'] = 'justify';
 
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];
     } elseif ($content_text_align === 'justify_not_mobile') {
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['text-align'] = 'justify';
+      $css_array[$content_text]['text-align'] = 'justify';
 
       $css       .= '@media only screen and (min-width: 380px) {' . origineConfigArrayToCSS($css_array) . '}';
       $css_array  = [];
@@ -435,23 +437,23 @@ if (!empty($_POST)) {
 
     // Hyphens
     if ($content_hyphens !== 'disabled' ) {
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphens'] = 'auto';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphens']    = 'auto';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphens']     = 'auto';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphens']         = 'auto';
+      $css_array[$content_text]['-webkit-hyphens'] = 'auto';
+      $css_array[$content_text]['-moz-hyphens']    = 'auto';
+      $css_array[$content_text]['-ms-hyphens']     = 'auto';
+      $css_array[$content_text]['hyphens']         = 'auto';
 
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphenate-limit-chars'] = '5 2 2';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-chars']    = '5 2 2';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-chars']     = '5 2 2';
+      $css_array[$content_text]['-webkit-hyphenate-limit-chars'] = '5 2 2';
+      $css_array[$content_text]['-moz-hyphenate-limit-chars']    = '5 2 2';
+      $css_array[$content_text]['-ms-hyphenate-limit-chars']     = '5 2 2';
 
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-lines'] = '2';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-lines']  = '2';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-lines']      = '2';
+      $css_array[$content_text]['-moz-hyphenate-limit-lines'] = '2';
+      $css_array[$content_text]['-ms-hyphenate-limit-lines']  = '2';
+      $css_array[$content_text]['hyphenate-limit-lines']      = '2';
 
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-webkit-hyphenate-limit-last'] = 'always';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-moz-hyphenate-limit-last']    = 'always';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['-ms-hyphenate-limit-last']     = 'always';
-      $css_array['.content p, .content ol li, .content ul li, .post-excerpt']['hyphenate-limit-last']         = 'always';
+      $css_array[$content_text]['-webkit-hyphenate-limit-last'] = 'always';
+      $css_array[$content_text]['-moz-hyphenate-limit-last']    = 'always';
+      $css_array[$content_text]['-ms-hyphenate-limit-last']     = 'always';
+      $css_array[$content_text]['hyphenate-limit-last']         = 'always';
 
       if ($content_hyphens !== 'enabled_not_mobile') {
         $css       .= origineConfigArrayToCSS($css_array);
