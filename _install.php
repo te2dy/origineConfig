@@ -28,6 +28,8 @@ try {
   // Layout
   $core->blog->settings->origineConfig->put('header_footer_align', 'left', 'string', 'Header & footer alignment', false, true);
   $core->blog->settings->origineConfig->put('post_list_type', 'standard', 'string', 'Post list appearance', false, true);
+  $core->blog->settings->origineConfig->put('sidebar_enabled', true, 'boolean', 'Enable the sidebar', false, true);
+  $core->blog->settings->origineConfig->put('footer_enabled', true, 'boolean', 'Enable the footer', false, true);
 
   // Logo
   $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'URL of the logo', false, true);

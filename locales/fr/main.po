@@ -85,6 +85,18 @@ msgstr "Sur une ligne"
 msgid "Full post"
 msgstr "Billet complet"
 
+msgid "Enable the <em>sidebar</em>"
+msgstr "Activer la <em>barre latérale</em>"
+
+msgid "Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Navigation sidebar\" or \"Extra sidebar\" sections, you should uncheck this setting to remove unnecessary code from your pages."
+msgstr "Origine est un thème à une colonne. Il n’a pas de barre latérale en tant que telle mais vous pouvez insérer du contenu, de la même façon, entre vos billets et le pied de page avec des widgets. Si vous n’avez aucun widget dans la section « Volet de navigation » ou « Volet d’extra », vous devriez décocher ce paramètre pour supprimer du code superflu de vos pages."
+
+msgid "Enable the footer"
+msgstr "Activer le pied de page"
+
+msgid "If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting."
+msgstr "Si votre pied de page est vide ou que vous souhaitez tout supprimer du pied de vos pages, décochez ce paramètre."
+
 msgid "Header and footer alignment"
 msgstr "Alignement de l’en-tête et du pied de page"
 

@@ -51,6 +51,8 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     // Layout
     $core->blog->settings->origineConfig->put('header_footer_align', 'left', 'string', 'Header & footer alignment', false);
     $core->blog->settings->origineConfig->put('post_list_type', 'standard', 'string', 'Post list appearance', false);
+    $core->blog->settings->origineConfig->put('sidebar_enabled', true, 'boolean', 'Enable the sidebar', false);
+    $core->blog->settings->origineConfig->put('footer_enabled', true, 'boolean', 'Enable the footer', false);
 
     // Logo
     $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'URL of the logo', false);
@@ -112,6 +114,8 @@ $css_transition = (bool) $core->blog->settings->origineConfig->css_transition;
 // Layout
 $header_footer_align = (string) $core->blog->settings->origineConfig->header_footer_align;
 $post_list_type      = (string) $core->blog->settings->origineConfig->post_list_type;
+$sidebar_enabled     = (bool) $core->blog->settings->origineConfig->sidebar_enabled;
+$footer_enabled      = (bool) $core->blog->settings->origineConfig->footer_enabled;
 
 // Logo
 $logo_url    = (string) $core->blog->settings->origineConfig->logo_url;
@@ -174,6 +178,8 @@ if (!empty($_POST)) {
     // Layout
     $header_footer_align = trim(html::escapeHTML($_POST['header_footer_align']));
     $post_list_type      = trim(html::escapeHTML($_POST['post_list_type']));
+    $sidebar_enabled     = !empty($_POST['sidebar_enabled']);
+    $footer_enabled      = !empty($_POST['footer_enabled']);
 
     // Logo
     $logo_url    = trim(html::escapeHTML($_POST['logo_url']));
@@ -230,6 +236,8 @@ if (!empty($_POST)) {
     // Layout
     $core->blog->settings->origineConfig->put('header_footer_align', $header_footer_align);
     $core->blog->settings->origineConfig->put('post_list_type', $post_list_type);
+    $core->blog->settings->origineConfig->put('sidebar_enabled', $sidebar_enabled);
+    $core->blog->settings->origineConfig->put('footer_enabled', $footer_enabled);
 
     // Logo
     $core->blog->settings->origineConfig->put('logo_url', $logo_url);
@@ -679,6 +687,26 @@ if (!empty($_POST)) {
 
             echo form::combo('post_list_type', $combo_post_list_type, $post_list_type);
             ?>
+          </p>
+
+          <p class="field wide">
+            <label for="sidebar_enabled" class="classic"><?php echo __('Enable the <em>sidebar</em>'); ?></label>
+
+            <?php echo form::checkbox('sidebar_enabled', 1, $sidebar_enabled); ?>
+          </p>
+
+          <p class="form-note">
+            <?php echo __("Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Navigation sidebar\" or \"Extra sidebar\" sections, you should uncheck this setting to remove unnecessary code from your pages."); ?>
+          </p>
+
+          <p class="field wide">
+            <label for="footer_enabled" class="classic"><?php echo __('Enable the footer'); ?></label>
+
+            <?php echo form::checkbox('footer_enabled', 1, $footer_enabled); ?>
+          </p>
+
+          <p class="form-note">
+            <?php echo __('If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting.'); ?>
           </p>
 
           <h4><?php echo __('Logo'); ?></h4>
