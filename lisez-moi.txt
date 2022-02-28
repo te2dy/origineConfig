@@ -11,6 +11,9 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 0.5.3-beta - 19 février 2022 ===
+- Améliorations diverses.
+
 === 0.5.2-beta - 19 février 2022 ===
 - Ajout : possibilité de désactiver la barre latérale et le pied de page.
 
