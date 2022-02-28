@@ -425,6 +425,33 @@ if (!empty($_POST)) {
       $css_array['body']['font-size'] = abs((int) $content_font_size / 100) . 'em';
     }
 
+    // Post list type
+    switch ($post_list_type) {
+      case 'standard':
+        $css_array['.post-list-standard .post-link']['display'] = 'block';
+        $css_array['.post-list-standard .post-meta']['margin-bottom'] = '.25em';
+        $css_array['.post-list-standard .post-title']['font-size'] = '1.1em';
+        $css_array['.post-list-standard .post-selected-label']['margin-left'] = '-1rem';
+        $css_array['.post-list-standard .post-selected-label']['margin-bottom'] = '.5rem';
+        $css_array['.post-list-standard .post-list-selected-content']['border-left'] = '.063rem solid var(--color-border)';
+        $css_array['.post-list-standard .post-list-selected-content']['padding-left'] = '1rem';
+        $css_array['.post-list-standard .post-list-comment']['font-size'] = '.9em';
+        $css_array['.post-list-standard .post-list-comment']['margin-top'] = '.25rem';
+        break;
+
+      case 'short':
+        $css_array['.post-list-short .post-link']['display'] = 'inline-block';
+        $css_array['.post-list-short .post-selected-label']['display'] = 'inline-block';
+        $css_array['.post-list-short .post-meta, .post-list-short .post-title']['font-size'] = '1em';
+        $css_array['.post-list-short .post-title']['display'] = 'inline';
+        $css_array['.post-list-short .post-author-name']['color'] = 'var(--color-text-secondary)';
+        break;
+
+      case 'full':
+        $css_array['.post-list-full .post-selected-label']['margin-bottom'] = '1rem';
+        break;
+    }
+
     $css       .= origineConfigArrayToCSS($css_array);
     $css_array  = [];
 
