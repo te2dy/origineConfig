@@ -11,7 +11,10 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
-=== 0.5.3-beta - 19 février 2022 ===
+=== 0.5.4-beta - 1er mars 2022 ===
+- Amélioration : harmonisation des styles.
+
+=== 0.5.3-beta - 28 février 2022 ===
 - Améliorations diverses.
 
 === 0.5.2-beta - 19 février 2022 ===
