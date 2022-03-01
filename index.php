@@ -310,7 +310,6 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'][0];
-      $css_array[':root']['--color-link-complementary']     = $link_colors[$the_color]['light'][1];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#000';
       $css_array[':root']['--color-input-text-hover']       = '#fff';
@@ -324,7 +323,6 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'][0];
-      $css_array[':root']['--color-link-complementary']     = $link_colors[$the_color]['dark'][1];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
       $css_array[':root']['--color-input-text-hover']       = '#16161d';
@@ -338,7 +336,6 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'][0];
-      $css_array[':root']['--color-link-complementary']     = $link_colors[$the_color]['dark'][1];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
       $css_array[':root']['--color-input-text-hover']       = '#16161d';
@@ -352,7 +349,6 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
       $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'][0];
-      $css_array[':root']['--color-link-complementary']     = $link_colors[$the_color]['light'][1];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#000';
       $css_array[':root']['--color-input-text-hover']       = '#fff';
@@ -426,27 +422,43 @@ if (!empty($_POST)) {
     switch ($post_list_type) {
       case 'standard':
         $css_array['.post-list-standard .post-link']['display'] = 'block';
+
         $css_array['.post-list-standard .post-meta']['margin-bottom'] = '.25em';
+
         $css_array['.post-list-standard .post-title']['font-size'] = '1.1em';
-        $css_array['.post-list-standard .post-selected-label']['border-left'] = 'none';
-        $css_array['.post-list-standard .post-selected-label']['margin-left'] = '-1rem';
-        $css_array['.post-list-standard .post-selected-label']['margin-bottom'] = '.5rem';
-        $css_array['.post-list-standard .post-list-selected-content']['border-left'] = '.063rem solid var(--color-border)';
+
+        $css_array['.post-list-standard .label-selected']['border-left']   = 'none';
+        $css_array['.post-list-standard .label-selected']['margin-left']   = '-1rem';
+        $css_array['.post-list-standard .label-selected']['margin-bottom'] = '.5em';
+
+        $css_array['.post-list-standard .post-list-selected-content']['border-left']  = '.063rem solid var(--color-border)';
         $css_array['.post-list-standard .post-list-selected-content']['padding-left'] = '1rem';
-        $css_array['.post-list-standard .label']['margin-bottom'] = '.5rem';
-        $css_array['.post-list-standard .post-list-comment']['display'] = 'inline-block';
+
+        $css_array['.post-list-standard .label-page']['margin-bottom'] = '.5em';
+
+        $css_array['.post-list-standard .post-list-comment']['display']     = 'inline-block';
         $css_array['.post-list-standard .post-list-comment']['margin-left'] = '.25em';
+
+        $css_array['.post-list-standard .post-footer']['font-size'] = '.9em';
+        $css_array['.post-list-standard .post-footer']['margin-top'] = '.5em';
+
+        $css_array['.post-list-standard .read-more']['border'] = 'none';
         break;
 
       case 'short':
-        $css_array['.post-list-short .post-selected-label']['display'] = 'inline-block';
+        $css_array['.post-list-short .label-selected']['display'] = 'inline-block';
+
         $css_array['.post-list-short .post-meta, .post-list-short .post-title']['font-size'] = '1em';
+
         $css_array['.post-list-short .post-title']['display'] = 'inline';
+
         $css_array['.post-list-short .post-author-name']['color'] = 'var(--color-text-secondary)';
         break;
 
       case 'full':
-        $css_array['.post-list-full .post-selected-label']['margin-bottom'] = '1rem';
+        $css_array['.post-list-full .label-selected']['margin-bottom'] = '1em';
+
+        $css_array['.post-list-full .label-page']['margin-bottom'] = '1em';
         break;
     }
 
