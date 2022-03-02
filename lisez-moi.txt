@@ -11,6 +11,9 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 0.6.2-beta - 2 mars 2022 ===
+- Modification : traductions.
+
 === 0.6.1-beta - 2 mars 2022 ===
 - Suppression : paramètre "requires" dans le fichier "define".
 - Modification : documentation.
