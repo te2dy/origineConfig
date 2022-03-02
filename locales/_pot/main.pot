@@ -291,6 +291,9 @@ msgstr ""
 
 # public.php
 
+msgid "Header image"
+msgstr ""
+
 msgid "Private comment"
 msgstr ""
 
