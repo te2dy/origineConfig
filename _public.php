@@ -1,4 +1,11 @@
 <?php
+/**
+ * origineConfig, a plugin to customize Origine, a Dotclear theme.
+ *
+ * @copyright Teddy
+ * @copyright GPL-3.0
+ */
+
 if (!defined('DC_RC_PATH')) {
   return;
 }
