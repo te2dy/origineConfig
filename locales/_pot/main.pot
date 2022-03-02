@@ -16,7 +16,7 @@ msgstr ""
 msgid "Origine Settings"
 msgstr ""
 
-msgid "This plugin is only meant to customize themes of the Origine family. To use it, please <a href="%s">install and/or activate one of them</a>."
+msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>."
 msgstr ""
 
 msgid "Activation"
@@ -163,6 +163,9 @@ msgstr ""
 msgid "120%"
 msgstr ""
 
+msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
+msgstr ""
+
 msgid "Text align"
 msgstr ""
 
@@ -265,7 +268,7 @@ msgstr ""
 msgid "Link to your TikTok profile"
 msgstr ""
 
-msgid "Your Twitter username (without @)"
+msgid "Your Twitter username"
 msgstr ""
 
 msgid "Your WhatsApp number or a group link"
@@ -278,15 +281,6 @@ msgid "Allows you to add information to your pages without displaying it on your
 msgstr ""
 
 msgid "Add <code>generator</code> meta tag"
-msgstr ""
-
-msgid "Add Open Graph meta tags"
-msgstr ""
-
-msgid "Add Twitter Cards meta tags"
-msgstr ""
-
-msgid "To add meta tags in the header, you can also try the <a href="%s">socialMeta</a> extension instead."
 msgstr ""
 
 msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."

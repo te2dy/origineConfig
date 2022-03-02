@@ -16,8 +16,8 @@ msgstr "Origine"
 msgid "Origine Settings"
 msgstr "Paramètres d’Origine"
 
-msgid "This plugin is only meant to customize themes of the Origine family. To use it, please <a href="%s">install and/or activate one of them</a>."
-msgstr "Cette extension n’est destinée qu’à personnaliser les thèmes de la famille Origine. Pour l’utiliser, veuillez <a href="%s">installer et/ou activer l’un d’entre eux</a>."
+msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>."
+msgstr "Cette extension n’est destinée qu’à personnaliser le thème Origine. Pour l’utiliser, veuillez <a href="%s">installer et/ou activer Origine</a>."
 
 msgid "Activation"
 msgstr "Activation"
@@ -89,7 +89,7 @@ msgid "Enable the <em>sidebar</em>"
 msgstr "Activer la <em>barre latérale</em>"
 
 msgid "Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Navigation sidebar\" or \"Extra sidebar\" sections, you should uncheck this setting to remove unnecessary code from your pages."
-msgstr "Origine est un thème à une colonne. Il n’a pas de barre latérale en tant que telle mais vous pouvez insérer du contenu, de la même façon, entre vos billets et le pied de page avec des widgets. Si vous n’avez aucun widget dans la section « Volet de navigation » ou « Volet d’extra », vous devriez décocher ce paramètre pour supprimer du code superflu de vos pages."
+msgstr "Origine est un thème à une colonne. Il n’a pas de barre latérale en tant que telle mais vous pouvez insérer du contenu, de la même façon, entre vos billets et le pied de page avec des widgets. Si vous n’avez aucun widget dans la section «&#8239;Volet de navigation&#8239;» ou «&#8239;Volet d’extra&#8239;», vous devriez décocher ce paramètre pour supprimer du code superflu de vos pages."
 
 msgid "Enable the footer"
 msgstr "Activer le pied de page"
@@ -119,13 +119,13 @@ msgid "URL of your logo"
 msgstr "Adresse de votre logo"
 
 msgid "Recommanded size: 150×150px (square and round) or 480px wide (banner)."
-msgstr "Taille recommandée&nbsp;: 150 × 150 px (carré et rond) ou 480 px de large (bannière)."
+msgstr "Taille recommandée&nbsp;: 150 × 150&#8239;px (carré et rond) ou 480&#8239;px de large (bannière)."
 
 msgid "URL of your logo for screens with doubled pixel density"
 msgstr "Adresse de votre logo pour les écrans avec une double densité de pixels"
 
 msgid "To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide)."
-msgstr "Pour assurer un bon affichage sur les écrans avec une double densité de pixels (Retina), veuillez fournir une image deux fois plus grande que la précédente (300 × 300 px ou 960 px de large)."
+msgstr "Pour assurer un bon affichage sur les écrans avec une double densité de pixels (Retina), veuillez fournir une image deux fois plus grande que la précédente (300 × 300&#8239;px ou 960&#8239;px de large)."
 
 msgid "Text formatting"
 msgstr "Mise en forme du texte"
@@ -149,19 +149,22 @@ msgid "Font size"
 msgstr "Taille du texte"
 
 msgid "80%"
-msgstr "80 %"
+msgstr "80&#8239;%"
 
 msgid "90%"
-msgstr "90 %"
+msgstr "90&#8239;%"
 
 msgid "100% (recommended)"
-msgstr "100 % (recommandé)"
+msgstr "100&#8239;% (recommandé)"
 
 msgid "110%"
-msgstr "110 %"
+msgstr "110&#8239;%"
 
 msgid "120%"
-msgstr "120 %"
+msgstr "120&#8239;%"
+
+msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
+msgstr "Il est recommandé de ne pas changer ce paramètre. Une taille de 100&#8239;% signifie que les textes de votre site auront la taille définie dans les paramètres du navigateur de chacun de vos visiteurs."
 
 msgid "Text align"
 msgstr "Alignement du texte"
@@ -265,8 +268,8 @@ msgstr "Votre numéro sur Signal ou un lien de groupe"
 msgid "Link to your TikTok profile"
 msgstr "Lien vers votre profil TikTok"
 
-msgid "Your Twitter username (without @)"
-msgstr "Votre nom d’utilisateur Twitter (sans @)"
+msgid "Your Twitter username"
+msgstr "Votre nom d’utilisateur Twitter"
 
 msgid "Your WhatsApp number or a group link"
 msgstr "Votre numéro sur WhatsApp ou un lien de groupe"
@@ -279,15 +282,6 @@ msgstr "Permet d’ajouter des informations dans vos pages sans les afficher à 
 
 msgid "Add <code>generator</code> meta tag"
 msgstr "Ajouter la balise meta <code>generator</code>"
-
-msgid "Add Open Graph meta tags"
-msgstr "Ajouter des balises meta Open Graph"
-
-msgid "Add Twitter Cards meta tags"
-msgstr "Ajouter des balises meta Cartes Twitter"
-
-msgid "To add meta tags in the header, you can also try the <a href="%s">socialMeta</a> extension instead."
-msgstr "Pour ajouter des balises meta dans l’en-tête, vous pouvez aussi essayer, à la place, l’extension <a href="%s">socialMeta</a>."
 
 msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
 msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> avec l’extension <a href="%s">Entretien</a> (Entretien › Purger)."

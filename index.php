@@ -46,7 +46,7 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     // Colors
     $core->blog->settings->origineConfig->put('color_scheme', 'system', 'string', 'Color scheme', false);
     $core->blog->settings->origineConfig->put('link_color', 'red', 'string', 'Link color', false);
-    $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition when hovering links', false);
+    $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition on link hover', false);
 
     // Layout
     $core->blog->settings->origineConfig->put('header_footer_align', 'left', 'string', 'Header & footer alignment', false);
@@ -56,8 +56,8 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
 
     // Logo
     $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'URL of the logo', false);
-    $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'URL of the logo (Retina)', false);
-    $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'The type of the image', false);
+    $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'URL of the logo (x2)', false);
+    $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'The type of logo', false);
 
     // Text Formatting
     $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false);
@@ -68,12 +68,12 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     // Post Settings
     $core->blog->settings->origineConfig->put('post_author_name', 'disabled', 'string', 'Author name on posts', false);
     $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false);
-    $core->blog->settings->origineConfig->put('post_list_comments', false, 'boolean', 'Display a link to comments in the post list', false);
+    $core->blog->settings->origineConfig->put('post_list_comments', false, 'boolean', 'Link to comments in the post list', false);
     $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false);
     $core->blog->settings->origineConfig->put('post_email_author', 'disabled', 'string', 'Option to email the author of a post', false);
 
     // Footer Settings
-    $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dorclear and Origine credits', false);
+    $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dotclear and Origine credits', false);
     $core->blog->settings->origineConfig->put('social_links_diaspora', '', 'string', 'Link to Diaspora account', false);
     $core->blog->settings->origineConfig->put('social_links_discord', '', 'string', 'Link to Discord server', false);
     $core->blog->settings->origineConfig->put('social_links_facebook', '', 'string', 'Link to Facebook account', false);
@@ -85,12 +85,10 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
     $core->blog->settings->origineConfig->put('social_links_whatsapp', '', 'string', 'Link to a WhatsApp number or group', false);
 
     // Advanced Settings
-    $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Generator', false);
-    $core->blog->settings->origineConfig->put('meta_og', false, 'boolean', 'Open Graph Protocole', false);
-    $core->blog->settings->origineConfig->put('meta_twitter', false, 'boolean', 'Twitter Cards', false);
+    $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Meta generator', false);
 
     // All styles in one string
-    $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'All theme styles', false);
+    $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'All custom styles in one string', false);
 
     $core->blog->triggerBlog();
     http::redirect($p_url);
@@ -149,8 +147,6 @@ $social_links_whatsapp = (string) $core->blog->settings->origineConfig->social_l
 
 // Advanced Settings
 $meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
-$meta_og        = (bool) $core->blog->settings->origineConfig->meta_og;
-$meta_twitter   = (bool) $core->blog->settings->origineConfig->meta_twitter;
 
 // All styles
 $origine_styles = (string) $core->blog->settings->origineConfig->origine_styles;
@@ -213,8 +209,6 @@ if (!empty($_POST)) {
 
     // Advanced Settings
     $meta_generator = !empty($_POST['meta_generator']);
-    $meta_og        = !empty($_POST['meta_og']);
-    $meta_twitter   = !empty($_POST['meta_twitter']);
 
     /**
      * Save settings in the database.
@@ -271,37 +265,40 @@ if (!empty($_POST)) {
 
     // Advanced Settings
     $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
-    $core->blog->settings->origineConfig->put('meta_og', $meta_og);
-    $core->blog->settings->origineConfig->put('meta_twitter', $meta_twitter);
 
     /**
      * And save styles too!
      */
     $link_colors = [
       'red'    => [
-        'light' => ['#de0000', '#fff'],
-        'dark'  => ['#f14646', '#fff'],
+        'light' => '#de0000',
+        'dark'  => '#f14646',
       ],
       'blue'   => [
-        'light' => ['#0057B7', '#fff'],
-        'dark'  => ['#529ff5', '#000'],
+        'light' => '#0057B7',
+        'dark'  => '#529ff5',
       ],
       'green'  => [
-        'light' => ['#006400', '#fff'],
-        'dark'  => ['#18af18', '#000'],
+        'light' => '#006400',
+        'dark'  => '#18af18',
       ],
       'orange' => [
-        'light' => ['#ff8c00', '#fff'],
-        'dark'  => ['#ffab2e', '#000'],
+        'light' => '#ff8c00',
+        'dark'  => '#ffab2e',
       ],
       'purple' => [
-        'light' => ['#800080', '#fff'],
-        'dark'  => ['#9a389a', '#fff'],
+        'light' => '#800080',
+        'dark'  => '#9a389a',
       ],
     ];
 
     $the_color = array_key_exists($link_color, $link_colors) ? $link_color : 'red';
 
+    /**
+     * Put all styles in a array ($css_array)
+     * to save then in the database as a string ($css)
+     * via the function origineConfigArrayToCSS().
+     */
     $css       = '';
     $css_array = [];
 
@@ -309,7 +306,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-background']             = '#fff';
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
-      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'][0];
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#000';
       $css_array[':root']['--color-input-text-hover']       = '#fff';
@@ -322,7 +319,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-background']             = '#16161d';
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
-      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'][0];
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
       $css_array[':root']['--color-input-text-hover']       = '#16161d';
@@ -335,7 +332,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-background']             = '#16161d';
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
-      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'][0];
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['dark'];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#d9d9d9';
       $css_array[':root']['--color-input-text-hover']       = '#16161d';
@@ -348,7 +345,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-background']             = '#fff';
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
-      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'][0];
+      $css_array[':root']['--color-link']                   = $link_colors[$the_color]['light'];
       $css_array[':root']['--color-border']                 = '#aaa';
       $css_array[':root']['--color-input-text']             = '#000';
       $css_array[':root']['--color-input-text-hover']       = '#fff';
@@ -375,7 +372,7 @@ if (!empty($_POST)) {
       $css_array  = [];
     }
 
-    // Header and footer alignment
+    // Header & footer alignment
     if ($header_footer_align === 'center') {
       $css_array['#site-header']['text-align'] = 'center';
       $css_array['#site-footer']['text-align'] = 'center';
@@ -386,17 +383,35 @@ if (!empty($_POST)) {
 
     // Logo
     if ($logo_url) {
-      $css_array['.site-logo']['display']       = 'inline-block';
-      $css_array['.site-logo']['margin-bottom'] = '1rem';
+      $css_array['.site-logo-container']['margin-bottom'] = '1em';
+
+      $css_array['.site-logo-link']['border-bottom'] = 'none';
+
+      $css_array['.site-logo-link:active, .site-logo-link:focus, .site-logo-link:hover']['border-bottom'] = 'none';
+
+      $css_array['.site-logo']['display'] = 'block';
 
       if ($logo_type === 'square') {
+        $css_array['.site-logo-container']['display'] = 'inline-block';
+
+        $css_array['.site-logo-link']['display'] = 'inline-block';
+
         $css_array['.site-logo']['max-height'] = '150px';
         $css_array['.site-logo']['max-width']  = '150px';
       } elseif ($logo_type === 'round') {
+        $css_array['.site-logo-container']['display'] = 'inline-block';
+
+        $css_array['.site-logo-link']['border-radius'] = '50%';
+        $css_array['.site-logo-link']['display']       = 'inline-block';
+
         $css_array['.site-logo']['border-radius'] = '50%';
         $css_array['.site-logo']['max-height']    = '150px';
         $css_array['.site-logo']['max-width']     = '150px';
       } else {
+        $css_array['.site-logo-container']['display'] = 'block';
+
+        $css_array['.site-logo-link']['display'] = 'block';
+
         $css_array['.site-logo']['width'] = '100%';
       }
 
@@ -418,7 +433,7 @@ if (!empty($_POST)) {
       $css_array['body']['font-size'] = abs((int) $content_font_size / 100) . 'em';
     }
 
-    // Post list type
+    // Post list appearance
     switch ($post_list_type) {
       case 'standard':
         $css_array['.post-list-standard .post-link']['display'] = 'block';
@@ -466,7 +481,7 @@ if (!empty($_POST)) {
     $css_array  = [];
 
     // Text align
-    $content_text = '.content p, .content ol li, .content ul li, .post-excerpt, .text p, .text ol li, .text ul li';
+    $content_text = '.post-excerpt, .text p, .text ol li, .text ul li';
 
     if ($content_text_align === 'justify') {
       $css_array[$content_text]['text-align'] = 'justify';
@@ -476,7 +491,7 @@ if (!empty($_POST)) {
     } elseif ($content_text_align === 'justify_not_mobile') {
       $css_array[$content_text]['text-align'] = 'justify';
 
-      $css       .= '@media only screen and (min-width: 380px) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css       .= '@media only screen and (min-width: calc(1rem * 20 + (2em * 2) + 1px)) {' . origineConfigArrayToCSS($css_array) . '}';
       $css_array  = [];
     }
 
@@ -504,7 +519,7 @@ if (!empty($_POST)) {
         $css       .= origineConfigArrayToCSS($css_array);
         $css_array  = [];
       } else {
-        $css       .= '@media only screen and (min-width: 380px) {' . origineConfigArrayToCSS($css_array) . '}';
+        $css       .= '@media only screen and (min-width: calc(1rem * 20 + (2em * 2) + 1px)) {' . origineConfigArrayToCSS($css_array) . '}';
         $css_array  = [];
       }
     }
@@ -551,7 +566,7 @@ if (!empty($_POST)) {
 
       $css_array['.footer-social-links a:active, .footer-social-links a:focus, .footer-social-links a:hover']['border-bottom'] = 'none';
 
-      $css_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill']          = 'var(--color-input-text-hover)';
+      $css_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
 
       if ($css_transition === true) {
         $css_array['.footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
@@ -563,13 +578,13 @@ if (!empty($_POST)) {
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];
 
-      $css_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-input-text)';
+      $css_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-border)';
 
       $css       .= '@media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white) {' . origineConfigArrayToCSS($css_array) . '}';
       $css_array  = [];
     }
 
-    // Accessibility
+    // Transitions
     if ($css_transition === true) {
       $css_array['a']['transition']                          = 'none';
       $css_array['a:active, a:focus, a:hover']['transition'] = 'none';
@@ -633,7 +648,7 @@ if (!empty($_POST)) {
 
     if (!in_array($core->blog->settings->system->theme, $themes_customizable, true)) :
       echo '<p>' . sprintf(
-        __('This plugin is only meant to customize themes of the Origine family. To use it, please <a href="%s">install and/or activate one of them</a>.'), html::escapeURL($core->adminurl->get('admin.blog.theme'))) . '</p>';
+        __('This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>.'), html::escapeURL($core->adminurl->get('admin.blog.theme'))) . '</p>';
     else :
       ?>
 
@@ -830,6 +845,10 @@ if (!empty($_POST)) {
             ?>
           </p>
 
+          <p class="form-note">
+            <?php echo __('It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors.'); ?>
+          </p>
+
           <p class="field wide">
             <label for="content_text_align" class="classic">
               <?php echo __('Text align'); ?>
@@ -1000,7 +1019,7 @@ if (!empty($_POST)) {
 
           <p class="field wide">
             <label for="social_links_twitter" class="classic">
-              <?php echo __('Your Twitter username (without @)'); ?>
+              <?php echo __('Your Twitter username'); ?>
             </label>
 
             <?php echo form::field('social_links_twitter', 30, 255, html::escapeHTML($social_links_twitter)); ?>
@@ -1028,26 +1047,6 @@ if (!empty($_POST)) {
             </label>
 
             <?php echo form::checkbox('meta_generator', 1, $meta_generator); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="meta_og" class="classic">
-              <?php echo __('Add Open Graph meta tags'); ?>
-            </label>
-
-            <?php echo form::checkbox('meta_og', 1, $meta_og); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="meta_twitter" class="classic">
-              <?php echo __('Add Twitter Cards meta tags'); ?>
-            </label>
-
-            <?php echo form::checkbox('meta_twitter', 1, $meta_twitter); ?>
-          </p>
-
-          <p class="form-note info">
-            <?php printf(__('To add meta tags in the header, you can also try the <a href="%s">socialMeta</a> extension instead.'), 'https://plugins.dotaddict.org/dc2/details/socialMeta'); ?>
           </p>
         </div>
 
