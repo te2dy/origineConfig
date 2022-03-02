@@ -288,3 +288,11 @@ msgstr ""
 
 msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
 msgstr ""
+
+# public.php
+
+msgid "Private comment"
+msgstr ""
+
+msgid "Reply to the author by email"
+msgstr ""
