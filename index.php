@@ -1067,22 +1067,6 @@ if (!empty($_POST)) {
 
           <input type="submit" value="<?php echo __('Save'); ?>" />
         </p>
-
-        <p class="form-note warn">
-          <?php
-          if ($core->plugins->moduleExists('maintenance') === true) {
-            printf(
-              __('If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge).'),
-              html::escapeURL($core->adminurl->get('admin.plugin', ['p' => 'maintenance']))
-            );
-          } else {
-            printf(
-              __('If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page.'),
-              html::escapeURL($core->adminurl->get('admin.plugins') . '#plugin-deactivate')
-            );
-          }
-          ?>
-        </p>
       </form>
     <?php endif; ?>
   </body>
