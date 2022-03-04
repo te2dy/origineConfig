@@ -654,7 +654,7 @@ if (!empty($_POST)) {
 
     echo dcPage::notices();
 
-    $themes_customizable = ['origine', 'origineFull'];
+    $themes_customizable = ['origine'];
 
     if (!in_array($core->blog->settings->system->theme, $themes_customizable, true)) :
       echo '<p>' . sprintf(
