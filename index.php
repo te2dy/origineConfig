@@ -627,10 +627,12 @@ if (!empty($_POST)) {
 
     $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css, ENT_NOQUOTES));
 
-    // Clears template cache.
-    $core->emptyTemplatesCache();
-
     $core->blog->triggerBlog();
+
+    // Clears template cache.
+    if ($core->blog->settings->system->tpl_use_cache === true) {
+      $core->emptyTemplatesCache();
+    }
 
     dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
     http::redirect($p_url);
