@@ -11,6 +11,11 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 0.6.3-beta - 4 mars 2022 ===
+- Amélioration : le cache des modèles est vidé à chaque enregistrement.
+- Suppression : message suggérant de vider le cache après l’enregistrement.
+- Suppression : mention à origineFull dans la liste des thèmes compatibles avec origineConfig.
+
 === 0.6.2-beta - 2 mars 2022 ===
 - Modification : traductions.
 
