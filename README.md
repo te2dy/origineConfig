@@ -2,31 +2,15 @@
 
 origineConfig est une extension qui permet de personnaliser le thème [Origine](https://github.com/te2dy/origine) pour [Dotclear](https://fr.dotclear.org/).
 
-## Présentation
-
-origineConfig offre diverses options de personnalisation de l’apparence du thème Origine.
-
 ## Téléchargement
 
-[Télécharger la dernière version d’origineConfig](https://github.com/te2dy/origineConfig/releases/latest)
+**[Télécharger la dernière version d’origineConfig sur GitHub](https://github.com/te2dy/origineConfig/releases/latest)**
 
-## Installation
-
-Pour installer origineConfig, rendez-vous dans l’administration de votre site puis allez dans _Gestion des plugins_ > _Installer ou mettre à jour manuellement_.
-
-- Si vous avez téléchargé origineConfig, sélectionnez-le dans la section _Déposer un fichier zip_ puis cliquez sur _Envoyer_.
-- Si vous n’avez pas téléchargé origineConfig, dans la section _Télécharger un fichier zip_, saisissez `https://github.com/te2dy/origineConfig/releases/download/[numéro de version]/origineConfig.zip` (n’oubliez pas de renseigner le numéro de la dernière version [disponible ici](https://github.com/te2dy/origineConfig/releases/latest)) dans le champ _URL du fichier zip_, puis cliquez sur _Télécharger_.
-
-## Activation
-
-Dans l’administration de votre site :
-- Allez dans _Gestion des plugins_.
-- Trouvez sur _origineConfig_ dans la la liste des _Plugins désactivés_.
-- Cliquez sur _Activer_.
+**[Télécharger la dernière version d’origineConfig sur DotAddict](https://plugins.dotaddict.org/dc2/details/origineConfig)**
 
 ## Utilisation
 
-Dans la barre latérale de l’interface d’administration, un lien _Origine_ apparaît désormais.
+Dans la barre latérale de l’interface d’administration de votre blog, un lien _Paramètres d’Origine_ apparaît désormais.
 
 Vous pouvez maintenant personnaliser votre thème.
 
