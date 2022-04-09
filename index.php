@@ -41,61 +41,49 @@ function origineConfigArrayToCSS($rules)
 
 $core->blog->settings->addNamespace('origineConfig');
 
-if (is_null($core->blog->settings->origineConfig->activation)) {
+if (is_null($core->blog->settings->origineConfig->origine_settings)) {
   try {
-    // Activation
-    $core->blog->settings->origineConfig->put('activation', false, 'boolean', 'Enable/disable the plugin settings', false, true);
+    // Default settings.
+    $origine_settings = [
+      'activation'     => false,
+      'global_color_scheme'   => 'system',
+      'global_color_link'     => 'red',
+      'global_css_transition' => false,
+      'global_meta_generator' => false,
 
-    /**
-     * Appearance
-     */
+      'header_align'          => 'left',
+      'header_widgets_nav'    => true,
 
-    // Colors
-    $core->blog->settings->origineConfig->put('color_scheme', 'system', 'string', 'Color scheme', false);
-    $core->blog->settings->origineConfig->put('link_color', 'red', 'string', 'Link color', false);
-    $core->blog->settings->origineConfig->put('css_transition', false, 'boolean', 'Color transition on link hover', false);
+      'footer_align'          => 'left',
+      'post_list_type'        => 'standard',
+      'sidebar_enabled'       => true,
+      'footer_enabled'        => true,
+      'logo_url'              => '',
+      'logo_url_2x'           => '',
+      'logo_type'             => 'square',
+      'content_font_family'   => 'serif',
+      'content_font_size'     => 100,
+      'content_text_align'    => 'left',
+      'content_hyphens'       => 'disabled',
+      'post_author_name'      => 'disabled',
+      'post_list_author_name' => 0,
+      'post_list_comments'    => 0,
+      'comment_links'         => 1,
+      'post_email_author'     => 'disabled',
+      'share_link_twitter'    => false,
+      'footer_credits'        => true,
+      'social_links_diaspora' => '',
+      'social_links_discord'  => '',
+      'social_links_facebook' => '',
+      'social_links_github'   => '',
+      'social_links_mastodon' => '',
+      'social_links_signal'   => '',
+      'social_links_tiktok'   => '',
+      'social_links_twitter'  => '',
+      'social_links_whatsapp' => '',
+    ];
 
-    // Layout
-    $core->blog->settings->origineConfig->put('header_footer_align', 'left', 'string', 'Header & footer alignment', false);
-    $core->blog->settings->origineConfig->put('post_list_type', 'standard', 'string', 'Post list appearance', false);
-    $core->blog->settings->origineConfig->put('sidebar_enabled', true, 'boolean', 'Enable the sidebar', false);
-    $core->blog->settings->origineConfig->put('footer_enabled', true, 'boolean', 'Enable the footer', false);
-
-    // Logo
-    $core->blog->settings->origineConfig->put('logo_url', '', 'string', 'URL of the logo', false);
-    $core->blog->settings->origineConfig->put('logo_url_2x', '', 'string', 'URL of the logo (x2)', false);
-    $core->blog->settings->origineConfig->put('logo_type', 'square', 'string', 'The type of logo', false);
-
-    // Text Formatting
-    $core->blog->settings->origineConfig->put('content_font_family', 'serif', 'string', 'Font family', false);
-    $core->blog->settings->origineConfig->put('content_font_size', 100, 'integer', 'Font size', false);
-    $core->blog->settings->origineConfig->put('content_text_align', 'left', 'string', 'Text align', false);
-    $core->blog->settings->origineConfig->put('content_hyphens', '', 'string', 'Hyphenation', false);
-
-    // Post Settings
-    $core->blog->settings->origineConfig->put('post_author_name', 'disabled', 'string', 'Author name on posts', false);
-    $core->blog->settings->origineConfig->put('post_list_author_name', false, 'boolean', 'Author name on posts in the post list', false);
-    $core->blog->settings->origineConfig->put('post_list_comments', false, 'boolean', 'Link to comments in the post list', false);
-    $core->blog->settings->origineConfig->put('comment_links', true, 'boolean', 'Link to the comment feed and trackbacks', false);
-    $core->blog->settings->origineConfig->put('post_email_author', 'disabled', 'string', 'Option to email the author of a post', false);
-
-    // Footer Settings
-    $core->blog->settings->origineConfig->put('footer_credits', true, 'boolean', 'Dotclear and Origine credits', false);
-    $core->blog->settings->origineConfig->put('social_links_diaspora', '', 'string', 'Link to Diaspora account', false);
-    $core->blog->settings->origineConfig->put('social_links_discord', '', 'string', 'Link to Discord server', false);
-    $core->blog->settings->origineConfig->put('social_links_facebook', '', 'string', 'Link to Facebook account', false);
-    $core->blog->settings->origineConfig->put('social_links_github', '', 'string', 'Link to GitHub account', false);
-    $core->blog->settings->origineConfig->put('social_links_mastodon', '', 'string', 'Link to Mastodon account', false);
-    $core->blog->settings->origineConfig->put('social_links_signal', '', 'string', 'Link to a Signal number or group', false);
-    $core->blog->settings->origineConfig->put('social_links_tiktok', '', 'string', 'Link to TikTok account', false);
-    $core->blog->settings->origineConfig->put('social_links_twitter', '', 'string', 'Link to Twitter account', false);
-    $core->blog->settings->origineConfig->put('social_links_whatsapp', '', 'string', 'Link to a WhatsApp number or group', false);
-
-    // Advanced Settings
-    $core->blog->settings->origineConfig->put('meta_generator', false, 'boolean', 'Meta generator', false);
-
-    // All styles in one string
-    $core->blog->settings->origineConfig->put('origine_styles', '', 'string', 'All custom styles in one string', false);
+    $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false);
 
     $core->blog->triggerBlog();
     http::redirect($p_url);
@@ -104,61 +92,9 @@ if (is_null($core->blog->settings->origineConfig->activation)) {
   }
 }
 
-// Activation
-$activation = (bool) $core->blog->settings->origineConfig->activation;
+$origine_settings = $core->blog->settings->origineConfig->origine_settings;
 
-/**
- * Appearance
- */
-
-// Colors
-$color_scheme   = (string) $core->blog->settings->origineConfig->color_scheme;
-$link_color     = (string) $core->blog->settings->origineConfig->link_color;
-$css_transition = (bool) $core->blog->settings->origineConfig->css_transition;
-
-// Layout
-$header_footer_align = (string) $core->blog->settings->origineConfig->header_footer_align;
-$post_list_type      = (string) $core->blog->settings->origineConfig->post_list_type;
-$sidebar_enabled     = (bool) $core->blog->settings->origineConfig->sidebar_enabled;
-$footer_enabled      = (bool) $core->blog->settings->origineConfig->footer_enabled;
-
-// Logo
-$logo_url    = (string) $core->blog->settings->origineConfig->logo_url;
-$logo_url_2x = (string) $core->blog->settings->origineConfig->logo_url_2x;
-$logo_type   = (string) $core->blog->settings->origineConfig->logo_type;
-
-// Text Formatting
-$content_font_family = (string) $core->blog->settings->origineConfig->content_font_family;
-$content_font_size   = (int) $core->blog->settings->origineConfig->content_font_size;
-$content_text_align  = (string) $core->blog->settings->origineConfig->content_text_align;
-$content_hyphens     = (string) $core->blog->settings->origineConfig->content_hyphens;
-
-// Post Settings
-$post_author_name      = (string) $core->blog->settings->origineConfig->post_author_name;
-$post_list_author_name = (bool) $core->blog->settings->origineConfig->post_list_author_name;
-$post_list_comments    = (bool) $core->blog->settings->origineConfig->post_list_comments;
-$comment_links         = (bool) $core->blog->settings->origineConfig->comment_links;
-$post_email_author     = (string) $core->blog->settings->origineConfig->post_email_author;
-
-// Footer Settings
-$footer_credits        = (bool) $core->blog->settings->origineConfig->footer_credits;
-$social_links_diaspora = (string) $core->blog->settings->origineConfig->social_links_diaspora;
-$social_links_discord  = (string) $core->blog->settings->origineConfig->social_links_discord;
-$social_links_facebook = (string) $core->blog->settings->origineConfig->social_links_facebook;
-$social_links_github   = (string) $core->blog->settings->origineConfig->social_links_github;
-$social_links_mastodon = (string) $core->blog->settings->origineConfig->social_links_mastodon;
-$social_links_signal   = (string) $core->blog->settings->origineConfig->social_links_signal;
-$social_links_tiktok   = (string) $core->blog->settings->origineConfig->social_links_tiktok;
-$social_links_twitter  = (string) $core->blog->settings->origineConfig->social_links_twitter;
-$social_links_whatsapp = (string) $core->blog->settings->origineConfig->social_links_whatsapp;
-
-// Advanced Settings
-$meta_generator = (bool) $core->blog->settings->origineConfig->meta_generator;
-
-// All styles
-$origine_styles = (string) $core->blog->settings->origineConfig->origine_styles;
-
-if (!empty($_POST)) {
+if (!empty($_POST) && is_array($origine_settings)) {
   try {
 
     /**
@@ -166,115 +102,50 @@ if (!empty($_POST)) {
      * and escape them.
      */
 
-    // Activation
-    $activation = !empty($_POST['activation']);
+    $origine_settings['activation']            = !empty($_POST['activation']);
+    $origine_settings['global_color_scheme']   = trim(html::escapeHTML($_POST['global_color_scheme']));
+    $origine_settings['global_color_link']     = trim(html::escapeHTML($_POST['global_color_link']));
+    $origine_settings['global_css_transition'] = !empty($_POST['global_css_transition']);
+    $origine_settings['global_meta_generator'] = !empty($_POST['global_meta_generator']);
 
-    /**
-     * Appearance
-     */
+    $origine_settings['header_align']          = trim(html::escapeHTML($_POST['header_align']));
+    $origine_settings['header_widgets_nav']    = !empty($_POST['header_widgets_nav']);
 
-    // Colors
-    $color_scheme   = trim(html::escapeHTML($_POST['color_scheme']));
-    $link_color     = trim(html::escapeHTML($_POST['link_color']));
-    $css_transition = !empty($_POST['css_transition']);
-
-    // Layout
-    $header_footer_align = trim(html::escapeHTML($_POST['header_footer_align']));
-    $post_list_type      = trim(html::escapeHTML($_POST['post_list_type']));
-    $sidebar_enabled     = !empty($_POST['sidebar_enabled']);
-    $footer_enabled      = !empty($_POST['footer_enabled']);
-
-    // Logo
-    $logo_url    = trim(html::escapeHTML($_POST['logo_url']));
-    $logo_url_2x = trim(html::escapeHTML($_POST['logo_url_2x']));
-    $logo_type   = trim(html::escapeHTML($_POST['logo_type']));
-
-    // Text formatting
-    $content_font_family = trim(html::escapeHTML($_POST['content_font_family']));
-    $content_font_size   = abs((int) $_POST['content_font_size']);
-    $content_text_align  = trim(html::escapeHTML($_POST['content_text_align']));
-    $content_hyphens     = trim(html::escapeHTML($_POST['content_hyphens']));
-
-    // Post Settings
-    $post_author_name      = trim(html::escapeHTML($_POST['post_author_name']));
-    $post_list_author_name = !empty($_POST['post_list_author_name']);
-    $post_list_comments    = !empty($_POST['post_list_comments']);
-    $comment_links         = !empty($_POST['comment_links']);
-    $post_email_author     = trim(html::escapeHTML($_POST['post_email_author']));
-
-    // Footer Settings
-    $footer_credits        = !empty($_POST['footer_credits']);
-    $social_links_diaspora = trim(html::escapeHTML($_POST['social_links_diaspora']));
-    $social_links_discord  = trim(html::escapeHTML($_POST['social_links_discord']));
-    $social_links_facebook = trim(html::escapeHTML($_POST['social_links_facebook']));
-    $social_links_github   = trim(html::escapeHTML($_POST['social_links_github']));
-    $social_links_mastodon = trim(html::escapeHTML($_POST['social_links_mastodon']));
-    $social_links_signal   = trim(html::escapeHTML($_POST['social_links_signal']));
-    $social_links_tiktok   = trim(html::escapeHTML($_POST['social_links_tiktok']));
-    $social_links_twitter  = trim(html::escapeHTML($_POST['social_links_twitter']));
-    $social_links_whatsapp = trim(html::escapeHTML($_POST['social_links_whatsapp']));
-
-    // Advanced Settings
-    $meta_generator = !empty($_POST['meta_generator']);
+    $origine_settings['footer_align']          = trim(html::escapeHTML($_POST['footer_align']));
+    $origine_settings['post_list_type']        = trim(html::escapeHTML($_POST['post_list_type']));
+    $origine_settings['sidebar_enabled']       = !empty($_POST['sidebar_enabled']);
+    $origine_settings['footer_enabled']        = !empty($_POST['footer_enabled']);
+    $origine_settings['logo_url']              = trim(html::escapeHTML($_POST['logo_url']));
+    $origine_settings['logo_url_2x']           = trim(html::escapeHTML($_POST['logo_url_2x']));
+    $origine_settings['logo_type']             = trim(html::escapeHTML($_POST['logo_type']));
+    $origine_settings['content_font_family']   = trim(html::escapeHTML($_POST['content_font_family']));
+    $origine_settings['content_font_size']     = abs((int) $_POST['content_font_size']);
+    $origine_settings['content_text_align']    = trim(html::escapeHTML($_POST['content_text_align']));
+    $origine_settings['content_hyphens']       = trim(html::escapeHTML($_POST['content_hyphens']));
+    $origine_settings['post_author_name']      = trim(html::escapeHTML($_POST['post_author_name']));
+    $origine_settings['post_list_author_name'] = !empty($_POST['post_list_author_name']);
+    $origine_settings['post_list_comments']    = !empty($_POST['post_list_comments']);
+    $origine_settings['comment_links']         = !empty($_POST['comment_links']);
+    $origine_settings['post_email_author']     = trim(html::escapeHTML($_POST['post_email_author']));
+    $origine_settings['share_link_twitter']    = !empty($_POST['share_link_twitter']);
+    $origine_settings['footer_credits']        = !empty($_POST['footer_credits']);
+    $origine_settings['social_links_diaspora'] = trim(html::escapeHTML($_POST['social_links_diaspora']));
+    $origine_settings['social_links_discord']  = trim(html::escapeHTML($_POST['social_links_discord']));
+    $origine_settings['social_links_facebook'] = trim(html::escapeHTML($_POST['social_links_facebook']));
+    $origine_settings['social_links_github']   = trim(html::escapeHTML($_POST['social_links_github']));
+    $origine_settings['social_links_mastodon'] = trim(html::escapeHTML($_POST['social_links_mastodon']));
+    $origine_settings['social_links_signal']   = trim(html::escapeHTML($_POST['social_links_signal']));
+    $origine_settings['social_links_tiktok']   = trim(html::escapeHTML($_POST['social_links_tiktok']));
+    $origine_settings['social_links_twitter']  = trim(html::escapeHTML($_POST['social_links_twitter']));
+    $origine_settings['social_links_whatsapp'] = trim(html::escapeHTML($_POST['social_links_whatsapp']));
 
     /**
      * Save settings in the database.
      */
     $core->blog->settings->addNamespace('origineConfig');
 
-    // Activation
-    $core->blog->settings->origineConfig->put('activation', $activation);
-
     /**
-     * Appearance
-     */
-
-    // Colors
-    $core->blog->settings->origineConfig->put('color_scheme', $color_scheme);
-    $core->blog->settings->origineConfig->put('link_color', $link_color);
-    $core->blog->settings->origineConfig->put('css_transition', $css_transition);
-
-    // Layout
-    $core->blog->settings->origineConfig->put('header_footer_align', $header_footer_align);
-    $core->blog->settings->origineConfig->put('post_list_type', $post_list_type);
-    $core->blog->settings->origineConfig->put('sidebar_enabled', $sidebar_enabled);
-    $core->blog->settings->origineConfig->put('footer_enabled', $footer_enabled);
-
-    // Logo
-    $core->blog->settings->origineConfig->put('logo_url', $logo_url);
-    $core->blog->settings->origineConfig->put('logo_url_2x', $logo_url_2x);
-    $core->blog->settings->origineConfig->put('logo_type', $logo_type);
-
-    // Text Formatting
-    $core->blog->settings->origineConfig->put('content_font_family', $content_font_family);
-    $core->blog->settings->origineConfig->put('content_font_size', $content_font_size);
-    $core->blog->settings->origineConfig->put('content_text_align', $content_text_align);
-    $core->blog->settings->origineConfig->put('content_hyphens', $content_hyphens);
-
-    // Post Settings
-    $core->blog->settings->origineConfig->put('post_author_name', $post_author_name);
-    $core->blog->settings->origineConfig->put('post_list_author_name', $post_list_author_name);
-    $core->blog->settings->origineConfig->put('post_list_comments', $post_list_comments);
-    $core->blog->settings->origineConfig->put('comment_links', $comment_links);
-    $core->blog->settings->origineConfig->put('post_email_author', $post_email_author);
-
-    // Footer settings
-    $core->blog->settings->origineConfig->put('footer_credits', $footer_credits);
-    $core->blog->settings->origineConfig->put('social_links_diaspora', $social_links_diaspora);
-    $core->blog->settings->origineConfig->put('social_links_discord', $social_links_discord);
-    $core->blog->settings->origineConfig->put('social_links_facebook', $social_links_facebook);
-    $core->blog->settings->origineConfig->put('social_links_github', $social_links_github);
-    $core->blog->settings->origineConfig->put('social_links_mastodon', $social_links_mastodon);
-    $core->blog->settings->origineConfig->put('social_links_signal', $social_links_signal);
-    $core->blog->settings->origineConfig->put('social_links_tiktok', $social_links_tiktok);
-    $core->blog->settings->origineConfig->put('social_links_twitter', $social_links_twitter);
-    $core->blog->settings->origineConfig->put('social_links_whatsapp', $social_links_whatsapp);
-
-    // Advanced Settings
-    $core->blog->settings->origineConfig->put('meta_generator', $meta_generator);
-
-    /**
-     * And save styles too!
+     * Creates styles to save.
      */
     $link_colors = [
       'red'    => [
@@ -299,7 +170,7 @@ if (!empty($_POST)) {
       ],
     ];
 
-    $the_color = array_key_exists($link_color, $link_colors) ? $link_color : 'red';
+    $the_color = array_key_exists($origine_settings['global_color_link'], $link_colors) ? $origine_settings['global_color_link'] : 'red';
 
     /**
      * Put all styles in a array ($css_array)
@@ -309,7 +180,7 @@ if (!empty($_POST)) {
     $css       = '';
     $css_array = [];
 
-    if ($color_scheme === 'system') {
+    if ($origine_settings['global_color_scheme'] === 'system') {
       $css_array[':root']['--color-background']             = '#fff';
       $css_array[':root']['--color-text-primary']           = '#000';
       $css_array[':root']['--color-text-secondary']         = '#595959';
@@ -335,7 +206,7 @@ if (!empty($_POST)) {
 
       $css       .= '@media (prefers-color-scheme:dark) {' . origineConfigArrayToCSS($css_array) . '}';
       $css_array  = [];
-    } elseif ($color_scheme === 'dark') {
+    } elseif ($origine_settings['global_color_scheme'] === 'dark') {
       $css_array[':root']['--color-background']             = '#16161d';
       $css_array[':root']['--color-text-primary']           = '#d9d9d9';
       $css_array[':root']['--color-text-secondary']         = '#8c8c8c';
@@ -364,7 +235,7 @@ if (!empty($_POST)) {
     }
 
     // Transitions
-    if ($css_transition === true) {
+    if ($origine_settings['global_css_transition'] === true) {
       $css_array['a']['transition']                          = 'all .2s ease-in-out';
       $css_array['a:active, a:focus, a:hover']['transition'] = 'all .2s ease-in-out';
 
@@ -379,9 +250,16 @@ if (!empty($_POST)) {
       $css_array  = [];
     }
 
-    // Header & footer alignment
-    if ($header_footer_align === 'center') {
+    // Header alignment
+    if ($origine_settings['header_align'] === 'center') {
       $css_array['#site-header']['text-align'] = 'center';
+
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
+    }
+
+    // Header alignment
+    if ($origine_settings['header_align'] === 'center') {
       $css_array['#site-footer']['text-align'] = 'center';
 
       $css       .= origineConfigArrayToCSS($css_array);
@@ -389,7 +267,7 @@ if (!empty($_POST)) {
     }
 
     // Logo
-    if ($logo_url) {
+    if ($origine_settings['logo_url']) {
       $css_array['.site-logo-container']['margin-bottom'] = '1em';
 
       $css_array['.site-logo-link']['border-bottom'] = 'none';
@@ -398,14 +276,14 @@ if (!empty($_POST)) {
 
       $css_array['.site-logo']['display'] = 'block';
 
-      if ($logo_type === 'square') {
+      if ($origine_settings['logo_type'] === 'square') {
         $css_array['.site-logo-container']['display'] = 'inline-block';
 
         $css_array['.site-logo-link']['display'] = 'inline-block';
 
         $css_array['.site-logo']['max-height'] = '150px';
         $css_array['.site-logo']['max-width']  = '150px';
-      } elseif ($logo_type === 'round') {
+      } elseif ($origine_settings['logo_type'] === 'round') {
         $css_array['.site-logo-container']['display'] = 'inline-block';
 
         $css_array['.site-logo-link']['border-radius'] = '50%';
@@ -427,21 +305,21 @@ if (!empty($_POST)) {
     }
 
     // Font family
-    if ($content_font_family === 'serif') {
+    if ($origine_settings['content_font_family'] === 'serif') {
       $css_array['body']['font-family'] = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
-    } elseif ($content_font_family === 'sans-serif') {
+    } elseif ($origine_settings['content_font_family'] === 'sans-serif') {
       $css_array['body']['font-family'] = '-apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif';
     } else {
       $css_array['body']['font-family'] = 'Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace';
     }
 
     // Font size
-    if ($content_font_size) {
-      $css_array['body']['font-size'] = abs((int) $content_font_size / 100) . 'em';
+    if ($origine_settings['content_font_size']) {
+      $css_array['body']['font-size'] = abs((int) $origine_settings['content_font_size'] / 100) . 'em';
     }
 
     // Post list appearance
-    switch ($post_list_type) {
+    switch ($origine_settings['post_list_type']) {
       case 'standard':
         $css_array['.post-list-standard .post-link']['display'] = 'block';
 
@@ -490,12 +368,12 @@ if (!empty($_POST)) {
     // Text align
     $content_text = '.post-excerpt, .text p, .text ol li, .text ul li';
 
-    if ($content_text_align === 'justify') {
+    if ($origine_settings['content_text_align'] === 'justify') {
       $css_array[$content_text]['text-align'] = 'justify';
 
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];
-    } elseif ($content_text_align === 'justify_not_mobile') {
+    } elseif ($origine_settings['content_text_align'] === 'justify_not_mobile') {
       $css_array[$content_text]['text-align'] = 'justify';
 
       $css       .= '@media only screen and (min-width: calc(1rem * 20 + (2em * 2) + 1px)) {' . origineConfigArrayToCSS($css_array) . '}';
@@ -503,7 +381,7 @@ if (!empty($_POST)) {
     }
 
     // Hyphens
-    if ($content_hyphens !== 'disabled' ) {
+    if ($origine_settings['content_hyphens'] !== 'disabled' ) {
       $css_array[$content_text]['-webkit-hyphens'] = 'auto';
       $css_array[$content_text]['-moz-hyphens']    = 'auto';
       $css_array[$content_text]['-ms-hyphens']     = 'auto';
@@ -522,7 +400,7 @@ if (!empty($_POST)) {
       $css_array[$content_text]['-ms-hyphenate-limit-last']     = 'always';
       $css_array[$content_text]['hyphenate-limit-last']         = 'always';
 
-      if ($content_hyphens !== 'enabled_not_mobile') {
+      if ($origine_settings['content_hyphens'] !== 'enabled_not_mobile') {
         $css       .= origineConfigArrayToCSS($css_array);
         $css_array  = [];
       } else {
@@ -531,16 +409,23 @@ if (!empty($_POST)) {
       }
     }
 
-    // Social links
-    if ($social_links_diaspora
-      || $social_links_discord
-      || $social_links_facebook
-      || $social_links_github
-      || $social_links_mastodon
-      || $social_links_signal
-      || $social_links_tiktok
-      || $social_links_twitter
-      || $social_links_whatsapp
+    // Share links.
+    $css_array['.share-links']['margin-top']    = '2em';
+    $css_array['.share-links']['margin-bottom'] = '2em';
+
+    $css       .= origineConfigArrayToCSS($css_array);
+    $css_array  = [];
+
+    // Social links.
+    if ($origine_settings['social_links_diaspora']
+      || $origine_settings['social_links_discord']
+      || $origine_settings['social_links_facebook']
+      || $origine_settings['social_links_github']
+      || $origine_settings['social_links_mastodon']
+      || $origine_settings['social_links_signal']
+      || $origine_settings['social_links_tiktok']
+      || $origine_settings['social_links_twitter']
+      || $origine_settings['social_links_whatsapp']
     ) {
       $css_array['.footer-social-links ul']['list-style']                 = 'none';
       $css_array['.footer-social-links ul']['margin']                     = '0';
@@ -554,6 +439,7 @@ if (!empty($_POST)) {
 
       $css_array['.footer-social-links-icon-container']['align-items']      = 'center';
       $css_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
+      $css_array['.footer-social-links-icon-container']['border-radius']    = '0.125rem';
       $css_array['.footer-social-links-icon-container']['display']          = 'flex';
       $css_array['.footer-social-links-icon-container']['justify-content']  = 'center';
       $css_array['.footer-social-links-icon-container']['width']            = '1.5rem';
@@ -575,7 +461,7 @@ if (!empty($_POST)) {
 
       $css_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
 
-      if ($css_transition === true) {
+      if ($origine_settings['global_css_transition'] === true) {
         $css_array['.footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
         $css_array['.footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
         $css_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
@@ -592,7 +478,7 @@ if (!empty($_POST)) {
     }
 
     // Transitions
-    if ($css_transition === true) {
+    if ($origine_settings['global_css_transition'] === true) {
       $css_array['a']['transition']                          = 'none';
       $css_array['a:active, a:focus, a:hover']['transition'] = 'none';
 
@@ -602,15 +488,15 @@ if (!empty($_POST)) {
 
       $css_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'none';
 
-      if ($social_links_diaspora
-        || $social_links_discord
-        || $social_links_facebook
-        || $social_links_github
-        || $social_links_mastodon
-        || $social_links_signal
-        || $social_links_tiktok
-        || $social_links_twitter
-        || $social_links_whatsapp
+      if ($origine_settings['social_links_diaspora']
+        || $origine_settings['social_links_discord']
+        || $origine_settings['social_links_facebook']
+        || $origine_settings['social_links_github']
+        || $origine_settings['social_links_mastodon']
+        || $origine_settings['social_links_signal']
+        || $origine_settings['social_links_tiktok']
+        || $origine_settings['social_links_twitter']
+        || $origine_settings['social_links_whatsapp']
       ) {
         $css_array['.footer-social-links-icon-container']['transition'] = 'none';
 
@@ -625,7 +511,9 @@ if (!empty($_POST)) {
       $css_array  = [];
     }
 
-    $core->blog->settings->origineConfig->put('origine_styles', htmlspecialchars($css, ENT_NOQUOTES));
+    $origine_settings['styles'] = htmlspecialchars($css, ENT_NOQUOTES);
+
+    $core->blog->settings->origineConfig->put('origine_settings', $origine_settings);
 
     $core->blog->triggerBlog();
 
@@ -635,6 +523,7 @@ if (!empty($_POST)) {
     }
 
     dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
+
     http::redirect($p_url);
   } catch (Exception $e) {
     $core->error->add($e->getMessage());
@@ -645,6 +534,7 @@ if (!empty($_POST)) {
   <head>
   	<title><?php echo __('Origine Settings'); ?></title>
   </head>
+
   <body>
     <?php
     echo dcPage::breadcrumb(
@@ -665,23 +555,27 @@ if (!empty($_POST)) {
       ?>
 
       <form action="<?php echo $p_url; ?>" method="post">
-        <p>
-          <?php echo form::checkbox('activation', 1, $activation); ?>
+        <h3><?php echo __('Global'); ?></h3>
 
-          <label for="activation" class="classic"><?php echo __('Enable extension settings'); ?></label>
-        </p>
+        <div class="fieldset">
+          <h4><?php echo __('Activation'); ?></h4>
 
-        <p class="form-note">
-          <?php echo __('If you do not check this box, the settings below will be ignored.'); ?>
-        </p>
+          <p>
+            <?php echo form::checkbox('activation', true, $origine_settings['activation']); ?>
 
-        <h3><?php echo __('Design'); ?></h3>
+            <label class="classic" for="activation"><?php echo __('Enable extension settings'); ?></label>
+          </p>
+
+          <p class="form-note">
+            <?php echo __('If you do not check this box, your settings will be ignored.'); ?>
+          </p>
+        </div>
 
         <div class="fieldset">
           <h4><?php echo __('Colors'); ?></h4>
 
-          <p class="field wide">
-            <label for="color_scheme" class="classic">
+          <p>
+            <label for="color_scheme">
               <?php echo __('Color scheme'); ?>
             </label>
 
@@ -692,12 +586,12 @@ if (!empty($_POST)) {
               __('Dark')             => 'dark',
             ];
 
-            echo form::combo('color_scheme', $combo_color_scheme, $color_scheme);
+            echo form::combo('global_color_scheme', $combo_color_scheme, $origine_settings['global_color_scheme']);
             ?>
           </p>
 
-          <p class="field wide">
-            <label for="link_color" class="classic">
+          <p>
+            <label for="link_color">
               <?php echo __('Link color'); ?>
             </label>
 
@@ -710,41 +604,109 @@ if (!empty($_POST)) {
                 __('Purple')        => 'purple',
             ];
 
-            echo form::combo('link_color', $combo_link_color, $link_color);
+            echo form::combo('global_color_link', $combo_link_color, $origine_settings['global_color_link']);
             ?>
           </p>
 
-          <p class="field wide">
-            <label for="css_transition" class="classic">
+          <p>
+            <?php echo form::checkbox('global_css_transition', 1, $origine_settings['global_css_transition']); ?>
+
+            <label class="classic" for="css_transition">
               <?php echo __('Add a color transition on link hover'); ?>
             </label>
-
-            <?php echo form::checkbox('css_transition', 1, $css_transition); ?>
           </p>
 
           <p class="form-note">
             <?php echo __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.'); ?>
           </p>
+        </div>
 
+        <div class="fieldset">
+            <h4><?php echo __('Advanced settings'); ?></h4>
+
+            <p>
+              <?php echo form::checkbox('global_meta_generator', 1, $origine_settings['global_meta_generator']); ?>
+
+              <label class="classic" for="meta_generator"><?php echo __('Add <code>generator</code> meta tag'); ?></label>
+            </p>
+
+            <p class="form-note">
+              <?php echo __("Allows you to add information to your pages without displaying it on your readers' screen."); ?>
+            </p>
+          </div>
+
+        <h3><?php echo __('Header'); ?></h3>
+
+        <div class="fieldset">
           <h4><?php echo __('Layout'); ?></h4>
 
-          <p class="field wide">
-            <label for="" class="classic">
-              <?php echo __('Header and footer alignment'); ?>
+          <p>
+            <label for="header_align">
+              <?php echo __('Header alignment'); ?>
             </label>
 
             <?php
-            $combo_header_footer_align = [
+            $combo_header_align = [
                 __('Left (default)') => 'left',
                 __('Center')         => 'center',
             ];
 
-            echo form::combo('header_footer_align', $combo_header_footer_align, $header_footer_align);
+            echo form::combo('header_align', $combo_header_align, $origine_settings['header_align']);
             ?>
           </p>
+        </div>
 
-          <p class="field wide">
-            <label for="post_list_type" class="classic"><?php echo __('Displaying of posts in the post list'); ?></label>
+        <div class="fieldset">
+            <h4><?php echo __('Logo'); ?></h4>
+
+            <p>
+              <label for="logo_type">
+                <?php echo __('Logo type'); ?>
+              </label>
+
+              <?php
+              $combo_logo_type = [
+                __('Square (default)') => 'square',
+                __('Round')            => 'round',
+                __('Banner')           => 'banner',
+              ];
+
+              echo form::combo('logo_type', $combo_logo_type, $origine_settings['logo_type']);
+              ?>
+            </p>
+
+            <p>
+              <label for="logo_url">
+                <?php echo __('URL of your logo'); ?>
+              </label>
+
+              <?php echo form::field('logo_url', 30, 255, html::escapeHTML($origine_settings['logo_url'])); ?>
+            </p>
+
+            <p class="form-note">
+              <?php echo __('Recommanded size: 150×150px (square and round) or 480px wide (banner).'); ?>
+            </p>
+
+            <p>
+              <label for="logo_url_2x">
+                <?php echo __('URL of your logo for screens with doubled pixel density'); ?>
+              </label>
+
+              <?php echo form::field('logo_url_2x', 30, 255, html::escapeHTML($origine_settings['logo_url_2x'])); ?>
+            </p>
+
+            <p class="form-note">
+              <?php echo __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide).'); ?>
+            </p>
+          </div>
+
+        <h3><?php echo __('Content'); ?></h3>
+
+        <div class="fieldset">
+          <h4><?php echo __('Post list'); ?></h4>
+
+          <p>
+            <label for="post_list_type"><?php echo __('Displaying of posts'); ?></label>
 
             <?php
             $combo_post_list_type = [
@@ -753,76 +715,16 @@ if (!empty($_POST)) {
               __('Full post')          => 'full',
             ];
 
-            echo form::combo('post_list_type', $combo_post_list_type, $post_list_type);
+            echo form::combo('post_list_type', $combo_post_list_type, $origine_settings['post_list_type']);
             ?>
           </p>
+        </div>
 
-          <p class="field wide">
-            <label for="sidebar_enabled" class="classic"><?php echo __('Enable the <em>sidebar</em>'); ?></label>
-
-            <?php echo form::checkbox('sidebar_enabled', 1, $sidebar_enabled); ?>
-          </p>
-
-          <p class="form-note">
-            <?php echo __("Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Navigation sidebar\" or \"Extra sidebar\" sections, you should uncheck this setting to remove unnecessary code from your pages."); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="footer_enabled" class="classic"><?php echo __('Enable the footer'); ?></label>
-
-            <?php echo form::checkbox('footer_enabled', 1, $footer_enabled); ?>
-          </p>
-
-          <p class="form-note">
-            <?php echo __('If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting.'); ?>
-          </p>
-
-          <h4><?php echo __('Logo'); ?></h4>
-
-          <p class="field wide">
-            <label for="logo_type" class="classic">
-              <?php echo __('Logo type'); ?>
-            </label>
-
-            <?php
-            $combo_logo_type = [
-              __('Square (default)') => 'square',
-              __('Round')            => 'round',
-              __('Banner')           => 'banner',
-            ];
-
-            echo form::combo('logo_type', $combo_logo_type, $logo_type);
-            ?>
-          </p>
-
-          <p class="field wide">
-            <label for="logo_url" class="classic">
-              <?php echo __('URL of your logo'); ?>
-            </label>
-
-            <?php echo form::field('logo_url', 30, 255, html::escapeHTML($logo_url)); ?>
-          </p>
-
-          <p class="form-note">
-            <?php echo __('Recommanded size: 150×150px (square and round) or 480px wide (banner).'); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="logo_url_2x" class="classic">
-              <?php echo __('URL of your logo for screens with doubled pixel density'); ?>
-            </label>
-
-            <?php echo form::field('logo_url_2x', 30, 255, html::escapeHTML($logo_url_2x)); ?>
-          </p>
-
-          <p class="form-note">
-            <?php echo __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide).'); ?>
-          </p>
-
+        <div class="fieldset">
           <h4><?php echo __('Text formatting'); ?></h4>
 
-          <p class="field wide">
-            <label for="content_font_family" class="classic"><?php echo __('Font family'); ?></label>
+          <p>
+            <label for="content_font_family"><?php echo __('Font family'); ?></label>
 
             <?php
             $combo_font_family = [
@@ -831,7 +733,7 @@ if (!empty($_POST)) {
               __('Monospace')       => 'monospace',
             ];
 
-            echo form::combo('content_font_family', $combo_font_family, $content_font_family);
+            echo form::combo('content_font_family', $combo_font_family, $origine_settings['content_font_family']);
             ?>
           </p>
 
@@ -839,8 +741,8 @@ if (!empty($_POST)) {
             <?php echo __('In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system.'); ?>
           </p>
 
-          <p class="field wide">
-            <label for="content_font_size" class="classic">
+          <p>
+            <label for="content_font_size">
               <?php echo __('Font size'); ?>
             </label>
 
@@ -853,7 +755,7 @@ if (!empty($_POST)) {
                 __('120%')               => 120,
             ];
 
-            echo form::combo('content_font_size', $combo_font_size, $content_font_size);
+            echo form::combo('content_font_size', $combo_font_size, $origine_settings['content_font_size']);
             ?>
           </p>
 
@@ -861,8 +763,8 @@ if (!empty($_POST)) {
             <?php echo __('It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors.'); ?>
           </p>
 
-          <p class="field wide">
-            <label for="content_text_align" class="classic">
+          <p>
+            <label for="content_text_align">
               <?php echo __('Text align'); ?>
             </label>
 
@@ -873,12 +775,12 @@ if (!empty($_POST)) {
                 __('Justify except on small screens') => 'justify_not_mobile',
             ];
 
-            echo form::combo('content_text_align', $combo_text_align, $content_text_align);
+            echo form::combo('content_text_align', $combo_text_align, $origine_settings['content_text_align']);
             ?>
           </p>
 
-          <p class="field wide">
-            <label for="content_hyphens" class="classic">
+          <p>
+            <label for="content_hyphens">
               <?php echo __('Automatic hyphenation'); ?>
             </label>
 
@@ -889,178 +791,227 @@ if (!empty($_POST)) {
                 __('Enable except on small screens') => 'enabled_not_mobile',
             ];
 
-            echo form::combo('content_hyphens', $combo_content_hyphens, $content_hyphens);
+            echo form::combo('content_hyphens', $combo_content_hyphens, $origine_settings['content_hyphens']);
             ?>
           </p>
         </div>
 
-        <h3><?php echo __('Post settings'); ?></h3>
+        <div class="fieldset">
+        <h4><?php echo __('Author'); ?></h4>
+
+        <p>
+          <label for="post_author_name">
+            <?php echo __('Author name on posts'); ?>
+          </label>
+
+          <?php
+          $combo_post_author_name = [
+              __('Not displayed (default)')     => 'disabled',
+              __('Next to the date')            => 'date',
+              __('Below the post as signature') => 'signature',
+          ];
+
+          echo form::combo('post_author_name', $combo_post_author_name, $origine_settings['post_author_name']);
+          ?>
+        </p>
+
+        <p>
+          <?php echo form::checkbox('post_list_author_name', 1, $origine_settings['post_list_author_name']); ?>
+
+          <label class="classic" for="post_list_author_name">
+            <?php echo __('Display the author name in the post list'); ?>
+          </label>
+        </p>
+      </div>
 
         <div class="fieldset">
-          <h4><?php echo __('Author'); ?></h4>
+          <h4><?php echo __('Share links'); ?></h4>
 
-          <p class="field wide">
-            <label for="" class="classic">
-              <?php echo __('Author name on posts'); ?>
+          <p>
+            <?php echo form::checkbox('share_link_twitter', 1, $origine_settings['share_link_twitter']); ?>
+
+            <label class="classic" for="share_link_twitter">
+              <?php echo __('Add a link to share your posts on Twitter'); ?>
             </label>
-
-            <?php
-            $combo_post_author_name = [
-                __('Not displayed (default)')     => 'disabled',
-                __('Next to the date')            => 'date',
-                __('Below the post as signature') => 'signature',
-            ];
-
-            echo form::combo('post_author_name', $combo_post_author_name, $post_author_name);
-            ?>
-          </p>
-
-          <p class="field wide">
-            <label for="" class="classic">
-              <?php echo __('Display the author name in the post list'); ?>
-            </label>
-
-            <?php echo form::checkbox('post_list_author_name', 1, $post_list_author_name); ?>
-          </p>
-
-          <h4><?php echo __('Comments'); ?></h4>
-
-          <p class="field wide">
-            <label for="post_list_comments" class="classic">
-              <?php echo __('Display the number of comments in the post list (only if the post has comments)'); ?>
-            </label>
-
-            <?php echo form::checkbox('post_list_comments', 1, $post_list_comments); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="comment_links" class="classic">
-              <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
-            </label>
-
-            <?php echo form::checkbox('comment_links', 1, $comment_links); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="post_email_author" class="classic">
-              <?php echo __('Allow visitors to send email to authors of posts and pages'); ?>
-            </label>
-
-            <?php
-            $combo_post_email_author = [
-              __('No (default)')                => 'disabled',
-              __('Only when comments are open') => 'comments_open',
-              __('Always')                      => 'always',
-            ];
-
-            echo form::combo('post_email_author', $combo_post_email_author, $post_email_author);
-            ?>
           </p>
 
           <p class="form-note warn">
-            <?php printf(__('If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin.'), 'https://plugins.dotaddict.org/dc2/details/signal'); ?>
+            <?php printf(__('Extension ad hoc ?')); ?>
           </p>
         </div>
 
-        <h3><?php echo __('Footer settings'); ?></h3>
+        <div class="fieldset">
+            <h4><?php echo __('Comments'); ?></h4>
+
+            <p>
+              <?php echo form::checkbox('post_list_comments', 1, $origine_settings['post_list_comments']); ?>
+
+              <label class="classic" for="post_list_comments">
+                <?php echo __('Display the number of comments in the post list (only if the post has comments)'); ?>
+              </label>
+            </p>
+
+            <p>
+              <?php echo form::checkbox('comment_links', 1, $origine_settings['comment_links']); ?>
+
+              <label class="classic" for="comment_links">
+                <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
+              </label>
+            </p>
+
+            <p>
+              <label for="post_email_author">
+                <?php echo __('Allow visitors to send email to authors of posts and pages'); ?>
+              </label>
+
+              <?php
+              $combo_post_email_author = [
+                __('No (default)')                => 'disabled',
+                __('Only when comments are open') => 'comments_open',
+                __('Always')                      => 'always',
+              ];
+
+              echo form::combo('post_email_author', $combo_post_email_author, $origine_settings['post_email_author']);
+              ?>
+            </p>
+
+            <p class="form-note warn">
+              <?php printf(__('If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin.'), 'https://plugins.dotaddict.org/dc2/details/signal'); ?>
+            </p>
+          </div>
+
+        <h3><?php echo __('Widgets'); ?></h3>
 
         <div class="fieldset">
-          <p class="field wide">
-            <label for="footer_credits" class="classic">
-              <?php echo __('Add a link to support Dotclear and Origine'); ?>
-            </label>
+          <p>
+            <?php // echo form::checkbox('sidebar_enabled', 1, $sidebar_enabled); ?>
 
-            <?php echo form::checkbox('footer_credits', 1, $footer_credits); ?>
+            <label class="classic" for="sidebar_enabled"><?php echo __('ACTIVER LES WIDGETS DANS L’EN-TÊTE POUR LA NAVIGATION (À CONFIGURER)'); ?></label>
           </p>
 
-          <p class="field wide">
-            <label for="social_links_diaspora" class="classic">
-              <?php echo __('Link to your Diaspora* profile'); ?>
-            </label>
-
-            <?php echo form::field('social_links_diaspora', 30, 255, html::escapeHTML($social_links_diaspora)); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="social_links_discord" class="classic">
-              <?php echo __('Link to your Discord server'); ?>
-            </label>
-
-            <?php echo form::field('social_links_discord', 30, 255, html::escapeHTML($social_links_discord)); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="social_links_facebook" class="classic">
-              <?php echo __('Link to your Facebook profile or page'); ?>
-            </label>
-
-            <?php echo form::field('social_links_facebook', 30, 255, html::escapeHTML($social_links_facebook)); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="social_links_github" class="classic">
-              <?php echo __('Link to a GitHub page'); ?>
-            </label>
-
-            <?php echo form::field('social_links_github', 30, 255, html::escapeHTML($social_links_github)); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="social_links_mastodon" class="classic">
-              <?php echo __('Link to your Mastodon profile'); ?>
-            </label>
-
-            <?php echo form::field('social_links_mastodon', 30, 255, html::escapeHTML($social_links_mastodon)); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="social_links_signal" class="classic">
-              <?php echo __('Your Signal number or a group link'); ?>
-            </label>
-
-            <?php echo form::field('social_links_signal', 30, 255, html::escapeHTML($social_links_signal)); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="social_links_tiktok" class="classic">
-              <?php echo __('Link to your TikTok profile'); ?>
-            </label>
-
-            <?php echo form::field('social_links_tiktok', 30, 255, html::escapeHTML($social_links_tiktok)); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="social_links_twitter" class="classic">
-              <?php echo __('Your Twitter username'); ?>
-            </label>
-
-            <?php echo form::field('social_links_twitter', 30, 255, html::escapeHTML($social_links_twitter)); ?>
-          </p>
-
-          <p class="field wide">
-            <label for="social_links_whatsapp" class="classic">
-              <?php echo __('Your WhatsApp number or a group link'); ?>
-            </label>
-
-            <?php echo form::field('social_links_whatsapp', 30, 255, html::escapeHTML($social_links_whatsapp)); ?>
-          </p>
-        </div>
-
-        <h3><?php echo __('Advanced settings'); ?></h3>
-
-        <div class="fieldset">
           <p class="form-note">
-            <?php echo __("Allows you to add information to your pages without displaying it on your readers' screen."); ?>
+
           </p>
 
-          <p class="field wide">
-            <label for="meta_generator" class="classic">
-              <?php echo __('Add <code>generator</code> meta tag'); ?>
-            </label>
+          <p>
+            <?php echo form::checkbox('sidebar_enabled', 1, $origine_settings['sidebar_enabled']); ?>
 
-            <?php echo form::checkbox('meta_generator', 1, $meta_generator); ?>
+            <label class="classic" for="sidebar_enabled"><?php echo __('Enable the <em>sidebar</em>'); ?></label>
+          </p>
+
+          <p class="form-note">
+            <?php echo __("Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Navigation sidebar\" or \"Extra sidebar\" sections, you should uncheck this setting to remove unnecessary code from your pages."); ?>
           </p>
         </div>
+
+        <h3><?php echo __('Footer'); ?></h3>
+
+        <div class="fieldset">
+            <p>
+              <?php echo form::checkbox('footer_enabled', 1, $origine_settings['footer_enabled']); ?>
+
+              <label class="classic" for="footer_enabled"><?php echo __('Enable the footer'); ?></label>
+            </p>
+
+            <p class="form-note">
+              <?php echo __('If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting.'); ?>
+            </p>
+
+            <p>
+              <label for="footer_align">
+                <?php echo __('Footer alignment'); ?>
+              </label>
+
+              <?php
+              $combo_footer_align = [
+                  __('Left (default)') => 'left',
+                  __('Center')         => 'center',
+              ];
+
+              echo form::combo('footer_align', $combo_footer_align, $origine_settings['footer_align']);
+              ?>
+            </p>
+
+            <p>
+              <?php echo form::checkbox('footer_credits', 1, $origine_settings['footer_credits']); ?>
+
+              <label class="classic" for="footer_credits">
+                <?php echo __('Add a link to support Dotclear and Origine'); ?>
+              </label>
+            </p>
+
+            <p>
+              <label for="social_links_diaspora">
+                <?php echo __('Link to your Diaspora* profile'); ?>
+              </label>
+
+              <?php echo form::field('social_links_diaspora', 30, 255, html::escapeHTML($origine_settings['social_links_diaspora'])); ?>
+            </p>
+
+            <p>
+              <label for="social_links_discord">
+                <?php echo __('Link to your Discord server'); ?>
+              </label>
+
+              <?php echo form::field('social_links_discord', 30, 255, html::escapeHTML($origine_settings['social_links_discord'])); ?>
+            </p>
+
+            <p>
+              <label for="social_links_facebook">
+                <?php echo __('Link to your Facebook profile or page'); ?>
+              </label>
+
+              <?php echo form::field('social_links_facebook', 30, 255, html::escapeHTML($origine_settings['social_links_facebook'])); ?>
+            </p>
+
+            <p>
+              <label for="social_links_github">
+                <?php echo __('Link to a GitHub page'); ?>
+              </label>
+
+              <?php echo form::field('social_links_github', 30, 255, html::escapeHTML($origine_settings['social_links_github'])); ?>
+            </p>
+
+            <p>
+              <label for="social_links_mastodon">
+                <?php echo __('Link to your Mastodon profile'); ?>
+              </label>
+
+              <?php echo form::field('social_links_mastodon', 30, 255, html::escapeHTML($origine_settings['social_links_mastodon'])); ?>
+            </p>
+
+            <p>
+              <label for="social_links_signal">
+                <?php echo __('Your Signal number or a group link'); ?>
+              </label>
+
+              <?php echo form::field('social_links_signal', 30, 255, html::escapeHTML($origine_settings['social_links_signal'])); ?>
+            </p>
+
+            <p>
+              <label for="social_links_tiktok">
+                <?php echo __('Link to your TikTok profile'); ?>
+              </label>
+
+              <?php echo form::field('social_links_tiktok', 30, 255, html::escapeHTML($origine_settings['social_links_tiktok'])); ?>
+            </p>
+
+            <p>
+              <label for="social_links_twitter">
+                <?php echo __('Your Twitter username'); ?>
+              </label>
+
+              <?php echo form::field('social_links_twitter', 30, 255, html::escapeHTML($origine_settings['social_links_twitter'])); ?>
+            </p>
+
+            <p>
+              <label for="social_links_whatsapp">
+                <?php echo __('Your WhatsApp number or a group link'); ?>
+              </label>
+
+              <?php echo form::field('social_links_whatsapp', 30, 255, html::escapeHTML($origine_settings['social_links_whatsapp'])); ?>
+            </p>
+          </div>
 
         <p>
           <?php echo $core->formNonce(); ?>
