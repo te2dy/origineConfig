@@ -107,40 +107,40 @@ class origineConfig
     if ($core->blog->settings->origineConfig->origine_settings['activation'] === true) {
       $social_links = [];
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_diaspora']) {
-        $social_links['Diaspora'] = $core->blog->settings->origineConfig->origine_settings['social_links_diaspora'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_diaspora']) {
+        $social_links['Diaspora'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_diaspora'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_discord']) {
-        $social_links['Discord'] = $core->blog->settings->origineConfig->origine_settings['social_links_discord'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_discord']) {
+        $social_links['Discord'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_discord'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_facebook']) {
-        $social_links['Facebook'] = $core->blog->settings->origineConfig->origine_settings['social_links_facebook'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_facebook']) {
+        $social_links['Facebook'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_facebook'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_github']) {
-        $social_links['GitHub'] = $core->blog->settings->origineConfig->origine_settings['social_links_github'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_github']) {
+        $social_links['GitHub'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_github'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_mastodon']) {
-        $social_links['Mastodon'] = $core->blog->settings->origineConfig->origine_settings['social_links_mastodon'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_mastodon']) {
+        $social_links['Mastodon'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_mastodon'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_signal']) {
-        $social_links['Signal'] = $core->blog->settings->origineConfig->origine_settings['social_links_signal'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_signal']) {
+        $social_links['Signal'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_signal'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_tiktok']) {
-        $social_links['TikTok'] = $core->blog->settings->origineConfig->origine_settings['social_links_tiktok'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_tiktok']) {
+        $social_links['TikTok'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_tiktok'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_twitter']) {
-        $social_links['Twitter'] = $core->blog->settings->origineConfig->origine_settings['social_links_twitter'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_twitter']) {
+        $social_links['Twitter'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_twitter'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['social_links_whatsapp']) {
-        $social_links['WhatsApp'] = $core->blog->settings->origineConfig->origine_settings['social_links_whatsapp'];
+      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_whatsapp']) {
+        $social_links['WhatsApp'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_whatsapp'];
       }
 
       if (!empty($social_links)) {
@@ -183,7 +183,7 @@ class origineConfig
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->origine_settings['share_link_twitter'] === true) {
+    if ($core->blog->settings->origineConfig->origine_settings['content_share_link_twitter'] === true) {
       global $_ctx;
 
       $share_data = [];
@@ -204,7 +204,7 @@ class origineConfig
         'WhatsApp' => '',
       ];
 
-      if ($core->blog->settings->origineConfig->origine_settings['share_link_twitter'] == true) {
+      if ($core->blog->settings->origineConfig->origine_settings['content_share_link_twitter'] == true) {
         $networks_url['Twitter'] = '';
       }
 
@@ -295,7 +295,7 @@ class origineConfig
     global $core;
 
     if ($core->blog->settings->origineConfig->origine_settings['activation'] === true) {
-      if ($core->blog->settings->origineConfig->origine_settings['post_author_name'] === 'date') {
+      if ($core->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'date') {
         $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
 
         $output .= '/ <span class="post-author-name" rel="author">';
@@ -333,7 +333,7 @@ class origineConfig
     global $core;
 
     if ($core->blog->settings->origineConfig->origine_settings['activation'] === true) {
-      if ($core->blog->settings->origineConfig->origine_settings['post_list_author_name'] === true) {
+      if ($core->blog->settings->origineConfig->origine_settings['content_post_list_author_name'] === true) {
         $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
 
         $output .= '/ <span class="post-author-name" rel="author">';
@@ -371,7 +371,7 @@ class origineConfig
     global $core;
 
     if ($core->blog->settings->origineConfig->origine_settings['activation'] === true) {
-      if ($core->blog->settings->origineConfig->origine_settings['post_author_name'] === 'signature') {
+      if ($core->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'signature') {
         $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
 
         $output .= '<p class="post-author-name" rel="author">';
@@ -410,9 +410,9 @@ class origineConfig
   {
     global $core, $_ctx;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true && $core->blog->settings->origineConfig->origine_settings['post_email_author'] !== 'disabled') {
-      if ($core->blog->settings->origineConfig->origine_settings['post_email_author'] === 'always'
-        || ($core->blog->settings->origineConfig->origine_settings['post_email_author'] === 'comments_open'
+    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true && $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] !== 'disabled') {
+      if ($core->blog->settings->origineConfig->origine_settings['content_post_email_author'] === 'always'
+        || ($core->blog->settings->origineConfig->origine_settings['content_post_email_author'] === 'comments_open'
           && $_ctx->posts->post_open_comment === '1'
           && $_ctx->posts->user_email
         )
@@ -439,7 +439,7 @@ class origineConfig
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true && $core->blog->settings->origineConfig->origine_settings['post_list_comments'] === true) {
+    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true && $core->blog->settings->origineConfig->origine_settings['content_post_list_comments'] === true) {
       if ($attr['context'] === 'standard') {
         return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a>"; } } ?>';
       } elseif ($attr['context'] === 'short') {

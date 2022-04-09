@@ -45,42 +45,50 @@ if (is_null($core->blog->settings->origineConfig->origine_settings)) {
   try {
     // Default settings.
     $origine_settings = [
-      'activation'     => false,
+      'activation' => false,
+
+      // Global
       'global_color_scheme'   => 'system',
       'global_color_link'     => 'red',
       'global_css_transition' => false,
       'global_meta_generator' => false,
 
-      'header_align'          => 'left',
-      'header_widgets_nav'    => true,
+      // Header
+      'header_align'       => 'left',
+      'header_widgets_nav' => true,
+      'header_logo_url'    => '',
+      'header_logo_url_2x' => '',
+      'header_logo_type'   => 'square',
 
-      'footer_align'          => 'left',
-      'post_list_type'        => 'standard',
-      'sidebar_enabled'       => true,
-      'footer_enabled'        => true,
-      'logo_url'              => '',
-      'logo_url_2x'           => '',
-      'logo_type'             => 'square',
-      'content_font_family'   => 'serif',
-      'content_font_size'     => 100,
-      'content_text_align'    => 'left',
-      'content_hyphens'       => 'disabled',
-      'post_author_name'      => 'disabled',
-      'post_list_author_name' => 0,
-      'post_list_comments'    => 0,
-      'comment_links'         => 1,
-      'post_email_author'     => 'disabled',
-      'share_link_twitter'    => false,
-      'footer_credits'        => true,
-      'social_links_diaspora' => '',
-      'social_links_discord'  => '',
-      'social_links_facebook' => '',
-      'social_links_github'   => '',
-      'social_links_mastodon' => '',
-      'social_links_signal'   => '',
-      'social_links_tiktok'   => '',
-      'social_links_twitter'  => '',
-      'social_links_whatsapp' => '',
+      // Content
+      'content_post_list_type'        => 'standard',
+      'content_font_family'           => 'serif',
+      'content_font_size'             => 100,
+      'content_text_align'            => 'left',
+      'content_hyphens'               => 'disabled',
+      'content_post_author_name'      => 'disabled',
+      'content_post_list_author_name' => 0,
+      'content_share_link_twitter'    => false,
+      'content_post_list_comments'    => 0,
+      'content_comment_links'         => 1,
+      'content_post_email_author'     => 'disabled',
+
+      // Widgets
+      'widgets_enabled' => true,
+
+      // Footer
+      'footer_enabled'               => true,
+      'footer_align'                 => 'left',
+      'footer_credits'               => true,
+      'footer_social_links_diaspora' => '',
+      'footer_social_links_discord'  => '',
+      'footer_social_links_facebook' => '',
+      'footer_social_links_github'   => '',
+      'footer_social_links_mastodon' => '',
+      'footer_social_links_signal'   => '',
+      'footer_social_links_tiktok'   => '',
+      'footer_social_links_twitter'  => '',
+      'footer_social_links_whatsapp' => '',
     ];
 
     $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false);
@@ -102,42 +110,50 @@ if (!empty($_POST) && is_array($origine_settings)) {
      * and escape them.
      */
 
-    $origine_settings['activation']            = !empty($_POST['activation']);
+    $origine_settings['activation'] = !empty($_POST['activation']);
+
+    // Global settings
     $origine_settings['global_color_scheme']   = trim(html::escapeHTML($_POST['global_color_scheme']));
     $origine_settings['global_color_link']     = trim(html::escapeHTML($_POST['global_color_link']));
     $origine_settings['global_css_transition'] = !empty($_POST['global_css_transition']);
     $origine_settings['global_meta_generator'] = !empty($_POST['global_meta_generator']);
 
-    $origine_settings['header_align']          = trim(html::escapeHTML($_POST['header_align']));
-    $origine_settings['header_widgets_nav']    = !empty($_POST['header_widgets_nav']);
+    // Header settings
+    $origine_settings['header_align']       = trim(html::escapeHTML($_POST['header_align']));
+    $origine_settings['header_widgets_nav'] = !empty($_POST['header_widgets_nav']);
+    $origine_settings['header_logo_url']    = trim(html::escapeHTML($_POST['header_logo_url']));
+    $origine_settings['header_logo_url_2x'] = trim(html::escapeHTML($_POST['header_logo_url_2x']));
+    $origine_settings['header_logo_type']   = trim(html::escapeHTML($_POST['header_logo_type']));
 
-    $origine_settings['footer_align']          = trim(html::escapeHTML($_POST['footer_align']));
-    $origine_settings['post_list_type']        = trim(html::escapeHTML($_POST['post_list_type']));
-    $origine_settings['sidebar_enabled']       = !empty($_POST['sidebar_enabled']);
-    $origine_settings['footer_enabled']        = !empty($_POST['footer_enabled']);
-    $origine_settings['logo_url']              = trim(html::escapeHTML($_POST['logo_url']));
-    $origine_settings['logo_url_2x']           = trim(html::escapeHTML($_POST['logo_url_2x']));
-    $origine_settings['logo_type']             = trim(html::escapeHTML($_POST['logo_type']));
-    $origine_settings['content_font_family']   = trim(html::escapeHTML($_POST['content_font_family']));
-    $origine_settings['content_font_size']     = abs((int) $_POST['content_font_size']);
-    $origine_settings['content_text_align']    = trim(html::escapeHTML($_POST['content_text_align']));
-    $origine_settings['content_hyphens']       = trim(html::escapeHTML($_POST['content_hyphens']));
-    $origine_settings['post_author_name']      = trim(html::escapeHTML($_POST['post_author_name']));
-    $origine_settings['post_list_author_name'] = !empty($_POST['post_list_author_name']);
-    $origine_settings['post_list_comments']    = !empty($_POST['post_list_comments']);
-    $origine_settings['comment_links']         = !empty($_POST['comment_links']);
-    $origine_settings['post_email_author']     = trim(html::escapeHTML($_POST['post_email_author']));
-    $origine_settings['share_link_twitter']    = !empty($_POST['share_link_twitter']);
-    $origine_settings['footer_credits']        = !empty($_POST['footer_credits']);
-    $origine_settings['social_links_diaspora'] = trim(html::escapeHTML($_POST['social_links_diaspora']));
-    $origine_settings['social_links_discord']  = trim(html::escapeHTML($_POST['social_links_discord']));
-    $origine_settings['social_links_facebook'] = trim(html::escapeHTML($_POST['social_links_facebook']));
-    $origine_settings['social_links_github']   = trim(html::escapeHTML($_POST['social_links_github']));
-    $origine_settings['social_links_mastodon'] = trim(html::escapeHTML($_POST['social_links_mastodon']));
-    $origine_settings['social_links_signal']   = trim(html::escapeHTML($_POST['social_links_signal']));
-    $origine_settings['social_links_tiktok']   = trim(html::escapeHTML($_POST['social_links_tiktok']));
-    $origine_settings['social_links_twitter']  = trim(html::escapeHTML($_POST['social_links_twitter']));
-    $origine_settings['social_links_whatsapp'] = trim(html::escapeHTML($_POST['social_links_whatsapp']));
+    // Content
+    $origine_settings['content_post_list_type']        = trim(html::escapeHTML($_POST['content_post_list_type']));
+    $origine_settings['content_font_family']           = trim(html::escapeHTML($_POST['content_font_family']));
+    $origine_settings['content_font_size']             = abs((int) $_POST['content_font_size']);
+    $origine_settings['content_text_align']            = trim(html::escapeHTML($_POST['content_text_align']));
+    $origine_settings['content_hyphens']               = trim(html::escapeHTML($_POST['content_hyphens']));
+    $origine_settings['content_post_author_name']      = trim(html::escapeHTML($_POST['content_post_author_name']));
+    $origine_settings['content_post_list_author_name'] = !empty($_POST['content_post_list_author_name']);
+    $origine_settings['content_share_link_twitter']    = !empty($_POST['content_share_link_twitter']);
+    $origine_settings['content_post_list_comments']    = !empty($_POST['content_post_list_comments']);
+    $origine_settings['content_comment_links']         = !empty($_POST['content_comment_links']);
+    $origine_settings['content_post_email_author']     = trim(html::escapeHTML($_POST['content_post_email_author']));
+
+    // Widgets settings
+    $origine_settings['widgets_enabled'] = !empty($_POST['widgets_enabled']);
+
+    // Footer settings
+    $origine_settings['footer_enabled']               = !empty($_POST['footer_enabled']);
+    $origine_settings['footer_align']                 = trim(html::escapeHTML($_POST['footer_align']));
+    $origine_settings['footer_credits']               = !empty($_POST['footer_credits']);
+    $origine_settings['footer_social_links_diaspora'] = trim(html::escapeHTML($_POST['footer_social_links_diaspora']));
+    $origine_settings['footer_social_links_discord']  = trim(html::escapeHTML($_POST['footer_social_links_discord']));
+    $origine_settings['footer_social_links_facebook'] = trim(html::escapeHTML($_POST['footer_social_links_facebook']));
+    $origine_settings['footer_social_links_github']   = trim(html::escapeHTML($_POST['footer_social_links_github']));
+    $origine_settings['footer_social_links_mastodon'] = trim(html::escapeHTML($_POST['footer_social_links_mastodon']));
+    $origine_settings['footer_social_links_signal']   = trim(html::escapeHTML($_POST['footer_social_links_signal']));
+    $origine_settings['footer_social_links_tiktok']   = trim(html::escapeHTML($_POST['footer_social_links_tiktok']));
+    $origine_settings['footer_social_links_twitter']  = trim(html::escapeHTML($_POST['footer_social_links_twitter']));
+    $origine_settings['footer_social_links_whatsapp'] = trim(html::escapeHTML($_POST['footer_social_links_whatsapp']));
 
     /**
      * Save settings in the database.
@@ -267,7 +283,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
     }
 
     // Logo
-    if ($origine_settings['logo_url']) {
+    if ($origine_settings['header_logo_url']) {
       $css_array['.site-logo-container']['margin-bottom'] = '1em';
 
       $css_array['.site-logo-link']['border-bottom'] = 'none';
@@ -276,14 +292,14 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
       $css_array['.site-logo']['display'] = 'block';
 
-      if ($origine_settings['logo_type'] === 'square') {
+      if ($origine_settings['header_logo_type'] === 'square') {
         $css_array['.site-logo-container']['display'] = 'inline-block';
 
         $css_array['.site-logo-link']['display'] = 'inline-block';
 
         $css_array['.site-logo']['max-height'] = '150px';
         $css_array['.site-logo']['max-width']  = '150px';
-      } elseif ($origine_settings['logo_type'] === 'round') {
+      } elseif ($origine_settings['header_logo_type'] === 'round') {
         $css_array['.site-logo-container']['display'] = 'inline-block';
 
         $css_array['.site-logo-link']['border-radius'] = '50%';
@@ -319,7 +335,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
     }
 
     // Post list appearance
-    switch ($origine_settings['post_list_type']) {
+    switch ($origine_settings['content_post_list_type']) {
       case 'standard':
         $css_array['.post-list-standard .post-link']['display'] = 'block';
 
@@ -417,15 +433,15 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $css_array  = [];
 
     // Social links.
-    if ($origine_settings['social_links_diaspora']
-      || $origine_settings['social_links_discord']
-      || $origine_settings['social_links_facebook']
-      || $origine_settings['social_links_github']
-      || $origine_settings['social_links_mastodon']
-      || $origine_settings['social_links_signal']
-      || $origine_settings['social_links_tiktok']
-      || $origine_settings['social_links_twitter']
-      || $origine_settings['social_links_whatsapp']
+    if ($origine_settings['footer_social_links_diaspora']
+      || $origine_settings['footer_social_links_discord']
+      || $origine_settings['footer_social_links_facebook']
+      || $origine_settings['footer_social_links_github']
+      || $origine_settings['footer_social_links_mastodon']
+      || $origine_settings['footer_social_links_signal']
+      || $origine_settings['footer_social_links_tiktok']
+      || $origine_settings['footer_social_links_twitter']
+      || $origine_settings['footer_social_links_whatsapp']
     ) {
       $css_array['.footer-social-links ul']['list-style']                 = 'none';
       $css_array['.footer-social-links ul']['margin']                     = '0';
@@ -488,15 +504,15 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
       $css_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'none';
 
-      if ($origine_settings['social_links_diaspora']
-        || $origine_settings['social_links_discord']
-        || $origine_settings['social_links_facebook']
-        || $origine_settings['social_links_github']
-        || $origine_settings['social_links_mastodon']
-        || $origine_settings['social_links_signal']
-        || $origine_settings['social_links_tiktok']
-        || $origine_settings['social_links_twitter']
-        || $origine_settings['social_links_whatsapp']
+      if ($origine_settings['footer_social_links_diaspora']
+        || $origine_settings['footer_social_links_discord']
+        || $origine_settings['footer_social_links_facebook']
+        || $origine_settings['footer_social_links_github']
+        || $origine_settings['footer_social_links_mastodon']
+        || $origine_settings['footer_social_links_signal']
+        || $origine_settings['footer_social_links_tiktok']
+        || $origine_settings['footer_social_links_twitter']
+        || $origine_settings['footer_social_links_whatsapp']
       ) {
         $css_array['.footer-social-links-icon-container']['transition'] = 'none';
 
@@ -555,27 +571,23 @@ if (!empty($_POST) && is_array($origine_settings)) {
       ?>
 
       <form action="<?php echo $p_url; ?>" method="post">
+        <p>
+          <?php echo form::checkbox('activation', true, $origine_settings['activation']); ?>
+
+          <label class="classic" for="activation"><?php echo __('Enable extension settings'); ?></label>
+        </p>
+
+        <p class="form-note">
+          <?php echo __('If you do not check this box, your settings will be ignored.'); ?>
+        </p>
+
         <h3><?php echo __('Global'); ?></h3>
-
-        <div class="fieldset">
-          <h4><?php echo __('Activation'); ?></h4>
-
-          <p>
-            <?php echo form::checkbox('activation', true, $origine_settings['activation']); ?>
-
-            <label class="classic" for="activation"><?php echo __('Enable extension settings'); ?></label>
-          </p>
-
-          <p class="form-note">
-            <?php echo __('If you do not check this box, your settings will be ignored.'); ?>
-          </p>
-        </div>
 
         <div class="fieldset">
           <h4><?php echo __('Colors'); ?></h4>
 
           <p>
-            <label for="color_scheme">
+            <label for="global_color_scheme">
               <?php echo __('Color scheme'); ?>
             </label>
 
@@ -609,9 +621,9 @@ if (!empty($_POST) && is_array($origine_settings)) {
           </p>
 
           <p>
-            <?php echo form::checkbox('global_css_transition', 1, $origine_settings['global_css_transition']); ?>
+            <?php echo form::checkbox('global_css_transition', true, $origine_settings['global_css_transition']); ?>
 
-            <label class="classic" for="css_transition">
+            <label class="classic" for="global_css_transition">
               <?php echo __('Add a color transition on link hover'); ?>
             </label>
           </p>
@@ -625,9 +637,9 @@ if (!empty($_POST) && is_array($origine_settings)) {
             <h4><?php echo __('Advanced settings'); ?></h4>
 
             <p>
-              <?php echo form::checkbox('global_meta_generator', 1, $origine_settings['global_meta_generator']); ?>
+              <?php echo form::checkbox('global_meta_generator', true, $origine_settings['global_meta_generator']); ?>
 
-              <label class="classic" for="meta_generator"><?php echo __('Add <code>generator</code> meta tag'); ?></label>
+              <label class="classic" for="global_meta_generator"><?php echo __('Add <code>generator</code> meta tag'); ?></label>
             </p>
 
             <p class="form-note">
@@ -654,13 +666,23 @@ if (!empty($_POST) && is_array($origine_settings)) {
             echo form::combo('header_align', $combo_header_align, $origine_settings['header_align']);
             ?>
           </p>
+
+          <p>
+            <?php echo form::checkbox('header_widgets_nav', true, $origine_settings['header_widgets_nav']); ?>
+
+            <label class="classic" for="header_widgets_nav"><?php echo __('Enable the navigation widget area'); ?></label>
+          </p>
+
+          <p class="form-note">
+            <?php echo __('Check only if your have set widgets in the navigation area.'); ?>
+          </p>
         </div>
 
         <div class="fieldset">
             <h4><?php echo __('Logo'); ?></h4>
 
             <p>
-              <label for="logo_type">
+              <label for="header_logo_type">
                 <?php echo __('Logo type'); ?>
               </label>
 
@@ -671,16 +693,16 @@ if (!empty($_POST) && is_array($origine_settings)) {
                 __('Banner')           => 'banner',
               ];
 
-              echo form::combo('logo_type', $combo_logo_type, $origine_settings['logo_type']);
+              echo form::combo('header_logo_type', $combo_logo_type, $origine_settings['header_logo_type']);
               ?>
             </p>
 
             <p>
-              <label for="logo_url">
+              <label for="header_logo_url">
                 <?php echo __('URL of your logo'); ?>
               </label>
 
-              <?php echo form::field('logo_url', 30, 255, html::escapeHTML($origine_settings['logo_url'])); ?>
+              <?php echo form::field('header_logo_url', 30, 255, html::escapeHTML($origine_settings['header_logo_url'])); ?>
             </p>
 
             <p class="form-note">
@@ -688,11 +710,11 @@ if (!empty($_POST) && is_array($origine_settings)) {
             </p>
 
             <p>
-              <label for="logo_url_2x">
+              <label for="header_logo_url_2x">
                 <?php echo __('URL of your logo for screens with doubled pixel density'); ?>
               </label>
 
-              <?php echo form::field('logo_url_2x', 30, 255, html::escapeHTML($origine_settings['logo_url_2x'])); ?>
+              <?php echo form::field('header_logo_url_2x', 30, 255, html::escapeHTML($origine_settings['header_logo_url_2x'])); ?>
             </p>
 
             <p class="form-note">
@@ -706,7 +728,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
           <h4><?php echo __('Post list'); ?></h4>
 
           <p>
-            <label for="post_list_type"><?php echo __('Displaying of posts'); ?></label>
+            <label for="content_post_list_type"><?php echo __('Displaying of posts'); ?></label>
 
             <?php
             $combo_post_list_type = [
@@ -715,7 +737,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
               __('Full post')          => 'full',
             ];
 
-            echo form::combo('post_list_type', $combo_post_list_type, $origine_settings['post_list_type']);
+            echo form::combo('content_post_list_type', $combo_post_list_type, $origine_settings['content_post_list_type']);
             ?>
           </p>
         </div>
@@ -800,7 +822,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
         <h4><?php echo __('Author'); ?></h4>
 
         <p>
-          <label for="post_author_name">
+          <label for="content_post_author_name">
             <?php echo __('Author name on posts'); ?>
           </label>
 
@@ -811,14 +833,14 @@ if (!empty($_POST) && is_array($origine_settings)) {
               __('Below the post as signature') => 'signature',
           ];
 
-          echo form::combo('post_author_name', $combo_post_author_name, $origine_settings['post_author_name']);
+          echo form::combo('content_post_author_name', $combo_post_author_name, $origine_settings['content_post_author_name']);
           ?>
         </p>
 
         <p>
-          <?php echo form::checkbox('post_list_author_name', 1, $origine_settings['post_list_author_name']); ?>
+          <?php echo form::checkbox('content_post_list_author_name', 1, $origine_settings['content_post_list_author_name']); ?>
 
-          <label class="classic" for="post_list_author_name">
+          <label class="classic" for="content_post_list_author_name">
             <?php echo __('Display the author name in the post list'); ?>
           </label>
         </p>
@@ -828,9 +850,9 @@ if (!empty($_POST) && is_array($origine_settings)) {
           <h4><?php echo __('Share links'); ?></h4>
 
           <p>
-            <?php echo form::checkbox('share_link_twitter', 1, $origine_settings['share_link_twitter']); ?>
+            <?php echo form::checkbox('content_share_link_twitter', 1, $origine_settings['content_share_link_twitter']); ?>
 
-            <label class="classic" for="share_link_twitter">
+            <label class="classic" for="content_share_link_twitter">
               <?php echo __('Add a link to share your posts on Twitter'); ?>
             </label>
           </p>
@@ -844,23 +866,23 @@ if (!empty($_POST) && is_array($origine_settings)) {
             <h4><?php echo __('Comments'); ?></h4>
 
             <p>
-              <?php echo form::checkbox('post_list_comments', 1, $origine_settings['post_list_comments']); ?>
+              <?php echo form::checkbox('content_post_list_comments', 1, $origine_settings['content_post_list_comments']); ?>
 
-              <label class="classic" for="post_list_comments">
+              <label class="classic" for="content_post_list_comments">
                 <?php echo __('Display the number of comments in the post list (only if the post has comments)'); ?>
               </label>
             </p>
 
             <p>
-              <?php echo form::checkbox('comment_links', 1, $origine_settings['comment_links']); ?>
+              <?php echo form::checkbox('content_comment_links', 1, $origine_settings['content_comment_links']); ?>
 
-              <label class="classic" for="comment_links">
+              <label class="classic" for="content_comment_links">
                 <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
               </label>
             </p>
 
             <p>
-              <label for="post_email_author">
+              <label for="content_post_email_author">
                 <?php echo __('Allow visitors to send email to authors of posts and pages'); ?>
               </label>
 
@@ -871,7 +893,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
                 __('Always')                      => 'always',
               ];
 
-              echo form::combo('post_email_author', $combo_post_email_author, $origine_settings['post_email_author']);
+              echo form::combo('content_post_email_author', $combo_post_email_author, $origine_settings['content_post_email_author']);
               ?>
             </p>
 
@@ -884,19 +906,9 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
         <div class="fieldset">
           <p>
-            <?php // echo form::checkbox('sidebar_enabled', 1, $sidebar_enabled); ?>
+            <?php echo form::checkbox('widgets_enabled', 1, $origine_settings['widgets_enabled']); ?>
 
-            <label class="classic" for="sidebar_enabled"><?php echo __('ACTIVER LES WIDGETS DANS L’EN-TÊTE POUR LA NAVIGATION (À CONFIGURER)'); ?></label>
-          </p>
-
-          <p class="form-note">
-
-          </p>
-
-          <p>
-            <?php echo form::checkbox('sidebar_enabled', 1, $origine_settings['sidebar_enabled']); ?>
-
-            <label class="classic" for="sidebar_enabled"><?php echo __('Enable the <em>sidebar</em>'); ?></label>
+            <label class="classic" for="widgets_enabled"><?php echo __('Enable the <em>sidebar</em>'); ?></label>
           </p>
 
           <p class="form-note">
@@ -941,75 +953,75 @@ if (!empty($_POST) && is_array($origine_settings)) {
             </p>
 
             <p>
-              <label for="social_links_diaspora">
+              <label for="footer_social_links_diaspora">
                 <?php echo __('Link to your Diaspora* profile'); ?>
               </label>
 
-              <?php echo form::field('social_links_diaspora', 30, 255, html::escapeHTML($origine_settings['social_links_diaspora'])); ?>
+              <?php echo form::field('footer_social_links_diaspora', 30, 255, html::escapeHTML($origine_settings['footer_social_links_diaspora'])); ?>
             </p>
 
             <p>
-              <label for="social_links_discord">
+              <label for="footer_social_links_discord">
                 <?php echo __('Link to your Discord server'); ?>
               </label>
 
-              <?php echo form::field('social_links_discord', 30, 255, html::escapeHTML($origine_settings['social_links_discord'])); ?>
+              <?php echo form::field('footer_social_links_discord', 30, 255, html::escapeHTML($origine_settings['footer_social_links_discord'])); ?>
             </p>
 
             <p>
-              <label for="social_links_facebook">
+              <label for="footer_social_links_facebook">
                 <?php echo __('Link to your Facebook profile or page'); ?>
               </label>
 
-              <?php echo form::field('social_links_facebook', 30, 255, html::escapeHTML($origine_settings['social_links_facebook'])); ?>
+              <?php echo form::field('footer_social_links_facebook', 30, 255, html::escapeHTML($origine_settings['footer_social_links_facebook'])); ?>
             </p>
 
             <p>
-              <label for="social_links_github">
+              <label for="footer_social_links_github">
                 <?php echo __('Link to a GitHub page'); ?>
               </label>
 
-              <?php echo form::field('social_links_github', 30, 255, html::escapeHTML($origine_settings['social_links_github'])); ?>
+              <?php echo form::field('footer_social_links_github', 30, 255, html::escapeHTML($origine_settings['footer_social_links_github'])); ?>
             </p>
 
             <p>
-              <label for="social_links_mastodon">
+              <label for="footer_social_links_mastodon">
                 <?php echo __('Link to your Mastodon profile'); ?>
               </label>
 
-              <?php echo form::field('social_links_mastodon', 30, 255, html::escapeHTML($origine_settings['social_links_mastodon'])); ?>
+              <?php echo form::field('footer_social_links_mastodon', 30, 255, html::escapeHTML($origine_settings['footer_social_links_mastodon'])); ?>
             </p>
 
             <p>
-              <label for="social_links_signal">
+              <label for="footer_social_links_signal">
                 <?php echo __('Your Signal number or a group link'); ?>
               </label>
 
-              <?php echo form::field('social_links_signal', 30, 255, html::escapeHTML($origine_settings['social_links_signal'])); ?>
+              <?php echo form::field('footer_social_links_signal', 30, 255, html::escapeHTML($origine_settings['footer_social_links_signal'])); ?>
             </p>
 
             <p>
-              <label for="social_links_tiktok">
+              <label for="footer_social_links_tiktok">
                 <?php echo __('Link to your TikTok profile'); ?>
               </label>
 
-              <?php echo form::field('social_links_tiktok', 30, 255, html::escapeHTML($origine_settings['social_links_tiktok'])); ?>
+              <?php echo form::field('footer_social_links_tiktok', 30, 255, html::escapeHTML($origine_settings['footer_social_links_tiktok'])); ?>
             </p>
 
             <p>
-              <label for="social_links_twitter">
+              <label for="footer_social_links_twitter">
                 <?php echo __('Your Twitter username'); ?>
               </label>
 
-              <?php echo form::field('social_links_twitter', 30, 255, html::escapeHTML($origine_settings['social_links_twitter'])); ?>
+              <?php echo form::field('footer_social_links_twitter', 30, 255, html::escapeHTML($origine_settings['footer_social_links_twitter'])); ?>
             </p>
 
             <p>
-              <label for="social_links_whatsapp">
+              <label for="footer_social_links_whatsapp">
                 <?php echo __('Your WhatsApp number or a group link'); ?>
               </label>
 
-              <?php echo form::field('social_links_whatsapp', 30, 255, html::escapeHTML($origine_settings['social_links_whatsapp'])); ?>
+              <?php echo form::field('footer_social_links_whatsapp', 30, 255, html::escapeHTML($origine_settings['footer_social_links_whatsapp'])); ?>
             </p>
           </div>
 
