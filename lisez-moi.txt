@@ -11,6 +11,12 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 1.0-dev - GROSSE MISE A JOUR A VENIR ===
+- Amélioration : réorganisation des paramètres.
+- Correction : suppression des paramètres inutilisés dans la base de données.
+- Modification : tous les paramètres sont insérés dans une seule entrée de la base de données.
+- Correction : nouvelles options non fonctionnelles.
+
 === 0.6.3-beta - 4 mars 2022 ===
 - Amélioration : le cache des modèles est vidé à chaque enregistrement.
 - Suppression : message suggérant de vider le cache après l’enregistrement.
