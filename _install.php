@@ -81,6 +81,7 @@ try {
 
     // Content
     'content_post_list_type'        => 'standard',
+    'content_post_list_first_image' => false,
     'content_font_family'           => 'serif',
     'content_font_size'             => 100,
     'content_text_align'            => 'left',

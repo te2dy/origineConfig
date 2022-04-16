@@ -19,6 +19,7 @@ $core->tpl->addValue('origineConfigEntriesAuthorName', ['origineConfig', 'origin
 $core->tpl->addValue('origineConfigEntryAuthorNameNextToDate', ['origineConfig', 'origineConfigEntryAuthorNameNextToDate']);
 $core->tpl->addValue('origineConfigEntryAuthorNameSignature', ['origineConfig', 'origineConfigEntryAuthorNameSignature']);
 $core->tpl->addValue('origineConfigEmailAuthor', ['origineConfig', 'origineConfigEmailAuthor']);
+$core->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineConfigEntryFirstImage']);
 $core->tpl->addValue('origineConfigPostListComments', ['origineConfig', 'origineConfigPostListComments']);
 
 $core->tpl->addBlock('origineConfigWidgetsNav', ['origineConfig', 'origineConfigWidgetsNav']);
@@ -447,6 +448,114 @@ class origineConfig
       } elseif ($attr['context'] === 'full') {
         return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<div class=\"post-meta text-secondary\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a></div>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<div class=\"post-meta text-secondary\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a></div>"; } } ?>';
       }
+    }
+  }
+
+  /**
+   * Displays the first image of a post.
+   *
+   * IN DEVELOPMENT.
+   *
+   * TO PUT IN THE PLUGIN FILES INSTEAD OF THE THEME FILES.
+   */
+  public static function origineConfigEntryFirstImage($attr)
+  {
+    global $core;
+
+    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true
+      && $core->blog->settings->origineConfig->origine_settings['content_post_list_first_image'] === true) {
+
+      $url_public_relative = $core->blog->settings->system->public_url;
+      $public_path         = $core->blog->public_path;
+
+      return '
+        <?php
+        // The image URL.
+        $img_o_url = context::EntryFirstImageHelper(addslashes("o"), 0, "", true);
+
+        // The image tag and its parameters.
+        $img_o = context::EntryFirstImageHelper(addslashes("o"), 0, "", false);
+
+        // Gets the value of alt.
+        if (preg_match(\'/alt="([^"]+)"/\', $img_o, $alt)) {
+            $img_o_alt = " alt=\"" . $alt[1] . "\"";
+        } else {
+          $img_o_alt = "";
+        }
+
+        $img_o_only = true;
+
+        if ($img_o_url) {
+          $img_m_url = context::EntryFirstImageHelper(addslashes("m"), 0, "", true);
+          $img_s_url = context::EntryFirstImageHelper(addslashes("s"), 0, "", true);
+
+          $img_o_path   = "' . $public_path . '" . str_replace("' . $url_public_relative . '" . "/", "/", $img_o_url);
+          $img_o_width  = getimagesize($img_o_path)[0];
+          $img_o_height = getimagesize($img_o_path)[1];
+
+          $images      = [];
+          $images["o"] = ["$img_o_url", $img_o_width];
+
+          $img_m_width = 0;
+          $img_s_width = 0;
+
+          if ($img_o_url !== $img_m_url && $img_o_url !== $img_s_url) {
+            $img_o_only = false;
+
+            if ($img_o_url !== $img_m_url) {
+              $img_m_path  = "' . $public_path . '" . str_replace("' . $url_public_relative . '" . "/", "/", $img_m_url);
+              $img_m_width = getimagesize($img_m_path)[0];
+            }
+
+            if ($img_o_url !== $img_s_url) {
+              $img_s_path  = "' . $public_path . '" . str_replace("' . $url_public_relative . '" . "/", "/", $img_s_url);
+              $img_s_width = getimagesize($img_s_path)[0];
+            }
+
+            if ($img_m_width > 0) {
+              $images["m"] = ["$img_m_url", $img_m_width];
+            }
+
+            if ($img_s_width > 0) {
+              $images["s"] = ["$img_s_url", $img_s_width];
+            }
+
+            array_reverse($images);
+          }
+
+          $src_set_value = "";
+          $sizes_attr    = "";
+
+          $sizes_margins = [
+            480 => 128,
+            320 => 64,
+          ];
+
+
+          if (isset($images) && count($images) > 1) {
+            $src_set_value .= " srcset=\"";
+
+            $sizes_array = [];
+
+            $i = 0;
+            foreach ($images as $size => $data) {
+              $src_set_value .= "$data[0] $data[1]w";
+
+              if (array_key_last($images) !== $size) {
+                $src_set_value .= ", ";
+              }
+            }
+
+            $src_set_value .= "\" sizes=\"100vw\"";
+          }
+          ?>
+
+          <img<?php echo $img_o_alt; ?> class="post-thumbnail" loading="lazy" src="<?php echo $img_o_url; ?>"<?php echo $src_set_value; ?> />
+
+          <?php
+        }
+        ?>
+      ';
     }
   }
 

@@ -62,6 +62,7 @@ if (is_null($core->blog->settings->origineConfig->origine_settings)) {
 
       // Content
       'content_post_list_type'        => 'standard',
+      'content_post_list_first_image' => false,
       'content_font_family'           => 'serif',
       'content_font_size'             => 100,
       'content_text_align'            => 'left',
@@ -127,6 +128,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
     // Content
     $origine_settings['content_post_list_type']        = trim(html::escapeHTML($_POST['content_post_list_type']));
+    $origine_settings['content_post_list_first_image'] = !empty($_POST['content_post_list_first_image']);
     $origine_settings['content_font_family']           = trim(html::escapeHTML($_POST['content_font_family']));
     $origine_settings['content_font_size']             = abs((int) $_POST['content_font_size']);
     $origine_settings['content_text_align']            = trim(html::escapeHTML($_POST['content_text_align']));
@@ -739,6 +741,14 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             echo form::combo('content_post_list_type', $combo_post_list_type, $origine_settings['content_post_list_type']);
             ?>
+          </p>
+
+          <p>
+            <?php echo form::checkbox('content_post_list_first_image', 1, $origine_settings['content_post_list_first_image']); ?>
+
+            <label class="classic" for="content_post_list_first_image">
+              <?php echo __('Display the first image of the post'); ?>
+            </label>
           </p>
         </div>
 
