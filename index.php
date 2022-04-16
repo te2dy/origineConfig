@@ -750,6 +750,10 @@ if (!empty($_POST) && is_array($origine_settings)) {
               <?php echo __('Display the first image of the post'); ?>
             </label>
           </p>
+
+          <p class="form-note">
+            <?php echo __('Only if post displaying is set to "standard".'); ?>
+          </p>
         </div>
 
         <div class="fieldset">
