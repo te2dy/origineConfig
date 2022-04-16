@@ -11,7 +11,10 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
-=== 1.0-dev - GROSSE MISE A JOUR A VENIR ===
+=== 1.0-dev - 16 avril 2022 ===
+- Ajout : option pour afficher la première image dans la liste des billets.
+
+=== 1.0-dev - 10 avril 2022 ===
 - Amélioration : réorganisation des paramètres.
 - Correction : suppression des paramètres inutilisés dans la base de données.
 - Modification : tous les paramètres sont insérés dans une seule entrée de la base de données.
