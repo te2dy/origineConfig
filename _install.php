@@ -22,6 +22,7 @@ try {
 
   // Old settings to delete from the database on the next version.
   $settings_to_drop = [
+    'activation',
     'global_activation',
     'color_scheme',
     'link_color',
