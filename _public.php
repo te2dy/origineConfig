@@ -490,8 +490,8 @@ class origineConfig
           $img_s_url = context::EntryFirstImageHelper(addslashes("s"), 0, "", true);
 
           $img_o_path   = "' . $public_path . '" . str_replace("' . $url_public_relative . '" . "/", "/", $img_o_url);
-          $img_o_width  = getimagesize($img_o_path)[0];
-          $img_o_height = getimagesize($img_o_path)[1];
+          $img_o_width  = (int) getimagesize($img_o_path)[0];
+          $img_o_height = (int) getimagesize($img_o_path)[1];
 
           $images      = [];
           $images["o"] = ["$img_o_url", $img_o_width];
@@ -504,12 +504,12 @@ class origineConfig
 
             if ($img_o_url !== $img_m_url) {
               $img_m_path  = "' . $public_path . '" . str_replace("' . $url_public_relative . '" . "/", "/", $img_m_url);
-              $img_m_width = getimagesize($img_m_path)[0];
+              $img_m_width = (int) getimagesize($img_m_path)[0];
             }
 
             if ($img_o_url !== $img_s_url) {
               $img_s_path  = "' . $public_path . '" . str_replace("' . $url_public_relative . '" . "/", "/", $img_s_url);
-              $img_s_width = getimagesize($img_s_path)[0];
+              $img_s_width = (int) getimagesize($img_s_path)[0];
             }
 
             if ($img_m_width > 0) {
@@ -525,12 +525,6 @@ class origineConfig
 
           $src_set_value = "";
           $sizes_attr    = "";
-
-          $sizes_margins = [
-            480 => 128,
-            320 => 64,
-          ];
-
 
           if (isset($images) && count($images) > 1) {
             $src_set_value .= " srcset=\"";
