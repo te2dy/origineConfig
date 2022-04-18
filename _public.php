@@ -69,7 +69,6 @@ class origineConfig
     $origine_settings = $core->blog->settings->origineConfig->origine_settings;
 
     if ($origine_settings['activation'] === true) {
-
       // Meta generator
       if ($core->blog->settings->origineConfig->origine_settings['global_meta_generator'] === true) {
         echo '<meta name="generator" content="Dotclear" />' . "\n";
@@ -280,7 +279,7 @@ class origineConfig
 
       $output = '';
 
-      // If there are values, displays the buttons.
+      // If there are values in the array, displays the buttons.
       if (!empty($networks_url)) {
         $networks_count = count($networks_url);
 
@@ -343,117 +342,127 @@ class origineConfig
     }
   }
 
-  /* DOCUMENTATION */
+  /**
+   * Displays the author name of the post after the date.
+   */
   public static function origineConfigEntryAuthorNameNextToDate()
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true) {
-      if ($core->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'date') {
-        $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+    if (
+      $core->blog->settings->origineConfig->origine_settings['activation'] === true
+      && $core->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'date'
+    ) {
 
-        $output .= '/ <span class="post-author-name" rel="author">';
+      $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
 
-        $output .= '<?php if ($_ctx->posts->user_url) {';
-        $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
-        $output .= '} ?>';
+      $output .= '/ <span class="post-author-name" rel="author">';
 
-        $output .= '<?php if ($_ctx->posts->user_displayname) {';
-        $output .= 'echo $_ctx->posts->user_displayname;';
-        $output .= '} elseif ($_ctx->posts->user_firstname) {';
-        $output .= 'echo $_ctx->posts->user_firstname;';
-        $output .= 'if ($_ctx->posts->user_name) {';
-        $output .= 'echo " " . $_ctx->posts->user_name;';
-        $output .= '} } else {';
-        $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
-        $output .= '} ?>';
+      $output .= '<?php if ($_ctx->posts->user_url) {';
+      $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+      $output .= '} ?>';
 
-        $output .= '<?php if ($_ctx->posts->user_url) {';
-        $output .= 'echo "</a>";';
-        $output .= '} ?>';
+      $output .= '<?php if ($_ctx->posts->user_displayname) {';
+      $output .= 'echo $_ctx->posts->user_displayname;';
+      $output .= '} elseif ($_ctx->posts->user_firstname) {';
+      $output .= 'echo $_ctx->posts->user_firstname;';
+      $output .= 'if ($_ctx->posts->user_name) {';
+      $output .= 'echo " " . $_ctx->posts->user_name;';
+      $output .= '} } else {';
+      $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+      $output .= '} ?>';
 
-        $output .= '</span>';
+      $output .= '<?php if ($_ctx->posts->user_url) {';
+      $output .= 'echo "</a>";';
+      $output .= '} ?>';
 
-        $output .= '<?php endif; ?>';
+      $output .= '</span>';
 
-        return $output;
-      }
+      $output .= '<?php endif; ?>';
+
+      return $output;
     }
   }
 
-  /* DOCUMENTATION */
+  /**
+   * Displays the author name in the post list.
+   */
   public static function origineConfigEntriesAuthorName()
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true) {
-      if ($core->blog->settings->origineConfig->origine_settings['content_post_list_author_name'] === true) {
-        $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+    if (
+      $core->blog->settings->origineConfig->origine_settings['activation'] === true
+      && $core->blog->settings->origineConfig->origine_settings['content_post_list_author_name'] === true
+    ) {
+      $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
 
-        $output .= '/ <span class="post-author-name" rel="author">';
+      $output .= '/ <span class="post-author-name" rel="author">';
 
-        $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->origine_settings[\'post_list_type\'] === "short") {';
-        $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
-        $output .= '} ?>';
+      $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->origine_settings[\'post_list_type\'] === "short") {';
+      $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+      $output .= '} ?>';
 
-        $output .= '<?php if ($_ctx->posts->user_displayname) {';
-        $output .= 'echo $_ctx->posts->user_displayname;';
-        $output .= '} elseif ($_ctx->posts->user_firstname) {';
-        $output .= 'echo $_ctx->posts->user_firstname;';
-        $output .= 'if ($_ctx->posts->user_name) {';
-        $output .= 'echo " " . $_ctx->posts->user_name;';
-        $output .= '} } else {';
-        $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
-        $output .= '} ?>';
+      $output .= '<?php if ($_ctx->posts->user_displayname) {';
+      $output .= 'echo $_ctx->posts->user_displayname;';
+      $output .= '} elseif ($_ctx->posts->user_firstname) {';
+      $output .= 'echo $_ctx->posts->user_firstname;';
+      $output .= 'if ($_ctx->posts->user_name) {';
+      $output .= 'echo " " . $_ctx->posts->user_name;';
+      $output .= '} } else {';
+      $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+      $output .= '} ?>';
 
-        $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->origine_settings[\'post_list_type\'] === "short") {';
-        $output .= 'echo "</a>";';
-        $output .= '} ?>';
+      $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->origine_settings[\'post_list_type\'] === "short") {';
+      $output .= 'echo "</a>";';
+      $output .= '} ?>';
 
-        $output .= '</span>';
+      $output .= '</span>';
 
-        $output .= '<?php endif; ?>';
+      $output .= '<?php endif; ?>';
 
-        return $output;
-      }
+      return $output;
     }
   }
 
-  /* DOCUMENTATION */
+  /**
+   * Displays the author name under the post as a signature.
+   */
   public static function origineConfigEntryAuthorNameSignature()
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true) {
-      if ($core->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'signature') {
-        $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+    if (
+      $core->blog->settings->origineConfig->origine_settings['activation'] === true
+      && $core->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'signature'
+    ) {
+      $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
 
-        $output .= '<p class="post-author-name" rel="author">';
+      $output .= '<p class="post-author-name" rel="author">';
 
-        $output .= '<?php if ($_ctx->posts->user_url) {';
-        $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
-        $output .= '} ?>';
+      $output .= '<?php if ($_ctx->posts->user_url) {';
+      $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+      $output .= '} ?>';
 
-        $output .= '<?php if ($_ctx->posts->user_displayname) {';
-        $output .= 'echo $_ctx->posts->user_displayname;';
-        $output .= '} elseif ($_ctx->posts->user_firstname) {';
-        $output .= 'echo $_ctx->posts->user_firstname;';
-        $output .= 'if ($_ctx->posts->user_name) {';
-        $output .= 'echo " " . $_ctx->posts->user_name;';
-        $output .= '} } else {';
-        $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
-        $output .= '} ?>';
+      $output .= '<?php if ($_ctx->posts->user_displayname) {';
+      $output .= 'echo $_ctx->posts->user_displayname;';
+      $output .= '} elseif ($_ctx->posts->user_firstname) {';
+      $output .= 'echo $_ctx->posts->user_firstname;';
+      $output .= 'if ($_ctx->posts->user_name) {';
+      $output .= 'echo " " . $_ctx->posts->user_name;';
+      $output .= '} } else {';
+      $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+      $output .= '} ?>';
 
-        $output .= '<?php if ($_ctx->posts->user_url) {';
-        $output .= 'echo "</a>";';
-        $output .= '} ?>';
+      $output .= '<?php if ($_ctx->posts->user_url) {';
+      $output .= 'echo "</a>";';
+      $output .= '} ?>';
 
-        $output .= '</p>';
+      $output .= '</p>';
 
-        $output .= '<?php endif; ?>';
+      $output .= '<?php endif; ?>';
 
-        return $output;
-      }
+      return $output;
     }
   }
 
@@ -464,9 +473,14 @@ class origineConfig
   {
     global $core, $_ctx;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true && $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] !== 'disabled') {
-      if ($core->blog->settings->origineConfig->origine_settings['content_post_email_author'] === 'always'
-        || ($core->blog->settings->origineConfig->origine_settings['content_post_email_author'] === 'comments_open'
+    if (
+      $core->blog->settings->origineConfig->origine_settings['activation'] === true
+      && $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] !== 'disabled'
+    ) {
+      if (
+        $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] === 'always'
+        || (
+          $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] === 'comments_open'
           && $_ctx->posts->post_open_comment === '1'
           && $_ctx->posts->user_email
         )
@@ -488,12 +502,17 @@ class origineConfig
     }
   }
 
-  /* DOCUMENTATION */
+  /**
+   * Displays the number of comments in the post list.
+   */
   public static function origineConfigPostListComments($attr)
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true && $core->blog->settings->origineConfig->origine_settings['content_post_list_comments'] === true) {
+    if (
+      $core->blog->settings->origineConfig->origine_settings['activation'] === true
+      && $core->blog->settings->origineConfig->origine_settings['content_post_list_comments'] === true
+    ) {
       if ($attr['context'] === 'standard') {
         return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a>"; } } ?>';
       } elseif ($attr['context'] === 'short') {
@@ -610,7 +629,10 @@ class origineConfig
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true && $core->blog->settings->origineConfig->origine_settings['header_widgets_nav'] === true) {
+    if (
+      $core->blog->settings->origineConfig->origine_settings['activation'] === true
+      && $core->blog->settings->origineConfig->origine_settings['header_widgets_nav'] === true
+    ) {
       return $content;
     }
   }
