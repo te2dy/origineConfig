@@ -39,6 +39,7 @@ try {
     'content_font_size',
     'content_text_align',
     'content_hyphens',
+    'content_share_link_twitter'
     'post_author_name',
     'post_list_author_name',
     'post_list_comments',
@@ -89,6 +90,10 @@ try {
     'content_hyphens'               => 'disabled',
     'content_post_author_name'      => 'disabled',
     'content_post_list_author_name' => 0,
+    'content_share_link_email'      => false,
+    'content_share_link_facebook'   => false,
+    'content_share_link_print'      => false,
+    'content_share_link_whatsapp'   => false,
     'content_share_link_twitter'    => false,
     'content_post_list_comments'    => 0,
     'content_comment_links'         => 1,

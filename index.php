@@ -69,6 +69,10 @@ if (is_null($core->blog->settings->origineConfig->origine_settings)) {
       'content_hyphens'               => 'disabled',
       'content_post_author_name'      => 'disabled',
       'content_post_list_author_name' => 0,
+      'content_share_link_email'      => false,
+      'content_share_link_facebook'   => false,
+      'content_share_link_print'      => false,
+      'content_share_link_whatsapp'   => false,
       'content_share_link_twitter'    => false,
       'content_post_list_comments'    => 0,
       'content_comment_links'         => 1,
@@ -135,6 +139,10 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $origine_settings['content_hyphens']               = trim(html::escapeHTML($_POST['content_hyphens']));
     $origine_settings['content_post_author_name']      = trim(html::escapeHTML($_POST['content_post_author_name']));
     $origine_settings['content_post_list_author_name'] = !empty($_POST['content_post_list_author_name']);
+    $origine_settings['content_share_link_email']      = !empty($_POST['content_share_link_email']);
+    $origine_settings['content_share_link_facebook']   = !empty($_POST['content_share_link_facebook']);
+    $origine_settings['content_share_link_print']      = !empty($_POST['content_share_link_print']);
+    $origine_settings['content_share_link_whatsapp']   = !empty($_POST['content_share_link_whatsapp']);
     $origine_settings['content_share_link_twitter']    = !empty($_POST['content_share_link_twitter']);
     $origine_settings['content_post_list_comments']    = !empty($_POST['content_post_list_comments']);
     $origine_settings['content_comment_links']         = !empty($_POST['content_comment_links']);
@@ -864,16 +872,24 @@ if (!empty($_POST) && is_array($origine_settings)) {
           <h4><?php echo __('Share links'); ?></h4>
 
           <p>
-            <?php echo form::checkbox('content_share_link_twitter', 1, $origine_settings['content_share_link_twitter']); ?>
-
-            <label class="classic" for="content_share_link_twitter">
-              <?php echo __('Add a link to share your posts on Twitter'); ?>
-            </label>
+            <?php echo __('Share links to display:'); ?>
           </p>
 
-          <p class="form-note warn">
-            <?php printf(__('Extension ad hoc ?')); ?>
-          </p>
+          <?php
+          $social_links_supported = ['Email', 'Facebook', 'Print', 'WhatsApp', 'Twitter'];
+
+          foreach($social_links_supported as $site) {
+            ?>
+            <p>
+              <?php echo form::checkbox('content_share_link_' . strtolower($site), 1, $origine_settings['content_share_link_' . strtolower($site)]); ?>
+
+              <label class="classic" for="content_share_link_<?php echo strtolower($site); ?>">
+                <?php printf(__('%s'), $site); ?>
+              </label>
+            </p>
+            <?php
+          }
+          ?>
         </div>
 
         <div class="fieldset">
