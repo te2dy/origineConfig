@@ -161,34 +161,40 @@ class origineConfig
       }
 
       if (!empty($social_links)) {
-        echo '<div class="site-footer-line footer-social-links">';
-        echo '<ul>';
+        ?>
 
-        foreach ($social_links as $site => $link) {
-          if ($site === 'Signal') {
-            if (substr($link, 0, 1) === '+') {
-              $link = 'https://signal.me/#p/' . $link;
-            } else {
-              $link = $link;
+        <div class="site-footer-line footer-social-links">
+          <ul>
+            <?php
+            foreach ($social_links as $site => $link) {
+              if ($site === 'Signal') {
+                if (substr($link, 0, 1) === '+') {
+                  $link = 'https://signal.me/#p/' . $link;
+                } else {
+                  $link = $link;
+                }
+              } elseif ($site === 'Twitter') {
+                $link = 'https://twitter.com/' . str_replace('@', '', $link);
+              }
+              ?>
+
+              <li>
+                <a href="<?php echo html::escapeURL($link); ?>">
+                  <span class="footer-social-links-icon-container">
+                    <svg class="footer-social-links-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <title><?php echo html::escapeHTML($site); ?></title>
+
+                      <?php echo strip_tags(self::origineConfigSocialIcons($site), '<path>'); ?>
+                    </svg>
+                  </span>
+                </a>
+              </li>
+              <?php
             }
-          } elseif ($site === 'Twitter') {
-            $link = 'https://twitter.com/' . str_replace('@', '', $link);
-          }
-
-          echo '<li>';
-          echo '<a href="' . html::escapeURL($link) . '">';
-          echo '<span class="footer-social-links-icon-container">';
-          echo '<svg class="footer-social-links-icon" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">';
-          echo '<title>' . html::escapeHTML($site) . '</title>';
-          echo strip_tags(self::origineConfigSocialIcons($site), '<path>');
-          echo '</svg>';
-          echo '</span>';
-          echo '</a>';
-          echo '</li>';
-        }
-
-        echo '</ul>';
-        echo '</div>';
+            ?>
+          </ul>
+        </div>
+        <?php
       }
     }
   }
@@ -282,29 +288,33 @@ class origineConfig
       // If there are values in the array, displays the buttons.
       if (!empty($networks_url)) {
         $networks_count = count($networks_url);
+        ?>
 
-        $output .= '<p class="share-links">';
-        $output .= __('Share:');
+        <p class="share-links">
+          <?php echo __('Share:'); ?>
 
-        $i = 0;
-        foreach($sites_allowed as $site_nicename => $site_name) {
-          if (array_key_exists($site_nicename, $networks_url) === true) {
-            $i++;
+          <?php
+          $i = 0;
+          foreach($sites_allowed as $site_nicename => $site_name) {
+            if (array_key_exists($site_nicename, $networks_url) === true) {
+              $i++;
+              ?>
 
-            $output .= ' <a href="' . html::escapeURL($networks_url[$site_nicename]) . '">';
-            $output .= html::escapeHTML($site_name);
-            $output .= '</a>';
+              <a href="<?php echo html::escapeURL($networks_url[$site_nicename]); ?>">
+                <?php echo html::escapeHTML($site_name); ?>
+              </a>
 
-            if ($i < $networks_count) {
-              $output .= ' / ';
+              <?php
+              if ($i < $networks_count) {
+                echo ' / ';
+              }
             }
           }
-        }
+          ?>
+        </p>
 
-        $output .= '</p>';
+        <?php
       }
-
-      echo $output;
     }
   }
 
@@ -316,29 +326,57 @@ class origineConfig
     global $core;
 
     if ($core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['logo_url'] !== ''
+      && $core->blog->settings->origineConfig->origine_settings['header_logo_url'] !== ''
     ) {
-      $src_image = $core->blog->settings->origineConfig->origine_settings['logo_url'] ? $core->blog->settings->origineConfig->origine_settings['logo_url'] : '';
+      $src_image = $core->blog->settings->origineConfig->origine_settings['header_logo_url'] ? html::escapeURL($core->blog->settings->origineConfig->origine_settings['header_logo_url']) : '';
+      $srcset    = '';
+
+      $url_public_relative = $core->blog->settings->system->public_url;
+      $public_path         = $core->blog->public_path;
 
       if ($src_image !== '') {
-        $src_image_2x = $core->blog->settings->origineConfig->origine_settings['logo_url_2x'] ? $core->blog->settings->origineConfig->origine_settings['logo_url_2x'] : '';
+        $image_url_relative = substr($src_image, strpos($src_image, $url_public_relative));
+
+        $image_path = $public_path . str_replace($url_public_relative . '/', '/', $image_url_relative);
+
+        $src_image_2x = $core->blog->settings->origineConfig->origine_settings['header_logo_url_2x'] ? html::escapeURL($core->blog->settings->origineConfig->origine_settings['header_logo_url_2x']) : '';
 
         if ($src_image_2x !== '') {
-          $srcset = ' srcset="' . $src_image_2x . ' 2x"';
-        } else {
-          $srcset = '';
+          $srcset = ' srcset="' . $src_image . ' 1x, ' . $src_image_2x . ' 2x"';
         }
 
-        if (isset($attr['link_home'])) {
-          $link_open  = ($attr['link_home'] === '1') ? '<a class="site-logo-link" href="' . $core->blog->url . '">' : '';
-          $link_close = ($attr['link_home'] === '1') ? '</a>' : '';
+        if (getimagesize($image_path)) {
+          $image_width  = (int) getimagesize($image_path)[0];
+          $image_height = (int) getimagesize($image_path)[1];
+        } else {
+          $image_width  = 0;
+          $image_height = 0;
+        }
+
+        $image_size_attr  = '';
+
+        if ($image_width > 0 && $image_height > 0) {
+          if ($image_width <= 480) {
+            $image_size_attr .= ' width="' . $image_width . '" height="' . $image_height . '"';
+          } else {
+            $image_size_attr .= ' width="480" height="' . $image_height * (480 / $image_width) . '"';
+
+            if ($src_image_2x !== '') {
+              $image_size_attr .= ' sizes="100vw"';
+            }
+          }
+        }
+
+        if (isset($attr['link_home']) && $attr['link_home'] === '1') {
+          $link_open  = '<a class="site-logo-link" href="' . html::escapeURL($core->blog->url) . '">';
+          $link_close = '</a>';
         } else {
           $link_open  = '';
           $link_close = '';
         }
-
-        return '<div class="site-logo-container">' . $link_open . '<img alt="' . __('Header image') . '" class="site-logo" src="' . $src_image . '"' . $srcset . ' />' . $link_close . '</div>';
       }
+
+      return '<div class="site-logo-container">' . $link_open . '<img alt="' . __('Header image') . '" class="site-logo" src="' . $src_image . '"' . $srcset . $image_size_attr . ' />' . $link_close . '</div>';
     }
   }
 
@@ -550,7 +588,7 @@ class origineConfig
 
         // Gets the value of alt.
         if (preg_match(\'/alt="([^"]+)"/\', $img_o, $alt)) {
-            $img_o_alt = " alt=\"" . $alt[1] . "\"";
+          $img_o_alt = " alt=\"" . $alt[1] . "\"";
         } else {
           $img_o_alt = "";
         }

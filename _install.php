@@ -23,7 +23,6 @@ try {
   // Old settings to delete from the database on the next version.
   $settings_to_drop = [
     'activation',
-    'global_activation',
     'color_scheme',
     'link_color',
     'css_transition',
@@ -39,7 +38,7 @@ try {
     'content_font_size',
     'content_text_align',
     'content_hyphens',
-    'content_share_link_twitter'
+    'content_share_link_twitter',
     'post_author_name',
     'post_list_author_name',
     'post_list_comments',
@@ -64,6 +63,37 @@ try {
     $core->blog->settings->origineConfig->dropEvery($setting_id, true);
   }
 
+  $settings_to_unset = [
+    'global_activation',
+    'post_list_type',
+    'sidebar_enabled',
+    'logo_url',
+    'logo_url_2x',
+    'logo_type',
+    'post_author_name',
+    'post_list_comments',
+    'comment_links',
+    'post_email_author',
+    'share_link_twitter',
+    'social_links_diaspora',
+    'social_links_discord',
+    'social_links_facebook',
+    'social_links_github',
+    'social_links_mastodon',
+    'social_links_signal',
+    'social_links_tiktok',
+    'social_links_twitter',
+    'social_links_whatsapp',
+    'header_logo_type',
+  ];
+
+  // Unsets old settings.
+  foreach($settings_to_unset as $setting_id) {
+    if (array_key_exists($setting_id, $core->blog->settings->origineConfig->origine_settings)) {
+      unset($core->blog->settings->origineConfig->origine_settings[$setting_id]);
+    }
+  }
+
   // Default settings to define in the database.
   $origine_settings = [
     'activation' => false,
@@ -79,7 +109,6 @@ try {
     'header_widgets_nav' => true,
     'header_logo_url'    => '',
     'header_logo_url_2x' => '',
-    'header_logo_type'   => 'square',
 
     // Content
     'content_post_list_type'        => 'standard',
@@ -89,14 +118,14 @@ try {
     'content_text_align'            => 'left',
     'content_hyphens'               => 'disabled',
     'content_post_author_name'      => 'disabled',
-    'content_post_list_author_name' => 0,
+    'content_post_list_author_name' => false,
     'content_share_link_email'      => false,
     'content_share_link_facebook'   => false,
     'content_share_link_print'      => false,
     'content_share_link_whatsapp'   => false,
     'content_share_link_twitter'    => false,
-    'content_post_list_comments'    => 0,
-    'content_comment_links'         => 1,
+    'content_post_list_comments'    => false,
+    'content_comment_links'         => true,
     'content_post_email_author'     => 'disabled',
 
     // Widgets

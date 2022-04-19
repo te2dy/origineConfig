@@ -6,36 +6,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-# admin.php
-
-msgid "Origine"
-msgstr "Origine"
-
-# index.php
+## admin.php, index.php
 
 msgid "Origine Settings"
 msgstr "Paramètres d’Origine"
 
-msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>."
-msgstr "Cette extension n’est destinée qu’à personnaliser le thème Origine. Pour l’utiliser, veuillez <a href="%s">installer et/ou activer Origine</a>."
+## _public.php
 
-msgid "Activation"
-msgstr "Activation"
+# Share links
+msgid "Share:"
+msgstr "Partager&nbsp;:"
+
+msgid "Email"
+msgstr "Courriel"
+
+msgid "Facebook"
+msgstr "Facebook"
+
+msgid "Print"
+msgstr "Imprimer"
+
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+msgid "Twitter"
+msgstr "Twitter"
+
+# Logo
+msgid "Header image"
+msgstr "Image d’en-tête"
+
+# Private comments
+
+msgid "Private comment"
+msgstr "Commentaire privé"
+
+msgid "Reply to the author by email"
+msgstr "Répondre à l’auteur par courriel"
+
+# Comments
+
+msgid "1 comment"
+msgstr "1 commentaire"
+
+msgid "%d comments"
+msgstr "%s commentaires"
+
+## index.php
+
+msgid "Settings have been successfully updated."
+msgstr "Les paramètres ont été enregistrés avec succès."
+
+msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and activate Origine</a>."
+msgstr "Cette extension n’a pour but que de personnaliser le thème Origine. Pour l’utiliser, veuillez <a href="%s">installer et activer Origine</a>."
 
 msgid "Enable extension settings"
-msgstr "Activer les réglages de l’extension"
+msgstr "Activer les paramètres de l’extension"
 
-msgid "If you do not check this box, the settings below will be ignored."
-msgstr "Si vous ne cochez pas cette case, les paramètres ci-dessous seront ignorés."
+msgid "If you do not check this box, your settings will be ignored."
+msgstr "Si vous ne cochez pas cette case, vos paramètres seront ignorés."
 
-msgid "Design"
-msgstr "Apparence"
+# Global
+
+msgid "Global"
+msgstr "Globaux"
 
 msgid "Colors"
 msgstr "Couleurs"
 
 msgid "Color scheme"
-msgstr "Schéma de couleurs"
+msgstr "Schéma de couleur"
 
 msgid "System (default)"
 msgstr "Système (par défaut)"
@@ -68,13 +108,62 @@ msgid "Add a color transition on link hover"
 msgstr "Ajouter une transition de couleur au survol des liens"
 
 msgid "Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion."
-msgstr "Accessibilité&nbsp;: les transitions sont automatiquement désactivées quand l’utilisateur a demandé à son système de minimiser les animations non essentielles."
+msgstr "Accessibilité&nbsp;: les transitions sont automatiquement désactivées quand l’utilisateur a demandé à son système de réduire le nombre d’animations non essentielles."
+
+msgid "Advanced settings"
+msgstr "Paramètres avancés"
+
+msgid "Add <code>generator</code> meta tag"
+msgstr "Ajouter la balise meta <code>generator</code>"
+
+msgid "Allows you to add information to your pages without displaying it on your readers' screen."
+msgstr "Vous permet d’ajouter des informations à vos pages sans les afficher sur l’écran de vos lecteurs."
+
+# Header
+
+msgid "Header"
+msgstr "En-tête"
 
 msgid "Layout"
 msgstr "Mise en page"
 
-msgid "Displaying of posts in the post list"
-msgstr "Affichage des billets dans la liste des billets"
+msgid "Header alignment"
+msgstr "Alignement de l’en-tête"
+
+msgid "Left (default)"
+msgstr "Gauche (par défaut)"
+
+msgid "Center"
+msgstr "Centre"
+
+msgid "Enable the navigation widget area"
+msgstr "Activer la zone de widgets de navigation"
+
+msgid "Check only if your have set widgets in the navigation area."
+msgstr "Ne cocher que si vous avez des widgets dans la zone navigation."
+
+msgid "Logo"
+msgstr "Logo"
+
+msgid "The URL of your logo"
+msgstr "L’adresse de votre logo"
+
+msgid "The URL of your logo for screens with doubled pixel density"
+msgstr "L’adresse de votre logo pour les écrans à double densité de pixels"
+
+msgid "Pour garantir un bon affichage sur les écrans à densité de pixels double (Retina), veuillez fournir une image dont la taille est deux fois supérieure à l’image précédente."
+msgstr ""
+
+# Content
+
+msgid "Content"
+msgstr "Contenu"
+
+msgid "Post list"
+msgstr "Liste des billets"
+
+msgid "Displaying of posts"
+msgstr "Affichage des billets"
 
 msgid "Standard (default)"
 msgstr "Standard (par défaut)"
@@ -83,94 +172,55 @@ msgid "On one line"
 msgstr "Sur une ligne"
 
 msgid "Full post"
-msgstr "Billet complet"
+msgstr "Tout le billet"
 
-msgid "Enable the <em>sidebar</em>"
-msgstr "Activer la <em>barre latérale</em>"
+msgid "Display the first image of the post (beta)"
+msgstr "Afficher la première image de chaque billet (bêta)"
 
-msgid "Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Navigation sidebar\" or \"Extra sidebar\" sections, you should uncheck this setting to remove unnecessary code from your pages."
-msgstr "Origine est un thème à une colonne. Il n’a pas de barre latérale en tant que telle mais vous pouvez insérer du contenu, de la même façon, entre vos billets et le pied de page avec des widgets. Si vous n’avez aucun widget dans la section «&#8239;Volet de navigation&#8239;» ou «&#8239;Volet d’extra&#8239;», vous devriez décocher ce paramètre pour supprimer du code superflu de vos pages."
-
-msgid "Enable the footer"
-msgstr "Activer le pied de page"
-
-msgid "If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting."
-msgstr "Si votre pied de page est vide ou que vous souhaitez tout supprimer du pied de vos pages, décochez ce paramètre."
-
-msgid "Header and footer alignment"
-msgstr "Alignement de l’en-tête et du pied de page"
-
-msgid "Logo"
-msgstr "Logo"
-
-msgid "Logo type"
-msgstr "Type de logo"
-
-msgid "Square (default)"
-msgstr "Carré (par défaut)"
-
-msgid "Round"
-msgstr "Rond"
-
-msgid "Banner"
-msgstr "Bannière"
-
-msgid "URL of your logo"
-msgstr "Adresse de votre logo"
-
-msgid "Recommanded size: 150×150px (square and round) or 480px wide (banner)."
-msgstr "Taille recommandée&nbsp;: 150 × 150&#8239;px (carré et rond) ou 480&#8239;px de large (bannière)."
-
-msgid "URL of your logo for screens with doubled pixel density"
-msgstr "Adresse de votre logo pour les écrans avec une double densité de pixels"
-
-msgid "To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide)."
-msgstr "Pour assurer un bon affichage sur les écrans avec une double densité de pixels (Retina), veuillez fournir une image deux fois plus grande que la précédente (300 × 300&#8239;px ou 960&#8239;px de large)."
+msgid "Only if post displaying is set to "standard"."
+msgstr "Seulement si l’affichage des billets est défini sur «&nbsp;standard&nbsp;»."
 
 msgid "Text formatting"
-msgstr "Mise en forme du texte"
+msgstr "Format du texte"
 
 msgid "Font family"
-msgstr "Famille de police d’écriture"
+msgstr "Famille de police"
 
 msgid "Serif (default)"
 msgstr "Avec empattements (par défaut)"
 
 msgid "Sans serif"
-msgstr "Sans empattement"
+msgstr "Sans empattements"
 
 msgid "Monospace"
-msgstr "Espacement fixe"
+msgstr "À chasse fixe"
 
 msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
-msgstr "Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargements ainsi qu’une continuité graphique avec le système."
+msgstr "Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargement et d’avoir une continuité graphique avec le système."
 
 msgid "Font size"
-msgstr "Taille du texte"
+msgstr "Taille de la police"
 
 msgid "80%"
-msgstr "80&#8239;%"
+msgstr "80 %"
 
 msgid "90%"
-msgstr "90&#8239;%"
+msgstr "90 %"
 
 msgid "100% (recommended)"
-msgstr "100&#8239;% (recommandé)"
+msgstr "100 % (recommandé)"
 
 msgid "110%"
-msgstr "110&#8239;%"
+msgstr "110 %"
 
 msgid "120%"
-msgstr "120&#8239;%"
+msgstr "120 %"
 
 msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
-msgstr "Il est recommandé de ne pas changer ce paramètre. Une taille de 100&#8239;% signifie que les textes de votre site auront la taille définie dans les paramètres du navigateur de chacun de vos visiteurs."
+msgstr "Il est recommandé de ne pas modifier ce paramètre. Une taille de 100 % signifie que les textes de votre site auront la taille définie dans les paramètres du navigateur de chacun de vos visiteurs."
 
 msgid "Text align"
 msgstr "Alignement du texte"
-
-msgid "Left (default)"
-msgstr "Gauche (par défaut)"
 
 msgid "Justify"
 msgstr "Justifié"
@@ -179,19 +229,16 @@ msgid "Justify except on small screens"
 msgstr "Justifié, sauf sur les petits écrans"
 
 msgid "Automatic hyphenation"
-msgstr "Césure automatique"
+msgstr "Césures automatiques"
 
 msgid "Disable (default)"
-msgstr "Désactiver (par défaut)"
+msgstr "Désactivé (par défaut)"
 
 msgid "Enable"
-msgstr "Activer"
+msgstr "Activé"
 
 msgid "Enable except on small screens"
-msgstr "Activer, sauf sur les petits écrans"
-
-msgid "Post settings"
-msgstr "Paramètres des billets"
+msgstr "Activé, sauf sur les petits écrans"
 
 msgid "Author"
 msgstr "Auteur"
@@ -206,28 +253,28 @@ msgid "Next to the date"
 msgstr "Après la date"
 
 msgid "Below the post as signature"
-msgstr "Sous le billet comme signature"
-
-msgid "Display the author name on posts"
-msgstr "Afficher le nom de l’auteur sur les billets"
+msgstr "Sous le billet comme une signature"
 
 msgid "Display the author name in the post list"
 msgstr "Afficher le nom de l’auteur dans la liste des billets"
 
+msgid "Share links"
+msgstr "Liens de partage"
+
+msgid "Share links to display:"
+msgstr "Liens de partage à afficher&nbsp;:"
+
 msgid "Comments"
 msgstr "Commentaires"
-
-msgid "1 comment"
-msgstr "1 commentaire"
 
 msgid "Display the number of comments in the post list (only if the post has comments)"
 msgstr "Afficher le nombre de commentaires dans la liste des billets (seulement si le billet a des commentaires)"
 
 msgid "Add a link to the comment feed and trackbacks below the comment section"
-msgstr "Ajouter un lien vers le fil des commentaires et les commentaires sous la section des billets"
+msgstr "Ajouter une lien vers le fil des commentaires et les rétroliens sous la section des commentaires"
 
 msgid "Allow visitors to send email to authors of posts and pages"
-msgstr "Permettre aux visiteur d’envoyer des courriels aux auteurs de billets et de pages"
+msgstr "Autoriser les visiteurs à envoyer des courriels aux auteurs des billets et des pages"
 
 msgid "No (default)"
 msgstr "Non (par défaut)"
@@ -239,63 +286,62 @@ msgid "Always"
 msgstr "Toujours"
 
 msgid "If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin."
-msgstr "Si cette option est activée, l’adresse électronique des auteurs sera rendue publique. Si vous préférez ne pas dévoiler d’adresse électronique, essayez l’extension <a href="%s">Signal</a>."
+msgstr "Si cette option est activée, l’adresse électronique des auteurs sera rendue publique. Si vous préférez ne pas révéler les adresses, essayez l’extension <a href="%s">Signal</a>."
 
-msgid "Footer settings"
-msgstr "Paramètres du pied de page"
+# Widgets
+
+msgid "Widgets"
+msgstr "Widgets"
+
+msgid "Enable the <em>sidebar</em>"
+msgstr "Activer la <em>barre latérale</em>"
+
+msgid "Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Extra sidebar\" section, you should uncheck this setting to remove unnecessary code from your pages."
+msgstr "Origine est un thème à une colonne. Il n’a pas de barre latérale en tant que telle mais vous pouvez insérer du contenu, de la même façon, entre vos billets et le pied de page avec des widgets. Si vous n’avez aucun widget dans la section \"Volet d'extra\", vous devriez décocher ce paramètre pour supprimer du code superflu de vos pages."
+
+# Footer
+
+msgid "Footer"
+msgstr "Pied de page"
+
+msgid "Enable the footer"
+msgstr "Activer le pied de page"
+
+msgid "If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting."
+msgstr "Si votre pied de page est vide ou que vous souhaitez tout supprimer au bas de vos pages, décochez ce paramètre."
+
+msgid "Footer alignment"
+msgstr "Alignement du pied de page"
 
 msgid "Add a link to support Dotclear and Origine"
 msgstr "Ajouter un lien pour soutenir Dotclear et Origine"
 
-msgid "Link to your Diaspora* profile"
-msgstr "Lien vers votre profil Diaspora*"
+msgid "Link to a Diaspora* profile"
+msgstr "Lien vers un profil Diaspora*"
 
-msgid "Link to your Discord server"
-msgstr "Lien vers votre serveur Discord"
+msgid "Link to a Discord server"
+msgstr "Lien vers un serveur Discord"
 
-msgid "Link to your Facebook profile or page"
-msgstr "Lien vers votre profil ou votre page Facebook"
+msgid "Link to a Facebook profile or page"
+msgstr "Lien vers un profil ou une page Facebook"
 
-msgid "Link to a GitHub page"
-msgstr "Lien vers une page GitHub"
+msgid "Link to a GitHub profile or page"
+msgstr "Lien vers un profil ou une page GitHub"
 
-msgid "Link to your Mastodon profile"
-msgstr "Lien vers votre profil Mastodon"
+msgid "Link to a Mastodon profile"
+msgstr "Lien vers un profil Mastodon"
 
-msgid "Your Signal number or a group link"
-msgstr "Votre numéro sur Signal ou un lien de groupe"
+msgid "A Signal number or a group link"
+msgstr "Un numéro Signal ou un lien de groupe"
 
-msgid "Link to your TikTok profile"
-msgstr "Lien vers votre profil TikTok"
+msgid "Link to a TikTok profile"
+msgstr "Lien vers un profil TikTok"
 
-msgid "Your Twitter username"
-msgstr "Votre nom d’utilisateur Twitter"
+msgid "A Twitter username"
+msgstr "Un nom d’utilisateur Twitter"
 
-msgid "Your WhatsApp number or a group link"
-msgstr "Votre numéro sur WhatsApp ou un lien de groupe"
+msgid "A WhatsApp number or a group link"
+msgstr "A numéro WhatsApp ou un lien de groupe"
 
-msgid "Advanced settings"
-msgstr "Paramètres avancés"
-
-msgid "Allows you to add information to your pages without displaying it on your readers' screen."
-msgstr "Permet d’ajouter des informations dans vos pages sans les afficher à l’écran de vos lecteurs."
-
-msgid "Add <code>generator</code> meta tag"
-msgstr "Ajouter la balise meta <code>generator</code>"
-
-msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
-msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> avec l’extension <a href="%s">Entretien</a> (Entretien › Purger)."
-
-msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
-msgstr "Si les changements ne sont pas effectifs après l’enregistrement, pensez à vider le répertoire de cache des <em>templates</em> en utilisant l’extension Entretien, que vous pouvez activer depuis la page <a href="%s">Gestion des plugins</a>."
-
-# public.php
-
-msgid "Header image"
-msgstr "Image d’en-tête"
-
-msgid "Private comment"
-msgstr "Commentaire privé"
-
-msgid "Reply to the author by email"
-msgstr "Répondre à l’auteur par courriel"
+msgid "Save"
+msgstr "Enregistrer"

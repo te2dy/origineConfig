@@ -6,29 +6,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-# admin.php
-
-msgid "Origine"
-msgstr ""
-
-# index.php
+## admin.php, index.php
 
 msgid "Origine Settings"
 msgstr ""
 
-msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>."
+## _public.php
+
+# Share links
+msgid "Share:"
 msgstr ""
 
-msgid "Activation"
+msgid "Email"
+msgstr ""
+
+msgid "Facebook"
+msgstr ""
+
+msgid "Print"
+msgstr ""
+
+msgid "WhatsApp"
+msgstr ""
+
+msgid "Twitter"
+msgstr ""
+
+# Logo
+msgid "Header image"
+msgstr ""
+
+# Private comments
+
+msgid "Private comment"
+msgstr ""
+
+msgid "Reply to the author by email"
+msgstr ""
+
+# Comments
+
+msgid "Private comment"
+msgstr ""
+
+msgid "1 comment"
+msgstr ""
+
+msgid "%d comments"
+msgstr ""
+
+## index.php
+
+msgid "Settings have been successfully updated."
+msgstr ""
+
+msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and activate Origine</a>."
 msgstr ""
 
 msgid "Enable extension settings"
 msgstr ""
 
-msgid "If you do not check this box, the settings below will be ignored."
+msgid "If you do not check this box, your settings will be ignored."
 msgstr ""
 
-msgid "Design"
+# Global
+
+msgid "Global"
 msgstr ""
 
 msgid "Colors"
@@ -70,10 +113,59 @@ msgstr ""
 msgid "Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion."
 msgstr ""
 
+msgid "Advanced settings"
+msgstr ""
+
+msgid "Add <code>generator</code> meta tag"
+msgstr ""
+
+msgid "Allows you to add information to your pages without displaying it on your readers' screen."
+msgstr ""
+
+# Header
+
+msgid "Header"
+msgstr ""
+
 msgid "Layout"
 msgstr ""
 
-msgid "Displaying of posts in the post list"
+msgid "Header alignment"
+msgstr ""
+
+msgid "Left (default)"
+msgstr ""
+
+msgid "Center"
+msgstr ""
+
+msgid "Enable the navigation widget area"
+msgstr ""
+
+msgid "Check only if your have set widgets in the navigation area."
+msgstr ""
+
+msgid "Logo"
+msgstr ""
+
+msgid "The URL of your logo"
+msgstr ""
+
+msgid "The URL of your logo for screens with doubled pixel density"
+msgstr ""
+
+msgid "To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one."
+msgstr ""
+
+# Content
+
+msgid "Content"
+msgstr ""
+
+msgid "Post list"
+msgstr ""
+
+msgid "Displaying of posts"
 msgstr ""
 
 msgid "Standard (default)"
@@ -85,46 +177,10 @@ msgstr ""
 msgid "Full post"
 msgstr ""
 
-msgid "Enable the <em>sidebar</em>"
+msgid "Display the first image of the post (beta)"
 msgstr ""
 
-msgid "Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Navigation sidebar\" or \"Extra sidebar\" sections, you should uncheck this setting to remove unnecessary code from your pages."
-msgstr ""
-
-msgid "Enable the footer"
-msgstr ""
-
-msgid "If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting."
-msgstr ""
-
-msgid "Header and footer alignment"
-msgstr ""
-
-msgid "Logo"
-msgstr ""
-
-msgid "Logo type"
-msgstr ""
-
-msgid "Square (default)"
-msgstr ""
-
-msgid "Round"
-msgstr ""
-
-msgid "Banner"
-msgstr ""
-
-msgid "URL of your logo"
-msgstr ""
-
-msgid "Recommanded size: 150×150px (square and round) or 480px wide (banner)."
-msgstr ""
-
-msgid "URL of your logo for screens with doubled pixel density"
-msgstr ""
-
-msgid "To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide)."
+msgid "Only if post displaying is set to "standard"."
 msgstr ""
 
 msgid "Text formatting"
@@ -169,9 +225,6 @@ msgstr ""
 msgid "Text align"
 msgstr ""
 
-msgid "Left (default)"
-msgstr ""
-
 msgid "Justify"
 msgstr ""
 
@@ -190,9 +243,6 @@ msgstr ""
 msgid "Enable except on small screens"
 msgstr ""
 
-msgid "Post settings"
-msgstr ""
-
 msgid "Author"
 msgstr ""
 
@@ -208,16 +258,16 @@ msgstr ""
 msgid "Below the post as signature"
 msgstr ""
 
-msgid "Display the author name on posts"
-msgstr ""
-
 msgid "Display the author name in the post list"
 msgstr ""
 
-msgid "Comments"
+msgid "Share links"
 msgstr ""
 
-msgid "1 comment"
+msgid "Share links to display:"
+msgstr ""
+
+msgid "Comments"
 msgstr ""
 
 msgid "Display the number of comments in the post list (only if the post has comments)"
@@ -226,7 +276,7 @@ msgstr ""
 msgid "Add a link to the comment feed and trackbacks below the comment section"
 msgstr ""
 
-msgid "Allow visitors to send email to the author of posts ans pages"
+msgid "Allow visitors to send email to authors of posts and pages"
 msgstr ""
 
 msgid "No (default)"
@@ -238,64 +288,63 @@ msgstr ""
 msgid "Always"
 msgstr ""
 
-msgid "If this option is enabled, the email address of authors will be public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin."
+msgid "If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin."
 msgstr ""
 
-msgid "Footer settings"
+# Widgets
+
+msgid "Widgets"
+msgstr ""
+
+msgid "Enable the <em>sidebar</em>"
+msgstr ""
+
+msgid "Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Extra sidebar\" section, you should uncheck this setting to remove unnecessary code from your pages."
+msgstr ""
+
+# Footer
+
+msgid "Footer"
+msgstr ""
+
+msgid "Enable the footer"
+msgstr ""
+
+msgid "If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting."
+msgstr ""
+
+msgid "Footer alignment"
 msgstr ""
 
 msgid "Add a link to support Dotclear and Origine"
 msgstr ""
 
-msgid "Link to your Diaspora* profile"
+msgid "Link to a Diaspora* profile"
 msgstr ""
 
-msgid "Link to your Discord server"
+msgid "Link to a Discord server"
 msgstr ""
 
-msgid "Link to your Facebook profile or page"
+msgid "Link to a Facebook profile or page"
 msgstr ""
 
-msgid "Link to a GitHub page"
+msgid "Link to a GitHub profile or page"
 msgstr ""
 
-msgid "Link to your Mastodon profile"
+msgid "Link to a Mastodon profile"
 msgstr ""
 
-msgid "Your Signal number or a group link"
+msgid "A Signal number or a group link"
 msgstr ""
 
-msgid "Link to your TikTok profile"
+msgid "Link to a TikTok profile"
 msgstr ""
 
-msgid "Your Twitter username"
+msgid "A Twitter username"
 msgstr ""
 
-msgid "Your WhatsApp number or a group link"
+msgid "A WhatsApp number or a group link"
 msgstr ""
 
-msgid "Advanced settings"
-msgstr ""
-
-msgid "Allows you to add information to your pages without displaying it on your readers' screen."
-msgstr ""
-
-msgid "Add <code>generator</code> meta tag"
-msgstr ""
-
-msgid "If the changes are not effective after saving, consider emptying the templates cache directory with the <a href="%s">Maintenance</a> plugin (Servicing › Purge)."
-msgstr ""
-
-msgid "If the changes are not effective after saving, consider emptying the templates cache directory using the Maintenance plugin, which you can activate from the <a href="%s">Plugins management</a> page."
-msgstr ""
-
-# public.php
-
-msgid "Header image"
-msgstr ""
-
-msgid "Private comment"
-msgstr ""
-
-msgid "Reply to the author by email"
+msgid "Save"
 msgstr ""

@@ -58,7 +58,6 @@ if (is_null($core->blog->settings->origineConfig->origine_settings)) {
       'header_widgets_nav' => true,
       'header_logo_url'    => '',
       'header_logo_url_2x' => '',
-      'header_logo_type'   => 'square',
 
       // Content
       'content_post_list_type'        => 'standard',
@@ -68,14 +67,14 @@ if (is_null($core->blog->settings->origineConfig->origine_settings)) {
       'content_text_align'            => 'left',
       'content_hyphens'               => 'disabled',
       'content_post_author_name'      => 'disabled',
-      'content_post_list_author_name' => 0,
+      'content_post_list_author_name' => false,
       'content_share_link_email'      => false,
       'content_share_link_facebook'   => false,
       'content_share_link_print'      => false,
       'content_share_link_whatsapp'   => false,
       'content_share_link_twitter'    => false,
-      'content_post_list_comments'    => 0,
-      'content_comment_links'         => 1,
+      'content_post_list_comments'    => false,
+      'content_comment_links'         => true,
       'content_post_email_author'     => 'disabled',
 
       // Widgets
@@ -128,7 +127,6 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $origine_settings['header_widgets_nav'] = !empty($_POST['header_widgets_nav']);
     $origine_settings['header_logo_url']    = trim(html::escapeHTML($_POST['header_logo_url']));
     $origine_settings['header_logo_url_2x'] = trim(html::escapeHTML($_POST['header_logo_url_2x']));
-    $origine_settings['header_logo_type']   = trim(html::escapeHTML($_POST['header_logo_type']));
 
     // Content
     $origine_settings['content_post_list_type']        = trim(html::escapeHTML($_POST['content_post_list_type']));
@@ -294,37 +292,15 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
     // Logo
     if ($origine_settings['header_logo_url']) {
+      $css_array['.site-logo-container']['display']       = 'inline-block';
       $css_array['.site-logo-container']['margin-bottom'] = '1em';
 
       $css_array['.site-logo-link']['border-bottom'] = 'none';
+      $css_array['.site-logo-link']['display']       = 'block';
 
       $css_array['.site-logo-link:active, .site-logo-link:focus, .site-logo-link:hover']['border-bottom'] = 'none';
 
       $css_array['.site-logo']['display'] = 'block';
-
-      if ($origine_settings['header_logo_type'] === 'square') {
-        $css_array['.site-logo-container']['display'] = 'inline-block';
-
-        $css_array['.site-logo-link']['display'] = 'inline-block';
-
-        $css_array['.site-logo']['max-height'] = '150px';
-        $css_array['.site-logo']['max-width']  = '150px';
-      } elseif ($origine_settings['header_logo_type'] === 'round') {
-        $css_array['.site-logo-container']['display'] = 'inline-block';
-
-        $css_array['.site-logo-link']['border-radius'] = '50%';
-        $css_array['.site-logo-link']['display']       = 'inline-block';
-
-        $css_array['.site-logo']['border-radius'] = '50%';
-        $css_array['.site-logo']['max-height']    = '150px';
-        $css_array['.site-logo']['max-width']     = '150px';
-      } else {
-        $css_array['.site-logo-container']['display'] = 'block';
-
-        $css_array['.site-logo-link']['display'] = 'block';
-
-        $css_array['.site-logo']['width'] = '100%';
-      }
 
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];
@@ -576,7 +552,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
     if (!in_array($core->blog->settings->system->theme, $themes_customizable, true)) :
       echo '<p>' . sprintf(
-        __('This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and/or activate Origine</a>.'), html::escapeURL($core->adminurl->get('admin.blog.theme'))) . '</p>';
+        __('This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and activate Origine</a>.'), html::escapeURL($core->adminurl->get('admin.blog.theme'))) . '</p>';
     else :
       ?>
 
@@ -692,43 +668,23 @@ if (!empty($_POST) && is_array($origine_settings)) {
             <h4><?php echo __('Logo'); ?></h4>
 
             <p>
-              <label for="header_logo_type">
-                <?php echo __('Logo type'); ?>
-              </label>
-
-              <?php
-              $combo_logo_type = [
-                __('Square (default)') => 'square',
-                __('Round')            => 'round',
-                __('Banner')           => 'banner',
-              ];
-
-              echo form::combo('header_logo_type', $combo_logo_type, $origine_settings['header_logo_type']);
-              ?>
-            </p>
-
-            <p>
               <label for="header_logo_url">
-                <?php echo __('URL of your logo'); ?>
+                <?php echo __('The URL of your logo'); ?>
               </label>
 
               <?php echo form::field('header_logo_url', 30, 255, html::escapeHTML($origine_settings['header_logo_url'])); ?>
             </p>
 
-            <p class="form-note">
-              <?php echo __('Recommanded size: 150×150px (square and round) or 480px wide (banner).'); ?>
-            </p>
-
             <p>
               <label for="header_logo_url_2x">
-                <?php echo __('URL of your logo for screens with doubled pixel density'); ?>
+                <?php echo __('The URL of your logo for screens with doubled pixel density'); ?>
               </label>
 
               <?php echo form::field('header_logo_url_2x', 30, 255, html::escapeHTML($origine_settings['header_logo_url_2x'])); ?>
             </p>
 
             <p class="form-note">
-              <?php echo __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one (300×300px or 960px wide).'); ?>
+              <?php echo __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one.'); ?>
             </p>
           </div>
 
@@ -752,10 +708,10 @@ if (!empty($_POST) && is_array($origine_settings)) {
           </p>
 
           <p>
-            <?php echo form::checkbox('content_post_list_first_image', 1, $origine_settings['content_post_list_first_image']); ?>
+            <?php echo form::checkbox('content_post_list_first_image', true, $origine_settings['content_post_list_first_image']); ?>
 
             <label class="classic" for="content_post_list_first_image">
-              <?php echo __('Display the first image of the post'); ?>
+              <?php echo __('Display the first image of the post (beta)'); ?>
             </label>
           </p>
 
@@ -860,7 +816,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
         </p>
 
         <p>
-          <?php echo form::checkbox('content_post_list_author_name', 1, $origine_settings['content_post_list_author_name']); ?>
+          <?php echo form::checkbox('content_post_list_author_name', true, $origine_settings['content_post_list_author_name']); ?>
 
           <label class="classic" for="content_post_list_author_name">
             <?php echo __('Display the author name in the post list'); ?>
@@ -876,15 +832,23 @@ if (!empty($_POST) && is_array($origine_settings)) {
           </p>
 
           <?php
-          $social_links_supported = ['Email', 'Facebook', 'Print', 'WhatsApp', 'Twitter'];
+          $social_links_supported = [
+            'email'    => __('Email'),
+            'facebook' => __('Facebook'),
+            'print'    => __('Print'),
+            'whatsapp' => __('WhatsApp'),
+            'twitter'  => __('Twitter'),
+          ];
 
-          foreach($social_links_supported as $site) {
+          asort($social_links_supported);
+
+          foreach($social_links_supported as $site_nicename => $site_name) {
             ?>
             <p>
-              <?php echo form::checkbox('content_share_link_' . strtolower($site), 1, $origine_settings['content_share_link_' . strtolower($site)]); ?>
+              <?php echo form::checkbox('content_share_link_' . $site_nicename, true, $origine_settings['content_share_link_' . $site_nicename]); ?>
 
-              <label class="classic" for="content_share_link_<?php echo strtolower($site); ?>">
-                <?php printf(__('%s'), $site); ?>
+              <label class="classic" for="content_share_link_<?php echo $site_nicename; ?>">
+                <?php echo $site_name; ?>
               </label>
             </p>
             <?php
@@ -896,7 +860,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
             <h4><?php echo __('Comments'); ?></h4>
 
             <p>
-              <?php echo form::checkbox('content_post_list_comments', 1, $origine_settings['content_post_list_comments']); ?>
+              <?php echo form::checkbox('content_post_list_comments', true, $origine_settings['content_post_list_comments']); ?>
 
               <label class="classic" for="content_post_list_comments">
                 <?php echo __('Display the number of comments in the post list (only if the post has comments)'); ?>
@@ -904,7 +868,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
             </p>
 
             <p>
-              <?php echo form::checkbox('content_comment_links', 1, $origine_settings['content_comment_links']); ?>
+              <?php echo form::checkbox('content_comment_links', true, $origine_settings['content_comment_links']); ?>
 
               <label class="classic" for="content_comment_links">
                 <?php echo __('Add a link to the comment feed and trackbacks below the comment section'); ?>
@@ -936,13 +900,13 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
         <div class="fieldset">
           <p>
-            <?php echo form::checkbox('widgets_enabled', 1, $origine_settings['widgets_enabled']); ?>
+            <?php echo form::checkbox('widgets_enabled', true, $origine_settings['widgets_enabled']); ?>
 
             <label class="classic" for="widgets_enabled"><?php echo __('Enable the <em>sidebar</em>'); ?></label>
           </p>
 
           <p class="form-note">
-            <?php echo __("Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Navigation sidebar\" or \"Extra sidebar\" sections, you should uncheck this setting to remove unnecessary code from your pages."); ?>
+            <?php echo __("Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Extra sidebar\" section, you should uncheck this setting to remove unnecessary code from your pages."); ?>
           </p>
         </div>
 
@@ -950,7 +914,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
         <div class="fieldset">
             <p>
-              <?php echo form::checkbox('footer_enabled', 1, $origine_settings['footer_enabled']); ?>
+              <?php echo form::checkbox('footer_enabled', true, $origine_settings['footer_enabled']); ?>
 
               <label class="classic" for="footer_enabled"><?php echo __('Enable the footer'); ?></label>
             </p>
@@ -975,7 +939,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
             </p>
 
             <p>
-              <?php echo form::checkbox('footer_credits', 1, $origine_settings['footer_credits']); ?>
+              <?php echo form::checkbox('footer_credits', true, $origine_settings['footer_credits']); ?>
 
               <label class="classic" for="footer_credits">
                 <?php echo __('Add a link to support Dotclear and Origine'); ?>
@@ -992,7 +956,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_discord">
-                <?php echo __('Link to your Discord server'); ?>
+                <?php echo __('Link to a Discord server'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_discord', 30, 255, html::escapeHTML($origine_settings['footer_social_links_discord'])); ?>
@@ -1000,7 +964,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_facebook">
-                <?php echo __('Link to your Facebook profile or page'); ?>
+                <?php echo __('Link to a Facebook profile or page'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_facebook', 30, 255, html::escapeHTML($origine_settings['footer_social_links_facebook'])); ?>
@@ -1008,7 +972,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_github">
-                <?php echo __('Link to a GitHub page'); ?>
+                <?php echo __('Link to a GitHub profile or page'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_github', 30, 255, html::escapeHTML($origine_settings['footer_social_links_github'])); ?>
@@ -1016,7 +980,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_mastodon">
-                <?php echo __('Link to your Mastodon profile'); ?>
+                <?php echo __('Link to a Mastodon profile'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_mastodon', 30, 255, html::escapeHTML($origine_settings['footer_social_links_mastodon'])); ?>
@@ -1024,7 +988,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_signal">
-                <?php echo __('Your Signal number or a group link'); ?>
+                <?php echo __('A Signal number or a group link'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_signal', 30, 255, html::escapeHTML($origine_settings['footer_social_links_signal'])); ?>
@@ -1032,7 +996,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_tiktok">
-                <?php echo __('Link to your TikTok profile'); ?>
+                <?php echo __('Link to a TikTok profile'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_tiktok', 30, 255, html::escapeHTML($origine_settings['footer_social_links_tiktok'])); ?>
@@ -1040,7 +1004,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_twitter">
-                <?php echo __('Your Twitter username'); ?>
+                <?php echo __('A Twitter username'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_twitter', 30, 255, html::escapeHTML($origine_settings['footer_social_links_twitter'])); ?>
@@ -1048,7 +1012,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_whatsapp">
-                <?php echo __('Your WhatsApp number or a group link'); ?>
+                <?php echo __('A WhatsApp number or a group link'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_whatsapp', 30, 255, html::escapeHTML($origine_settings['footer_social_links_whatsapp'])); ?>
