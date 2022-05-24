@@ -68,11 +68,14 @@ if (is_null($core->blog->settings->origineConfig->origine_settings)) {
       'content_hyphens'               => 'disabled',
       'content_post_author_name'      => 'disabled',
       'content_post_list_author_name' => false,
+      /*
+      // To enable in the future.
       'content_share_link_email'      => false,
       'content_share_link_facebook'   => false,
       'content_share_link_print'      => false,
       'content_share_link_whatsapp'   => false,
       'content_share_link_twitter'    => false,
+      */
       'content_post_list_comments'    => false,
       'content_comment_links'         => true,
       'content_post_email_author'     => 'disabled',
@@ -107,6 +110,47 @@ if (is_null($core->blog->settings->origineConfig->origine_settings)) {
 $origine_settings = $core->blog->settings->origineConfig->origine_settings;
 
 if (!empty($_POST) && is_array($origine_settings)) {
+  /**
+   * A list of outdated settings.
+   *
+   * @since origineConfig 1.0
+   */
+  $settings_to_unset = [
+    'global_activation',
+    'post_list_type',
+    'sidebar_enabled',
+    'logo_url',
+    'logo_url_2x',
+    'logo_type',
+    'post_author_name',
+    'post_list_comments',
+    'comment_links',
+    'post_email_author',
+    'share_link_twitter',
+    'social_links_diaspora',
+    'social_links_discord',
+    'social_links_facebook',
+    'social_links_github',
+    'social_links_mastodon',
+    'social_links_signal',
+    'social_links_tiktok',
+    'social_links_twitter',
+    'social_links_whatsapp',
+    'header_logo_type',
+    'footer_social_links_whatsapp',
+  ];
+
+  // Deletes outdated settings.
+  if (!empty($settings_to_unset)) {
+    foreach ($settings_to_unset as $setting_id) {
+      if (array_key_exists($setting_id, $origine_settings)) {
+        unset($origine_settings[$setting_id]);
+      }
+    }
+  }
+
+  $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false);
+
   try {
 
     /**
@@ -114,6 +158,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
      * and escape them.
      */
 
+    // Activation
     $origine_settings['activation'] = !empty($_POST['activation']);
 
     // Global settings
@@ -137,11 +182,14 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $origine_settings['content_hyphens']               = trim(html::escapeHTML($_POST['content_hyphens']));
     $origine_settings['content_post_author_name']      = trim(html::escapeHTML($_POST['content_post_author_name']));
     $origine_settings['content_post_list_author_name'] = !empty($_POST['content_post_list_author_name']);
+    /*
+    To enable in the future:
     $origine_settings['content_share_link_email']      = !empty($_POST['content_share_link_email']);
     $origine_settings['content_share_link_facebook']   = !empty($_POST['content_share_link_facebook']);
     $origine_settings['content_share_link_print']      = !empty($_POST['content_share_link_print']);
     $origine_settings['content_share_link_whatsapp']   = !empty($_POST['content_share_link_whatsapp']);
     $origine_settings['content_share_link_twitter']    = !empty($_POST['content_share_link_twitter']);
+    */
     $origine_settings['content_post_list_comments']    = !empty($_POST['content_post_list_comments']);
     $origine_settings['content_comment_links']         = !empty($_POST['content_comment_links']);
     $origine_settings['content_post_email_author']     = trim(html::escapeHTML($_POST['content_post_email_author']));
@@ -411,12 +459,22 @@ if (!empty($_POST) && is_array($origine_settings)) {
       }
     }
 
-    // Share links.
+    /*
+    // Share links. To enable in the future.
     $css_array['.share-links']['margin-top']    = '2em';
     $css_array['.share-links']['margin-bottom'] = '2em';
+    */
 
     $css       .= origineConfigArrayToCSS($css_array);
     $css_array  = [];
+
+    // Footer alignement.
+    if ($origine_settings['footer_align'] === 'center') {
+      $css_array['#site-footer']['text-align'] = 'center';
+
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
+    }
 
     // Social links.
     if ($origine_settings['footer_social_links_diaspora']
@@ -548,13 +606,17 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
     echo dcPage::notices();
 
-    $themes_customizable = ['origine'];
-
-    if (!in_array($core->blog->settings->system->theme, $themes_customizable, true)) :
-      echo '<p>' . sprintf(
-        __('This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and activate Origine</a>.'), html::escapeURL($core->adminurl->get('admin.blog.theme'))) . '</p>';
-    else :
+    if ($core->blog->settings->system->theme === "Origine") :
       ?>
+        <p>
+          <?php
+          printf(
+            __('This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and activate Origine</a>.'),
+            html::escapeURL($core->adminurl->get('admin.blog.theme'))
+          );
+          ?>
+        </p>
+      <?php else : ?>
 
       <form action="<?php echo $p_url; ?>" method="post">
         <p>
@@ -665,7 +727,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
         </div>
 
         <div class="fieldset">
-            <h4><?php echo __('Logo'); ?></h4>
+            <h4><?php echo __('Logo (beta)'); ?></h4>
 
             <p>
               <label for="header_logo_url">
@@ -797,34 +859,34 @@ if (!empty($_POST) && is_array($origine_settings)) {
         </div>
 
         <div class="fieldset">
-        <h4><?php echo __('Author'); ?></h4>
+          <h4><?php echo __('Author'); ?></h4>
 
-        <p>
-          <label for="content_post_author_name">
-            <?php echo __('Author name on posts'); ?>
-          </label>
+          <p>
+            <label for="content_post_author_name">
+              <?php echo __('Author name on posts'); ?>
+            </label>
 
-          <?php
-          $combo_post_author_name = [
-              __('Not displayed (default)')     => 'disabled',
-              __('Next to the date')            => 'date',
-              __('Below the post as signature') => 'signature',
-          ];
+            <?php
+            $combo_post_author_name = [
+                __('Not displayed (default)')     => 'disabled',
+                __('Next to the date')            => 'date',
+                __('Below the post as signature') => 'signature',
+            ];
 
-          echo form::combo('content_post_author_name', $combo_post_author_name, $origine_settings['content_post_author_name']);
-          ?>
-        </p>
+            echo form::combo('content_post_author_name', $combo_post_author_name, $origine_settings['content_post_author_name']);
+            ?>
+          </p>
 
-        <p>
-          <?php echo form::checkbox('content_post_list_author_name', true, $origine_settings['content_post_list_author_name']); ?>
+          <p>
+            <?php echo form::checkbox('content_post_list_author_name', true, $origine_settings['content_post_list_author_name']); ?>
 
-          <label class="classic" for="content_post_list_author_name">
-            <?php echo __('Display the author name in the post list'); ?>
-          </label>
-        </p>
-      </div>
+            <label class="classic" for="content_post_list_author_name">
+              <?php echo __('Display the author name in the post list'); ?>
+            </label>
+          </p>
+        </div>
 
-        <div class="fieldset">
+        <!--<div class="fieldset">
           <h4><?php echo __('Share links'); ?></h4>
 
           <p>
@@ -854,7 +916,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
             <?php
           }
           ?>
-        </div>
+        </div>-->
 
         <div class="fieldset">
             <h4><?php echo __('Comments'); ?></h4>
@@ -948,7 +1010,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             <p>
               <label for="footer_social_links_diaspora">
-                <?php echo __('Link to your Diaspora* profile'); ?>
+                <?php echo __('Link to a Diaspora profile'); ?>
               </label>
 
               <?php echo form::field('footer_social_links_diaspora', 30, 255, html::escapeHTML($origine_settings['footer_social_links_diaspora'])); ?>

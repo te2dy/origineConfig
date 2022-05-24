@@ -63,39 +63,8 @@ try {
     $core->blog->settings->origineConfig->dropEvery($setting_id, true);
   }
 
-  $settings_to_unset = [
-    'global_activation',
-    'post_list_type',
-    'sidebar_enabled',
-    'logo_url',
-    'logo_url_2x',
-    'logo_type',
-    'post_author_name',
-    'post_list_comments',
-    'comment_links',
-    'post_email_author',
-    'share_link_twitter',
-    'social_links_diaspora',
-    'social_links_discord',
-    'social_links_facebook',
-    'social_links_github',
-    'social_links_mastodon',
-    'social_links_signal',
-    'social_links_tiktok',
-    'social_links_twitter',
-    'social_links_whatsapp',
-    'header_logo_type',
-  ];
-
-  // Unsets old settings.
-  foreach($settings_to_unset as $setting_id) {
-    if (array_key_exists($setting_id, $core->blog->settings->origineConfig->origine_settings)) {
-      unset($core->blog->settings->origineConfig->origine_settings[$setting_id]);
-    }
-  }
-
   // Default settings to define in the database.
-  $origine_settings = [
+  $origine_settings_default = [
     'activation' => false,
 
     // Global
@@ -146,7 +115,59 @@ try {
     'footer_social_links_whatsapp' => '',
   ];
 
+  if (is_array($core->blog->settings->origineConfig->origine_settings) && !empty($core->blog->settings->origineConfig->origine_settings)) {
+    $origine_settings = $core->blog->settings->origineConfig->origine_settings;
+
+    /**
+     * A list of outdated settings.
+     *
+     * @since origineConfig 1.0
+     */
+    $settings_to_unset = [
+      'global_activation',
+      'post_list_type',
+      'sidebar_enabled',
+      'logo_url',
+      'logo_url_2x',
+      'logo_type',
+      'post_author_name',
+      'post_list_comments',
+      'comment_links',
+      'post_email_author',
+      'share_link_twitter',
+      'social_links_diaspora',
+      'social_links_discord',
+      'social_links_facebook',
+      'social_links_github',
+      'social_links_mastodon',
+      'social_links_signal',
+      'social_links_tiktok',
+      'social_links_twitter',
+      'social_links_whatsapp',
+      'header_logo_type',
+      'footer_social_links_whatsapp',
+    ];
+
+    // Deletes outdated settings.
+    if (!empty($settings_to_unset)) {
+      foreach ($settings_to_unset as $setting_id) {
+        if (array_key_exists($setting_id, $origine_settings)) {
+          unset($origine_settings[$setting_id]);
+        }
+      }
+    }
+
+    $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false, true);
+  } else {
+    $origine_settings = $origine_settings_default;
+  }
+
   $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false, true);
+
+  /*foreach ($origine_settings_default as $id => $value_default) {
+    $type = gettype($value_default);
+    $core->blog->settings->origineConfig->put($id, $value_default, $type, 'All Origine settings', false, true);
+  }*/
 
   $core->setVersion('origineConfig', $new_version);
 
