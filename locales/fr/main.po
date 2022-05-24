@@ -271,7 +271,7 @@ msgid "Display the number of comments in the post list (only if the post has com
 msgstr "Afficher le nombre de commentaires dans la liste des billets (seulement si le billet a des commentaires)"
 
 msgid "Add a link to the comment feed and trackbacks below the comment section"
-msgstr "Ajouter une lien vers le fil des commentaires et les rétroliens sous la section des commentaires"
+msgstr "Ajouter un lien vers le fil des commentaires et les rétroliens sous la section des commentaires"
 
 msgid "Allow visitors to send email to authors of posts and pages"
 msgstr "Autoriser les visiteurs à envoyer des courriels aux auteurs des billets et des pages"
