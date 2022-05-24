@@ -339,7 +339,13 @@ class origineConfig
 
         $image_path = $public_path . str_replace($url_public_relative . '/', '/', $image_url_relative);
 
-        $src_image_2x = $core->blog->settings->origineConfig->origine_settings['header_logo_url_2x'] ? html::escapeURL($core->blog->settings->origineConfig->origine_settings['header_logo_url_2x']) : '';
+        if ($core->blog->settings->origineConfig->origine_settings['header_logo_url_2x']
+          && $core->blog->settings->origineConfig->origine_settings['header_logo_url_2x'] !== $src_image
+        ) {
+          $src_image_2x = html::escapeURL($core->blog->settings->origineConfig->origine_settings['header_logo_url_2x']);
+        } else {
+          $src_image_2x = '';
+        }
 
         if ($src_image_2x !== '') {
           $srcset = ' srcset="' . $src_image . ' 1x, ' . $src_image_2x . ' 2x"';
