@@ -11,6 +11,11 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 1.0.2-beta - 24 avril 2022 ===
+- Amélioration : syntaxe dans le code.
+- Ajout : dimensions dans le code du logo.
+- Mise à jour : chaînes de texte et traduction française.
+
 === 1.0.1-dev - 16 avril 2022 ===
 - Ajout : option pour afficher la première image dans la liste des billets.
 
