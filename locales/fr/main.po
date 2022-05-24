@@ -140,10 +140,10 @@ msgid "Enable the navigation widget area"
 msgstr "Activer la zone de widgets de navigation"
 
 msgid "Check only if your have set widgets in the navigation area."
-msgstr "Ne cocher que si vous avez des widgets dans la zone navigation."
+msgstr "Ne cocher que si vous avez configuré des widgets dans la zone navigation."
 
-msgid "Logo"
-msgstr "Logo"
+msgid "Logo (beta)"
+msgstr "Logo (bêta)"
 
 msgid "The URL of your logo"
 msgstr "L’adresse de votre logo"
@@ -151,8 +151,8 @@ msgstr "L’adresse de votre logo"
 msgid "The URL of your logo for screens with doubled pixel density"
 msgstr "L’adresse de votre logo pour les écrans à double densité de pixels"
 
-msgid "Pour garantir un bon affichage sur les écrans à densité de pixels double (Retina), veuillez fournir une image dont la taille est deux fois supérieure à l’image précédente."
-msgstr ""
+msgid "To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one."
+msgstr "Pour garantir un bon affichage sur les écrans à densité de pixels double (Retina), veuillez fournir une image dont la taille est deux fois supérieure à l’image précédente."
 
 # Content
 
@@ -316,7 +316,7 @@ msgstr "Alignement du pied de page"
 msgid "Add a link to support Dotclear and Origine"
 msgstr "Ajouter un lien pour soutenir Dotclear et Origine"
 
-msgid "Link to a Diaspora* profile"
+msgid "Link to a Diaspora profile"
 msgstr "Lien vers un profil Diaspora*"
 
 msgid "Link to a Discord server"
@@ -341,7 +341,7 @@ msgid "A Twitter username"
 msgstr "Un nom d’utilisateur Twitter"
 
 msgid "A WhatsApp number or a group link"
-msgstr "A numéro WhatsApp ou un lien de groupe"
+msgstr "Un numéro WhatsApp ou un lien de groupe"
 
 msgid "Save"
 msgstr "Enregistrer"

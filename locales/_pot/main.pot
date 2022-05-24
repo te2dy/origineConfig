@@ -145,7 +145,7 @@ msgstr ""
 msgid "Check only if your have set widgets in the navigation area."
 msgstr ""
 
-msgid "Logo"
+msgid "Logo (beta)"
 msgstr ""
 
 msgid "The URL of your logo"
@@ -319,7 +319,7 @@ msgstr ""
 msgid "Add a link to support Dotclear and Origine"
 msgstr ""
 
-msgid "Link to a Diaspora* profile"
+msgid "Link to a Diaspora profile"
 msgstr ""
 
 msgid "Link to a Discord server"
