@@ -426,7 +426,8 @@ if (!empty($_POST) && is_array($origine_settings)) {
     } elseif ($origine_settings['content_text_align'] === 'justify_not_mobile') {
       $css_array[$content_text]['text-align'] = 'justify';
 
-      $css       .= '@media only screen and (min-width: calc(1rem * 20 + (2em * 2) + 1px)) {' . origineConfigArrayToCSS($css_array) . '}';
+      // min-width: calc(1rem * 20 + (2em * 2) + 1px)) not supported on all browsers.
+      $css       .= '@media only screen and (min-width: 384px) {' . origineConfigArrayToCSS($css_array) . '}';
       $css_array  = [];
     }
 
@@ -454,7 +455,8 @@ if (!empty($_POST) && is_array($origine_settings)) {
         $css       .= origineConfigArrayToCSS($css_array);
         $css_array  = [];
       } else {
-        $css       .= '@media only screen and (min-width: calc(1rem * 20 + (2em * 2) + 1px)) {' . origineConfigArrayToCSS($css_array) . '}';
+        // min-width: calc(1rem * 20 + (2em * 2) + 1px)) not supported on all browsers.
+        $css       .= '@media only screen and (min-width: 384px) {' . origineConfigArrayToCSS($css_array) . '}';
         $css_array  = [];
       }
     }
