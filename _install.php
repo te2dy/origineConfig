@@ -10,6 +10,8 @@ if (!defined('DC_CONTEXT_ADMIN')) {
   return;
 }
 
+include __DIR__ . '/_config.php';
+
 $new_version = $core->plugins->moduleInfo('origineConfig', 'version');
 $old_version = $core->getVersion('origineConfig');
 
@@ -64,56 +66,7 @@ try {
   }
 
   // Default settings to define in the database.
-  $origine_settings_default = [
-    'activation' => false,
-
-    // Global
-    'global_color_scheme'   => 'system',
-    'global_color_link'     => 'red',
-    'global_css_transition' => false,
-    'global_meta_generator' => false,
-
-    // Header
-    'header_align'       => 'left',
-    'header_widgets_nav' => true,
-    'header_logo_url'    => '',
-    'header_logo_url_2x' => '',
-
-    // Content
-    'content_post_list_type'        => 'standard',
-    'content_post_list_first_image' => false,
-    'content_font_family'           => 'serif',
-    'content_font_size'             => 100,
-    'content_text_align'            => 'left',
-    'content_hyphens'               => 'disabled',
-    'content_post_author_name'      => 'disabled',
-    'content_post_list_author_name' => false,
-    'content_share_link_email'      => false,
-    'content_share_link_facebook'   => false,
-    'content_share_link_print'      => false,
-    'content_share_link_whatsapp'   => false,
-    'content_share_link_twitter'    => false,
-    'content_post_list_comments'    => false,
-    'content_comment_links'         => true,
-    'content_post_email_author'     => 'disabled',
-
-    // Widgets
-    'widgets_enabled' => true,
-
-    // Footer
-    'footer_enabled'               => true,
-    'footer_align'                 => 'left',
-    'footer_credits'               => true,
-    'footer_social_links_diaspora' => '',
-    'footer_social_links_discord'  => '',
-    'footer_social_links_facebook' => '',
-    'footer_social_links_github'   => '',
-    'footer_social_links_mastodon' => '',
-    'footer_social_links_signal'   => '',
-    'footer_social_links_tiktok'   => '',
-    'footer_social_links_twitter'  => '',
-    'footer_social_links_whatsapp' => '',
-  ];
+  $origine_settings_default = origineConfigSettings::default_settings();
 
   if (is_array($core->blog->settings->origineConfig->origine_settings) && !empty($core->blog->settings->origineConfig->origine_settings)) {
     $origine_settings = $core->blog->settings->origineConfig->origine_settings;
