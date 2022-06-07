@@ -10,6 +10,8 @@ if (!defined('DC_CONTEXT_ADMIN')) {
   return;
 }
 
+include __DIR__ . '/_config.php';
+
 /**
  * Converts an array to CSS without spaces and line breaks.
  */
@@ -44,59 +46,7 @@ $core->blog->settings->addNamespace('origineConfig');
 if (is_null($core->blog->settings->origineConfig->origine_settings)) {
   try {
     // Default settings.
-    $origine_settings = [
-      'activation' => false,
-
-      // Global
-      'global_color_scheme'   => 'system',
-      'global_color_link'     => 'red',
-      'global_css_transition' => false,
-      'global_meta_generator' => false,
-
-      // Header
-      'header_align'       => 'left',
-      'header_widgets_nav' => true,
-      'header_logo_url'    => '',
-      'header_logo_url_2x' => '',
-
-      // Content
-      'content_post_list_type'        => 'standard',
-      'content_post_list_first_image' => false,
-      'content_font_family'           => 'serif',
-      'content_font_size'             => 100,
-      'content_text_align'            => 'left',
-      'content_hyphens'               => 'disabled',
-      'content_post_author_name'      => 'disabled',
-      'content_post_list_author_name' => false,
-      /*
-      // To enable in the future.
-      'content_share_link_email'      => false,
-      'content_share_link_facebook'   => false,
-      'content_share_link_print'      => false,
-      'content_share_link_whatsapp'   => false,
-      'content_share_link_twitter'    => false,
-      */
-      'content_post_list_comments'    => false,
-      'content_comment_links'         => true,
-      'content_post_email_author'     => 'disabled',
-
-      // Widgets
-      'widgets_enabled' => true,
-
-      // Footer
-      'footer_enabled'               => true,
-      'footer_align'                 => 'left',
-      'footer_credits'               => true,
-      'footer_social_links_diaspora' => '',
-      'footer_social_links_discord'  => '',
-      'footer_social_links_facebook' => '',
-      'footer_social_links_github'   => '',
-      'footer_social_links_mastodon' => '',
-      'footer_social_links_signal'   => '',
-      'footer_social_links_tiktok'   => '',
-      'footer_social_links_twitter'  => '',
-      'footer_social_links_whatsapp' => '',
-    ];
+    $origine_settings = origineConfigSettings::default_settings();
 
     $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false);
 
@@ -152,7 +102,6 @@ if (!empty($_POST) && is_array($origine_settings)) {
   $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false);
 
   try {
-
     /**
      * Get settings from the form
      * and escape them.
@@ -180,7 +129,6 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $origine_settings['content_font_size']             = abs((int) $_POST['content_font_size']);
     $origine_settings['content_text_align']            = trim(html::escapeHTML($_POST['content_text_align']));
     $origine_settings['content_hyphens']               = trim(html::escapeHTML($_POST['content_hyphens']));
-    $origine_settings['content_post_author_name']      = trim(html::escapeHTML($_POST['content_post_author_name']));
     $origine_settings['content_post_list_author_name'] = !empty($_POST['content_post_list_author_name']);
     /*
     To enable in the future:
@@ -619,6 +567,16 @@ if (!empty($_POST) && is_array($origine_settings)) {
           ?>
         </p>
       <?php else : ?>
+
+      <?php
+      $origine_settings_default = origineConfigSettings::default_settings();
+
+      foreach($origine_settings_default as $setting => $value) {
+        if (!array_key_exists($setting, $origine_settings)) {
+          $origine_settings[$setting] = $value;
+        }
+      }
+      ?>
 
       <form action="<?php echo $p_url; ?>" method="post">
         <p>
