@@ -46,6 +46,9 @@ msgstr "Répondre à l’auteur par courriel"
 
 # Comments
 
+msgid "comments"
+msgstr "commentaires"
+
 msgid "1 comment"
 msgstr "1 commentaire"
 

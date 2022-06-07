@@ -46,7 +46,7 @@ msgstr ""
 
 # Comments
 
-msgid "Private comment"
+msgid "comments"
 msgstr ""
 
 msgid "1 comment"

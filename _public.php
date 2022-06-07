@@ -515,34 +515,40 @@ class origineConfig
    */
   public static function origineConfigEmailAuthor()
   {
-    global $core, $_ctx;
+    global $core;
 
     if (
       $core->blog->settings->origineConfig->origine_settings['activation'] === true
       && $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] !== 'disabled'
     ) {
-      if (
-        $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] === 'always'
-        || (
-          $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] === 'comments_open'
-          && $_ctx->posts->post_open_comment === '1'
-          && $_ctx->posts->user_email
-        )
-      ) {
-        $output = '<div class="comment-private">';
+      $output = '<?php
+        global $core, $_ctx;
 
-        $output .= '<h3>' . __('Private comment') . '</h3>';
+        if (
+          $core->blog->settings->origineConfig->origine_settings["content_post_email_author"] === "always"
+          || (
+            $core->blog->settings->origineConfig->origine_settings["content_post_email_author"] === "comments_open"
+            && $_ctx->posts->post_open_comment === "1"
+            && $_ctx->posts->user_email !== ""
+          )
+        ) :
+      ?>';
 
-        $output .= '<a class="button" href="mailto:' . urlencode($_ctx->posts->user_email);
-        $output .= '?subject=' . htmlentities($_ctx->posts->post_title, ENT_NOQUOTES);
-        $output .= '">';
-        $output .= __('Reply to the author by email');
-        $output .= '</a>';
+      $output .= '<div class="comment-private">';
 
-        $output .= '</div>';
+      $output .= '<h3>' . __('Private comment') . '</h3>';
 
-        return $output;
-      }
+      $output .= '<a class="button" href="mailto:<?php echo urlencode($_ctx->posts->user_email); ?>';
+      $output .= '?subject=<?php echo htmlentities($_ctx->posts->post_title, ENT_NOQUOTES); ?>';
+      $output .= '">';
+      $output .= __('Reply to the author by email');
+      $output .= '</a>';
+
+      $output .= '</div>';
+
+      $output .= '<?php endif; ?>';
+
+      return $output;
     }
   }
 
@@ -558,11 +564,11 @@ class origineConfig
       && $core->blog->settings->origineConfig->origine_settings['content_post_list_comments'] === true
     ) {
       if ($attr['context'] === 'standard') {
-        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a>"; } } ?>';
+        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#" . __("comments") . "\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a>"; } } ?>';
       } elseif ($attr['context'] === 'short') {
-        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "/ <a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "/ <a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a>"; } } ?>';
+        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "/ <a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "/ <a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#" . __("comments") . "\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a>"; } } ?>';
       } elseif ($attr['context'] === 'full') {
-        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<div class=\"post-meta text-secondary\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a></div>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<div class=\"post-meta text-secondary\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a></div>"; } } ?>';
+        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<div class=\"post-meta text-secondary\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a></div>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<div class=\"post-meta text-secondary\"><a href=\"" . $_ctx->posts->getURL() . "#" . __("comments") . "\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a></div>"; } } ?>';
       }
     }
   }
@@ -578,9 +584,10 @@ class origineConfig
   {
     global $core;
 
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['content_post_list_first_image'] === true) {
-
+    if (
+      $core->blog->settings->origineConfig->origine_settings['activation'] === true
+      && $core->blog->settings->origineConfig->origine_settings['content_post_list_first_image'] === true
+    ) {
       $url_public_relative = $core->blog->settings->system->public_url;
       $public_path         = $core->blog->public_path;
 
