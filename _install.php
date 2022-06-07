@@ -10,7 +10,7 @@ if (!defined('DC_CONTEXT_ADMIN')) {
   return;
 }
 
-include __DIR__ . '/_config.php';
+include __DIR__ . '/settings.php';
 
 $new_version = $core->plugins->moduleInfo('origineConfig', 'version');
 $old_version = $core->getVersion('origineConfig');

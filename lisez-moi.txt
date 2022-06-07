@@ -11,8 +11,11 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 1.0.4 - 7 juin 2022 ===
+- Correction : affichage d’une page vide de configuration après la mise à jour de l’extension.
+
 === 1.0.3 - 7 juin 2022 ===
-- Correction : formule calc() ignorée dans les modules @media.
+- Correction : formule calc() ignorée dans les modules media.
 - Correction : commentaires privés non fonctionnels dans certaines situations.
 
 === 1.0.2-beta - 24 mai 2022 ===

@@ -13,6 +13,9 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 }
 
 class origineConfigSettings {
+  /**
+   * An array of default settings of the plugin.
+   */
   public static function default_settings()
   {
     $origine_settings = [
