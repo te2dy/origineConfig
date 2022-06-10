@@ -22,7 +22,6 @@ $core->tpl->addValue('origineConfigEntryAuthorNameNextToDate', ['origineConfig',
 $core->tpl->addValue('origineConfigEntryAuthorNameSignature', ['origineConfig', 'origineConfigEntryAuthorNameSignature']);
 $core->tpl->addValue('origineConfigEmailAuthor', ['origineConfig', 'origineConfigEmailAuthor']);
 $core->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineConfigEntryFirstImage']);
-$core->tpl->addValue('origineConfigPostListComments', ['origineConfig', 'origineConfigPostListComments']);
 
 // Blocks.
 $core->tpl->addBlock('origineConfigWidgetsNav', ['origineConfig', 'origineConfigWidgetsNav']);
@@ -538,38 +537,19 @@ class origineConfig
 
       $output .= '<h3>' . __('Private comment') . '</h3>';
 
+      $output .= '<p>';
       $output .= '<a class="button" href="mailto:<?php echo urlencode($_ctx->posts->user_email); ?>';
       $output .= '?subject=<?php echo htmlentities($_ctx->posts->post_title, ENT_NOQUOTES); ?>';
       $output .= '">';
       $output .= __('Reply to the author by email');
       $output .= '</a>';
+      $output .= '</P>';
 
       $output .= '</div>';
 
       $output .= '<?php endif; ?>';
 
       return $output;
-    }
-  }
-
-  /**
-   * Displays the number of comments in the post list.
-   */
-  public static function origineConfigPostListComments($attr)
-  {
-    global $core;
-
-    if (
-      $core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['content_post_list_comments'] === true
-    ) {
-      if ($attr['context'] === 'standard') {
-        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#" . __("comments") . "\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a>"; } } ?>';
-      } elseif ($attr['context'] === 'short') {
-        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "/ <a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "/ <a class=\"post-list-comment text-secondary\" href=\"" . $_ctx->posts->getURL() . "#" . __("comments") . "\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a>"; } } ?>';
-      } elseif ($attr['context'] === 'full') {
-        return '<?php if ($_ctx->posts->post_open_comment === "1") { if ($_ctx->posts->nb_comment == 1) { echo "<div class=\"post-meta text-secondary\"><a href=\"" . $_ctx->posts->getURL() . "#comments\">" . __("1 comment") . "</a></div>"; } elseif ($_ctx->posts->nb_comment > 1) { echo "<div class=\"post-meta text-secondary\"><a href=\"" . $_ctx->posts->getURL() . "#" . __("comments") . "\">" . sprintf(__("%d comments"), $_ctx->posts->nb_comment) . "</a></div>"; } } ?>';
-      }
     }
   }
 

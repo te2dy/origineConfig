@@ -99,6 +99,7 @@ try {
       'social_links_whatsapp',
       'header_logo_type',
       'footer_social_links_whatsapp',
+      'content_post_list_comments',
     ];
 
     // Deletes outdated settings.

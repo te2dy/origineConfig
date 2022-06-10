@@ -88,6 +88,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
     'social_links_whatsapp',
     'header_logo_type',
     'footer_social_links_whatsapp',
+    'content_post_list_comments',
   ];
 
   // Deletes outdated settings.
@@ -138,7 +139,6 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $origine_settings['content_share_link_whatsapp']   = !empty($_POST['content_share_link_whatsapp']);
     $origine_settings['content_share_link_twitter']    = !empty($_POST['content_share_link_twitter']);
     */
-    $origine_settings['content_post_list_comments']    = !empty($_POST['content_post_list_comments']);
     $origine_settings['content_comment_links']         = !empty($_POST['content_comment_links']);
     $origine_settings['content_post_email_author']     = trim(html::escapeHTML($_POST['content_post_email_author']));
 
@@ -334,8 +334,8 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
         $css_array['.post-list-standard .label-page']['margin-bottom'] = '.5em';
 
-        $css_array['.post-list-standard .post-list-comment']['display']     = 'inline-block';
-        $css_array['.post-list-standard .post-list-comment']['margin-left'] = '.25em';
+        $css_array['.post-list-standard .post-list-reactions']['display']     = 'inline-block';
+        $css_array['.post-list-standard .post-list-reactions']['margin-left'] = '.25em';
 
         $css_array['.post-list-standard .post-footer']['font-size'] = '.9em';
         $css_array['.post-list-standard .post-footer']['margin-top'] = '.5em';
@@ -880,14 +880,6 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
         <div class="fieldset">
             <h4><?php echo __('Comments'); ?></h4>
-
-            <p>
-              <?php echo form::checkbox('content_post_list_comments', true, $origine_settings['content_post_list_comments']); ?>
-
-              <label class="classic" for="content_post_list_comments">
-                <?php echo __('Display the number of comments in the post list (only if the post has comments)'); ?>
-              </label>
-            </p>
 
             <p>
               <?php echo form::checkbox('content_comment_links', true, $origine_settings['content_comment_links']); ?>
