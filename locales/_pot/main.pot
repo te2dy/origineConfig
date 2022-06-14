@@ -38,7 +38,7 @@ msgstr ""
 
 # Private comments
 
-msgid "Private comment"
+msgid "Send a private comment"
 msgstr ""
 
 msgid "Reply to the author by email"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Global"
 msgstr ""
 
-msgid "Colors"
+msgid "Appearance"
 msgstr ""
 
 msgid "Color scheme"

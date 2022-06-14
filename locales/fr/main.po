@@ -38,8 +38,8 @@ msgstr "Image d’en-tête"
 
 # Private comments
 
-msgid "Private comment"
-msgstr "Commentaire privé"
+msgid "Send a private comment"
+msgstr "Envoyer un commentaire privé"
 
 msgid "Reply to the author by email"
 msgstr "Répondre à l’auteur par courriel"
@@ -74,8 +74,8 @@ msgstr "Si vous ne cochez pas cette case, vos paramètres seront ignorés."
 msgid "Global"
 msgstr "Globaux"
 
-msgid "Colors"
-msgstr "Couleurs"
+msgid "Appearance"
+msgstr "Apparence"
 
 msgid "Color scheme"
 msgstr "Schéma de couleur"

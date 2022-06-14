@@ -399,7 +399,8 @@ class origineConfig
 
       $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
 
-      $output .= '/ <span class="post-author-name" rel="author">';
+      $output .= ' <span class="post-author-name" rel="author">';
+      $output .= $core->blog->settings->origineConfig->origine_settings['global_separator'] . ' ';
 
       $output .= '<?php if ($_ctx->posts->user_url) {';
       $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
@@ -440,7 +441,8 @@ class origineConfig
     ) {
       $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
 
-      $output .= '/ <span class="post-author-name" rel="author">';
+      $output .= ' <span class="post-author-name" rel="author">';
+      $output .= $core->blog->settings->origineConfig->origine_settings['global_separator'] . ' ';
 
       $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->origine_settings[\'post_list_type\'] === "short") {';
       $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
@@ -535,7 +537,7 @@ class origineConfig
 
       $output .= '<div class="comment-private">';
 
-      $output .= '<h3>' . __('Private comment') . '</h3>';
+      $output .= '<h3 class="reaction-title">' . __('Send a private comment') . '</h3>';
 
       $output .= '<p>';
       $output .= '<a class="button" href="mailto:<?php echo urlencode($_ctx->posts->user_email); ?>';

@@ -115,6 +115,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $origine_settings['global_color_scheme']   = trim(html::escapeHTML($_POST['global_color_scheme']));
     $origine_settings['global_color_link']     = trim(html::escapeHTML($_POST['global_color_link']));
     $origine_settings['global_css_transition'] = !empty($_POST['global_css_transition']);
+    $origine_settings['global_separator']      = $_POST['global_separator'] ? trim(html::escapeHTML($_POST['global_separator'])) : '/';
     $origine_settings['global_meta_generator'] = !empty($_POST['global_meta_generator']);
 
     // Header settings
@@ -592,7 +593,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
         <h3><?php echo __('Global'); ?></h3>
 
         <div class="fieldset">
-          <h4><?php echo __('Colors'); ?></h4>
+          <h4><?php echo __('Appearance'); ?></h4>
 
           <p>
             <label for="global_color_scheme">
@@ -626,6 +627,18 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
             echo form::combo('global_color_link', $combo_link_color, $origine_settings['global_color_link']);
             ?>
+          </p>
+
+          <p>
+            <label for="global_separator">
+              <?php echo __('Separator'); ?>
+            </label>
+
+            <?php echo form::field('global_separator', 30, 255, html::escapeHTML($origine_settings['global_separator'])); ?>
+          </p>
+
+          <p class="form-note">
+            <?php echo __("Character used to separate certain elements of the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."); ?>
           </p>
 
           <p>
