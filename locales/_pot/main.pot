@@ -107,6 +107,12 @@ msgstr ""
 msgid "Purple"
 msgstr ""
 
+msgid "Separator"
+msgstr ""
+
+msgid "Character(s) used to separate certain elements of the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."
+msgstr ""
+
 msgid "Add a color transition on link hover"
 msgstr ""
 
