@@ -131,6 +131,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $origine_settings['content_font_size']             = abs((int) $_POST['content_font_size']);
     $origine_settings['content_text_align']            = trim(html::escapeHTML($_POST['content_text_align']));
     $origine_settings['content_hyphens']               = trim(html::escapeHTML($_POST['content_hyphens']));
+    $origine_settings['content_post_author_name'] = trim(html::escapeHTML($_POST['content_post_author_name']));
     $origine_settings['content_post_list_author_name'] = !empty($_POST['content_post_list_author_name']);
     /*
     To enable in the future:
@@ -638,7 +639,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
           </p>
 
           <p class="form-note">
-            <?php echo __("Character used to separate certain elements of the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."); ?>
+            <?php echo __("Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."); ?>
           </p>
 
           <p>
