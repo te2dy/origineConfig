@@ -25,7 +25,7 @@ class origineConfigSettings {
       'global_color_scheme'   => 'system',
       'global_color_link'     => 'red',
       'global_css_transition' => false,
-      'global_separator'      => "/",
+      'global_separator'      => "|",
       'global_meta_generator' => false,
 
       // Header
@@ -41,8 +41,8 @@ class origineConfigSettings {
       'content_font_size'             => 100,
       'content_text_align'            => 'left',
       'content_hyphens'               => 'disabled',
-      'content_post_date_time'        => 'date',
-      'content_post_entry_date_time'  => 'date',
+      /*'content_post_date_time'        => 'date',
+      'content_post_entry_date_time'  => 'date',*/
       'content_post_author_name'      => 'disabled',
       'content_post_list_author_name' => false,
       /*
