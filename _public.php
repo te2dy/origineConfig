@@ -11,9 +11,9 @@ if (!defined('DC_RC_PATH')) {
 }
 
 // Behaviors.
-$core->addBehavior('publicHeadContent', ['origineConfig', 'publicHeadContent']);
-$core->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterContent']);
-$core->addBehavior('publicEntryAfterContent', ['origineConfig', 'publicEntryAfterContent']);
+$core->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigGenerator']);
+$core->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
+$core->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
 
 // Values.
 $core->tpl->addValue('origineConfigLogo', ['origineConfig', 'origineConfigLogo']);
@@ -23,45 +23,15 @@ $core->tpl->addValue('origineConfigEntryAuthorNameSignature', ['origineConfig', 
 $core->tpl->addValue('origineConfigEmailAuthor', ['origineConfig', 'origineConfigEmailAuthor']);
 $core->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineConfigEntryFirstImage']);
 
-// Blocks.
-$core->tpl->addBlock('origineConfigWidgetsNav', ['origineConfig', 'origineConfigWidgetsNav']);
-
 class origineConfig
 {
-  /**
-   * Displays an array of styles as inline styles.
-   */
-  public static function origineConfigArrayToCSS($rules)
-  {
-    $css = '';
-
-    if ($rules) {
-      foreach ($rules as $key => $value) {
-        if (is_array($value) && !empty($value)) {
-          $selector   = $key;
-          $properties = $value;
-
-          $css .= $selector . '{';
-
-          foreach ($properties as $property => $rule) {
-            $css .= $property . ':' . str_replace(', ', ',', $rule) . ';';
-          }
-
-          $css .= '}';
-        }
-      }
-    }
-
-    return $css;
-  }
-
   /**
    * Displays some content in the <head> section.
    *
    * Supported tags:
    * - Generator
    */
-  public static function publicHeadContent()
+  public static function origineConfigGenerator()
   {
     global $core;
 
@@ -111,12 +81,9 @@ class origineConfig
   }
 
   /**
-   * Displays some content in the footer.
-   *
-   * Displayable:
-   * - Social links
+   * Displays social links in the footer.
    */
-  public static function publicFooterContent()
+  public static function publicFooterSocialLinks()
   {
     global $core;
 
@@ -199,12 +166,9 @@ class origineConfig
   }
 
   /**
-   * Displays some content after post content.
-   *
-   * Displayable:
-   * - Share links
+   * Displays links to share the current post.
    */
-  public static function publicEntryAfterContent()
+  public static function origineShareLinks()
   {
     global $core, $_ctx;
 
@@ -444,7 +408,7 @@ class origineConfig
       $output .= ' <span class="post-author-name" rel="author">';
       $output .= $core->blog->settings->origineConfig->origine_settings['global_separator'] . ' ';
 
-      $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->origine_settings[\'post_list_type\'] === "short") {';
+      $output .= '<?php if ($_ctx->posts->user_url) {';
       $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
       $output .= '} ?>';
 
@@ -458,7 +422,7 @@ class origineConfig
       $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
       $output .= '} ?>';
 
-      $output .= '<?php if ($_ctx->posts->user_url && $core->blog->settings->origineConfig->origine_settings[\'post_list_type\'] === "short") {';
+      $output .= '<?php if ($_ctx->posts->user_url) {';
       $output .= 'echo "</a>";';
       $output .= '} ?>';
 
@@ -559,8 +523,6 @@ class origineConfig
    * Displays the first image of a post.
    *
    * IN DEVELOPMENT.
-   *
-   * TO PUT IN THE PLUGIN FILES INSTEAD OF THE THEME FILES.
    */
   public static function origineConfigEntryFirstImage($attr)
   {
@@ -655,18 +617,6 @@ class origineConfig
         }
         ?>
       ';
-    }
-  }
-
-  public static function origineConfigWidgetsNav($attr, $content)
-  {
-    global $core;
-
-    if (
-      $core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['header_widgets_nav'] === true
-    ) {
-      return $content;
     }
   }
 }
