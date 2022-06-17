@@ -22,7 +22,11 @@ if (version_compare($old_version, $new_version, '>=')) {
 try {
   $core->blog->settings->addNamespace('origineConfig');
 
-  // Old settings to delete from the database on the next version.
+  /**
+   * Old settings to delete from the database on the next version.
+   *
+   * @since origineConfig 1.0
+   */
   $settings_to_drop = [
     'activation',
     'color_scheme',
@@ -72,7 +76,7 @@ try {
     $origine_settings = $core->blog->settings->origineConfig->origine_settings;
 
     /**
-     * A list of outdated settings.
+     * A list of outdated settings to remove.
      *
      * @since origineConfig 1.0
      */
@@ -117,11 +121,6 @@ try {
   }
 
   $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false, true);
-
-  /*foreach ($origine_settings_default as $id => $value_default) {
-    $type = gettype($value_default);
-    $core->blog->settings->origineConfig->put($id, $value_default, $type, 'All Origine settings', false, true);
-  }*/
 
   $core->setVersion('origineConfig', $new_version);
 
