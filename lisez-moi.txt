@@ -11,6 +11,13 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 1.1 - 17 juin 2022 ===
+- Ajout : personnalisation des séparateurs.
+- Correction : affichage du nom de l’auteur dans les billets.
+- Correction : erreur à l’affichage du nom de l’auteur dans la liste des billets quand celui-ci a renseigné une URL dans ses paramètres.
+- Mise à jour : harmonisation des fonctions entre le thème et l’extension.
+- Suppression : fonctions et code inutilisés.
+
 === 1.0.4 - 7 juin 2022 ===
 - Correction : affichage d’une page vide de configuration après la mise à jour de l’extension.
 
