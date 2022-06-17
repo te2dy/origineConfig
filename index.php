@@ -280,8 +280,8 @@ if (!empty($_POST) && is_array($origine_settings)) {
       $css_array  = [];
     }
 
-    // Header alignment
-    if ($origine_settings['header_align'] === 'center') {
+    // Footer alignment
+    if ($origine_settings['footer_align'] === 'center') {
       $css_array['#site-footer']['text-align'] = 'center';
 
       $css       .= origineConfigArrayToCSS($css_array);
@@ -346,7 +346,8 @@ if (!empty($_POST) && is_array($origine_settings)) {
         break;
 
       case 'short':
-        $css_array['.post-list-short .label-selected']['display'] = 'inline-block';
+        $css_array['.post-list-short .label-selected']['display']      = 'inline-block';
+        $css_array['.post-list-short .label-selected']['margin-right'] = '.25em';
 
         $css_array['.post-list-short .post-meta, .post-list-short .post-title']['font-size'] = '1em';
 
