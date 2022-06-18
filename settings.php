@@ -25,7 +25,7 @@ class origineConfigSettings {
       'global_color_scheme'   => 'system',
       'global_color_link'     => 'red',
       'global_css_transition' => false,
-      'global_separator'      => "|",
+      'global_separator'      => "/",
       'global_meta_generator' => false,
 
       // Header
