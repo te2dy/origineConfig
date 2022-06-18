@@ -57,6 +57,15 @@ msgstr "%s commentaires"
 
 ## index.php
 
+msgid "Default: empty."
+msgstr "Par défaut : vide."
+
+msgid "Default: checked."
+msgstr "Par défaut : coché."
+
+msgid "Default: unchecked."
+msgstr "Par défaut : décoché."
+
 msgid "Settings have been successfully updated."
 msgstr "Les paramètres ont été enregistrés avec succès."
 

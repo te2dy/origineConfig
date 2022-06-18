@@ -652,7 +652,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
           </p>
 
           <p class="form-note">
-            <?php echo __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.'); ?>
+            <?php echo __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.') . ' ' . __('Default: unchecked.'); ?>
           </p>
         </div>
 
@@ -666,7 +666,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
             </p>
 
             <p class="form-note">
-              <?php echo __("Allows you to add information to your pages without displaying it on your readers' screen."); ?>
+              <?php echo __("Allows you to add information to your pages without displaying it on your readers' screen.") . ' ' . __('Default: unchecked.'); ?>
             </p>
           </div>
 
@@ -697,7 +697,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
           </p>
 
           <p class="form-note">
-            <?php echo __('Check only if your have set widgets in the navigation area.'); ?>
+            <?php echo __('Check only if your have set widgets in the navigation area.') . ' ' . __('Default: checked.'); ?>
           </p>
         </div>
 
@@ -709,7 +709,17 @@ if (!empty($_POST) && is_array($origine_settings)) {
                 <?php echo __('The URL of your logo'); ?>
               </label>
 
-              <?php echo form::field('header_logo_url', 30, 255, html::escapeHTML($origine_settings['header_logo_url'])); ?>
+              <?php
+              echo form::field(
+                'header_logo_url',
+                30,
+                255,
+                html::escapeHTML($origine_settings['header_logo_url'])
+              ); ?>
+            </p>
+
+            <p class="form-note">
+              <?php echo __('Default: empty.'); ?>
             </p>
 
             <p>
@@ -717,11 +727,16 @@ if (!empty($_POST) && is_array($origine_settings)) {
                 <?php echo __('The URL of your logo for screens with doubled pixel density'); ?>
               </label>
 
-              <?php echo form::field('header_logo_url_2x', 30, 255, html::escapeHTML($origine_settings['header_logo_url_2x'])); ?>
+              <?php
+              echo form::field(
+                'header_logo_url_2x',
+                30,
+                255,
+                html::escapeHTML($origine_settings['header_logo_url_2x'])); ?>
             </p>
 
             <p class="form-note">
-              <?php echo __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one.'); ?>
+              <?php echo __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one.') . ' ' . __('Default: empty.');  ?>
             </p>
           </div>
 
@@ -753,7 +768,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
           </p>
 
           <p class="form-note">
-            <?php echo __('Only if post displaying is set to "standard".'); ?>
+            <?php echo __('Only if post displaying is set to "standard".') . ' ' . __('Default: unchecked.'); ?>
           </p>
         </div>
 
@@ -859,6 +874,10 @@ if (!empty($_POST) && is_array($origine_settings)) {
               <?php echo __('Display the author name in the post list'); ?>
             </label>
           </p>
+
+          <p class="form-note">
+            <?php echo __('Default: unchecked.'); ?>
+          </p>
         </div>
 
         <!--<div class="fieldset">
@@ -904,6 +923,10 @@ if (!empty($_POST) && is_array($origine_settings)) {
               </label>
             </p>
 
+            <p class="form-note">
+              <?php echo __('Default: checked.'); ?>
+            </p>
+
             <p>
               <label for="content_post_email_author">
                 <?php echo __('Allow visitors to send email to authors of posts and pages'); ?>
@@ -935,7 +958,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
           </p>
 
           <p class="form-note">
-            <?php echo __("Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Extra sidebar\" section, you should uncheck this setting to remove unnecessary code from your pages."); ?>
+            <?php echo __("Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Extra sidebar\" section, you should uncheck this setting to remove unnecessary code from your pages.") . ' ' . __('Default: checked.'); ?>
           </p>
         </div>
 
@@ -949,7 +972,7 @@ if (!empty($_POST) && is_array($origine_settings)) {
             </p>
 
             <p class="form-note">
-              <?php echo __('If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting.'); ?>
+              <?php echo __('If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting.') . ' ' . __('Default: checked.'); ?>
             </p>
 
             <p>
@@ -973,6 +996,10 @@ if (!empty($_POST) && is_array($origine_settings)) {
               <label class="classic" for="footer_credits">
                 <?php echo __('Add a link to support Dotclear and Origine'); ?>
               </label>
+            </p>
+
+            <p class="form-note">
+              <?php echo __('Default: checked.'); ?>
             </p>
 
             <p>
