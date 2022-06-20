@@ -44,6 +44,9 @@ msgstr ""
 msgid "Reply to the author by email"
 msgstr ""
 
+msgid "Re:"
+msgstr ""
+
 # Comments
 
 msgid "comments"

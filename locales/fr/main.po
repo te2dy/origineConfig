@@ -44,6 +44,9 @@ msgstr "Envoyer un commentaire privé"
 msgid "Reply to the author by email"
 msgstr "Répondre à l’auteur par courriel"
 
+msgid "Re:"
+msgstr "Re:"
+
 # Comments
 
 msgid "comments"

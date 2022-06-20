@@ -505,7 +505,7 @@ class origineConfig
 
       $output .= '<p>';
       $output .= '<a class="button" href="mailto:<?php echo urlencode($_ctx->posts->user_email); ?>';
-      $output .= '?subject=<?php echo htmlentities($_ctx->posts->post_title, ENT_NOQUOTES); ?>';
+      $output .= '?subject=<?php echo htmlentities(__("Re:") . " " . $_ctx->posts->post_title, ENT_NOQUOTES); ?>';
       $output .= '">';
       $output .= __('Reply to the author by email');
       $output .= '</a>';
