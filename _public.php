@@ -168,7 +168,7 @@ class origineConfig
   /**
    * Displays links to share the current post.
    */
-  public static function origineShareLinks()
+  /*public static function origineShareLinks()
   {
     global $core, $_ctx;
 
@@ -186,12 +186,15 @@ class origineConfig
 
       // Sort the previous array in the alphabetical order of its translated values.
       asort($sites_allowed);
+      */
 
       /**
        * If the option is checked in the plugin settings,
        * create a value (the URL) with its associative key (the name of the site or service)
        * for each site or service to share with.
        */
+      /*
+
       $networks_url = [];
 
       $post_url   = $_ctx->posts->getURL()   ? $_ctx->posts->getURL()   : '';
@@ -280,6 +283,7 @@ class origineConfig
       }
     }
   }
+  */
 
   /**
    * Displays a logo in the header.
