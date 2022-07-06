@@ -11,6 +11,11 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 1.1.2 - 18 juin 2022 ===
+- Ajout : "Re:" dans le titre des réponses privées.
+- Correction : l’alignement de l’en-tête affectait celui du pied de page.
+- Correction : mauvais caractère du séparateur par défaut.
+
 === 1.1.1 - 18 juin 2022 ===
 - Ajout : valeur par défaut des paramètres à cocher.
 - Correction : l’alignement de l’en-tête affectait celui du pied de page.

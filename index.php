@@ -559,7 +559,9 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
     echo dcPage::notices();
 
-    if ($core->blog->settings->system->theme === "Origine") :
+    $themes_allowed = ["Origine", "Origine Mini"];
+
+    if (in_array($core->blog->settings->system->theme, $themes_allowed, true) === false) :
       ?>
         <p>
           <?php
