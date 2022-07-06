@@ -157,12 +157,6 @@ msgstr "Gauche (par défaut)"
 msgid "Center"
 msgstr "Centre"
 
-msgid "Enable the navigation widget area"
-msgstr "Activer la zone de widgets de navigation"
-
-msgid "Check only if your have set widgets in the navigation area."
-msgstr "Ne cocher que si vous avez configuré des widgets dans la zone navigation."
-
 msgid "Logo (beta)"
 msgstr "Logo (bêta)"
 
@@ -314,11 +308,23 @@ msgstr "Si cette option est activée, l’adresse électronique des auteurs sera
 msgid "Widgets"
 msgstr "Widgets"
 
-msgid "Enable the <em>sidebar</em>"
-msgstr "Activer la <em>barre latérale</em>"
+msgid "Navigation widgets positioning"
+msgstr "Positionnement des widgets de navigation"
 
-msgid "Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Extra sidebar\" section, you should uncheck this setting to remove unnecessary code from your pages."
-msgstr "Origine est un thème à une colonne. Il n’a pas de barre latérale en tant que telle mais vous pouvez insérer du contenu, de la même façon, entre vos billets et le pied de page avec des widgets. Si vous n’avez aucun widget dans la section \"Volet d'extra\", vous devriez décocher ce paramètre pour supprimer du code superflu de vos pages."
+msgid "Between header and main content"
+msgstr "Entre l’en-tête et le contenu principal"
+
+msgid "Between main content and footer (default)"
+msgstr "Entre le contenu principal et le pied de page (par défaut)"
+
+msgid "Disabled"
+msgstr "Désactivé"
+
+msgid "Enable the extra widget area"
+msgstr "Activer les widgets du volet d’extra"
+
+msgid "It is recommended to disable empty widget areas to avoid excess space between page elements."
+msgstr "Il est recommandé de désactiver les zones de widgets vides afin d’éviter l’apparition d’espacements excessifs entre les éléments de la page."
 
 # Footer
 

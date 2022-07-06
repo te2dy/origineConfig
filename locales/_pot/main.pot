@@ -157,12 +157,6 @@ msgstr ""
 msgid "Center"
 msgstr ""
 
-msgid "Enable the navigation widget area"
-msgstr ""
-
-msgid "Check only if your have set widgets in the navigation area."
-msgstr ""
-
 msgid "Logo (beta)"
 msgstr ""
 
@@ -314,10 +308,22 @@ msgstr ""
 msgid "Widgets"
 msgstr ""
 
-msgid "Enable the <em>sidebar</em>"
+msgid "Navigation widgets positioning"
 msgstr ""
 
-msgid "Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Extra sidebar\" section, you should uncheck this setting to remove unnecessary code from your pages."
+msgid "Between header and main content"
+msgstr ""
+
+msgid "Between main content and footer (default)"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
+msgid "Enable the extra widget area"
+msgstr ""
+
+msgid "It is recommended to disable empty widget areas to avoid excess space between page elements."
 msgstr ""
 
 # Footer

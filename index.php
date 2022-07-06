@@ -60,36 +60,7 @@ if (is_null($core->blog->settings->origineConfig->origine_settings)) {
 $origine_settings = $core->blog->settings->origineConfig->origine_settings;
 
 if (!empty($_POST) && is_array($origine_settings)) {
-  /**
-   * A list of outdated settings.
-   *
-   * @since origineConfig 1.0
-   */
-  $settings_to_unset = [
-    'global_activation',
-    'post_list_type',
-    'sidebar_enabled',
-    'logo_url',
-    'logo_url_2x',
-    'logo_type',
-    'post_author_name',
-    'post_list_comments',
-    'comment_links',
-    'post_email_author',
-    'share_link_twitter',
-    'social_links_diaspora',
-    'social_links_discord',
-    'social_links_facebook',
-    'social_links_github',
-    'social_links_mastodon',
-    'social_links_signal',
-    'social_links_tiktok',
-    'social_links_twitter',
-    'social_links_whatsapp',
-    'header_logo_type',
-    'footer_social_links_whatsapp',
-    'content_post_list_comments',
-  ];
+  $settings_to_unset = origineConfigSettings::settings_to_unset();
 
   // Deletes outdated settings.
   if (!empty($settings_to_unset)) {
@@ -120,7 +91,6 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
     // Header settings
     $origine_settings['header_align']       = trim(html::escapeHTML($_POST['header_align']));
-    $origine_settings['header_widgets_nav'] = !empty($_POST['header_widgets_nav']);
     $origine_settings['header_logo_url']    = trim(html::escapeHTML($_POST['header_logo_url']));
     $origine_settings['header_logo_url_2x'] = trim(html::escapeHTML($_POST['header_logo_url_2x']));
 
@@ -145,7 +115,8 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $origine_settings['content_post_email_author']     = trim(html::escapeHTML($_POST['content_post_email_author']));
 
     // Widgets settings
-    $origine_settings['widgets_enabled'] = !empty($_POST['widgets_enabled']);
+    $origine_settings['widgets_nav_position'] = trim(html::escapeHTML($_POST['widgets_nav_position']));
+    $origine_settings['widgets_extra_enabled']        = !empty($_POST['widgets_extra_enabled']);
 
     // Footer settings
     $origine_settings['footer_enabled']               = !empty($_POST['footer_enabled']);
@@ -202,6 +173,42 @@ if (!empty($_POST) && is_array($origine_settings)) {
     $css       = '';
     $css_array = [];
 
+    // Structure
+    $structure_order = [
+      2 => '',
+    ];
+
+    if ($origine_settings['widgets_nav_position'] === 'header_content') {
+      $structure_order[array_key_first($structure_order)] = '--widgets-nav-order';
+    }
+
+    if ($structure_order[2] === '') {
+      $structure_order[2] = '--content-order';
+    } else {
+      $structure_order[] = '--content-order';
+    }
+
+    if ($origine_settings['widgets_nav_position'] === 'content_footer') {
+      $structure_order[] = '--widgets-nav-order';
+    }
+
+    if ($origine_settings['widgets_extra_enabled'] === true) {
+      $structure_order[] = '--widgets-extra-order';
+    }
+
+    if ($origine_settings['footer_enabled'] === true) {
+      $structure_order[] = '--footer-order';
+    }
+
+    $css_array[':root']['--content-order'] = array_search('--content-order', $structure_order);
+
+    $css_array[':root']['--widgets-nav-order'] = (in_array('--widgets-nav-order', $structure_order, true) === true) ? array_search('--widgets-nav-order', $structure_order) : 'unset';
+
+    $css_array[':root']['--widgets-extra-order'] = (in_array('--widgets-extra-order', $structure_order, true) === true) ? array_search('--widgets-extra-order', $structure_order) : 'unset';
+
+    $css_array[':root']['--footer-order'] = (in_array('--footer-order', $structure_order, true) === true) ? array_search('--footer-order', $structure_order) : 'unset';
+
+    // Colors.
     if ($origine_settings['global_color_scheme'] === 'system') {
       $css_array[':root']['--color-background']             = '#fff';
       $css_array[':root']['--color-text-primary']           = '#000';
@@ -559,14 +566,15 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
     echo dcPage::notices();
 
-    $themes_allowed = ["Origine", "Origine Mini"];
+    $theme          = $core->blog->settings->system->theme;
+    $themes_allowed = ["origine", "origine-mini"];
 
-    if (in_array($core->blog->settings->system->theme, $themes_allowed, true) === false) :
+    if (in_array($theme, $themes_allowed, true) === false) :
       ?>
         <p>
           <?php
           printf(
-            __('This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and activate Origine</a>.'),
+            __('This plugin is only meant to customize themes of the Origine family. To use it, please <a href="%s">install and activate Origine or Origine Mini</a>.'),
             html::escapeURL($core->adminurl->get('admin.blog.theme'))
           );
           ?>
@@ -633,29 +641,31 @@ if (!empty($_POST) && is_array($origine_settings)) {
             ?>
           </p>
 
-          <p>
-            <label for="global_separator">
-              <?php echo __('Separator'); ?>
-            </label>
+          <?php if ($theme === 'origine') : ?>
+            <p>
+              <label for="global_separator">
+                <?php echo __('Separator'); ?>
+              </label>
 
-            <?php echo form::field('global_separator', 30, 255, html::escapeHTML($origine_settings['global_separator'])); ?>
-          </p>
+              <?php echo form::field('global_separator', 30, 255, html::escapeHTML($origine_settings['global_separator'])); ?>
+            </p>
 
-          <p class="form-note">
-            <?php echo __("Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."); ?>
-          </p>
+            <p class="form-note">
+              <?php echo __("Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."); ?>
+            </p>
 
-          <p>
-            <?php echo form::checkbox('global_css_transition', true, $origine_settings['global_css_transition']); ?>
+            <p>
+              <?php echo form::checkbox('global_css_transition', true, $origine_settings['global_css_transition']); ?>
 
-            <label class="classic" for="global_css_transition">
-              <?php echo __('Add a color transition on link hover'); ?>
-            </label>
-          </p>
+              <label class="classic" for="global_css_transition">
+                <?php echo __('Add a color transition on link hover'); ?>
+              </label>
+            </p>
 
-          <p class="form-note">
-            <?php echo __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.') . ' ' . __('Default: unchecked.'); ?>
-          </p>
+            <p class="form-note">
+              <?php echo __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.') . ' ' . __('Default: unchecked.'); ?>
+            </p>
+          <?php endif; ?>
         </div>
 
         <div class="fieldset">
@@ -677,30 +687,22 @@ if (!empty($_POST) && is_array($origine_settings)) {
         <div class="fieldset">
           <h4><?php echo __('Layout'); ?></h4>
 
-          <p>
-            <label for="header_align">
-              <?php echo __('Header alignment'); ?>
-            </label>
+          <?php if ($theme === 'origine') : ?>
+            <p>
+              <label for="header_align">
+                <?php echo __('Header alignment'); ?>
+              </label>
 
-            <?php
-            $combo_header_align = [
-                __('Left (default)') => 'left',
-                __('Center')         => 'center',
-            ];
+              <?php
+              $combo_header_align = [
+                  __('Left (default)') => 'left',
+                  __('Center')         => 'center',
+              ];
 
-            echo form::combo('header_align', $combo_header_align, $origine_settings['header_align']);
-            ?>
-          </p>
-
-          <p>
-            <?php echo form::checkbox('header_widgets_nav', true, $origine_settings['header_widgets_nav']); ?>
-
-            <label class="classic" for="header_widgets_nav"><?php echo __('Enable the navigation widget area'); ?></label>
-          </p>
-
-          <p class="form-note">
-            <?php echo __('Check only if your have set widgets in the navigation area.') . ' ' . __('Default: checked.'); ?>
-          </p>
+              echo form::combo('header_align', $combo_header_align, $origine_settings['header_align']);
+              ?>
+            </p>
+          <?php endif; ?>
         </div>
 
         <div class="fieldset">
@@ -900,17 +902,17 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
           asort($social_links_supported);
 
-          foreach($social_links_supported as $site_nicename => $site_name) {
+          // foreach($social_links_supported as $site_nicename => $site_name) {
             ?>
             <p>
-              <?php echo form::checkbox('content_share_link_' . $site_nicename, true, $origine_settings['content_share_link_' . $site_nicename]); ?>
+              <?php // echo form::checkbox('content_share_link_' . $site_nicename, true, $origine_settings['content_share_link_' . $site_nicename]); ?>
 
-              <label class="classic" for="content_share_link_<?php echo $site_nicename; ?>">
-                <?php echo $site_name; ?>
+              <label class="classic" for="content_share_link_<?php // echo $site_nicename; ?>">
+                <?php // echo $site_name; ?>
               </label>
             </p>
             <?php
-          }
+          // }
           ?>
         </div>-->
 
@@ -954,13 +956,33 @@ if (!empty($_POST) && is_array($origine_settings)) {
 
         <div class="fieldset">
           <p>
-            <?php echo form::checkbox('widgets_enabled', true, $origine_settings['widgets_enabled']); ?>
+            <label for="widgets_nav_position">
+              <?php echo __('Navigation widgets positioning'); ?>
+            </label>
 
-            <label class="classic" for="widgets_enabled"><?php echo __('Enable the <em>sidebar</em>'); ?></label>
+            <?php
+            $combo_widgets_nav_position = [
+              __('Between header and main content')           => 'header_content',
+              __('Between main content and footer (default)') => 'content_footer',
+              __('Disabled')                                  => 'disabled',
+            ];
+
+            echo form::combo('widgets_nav_position', $combo_widgets_nav_position, $origine_settings['widgets_nav_position']);
+            ?>
+          </p>
+
+          <p>
+            <?php echo form::checkbox('widgets_extra_enabled', true, $origine_settings['widgets_extra_enabled']); ?>
+
+            <label class="classic" for="widgets_extra_enabled"><?php echo __('Enable the extra widget area'); ?></label>
           </p>
 
           <p class="form-note">
-            <?php echo __("Origin is a one-column theme. It doesn't have a sidebar per se but you can insert content, in the same way, between your posts and the footer with widgets. If you don't have any widgets in the \"Extra sidebar\" section, you should uncheck this setting to remove unnecessary code from your pages.") . ' ' . __('Default: checked.'); ?>
+            <?php echo __('Default: checked.'); ?>
+          </p>
+
+          <p class="form-note">
+            <?php echo __('It is recommended to disable empty widget areas to avoid excess space between page elements.'); ?>
           </p>
         </div>
 
