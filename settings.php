@@ -16,7 +16,86 @@ class origineConfigSettings {
   /**
    * An array of default settings of the plugin.
    * 
-   * @since origineConfig
+   * @since origineConfig 1.2
+   */
+  public static function default_settings_v2($theme = 'origine')
+  {
+    
+    $default_settings = [];
+
+    $default_settings['activation'] = [
+      'title'       => __('Enable extension settings'),
+      'description' => __('If you do not check this box, your settings will be ignored.'),
+      'type'        => 'checkbox',
+      'default'     => 0,
+    ];
+
+
+    // Global.
+    $default_settings['global_color_scheme'] = [
+      'title'       => __('Color scheme'),
+      'description' => '',
+      'type'        => 'select',
+      'choices'     => [
+        __('System (default)') => 'system',
+        __('Light')            => 'light',
+        __('Dark')             => 'dark',
+      ],
+      'default'     => 'system',
+    ];
+
+    if ($theme === 'origine') {
+      $global_color_secondary_default = 'red';
+      $global_color_secondary_choices = [
+        __('Red (default)')           => 'red',
+        __('Blue') => 'blue',
+        __('Green')         => 'green',
+        __('Orange')        => 'orange',
+        __('Purple')        => 'purple',
+      ];
+    } else {
+      $global_color_secondary_default = 'blue';
+      $global_color_secondary_choices = [
+        __('Red')            => 'red',
+        __('Blue (default)') => 'blue',
+        __('Green')          => 'green',
+        __('Orange')         => 'orange',
+        __('Purple')         => 'purple',
+      ];
+    }
+
+    $default_settings['global_color_secondary'] = [
+      'title'       => __('Secondary color'),
+      'description' => __('Especially used for links.'),
+      'type'        => 'select',
+      'choices'     => $global_color_secondary_choices,
+      'default'     => $global_color_secondary_default,
+    ];
+
+    $default_settings['global_css_transition'] = [
+      'title'       => __('Add a color transition on link hover'),
+      'description' => __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.'),
+      'type'        => 'checkbox',
+      'default'     => 0,
+    ];
+
+    // Origine theme only.
+    if ($theme === 'origine') {
+      $default_settings['global_separator'] = [
+        'title'       => __('Global separator'),
+        'description' => __(''),
+        'type'        => 'text',
+        'default'     => '/',
+      ];
+    }
+
+    return $default_settings;
+  }
+
+  /**
+   * An array of default settings of the plugin.
+   * 
+   * @since origineConfig 1.0
    */
   public static function default_settings()
   {
@@ -61,7 +140,6 @@ class origineConfigSettings {
       // Widgets
       'widgets_nav_position' => 'content_footer',
       'widgets_extra'        => true,
-      'widgets_enabled'      => true, // TO DELETE
 
       // Footer
       'footer_enabled'               => true,
@@ -84,7 +162,7 @@ class origineConfigSettings {
   /**
    * An array of settings to delete from the setting list.
    * 
-   * @since origineConfig 1.0
+   * @since origineConfig 1.2
    */
   public static function settings_to_unset()
   {
