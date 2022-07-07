@@ -18,7 +18,7 @@ class origineConfigSettings {
    * 
    * @since origineConfig 1.2
    */
-  public static function default_settings_v2($theme = 'origine')
+  public static function default_settings($theme = 'origine')
   {
     
     $default_settings = [];
@@ -29,7 +29,6 @@ class origineConfigSettings {
       'type'        => 'checkbox',
       'default'     => 0,
     ];
-
 
     // Global.
     $default_settings['global_color_scheme'] = [
@@ -79,7 +78,6 @@ class origineConfigSettings {
       'default'     => 0,
     ];
 
-    // Origine theme only.
     if ($theme === 'origine') {
       $default_settings['global_separator'] = [
         'title'       => __('Global separator'),
@@ -89,6 +87,13 @@ class origineConfigSettings {
       ];
     }
 
+    $default_settings['global_meta_generator'] = [
+      'title'       => __('Add <code>generator</code> meta tag'),
+      'description' => __("Allows you to add information to your pages without displaying it on your readers' screen."),
+      'type'        => 'checkbox',
+      'default'     => 0,
+    ];
+
     return $default_settings;
   }
 
@@ -97,18 +102,9 @@ class origineConfigSettings {
    * 
    * @since origineConfig 1.0
    */
-  public static function default_settings()
+  public static function default_settings_v1()
   {
     $origine_settings = [
-      'activation' => false,
-
-      // Global
-      'global_color_scheme'   => 'system',
-      'global_color_link'     => 'red',
-      'global_css_transition' => false,
-      'global_separator'      => "/",
-      'global_meta_generator' => false,
-
       // Header
       'header_align'       => 'left',
       'header_logo_url'    => '',

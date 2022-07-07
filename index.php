@@ -43,57 +43,50 @@ function origineConfigArrayToCSS($rules)
 
 $theme = $core->blog->settings->system->theme;
 
-$default_settings_v2 = origineConfigSettings::default_settings_v2($theme);
+$default_settings = origineConfigSettings::default_settings($theme);
 
-if (is_null($core->blog->settings->origineConfig->activation)) {
-  try {
-    // Adds all default settings values if necessary.
-    foreach($default_settings_v2 as $setting_id => $setting_data) {
-      $setting_value_default = $setting_data['default'];
+$core->blog->settings->addNamespace('origineConfig');
 
-      $setting_value_type = 'string';
-
-      if ($setting_data['type'] === 'checkbox') {
-        $setting_value_type = 'boolean';
-      } else {
-        $setting_value_type = 'string';
-      }
-
-      $core->blog->settings->origineConfig->put(
-        $setting_id,
-        $setting_value_default,
-        $setting_value_type,
-        $setting_title,
-        false
-      );
+// Adds all default settings values if necessary.
+foreach($default_settings as $setting_id => $setting_data) {
+  if (!$core->blog->settings->origineConfig->$setting_id) {
+    if ($setting_data['type'] === 'checkbox') {
+      $setting_type = 'boolean';
+    } else {
+      $setting_type = 'string';
     }
-    
-    $core->blog->triggerBlog();
-    http::redirect($p_url);
-  } catch (Exception $e) {
-    $core->error->add($e->getMessage());
+
+    $core->blog->settings->origineConfig->put(
+      $setting_id,
+      $setting_data['default'],
+      $setting_type,
+      $setting_data['title'],
+      false
+    );
   }
 }
 
 // An array or all settings.
 $settings = [];
 
-foreach($default_settings_v2 as $setting_id => $setting_data) {
+foreach($default_settings as $setting_id => $setting_data) {
   if ($setting_data['type'] === 'checkbox') {
     $settings[$setting_id] = (boolean) $core->blog->settings->origineConfig->$setting_id;
   } else {
-    $settings[$setting_id] = (string) $core->blog->settings->origineConfig->$setting_id;
+    $settings[$setting_id] = $core->blog->settings->origineConfig->$setting_id;
   }
 }
 
 if (!empty($_POST)) {
   try {
     // Saves options.
-    $core->blog->settings->addNamespace('origineConfig');
-
     foreach ($settings as $id => $value) {
-      if (is_bool($value) === true && !empty($_POST[$id])) {
-        $core->blog->settings->origineConfig->put($id, $_POST[$id]);
+      if ($default_settings[$id]['type'] === 'boolean') {
+        if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
+          $core->blog->settings->origineConfig->put($id, true);
+        } else {
+          $core->blog->settings->origineConfig->put($id, false);
+        }
       } else {
         $core->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
       }
@@ -141,11 +134,11 @@ if (!empty($_POST)) {
     ?>
       <form action="<?php echo $p_url; ?>" method="post">
         <?php
-        foreach($default_settings_v2 as $setting_id => $setting_data) {
+        foreach($default_settings as $setting_id => $setting_data) {
           echo '<p>';
 
           if ($setting_data['type'] === 'checkbox') {
-            echo form::checkbox($setting_id, 1, $settings['activation']);
+            echo form::checkbox($setting_id, 1, $settings[$setting_id]);
             echo '<label class="classic" for="' . $setting_id . '">' . $setting_data['title'] . '</label>';
           } elseif ($setting_data['type'] === 'select') {
             echo '<label for="' . $setting_id . '">' . $setting_data['title'] . '</label>';
@@ -159,7 +152,7 @@ if (!empty($_POST)) {
 
           if ($setting_data['description']) {
             echo '<p class="form-note">';
-            echo __('If you do not check this box, your settings will be ignored.');
+            echo $setting_data['description'];
 
             if ($setting_data['type'] === 'checkbox') {
               if ($setting_data['default'] === 1) {
