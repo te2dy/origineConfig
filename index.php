@@ -64,7 +64,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
     if ($default_settings[$setting_id]['type'] === 'checkbox') {
       $output .= form::checkbox(
         $setting_id,
-        1,
+        true,
         $settings[$setting_id]
       );
       $output .= '<label class="classic" for="' . $setting_id . '">';
@@ -77,7 +77,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
       $output .= form::combo(
         $setting_id,
         $default_settings[$setting_id]['choices'],
-        $settings[$setting_id]
+        strval($settings[$setting_id])
       );
     } elseif ($default_settings[$setting_id]['type'] === 'text') {
       $output .= '<label for="' . $setting_id . '">';
@@ -99,7 +99,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
       $output .= $default_settings[$setting_id]['description'];
 
       if ($default_settings[$setting_id]['type'] === 'checkbox') {
-        if ($default_settings[$setting_id]['default'] === 1) {
+        if ($default_settings[$setting_id]['default'] === true) {
           $output .= ' ' . __('Default: checked.');
         } else {
           $output .= ' ' . __('Default: unchecked.');
@@ -115,9 +115,31 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
   return $output;
 }
 
+function option_supported($theme_current, $theme_supported = '')
+{
+  if (
+    isset($theme_supported)
+    && (
+      (
+        is_string($theme_supported) === true
+        && ($theme_supported === $theme_current || $theme_supported === 'all')
+      )
+      ||
+      (
+        is_array($theme_supported) === true
+        && in_array($theme_current, $theme_supported, true) === true
+      )
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 $theme = $core->blog->settings->system->theme;
 
-$default_settings = origineConfigSettings::default_settings($theme);
+$default_settings = origineConfigSettings::default_settings();
 
 $core->blog->settings->addNamespace('origineConfig');
 
@@ -127,7 +149,7 @@ foreach($default_settings as $setting_id => $setting_data) {
     if ($setting_data['type'] === 'checkbox') {
       $setting_type = 'boolean';
     } elseif ($setting_data['type'] === 'select_int') {
-      $setting_type = 'int';
+      $setting_type = 'integer';
     } else {
       $setting_type = 'string';
     }
@@ -159,14 +181,16 @@ if (!empty($_POST)) {
   try {
     // Saves options.
     foreach ($settings as $id => $value) {
-      if ($default_settings[$id]['type'] === 'checkbox') {
-        if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
-          $core->blog->settings->origineConfig->put($id, true);
+      if (option_supported($theme, $default_settings[$id]['theme']) === true) {
+        if ($default_settings[$id]['type'] === 'checkbox') {
+          if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
+            $core->blog->settings->origineConfig->put($id, true);
+          } else {
+            $core->blog->settings->origineConfig->put($id, false);
+          }
         } else {
-          $core->blog->settings->origineConfig->put($id, false);
+          $core->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
         }
-      } else {
-        $core->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
       }
     }
 
@@ -214,7 +238,7 @@ if (!empty($_POST)) {
         <?php
         // Displays the activation checkbox before all other settings.
         echo '<p>';
-        echo form::checkbox('activation', 1, $settings['activation']);
+        echo form::checkbox('activation', true, $settings['activation']);
         echo '<label class="classic" for="activation">' . $default_settings['activation']['title'] . '</label>';
         echo '</p>';
 
@@ -224,7 +248,17 @@ if (!empty($_POST)) {
 
         unset($default_settings['activation']);
 
-        // Creates an array which will contain all the settings and there title.
+        /**
+         * Creates an array which will contain all the settings and there title following the pattern below.
+         * 
+         * $setting_page_content = [
+         *   'section_id_1' => [
+         *     'sub_section_id_1' => ['option_id_1', 'option_id_2'],
+         *     'sub_section_id_2' => ['option_id_3', 'option_id_4'],
+         *     […]
+         *   ],
+         * ];
+         */
         $setting_page_content = [];
 
         // Gets all setting sections.
@@ -237,14 +271,16 @@ if (!empty($_POST)) {
 
         // Puts all settings in their sections.
         foreach($default_settings as $setting_id => $setting_data) {
-          if (isset($setting_data['section']) && is_array($setting_data['section'])) {
-            if (isset($setting_data['section'][1])) {
-              $setting_page_content[$setting_data['section'][0]][$setting_data['section'][1]][] = $setting_id;
-            } else {
+          if (option_supported($theme, $setting_data['theme']) === true) {
+            if (isset($setting_data['section']) && is_array($setting_data['section'])) {
+              if (isset($setting_data['section'][1])) {
+                $setting_page_content[$setting_data['section'][0]][$setting_data['section'][1]][] = $setting_id;
+              } else {
+                $setting_page_content[$setting_data['section'][0]][] = $setting_id;
+              }
+            } elseif (isset($setting_data['section']) && is_string($setting_data['section'])) {
               $setting_page_content[$setting_data['section'][0]][] = $setting_id;
             }
-          } elseif (isset($setting_data['section']) && is_string($setting_data['section'])) {
-            $setting_page_content[$setting_data['section'][0]][] = $setting_id;
           }
         }
 
@@ -260,12 +296,14 @@ if (!empty($_POST)) {
           foreach ($section_content as $sub_section_id => $setting_id) {
             echo '<div class="fieldset">';
 
+            // Shows the sub section name, except if its ID is "no-title".
             if (is_string($sub_section_id) === true && $sub_section_id !== 'no-title') {
               echo '<h4>';
               echo $sections[$title_id]['sub_sections'][$sub_section_id];
               echo '</h4>';
             }
 
+            // Displays the option.
             if (is_string($setting_id) === true) {
               echo origineConfigSettingDisplay($setting_id, $default_settings, $settings);
             } else {
