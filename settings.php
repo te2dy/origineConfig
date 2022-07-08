@@ -14,9 +14,57 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 
 class origineConfigSettings {
   /**
+   * An array of default section where settings are put.
+   * 
+   * @since origineConfig 2.0
+   */
+  public static function setting_sections()
+  {
+    $sections = [
+      'global' => [
+        'name'         => __('Global'),
+        'sub_sections' => [
+          'fonts'    => __('Fonts'),
+          'colors'   => __('Colors'),
+          'advanced' => __('Advanced settings'),
+        ],
+      ],
+      'header' => [
+        'name'         => __('Header'),
+        'sub_sections' => [
+          'layout' => __('Layout'),
+          'logo'   => __('Logo (beta)'),
+        ],
+      ],
+      'content' => [
+        'name'         => __('Content'),
+        'sub_sections' => [
+          'post-list'       => __('Post list'),
+          'text-formatting' => __('Text formatting'),
+          'author'          => __('Author'),
+          'comments'        => __('Comments'),
+          'other'           => __('Other'),
+          
+        ],
+      ],
+      'widgets' => [
+        'name' => __('Widgets'),
+      ],
+      'footer' => [
+        'name'         => __('Footer'),
+        'sub_sections' => [
+          'social-links' => __('Social links'),
+        ],
+      ],
+    ];
+
+    return $sections;
+  }
+
+  /**
    * An array of default settings of the plugin.
    * 
-   * @since origineConfig 1.2
+   * @since origineConfig 2.0
    */
   public static function default_settings($theme = 'origine')
   {
@@ -31,6 +79,46 @@ class origineConfigSettings {
     ];
 
     // Global.
+    if ($theme === 'origine') {
+      $content_font_family_default = 'serif';
+      $content_font_family_choices = [
+        __('Serif (default)') => 'serif',
+        __('Sans serif')      => 'sans-serif',
+        __('Monospace')       => 'monospace',
+      ];
+    } else {
+      $content_font_family_default = 'sans-serif';
+      $content_font_family_choices = [
+        __('Sans serif (default)') => 'sans-serif',
+        __('Serif')                => 'serif',
+        __('Monospace')            => 'monospace',
+      ];
+    }
+
+    $default_settings['global_font_family'] = [
+      'title'       => __('Font family'),
+      'description' => __('In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system.'),
+      'type'        => 'select',
+      'choices'     => $content_font_family_choices,
+      'default'     => $content_font_family_default,
+      'section'     => ['global', 'fonts'],
+    ];
+
+    $default_settings['global_font_size'] = [
+      'title'       => __('Font size'),
+      'description' => __('It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors.'),
+      'type'        => 'select_int',
+      'choices'     => [
+        __('80%')                => 80,
+        __('90%')                => 90,
+        __('100% (recommended)') => 100,
+        __('110%')               => 110,
+        __('120%')               => 120,
+      ],
+      'default'     => 100,
+      'section'     => ['global', 'fonts'],
+    ];
+
     $default_settings['global_color_scheme'] = [
       'title'       => __('Color scheme'),
       'description' => '',
@@ -41,6 +129,7 @@ class origineConfigSettings {
         __('Dark')             => 'dark',
       ],
       'default'     => 'system',
+      'section'     => ['global', 'colors'],
     ];
 
     if ($theme === 'origine') {
@@ -69,6 +158,7 @@ class origineConfigSettings {
       'type'        => 'select',
       'choices'     => $global_color_secondary_choices,
       'default'     => $global_color_secondary_default,
+      'section'     => ['global', 'colors'],
     ];
 
     $default_settings['global_css_transition'] = [
@@ -76,23 +166,125 @@ class origineConfigSettings {
       'description' => __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.'),
       'type'        => 'checkbox',
       'default'     => 0,
+      'section'     => ['global', 'colors'],
     ];
-
-    if ($theme === 'origine') {
-      $default_settings['global_separator'] = [
-        'title'       => __('Global separator'),
-        'description' => __(''),
-        'type'        => 'text',
-        'default'     => '/',
-      ];
-    }
 
     $default_settings['global_meta_generator'] = [
       'title'       => __('Add <code>generator</code> meta tag'),
       'description' => __("Allows you to add information to your pages without displaying it on your readers' screen."),
       'type'        => 'checkbox',
       'default'     => 0,
+      'section'     => ['global', 'advanced'],
     ];
+
+    // Header.
+    if ($theme === 'origine') {
+      $default_settings['header_align'] = [
+        'title'       => __('Header alignment'),
+        'description' => '',
+        'type'        => 'select',
+        'choices'     => [
+          __('Left (default)') => 'left',
+          __('Center')         => 'center',
+        ],
+        'default'     => 'left',
+        'section'     => ['header', 'layout'],
+      ];
+
+      $default_settings['header_logo_url'] = [
+        'title'       => __('The URL of your logo'),
+        'description' => '',
+        'type'        => 'text',
+        'default'     => '',
+        'section'     => ['header', 'logo'],
+      ];
+
+      $default_settings['header_logo_url_2x'] = [
+        'title'       => __('The URL of your logo for screens with doubled pixel density'),
+        'description' => __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one.'),
+        'type'        => 'text',
+        'default'     => '',
+        'section'     => ['header', 'logo'],
+      ];
+
+      $default_settings['content_post_list_type'] = [
+        'title'       => __('Displaying of posts'),
+        'description' => '',
+        'type'        => 'select',
+        'choices'     => [
+          __('Standard (default)') => 'standard',
+          __('On one line')        => 'short',
+          __('Full post')          => 'full',
+        ],
+        'default'     => 'standard',
+        'section'     => ['content', 'post-list'],
+      ];
+
+      $default_settings['content_post_list_first_image'] = [
+        'title'       => __('Display the first image of the post (beta)'),
+        'description' => '',
+        'type'        => 'checkbox',
+        'default'     => 0,
+        'section'     => ['content', 'post-list'],
+      ];
+    }
+
+    $default_settings['content_text_align'] = [
+      'title'       => __('Text align'),
+      'description' => '',
+      'type'        => 'select',
+      'choices'     => [
+        __('Left (default)')                  => 'left',
+        __('Justify')                         => 'justify',
+        __('Justify except on small screens') => 'justify_not_mobile',
+      ],
+      'default'     => 'left',
+      'section'     => ['content', 'text-formatting'],
+    ];
+
+    $default_settings['content_hyphens'] = [
+      'title'       => __('Automatic hyphenation'),
+      'description' => '',
+      'type'        => 'select',
+      'choices'     => [
+        __('Disable (default)')              => 'disabled',
+        __('Enable')                         => 'enabled',
+        __('Enable except on small screens') => 'enabled_not_mobile',
+      ],
+      'default'     => 'disabled',
+      'section'     => ['content', 'text-formatting'],
+    ];
+
+    $default_settings['content_post_author_name'] = [
+      'title'       => __('Author name on posts'),
+      'description' => '',
+      'type'        => 'select',
+      'choices'     => [
+        __('Not displayed (default)')     => 'disabled',
+        __('Next to the date')            => 'date',
+        __('Below the post as signature') => 'signature',
+      ],
+      'default'     => 'disabled',
+      'section'     => ['content', 'author'],
+    ];
+
+    $default_settings['content_post_list_author_name'] = [
+      'title'       => __('Display the author name in the post list'),
+      'description' => '',
+      'type'        => 'checkbox',
+      'default'     => 0,
+      'section'     => ['content', 'author'],
+    ];
+
+    if ($theme === 'origine') {
+      $default_settings['global_separator'] = [
+        'title'       => __('Global separator'),
+        'description' => __("Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."),
+        'type'        => 'text',
+        'default'     => '/',
+        'section'     => ['content', 'other'],
+      ];
+    }
 
     return $default_settings;
   }
@@ -105,22 +297,8 @@ class origineConfigSettings {
   public static function default_settings_v1()
   {
     $origine_settings = [
-      // Header
-      'header_align'       => 'left',
-      'header_logo_url'    => '',
-      'header_logo_url_2x' => '',
-
       // Content
-      'content_post_list_type'        => 'standard',
-      'content_post_list_first_image' => false,
-      'content_font_family'           => 'serif',
-      'content_font_size'             => 100,
-      'content_text_align'            => 'left',
-      'content_hyphens'               => 'disabled',
-      /*'content_post_date_time'        => 'date',
-      'content_post_entry_date_time'  => 'date',*/
-      'content_post_author_name'      => 'disabled',
-      'content_post_list_author_name' => false,
+
       /*
       // To enable in the future.
       'content_share_link_email'      => false,
