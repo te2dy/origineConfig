@@ -44,15 +44,18 @@ class origineConfigSettings {
           'author'          => __('Author'),
           'comments'        => __('Comments'),
           'other'           => __('Other'),
-          
         ],
       ],
       'widgets' => [
-        'name' => __('Widgets'),
+        'name'         => __('Widgets'),
+        'sub_sections' => [
+          'no-title' => '',
+        ],
       ],
       'footer' => [
         'name'         => __('Footer'),
         'sub_sections' => [
+          'no-title'     => '',
           'social-links' => __('Social links'),
         ],
       ],
@@ -268,15 +271,15 @@ class origineConfigSettings {
       'section'     => ['content', 'author'],
     ];
 
-    $default_settings['content_post_list_author_name'] = [
-      'title'       => __('Display the author name in the post list'),
-      'description' => '',
-      'type'        => 'checkbox',
-      'default'     => 0,
-      'section'     => ['content', 'author'],
-    ];
-
     if ($theme === 'origine') {
+      $default_settings['content_post_list_author_name'] = [
+        'title'       => __('Display the author name in the post list'),
+        'description' => '',
+        'type'        => 'checkbox',
+        'default'     => 0,
+        'section'     => ['content', 'author'],
+      ];
+
       $default_settings['global_separator'] = [
         'title'       => __('Global separator'),
         'description' => __("Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."),
@@ -285,6 +288,142 @@ class origineConfigSettings {
         'section'     => ['content', 'other'],
       ];
     }
+
+    $default_settings['content_comment_links'] = [
+      'title'       => __('Add a link to the comment feed and trackbacks below the comment section'),
+      'description' => '',
+      'type'        => 'checkbox',
+      'default'     => 1,
+      'section'     => ['content', 'comments'],
+    ];
+
+    $default_settings['content_post_email_author'] = [
+      'title'       => __('Allow visitors to send email to authors of posts and pages'),
+      'description' => sprintf(__('If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin.'), 'https://plugins.dotaddict.org/dc2/details/signal'),
+      'type'        => 'select',
+      'choices'     => [
+        __('No (default)')                => 'disabled',
+        __('Only when comments are open') => 'comments_open',
+        __('Always')                      => 'always',
+      ],
+      'default'     => 'disabled',
+      'section'     => ['content', 'comments'],
+    ];
+
+    // Widgets.
+    $default_settings['widgets_nav_position'] = [
+      'title'       => __('Navigation widgets positioning'),
+      'description' => '',
+      'type'        => 'select',
+      'choices'     => [
+        __('Between header and main content')           => 'header_content',
+        __('Between main content and footer (default)') => 'content_footer',
+        __('Disabled')                                  => 'disabled',
+      ],
+      'default'     => 'content_footer',
+      'section'     => ['widgets', 'no-title'],
+    ];
+
+    $default_settings['widgets_extra_enabled'] = [
+      'title'       => __('Enable the extra widget area'),
+      'description' => '',
+      'type'        => 'checkbox',
+      'default'     => 1,
+      'section'     => ['widgets', 'no-title'],
+    ];
+
+    // Footer.
+    $default_settings['footer_enabled'] = [
+      'title'       => __('Enable the footer'),
+      'description' => __('If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting.'),
+      'type'        => 'checkbox',
+      'default'     => 1,
+      'section'     => ['footer', 'no-title'],
+    ];
+
+    $default_settings['footer_credits'] = [
+      'title'       => __('Add a link to support Dotclear and Origine'),
+      'description' => '',
+      'type'        => 'checkbox',
+      'default'     => 1,
+      'section'     => ['footer', 'no-title'],
+    ];
+
+    $default_settings['footer_align'] = [
+      'title'       => __('Footer alignment'),
+      'description' => '',
+      'type'        => 'select',
+      'choices'     => [
+        __('Left (default)') => 'left',
+        __('Center')         => 'center',
+      ],
+      'default'     => 'left',
+      'section'     => ['footer', 'no-title'],
+    ];
+
+    $default_settings['footer_social_links_discord'] = [
+      'title'       => __('Link to a Discord server'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => ['footer', 'social-links'],
+    ];
+
+    $default_settings['footer_social_links_facebook'] = [
+      'title'       => __('Link to a Facebook profile or page'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => ['footer', 'social-links'],
+    ];
+
+    $default_settings['footer_social_links_github'] = [
+      'title'       => __('Link to a GitHub profile or page'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => ['footer', 'social-links'],
+    ];
+
+    $default_settings['footer_social_links_mastodon'] = [
+      'title'       => __('Link to a Mastodon profile'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => ['footer', 'social-links'],
+    ];
+
+    $default_settings['footer_social_links_signal'] = [
+      'title'       => __('A Signal number or a group link'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => ['footer', 'social-links'],
+    ];
+
+    $default_settings['footer_social_links_tiktok'] = [
+      'title'       => __('Link to a TikTok profile'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => ['footer', 'social-links'],
+    ];
+
+    $default_settings['footer_social_links_twitter'] = [
+      'title'       => __('A Twitter username'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => ['footer', 'social-links'],
+    ];
+
+    $default_settings['footer_social_links_whatsapp'] = [
+      'title'       => __('A WhatsApp number or a group link'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => ['footer', 'social-links'],
+    ];
 
     return $default_settings;
   }
@@ -307,27 +446,7 @@ class origineConfigSettings {
       'content_share_link_whatsapp'   => false,
       'content_share_link_twitter'    => false,
       */
-      'content_post_list_comments'    => false,
-      'content_comment_links'         => true,
-      'content_post_email_author'     => 'disabled',
-
-      // Widgets
-      'widgets_nav_position' => 'content_footer',
-      'widgets_extra'        => true,
-
-      // Footer
-      'footer_enabled'               => true,
-      'footer_align'                 => 'left',
-      'footer_credits'               => true,
-      'footer_social_links_diaspora' => '',
-      'footer_social_links_discord'  => '',
-      'footer_social_links_facebook' => '',
-      'footer_social_links_github'   => '',
-      'footer_social_links_mastodon' => '',
-      'footer_social_links_signal'   => '',
-      'footer_social_links_tiktok'   => '',
-      'footer_social_links_twitter'  => '',
-      'footer_social_links_whatsapp' => '',
+      
     ];
 
     return $origine_settings;

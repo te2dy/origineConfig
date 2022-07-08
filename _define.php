@@ -14,7 +14,7 @@ $this->registerModule(
   /* Name */        'origineConfig',
   /* Description */ 'A plugin to customize Origine theme',
   /* Author */      'Teddy',
-  /* Version */     '1.2-beta',
+  /* Version */     '2.0-beta',
   array(
     'permissions' => 'admin',
     'type'        => 'plugin',

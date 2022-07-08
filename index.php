@@ -260,7 +260,7 @@ if (!empty($_POST)) {
           foreach ($section_content as $sub_section_id => $setting_id) {
             echo '<div class="fieldset">';
 
-            if (is_string($sub_section_id) === true) {
+            if (is_string($sub_section_id) === true && $sub_section_id !== 'no-title') {
               echo '<h4>';
               echo $sections[$title_id]['sub_sections'][$sub_section_id];
               echo '</h4>';
