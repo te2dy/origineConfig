@@ -281,6 +281,17 @@ if (!empty($_POST)) {
       $css_array[':root']['--order-footer'] = array_search('--order-footer', $structure_order);
     }
 
+    // Text align
+    if (isset($_POST['content_text_align']) === true) {
+      if ($_POST['content_text_align'] === 'left') {
+        $css_array[':root']['--text-align'] = 'left';
+      } elseif ($_POST['content_text_align'] === 'justify') {
+        $css_array[':root']['--text-align'] = 'justify';
+      } elseif ($_POST['content_text_align'] === 'justify_not_mobile') {
+        $css_array[':root']['--text-align'] = 'justify';
+      }
+    }
+
     $css       .= origineConfigArrayToCSS($css_array);
     $css_array  = [];
 
@@ -297,6 +308,49 @@ if (!empty($_POST)) {
       $css_array  = [];
     }
 
+    // Hyphens.
+    if (isset($_POST['content_hyphens']) === true && $_POST['content_hyphens'] !== 'disabled') {
+      $css_array['.test']['-webkit-hyphens'] = 'auto';
+      $css_array['.test']['-moz-hyphens']    = 'auto';
+      $css_array['.text']['-ms-hyphens']     = 'auto';
+      $css_array['.text']['hyphens']         = 'auto';
+
+      $css_array['.text']['-webkit-hyphenate-limit-chars'] = '5 2 2';
+      $css_array['.text']['-moz-hyphenate-limit-chars']    = '5 2 2';
+      $css_array['.text']['-ms-hyphenate-limit-chars']     = '5 2 2';
+
+      $css_array['.text']['-moz-hyphenate-limit-lines'] = '2';
+      $css_array['.text']['-ms-hyphenate-limit-lines']  = '2';
+      $css_array['.text']['hyphenate-limit-lines']      = '2';
+
+      $css_array['.text']['-webkit-hyphenate-limit-last'] = 'always';
+      $css_array['.text']['-moz-hyphenate-limit-last']    = 'always';
+      $css_array['.text']['-ms-hyphenate-limit-last']     = 'always';
+      $css_array['.text']['hyphenate-limit-last']         = 'always';
+
+      if ($_POST['content_hyphens'] !== 'enabled_not_mobile') {
+        $css       .= origineConfigArrayToCSS($css_array);
+        $css_array  = [];
+      } else {
+        $css       .= '@media only screen and (min-width: 34em) {' . origineConfigArrayToCSS($css_array) . '}';
+        $css_array  = [];
+      }
+    }
+
+    // Small screens.
+    if (isset($_POST['content_text_align']) === true && $_POST['content_text_align'] === 'justify_not_mobile') {
+      $css_array[':root']['--text-align'] = 'left';
+    }
+
+    if (isset($_POST['content_hyphens']) === true && $_POST['content_hyphens'] === 'enabled_not_mobile') {
+      $css_array['.text']['--text-align'] = 'left';
+    }
+
+    if (!empty($css_array)) {
+      $css       .= ' @media (max-width: 34em) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css_array  = [];
+    }
+
     // Reduced motion.
     if (isset($_POST['global_css_transition']) === true && $_POST['global_css_transition'] === '1') {
       $css_array['a']['transition']                                                             = 'none';
@@ -304,7 +358,7 @@ if (!empty($_POST)) {
       $css_array['input[type="submit"], .form-submit, .button']['transition']                   = 'none';
       $css_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'none';
 
-      $css       .= '@media (prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css       .= ' @media (prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
       $css_array  = [];
     }
 

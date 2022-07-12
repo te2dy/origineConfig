@@ -11,7 +11,7 @@ if (!defined('DC_RC_PATH')) {
 }
 
 // Behaviors.
-$core->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigGenerator']);
+$core->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigMetaGenerator']);
 $core->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
 $core->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
 
@@ -31,15 +31,12 @@ class origineConfig
    * Supported tags:
    * - Generator
    */
-  public static function origineConfigGenerator()
+  public static function origineConfigMetaGenerator()
   {
     global $core;
 
-    $origine_settings = $core->blog->settings->origineConfig->origine_settings;
-
-    if ($origine_settings['activation'] === true) {
-      // Meta generator
-      if ($core->blog->settings->origineConfig->origine_settings['global_meta_generator'] === true) {
+    if ($core->blog->settings->origineConfig->active === true) {
+      if ($core->blog->settings->origineConfig->global_meta_generator === true) {
         echo '<meta name="generator" content="Dotclear" />' . "\n";
       }
     }
