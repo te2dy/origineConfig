@@ -157,7 +157,7 @@ class origineConfigSettings {
 
     $default_settings['global_color_scheme'] = [
       'title'       => __('Color scheme'),
-      'description' => '',
+      'description' => __('When system is selected, the theme will use the color scheme of the user’s settings'),
       'type'        => 'select',
       'choices'     => [
         __('System (default)') => 'system',
@@ -166,7 +166,7 @@ class origineConfigSettings {
       ],
       'default'     => 'system',
       'section'     => ['global', 'colors'],
-      'theme'       => 'all',
+      'theme'       => 'origine',
     ];
 
     if ($theme === 'origine') {

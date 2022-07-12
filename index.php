@@ -204,7 +204,21 @@ if (!empty($_POST)) {
     $css       = '';
     $css_array = [];
 
-    // Sets secondary color hue.
+    // Font family.
+    if (isset($_POST['global_font_family']) === true && $_POST['global_font_family'] === 'serif') {
+      $css_array[':root']['--font-family'] = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+    } elseif (isset($_POST['global_font_family']) === true && $_POST['global_font_family'] === 'sans-serif') {
+      $css_array[':root']['--font-family'] = '-apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif';
+    } else {
+      $css_array[':root']['--font-family'] = 'Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace';
+    }
+
+    // Font size.
+    if (isset($_POST['global_font_size']) === true && intval($_POST['global_font_size']) > 0) {
+      $css_array[':root']['--font-size'] = ($_POST['global_font_size'] / 100) . 'em';
+    }
+
+    // Secondary color hue.
     $secondary_colors_allowed = [
       'red'    => '0',
       'blue'   => '220',
@@ -219,7 +233,7 @@ if (!empty($_POST)) {
       $css_array[':root']['--color-h'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']];
     }
 
-    // Sets page width.
+    // Page width.
     $page_width_allowed = [30, 35, 40];
 
     if (in_array(intval($_POST['global_page_width']), $page_width_allowed, true) === true) {
@@ -229,9 +243,7 @@ if (!empty($_POST)) {
     }
 
     // Sets the order of site elements.
-    $structure_order = [
-      2 => '',
-    ];
+    $structure_order = [2 => '',];
 
     if (isset($_POST['widgets_nav_position']) === true && $_POST['widgets_nav_position'] === 'header_content') {
       $structure_order[2] = '--order-widgets-nav';
@@ -247,11 +259,11 @@ if (!empty($_POST)) {
       $structure_order[] = '--order-widgets-nav';
     }
 
-    if (isset($_POST['widgets_extra_enabled']) === true && $_POST['widgets_extra_enabled'] === "1") {
+    if (isset($_POST['widgets_extra_enabled']) === true && $_POST['widgets_extra_enabled'] === '1') {
       $structure_order[] = '--order-widgets-extra';
     }
 
-    if (isset($_POST['footer_enabled']) === true && $_POST['footer_enabled'] === "1") {
+    if (isset($_POST['footer_enabled']) === true && $_POST['footer_enabled'] === '1') {
       $structure_order[] = '--order-footer';
     }
 
@@ -269,7 +281,32 @@ if (!empty($_POST)) {
       $css_array[':root']['--order-footer'] = array_search('--order-footer', $structure_order);
     }
 
-    $css .= origineConfigArrayToCSS($css_array);
+    $css       .= origineConfigArrayToCSS($css_array);
+    $css_array  = [];
+
+    // Transitions.
+    if (isset($_POST['global_css_transition']) === true && $_POST['global_css_transition'] === '1') {
+      $css_array['a']['transition']                 = 'all .2s ease-in-out';
+      $css_array['a:active, a:hover']['transition'] = 'all .2s ease-in-out';
+
+      $css_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
+
+      $css_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
+
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
+    }
+
+    // Reduced motion.
+    if (isset($_POST['global_css_transition']) === true && $_POST['global_css_transition'] === '1') {
+      $css_array['a']['transition']                                                             = 'none';
+      $css_array['a:active, a:hover']['transition']                                             = 'none';
+      $css_array['input[type="submit"], .form-submit, .button']['transition']                   = 'none';
+      $css_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'none';
+
+      $css       .= '@media (prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
+      $css_array  = [];
+    }
 
     $core->blog->settings->origineConfig->put('css', htmlspecialchars($css, ENT_NOQUOTES));
 
