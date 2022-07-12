@@ -25,6 +25,7 @@ class origineConfigSettings {
         'name'         => __('Global'),
         'sub_sections' => [
           'fonts'    => __('Fonts'),
+          'layout'   => __('Layout'),
           'colors'   => __('Colors'),
           'advanced' => __('Advanced settings'),
         ],
@@ -83,10 +84,13 @@ class origineConfigSettings {
    */
   public static function default_settings($theme = 'origine')
   {
-    
+    global $core;
+
+    $theme = $core->blog->settings->system->theme;
+
     $default_settings = [];
 
-    $default_settings['activation'] = [
+    $default_settings['active'] = [
       'title'       => __('Enable extension settings'),
       'description' => __('If you do not check this box, your settings will be ignored.'),
       'type'        => 'checkbox',
@@ -137,6 +141,20 @@ class origineConfigSettings {
       'theme'       => 'all',
     ];
 
+    $default_settings['global_page_width'] = [
+      'title'       => __('Default page width'),
+      'description' => '',
+      'type'        => 'select_int',
+      'choices'     => [
+        __('480px (default)') => 30,
+        __('560px')           => 35,
+        __('640px')           => 40,
+      ],
+      'default'     => 'system',
+      'section'     => ['global', 'layout'],
+      'theme'       => 'origine-mini',
+    ];
+
     $default_settings['global_color_scheme'] = [
       'title'       => __('Color scheme'),
       'description' => '',
@@ -154,8 +172,8 @@ class origineConfigSettings {
     if ($theme === 'origine') {
       $global_color_secondary_default = 'red';
       $global_color_secondary_choices = [
-        __('Red (default)')           => 'red',
-        __('Blue') => 'blue',
+        __('Red (default)') => 'red',
+        __('Blue')          => 'blue',
         __('Green')         => 'green',
         __('Orange')        => 'orange',
         __('Purple')        => 'purple',
@@ -303,6 +321,15 @@ class origineConfigSettings {
       'default'     => 0,
       'section'     => ['content', 'author'],
       'theme'       => 'origine',
+    ];
+
+    $default_settings['content_post_intro'] = [
+      'title'       => __('Display post except as an introduction at the beginning of the posts'),
+      'description' => __('Only if an except has been set.'),
+      'type'        => 'checkbox',
+      'default'     => 0,
+      'section'     => ['content', 'other'],
+      'theme'       => 'origine-mini',
     ];
 
     $default_settings['global_separator'] = [
@@ -462,6 +489,15 @@ class origineConfigSettings {
       'type'        => 'text',
       'default'     => '',
       'section'     => ['footer', 'social-links'],
+      'theme'       => 'all',
+    ];
+
+    $default_settings['global_css'] = [
+      'title'       => __('All theme styles'),
+      'description' => '',
+      'type'        => 'text',
+      'default'     => '',
+      'section'     => [],
       'theme'       => 'all',
     ];
 

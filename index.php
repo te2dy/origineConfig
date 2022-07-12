@@ -181,7 +181,7 @@ if (!empty($_POST)) {
   try {
     // Saves options.
     foreach ($settings as $id => $value) {
-      if (option_supported($theme, $default_settings[$id]['theme']) === true) {
+      if (option_supported($theme, $default_settings[$id]['theme']) === true && $id !== 'global_css') {
         if ($default_settings[$id]['type'] === 'checkbox') {
           if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
             $core->blog->settings->origineConfig->put($id, true);
@@ -194,7 +194,91 @@ if (!empty($_POST)) {
       }
     }
 
+    /**
+     * Saves custom styles.
+     * 
+     * Put all styles in a array ($css_array)
+     * to save then in the database as a string ($css) with put()
+     * formatted via the function origineConfigArrayToCSS().
+     */
+    $css       = '';
+    $css_array = [];
+
+    // Sets secondary color hue.
+    $secondary_colors_allowed = [
+      'red'    => '0',
+      'blue'   => '220',
+      'green'  => '120',
+      'orange' => '40',
+      'purple' => '290',
+    ];
+
+    if (array_key_exists($_POST['global_color_secondary'], $secondary_colors_allowed) === true) {
+      $css_array[':root']['--color-h'] = $secondary_colors_allowed[$_POST['global_color_secondary']];
+    } else {
+      $css_array[':root']['--color-h'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']];
+    }
+
+    // Sets page width.
+    $page_width_allowed = [30, 35, 40];
+
+    if (in_array(intval($_POST['global_page_width']), $page_width_allowed, true) === true) {
+      $css_array[':root']['--page-width'] = intval($_POST['global_page_width']) . 'em';
+    } else {
+      $css_array[':root']['--page-width'] = '30em';
+    }
+
+    // Sets the order of site elements.
+    $structure_order = [
+      2 => '',
+    ];
+
+    if (isset($_POST['widgets_nav_position']) === true && $_POST['widgets_nav_position'] === 'header_content') {
+      $structure_order[2] = '--order-widgets-nav';
+    }
+
+    if ($structure_order[2] === '') {
+      $structure_order[2] = '--order-content';
+    } else {
+      $structure_order[] = '--order-content';
+    }
+
+    if (isset($_POST['widgets_nav_position']) === true && $_POST['widgets_nav_position'] === 'content_footer') {
+      $structure_order[] = '--order-widgets-nav';
+    }
+
+    if (isset($_POST['widgets_extra_enabled']) === true && $_POST['widgets_extra_enabled'] === "1") {
+      $structure_order[] = '--order-widgets-extra';
+    }
+
+    if (isset($_POST['footer_enabled']) === true && $_POST['footer_enabled'] === "1") {
+      $structure_order[] = '--order-footer';
+    }
+
+    $css_array[':root']['--order-content'] = array_search('--order-content', $structure_order);
+
+    if (in_array('--order-widgets-nav', $structure_order, true) === true) {
+      $css_array[':root']['--order-widgets-nav'] = array_search('--order-widgets-nav', $structure_order);
+    }
+
+    if (in_array('--order-widgets-extra', $structure_order, true) === true) {
+      $css_array[':root']['--order-widgets-extra'] = array_search('--order-widgets-extra', $structure_order);
+    }
+
+    if (in_array('--order-footer', $structure_order, true) === true) {
+      $css_array[':root']['--order-footer'] = array_search('--order-footer', $structure_order);
+    }
+
+    $css .= origineConfigArrayToCSS($css_array);
+
+    $core->blog->settings->origineConfig->put('css', htmlspecialchars($css, ENT_NOQUOTES));
+
     $core->blog->triggerBlog();
+
+    // Clears template cache.
+    if ($core->blog->settings->system->tpl_use_cache === true) {
+      $core->emptyTemplatesCache();
+    }
 
     dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
     http::redirect($p_url);
@@ -238,15 +322,15 @@ if (!empty($_POST)) {
         <?php
         // Displays the activation checkbox before all other settings.
         echo '<p>';
-        echo form::checkbox('activation', true, $settings['activation']);
-        echo '<label class="classic" for="activation">' . $default_settings['activation']['title'] . '</label>';
+        echo form::checkbox('active', true, $settings['active']);
+        echo '<label class="classic" for="active">' . $default_settings['active']['title'] . '</label>';
         echo '</p>';
 
         echo '<p class="form-note">';
-        echo $default_settings['activation']['description'] . ' ' . __('Default: unchecked.');
+        echo $default_settings['active']['description'] . ' ' . __('Default: unchecked.');
         echo '</p>';
 
-        unset($default_settings['activation']);
+        unset($default_settings['active']);
 
         /**
          * Creates an array which will contain all the settings and there title following the pattern below.
@@ -271,7 +355,7 @@ if (!empty($_POST)) {
 
         // Puts all settings in their sections.
         foreach($default_settings as $setting_id => $setting_data) {
-          if (option_supported($theme, $setting_data['theme']) === true) {
+          if (option_supported($theme, $setting_data['theme']) === true && $setting_id !== 'global_css') {
             if (isset($setting_data['section']) && is_array($setting_data['section'])) {
               if (isset($setting_data['section'][1])) {
                 $setting_page_content[$setting_data['section'][0]][$setting_data['section'][1]][] = $setting_id;
