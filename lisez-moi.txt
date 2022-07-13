@@ -11,6 +11,11 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 1.2 - 6 juillet 2022 ===
+- Ajout : option de positionnement des widgets de navigation.
+- Modification : prise en charge de la structure en grille.
+- Suppression : options obsolètes.
+
 === 1.1.2 - 18 juin 2022 ===
 - Ajout : "Re:" dans le titre des réponses privées.
 - Correction : l’alignement de l’en-tête affectait celui du pied de page.

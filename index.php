@@ -179,18 +179,40 @@ foreach($default_settings as $setting_id => $setting_data) {
 
 if (!empty($_POST)) {
   try {
-    // Saves options.
-    foreach ($settings as $id => $value) {
-      if (option_supported($theme, $default_settings[$id]['theme']) === true && $id !== 'global_css') {
-        if ($default_settings[$id]['type'] === 'checkbox') {
-          if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
-            $core->blog->settings->origineConfig->put($id, true);
+    if (isset($_POST['default']) === false) {
+      // Saves options.
+      foreach ($settings as $id => $value) {
+        if (option_supported($theme, $default_settings[$id]['theme']) === true && $id !== 'global_css') {
+          if ($default_settings[$id]['type'] === 'checkbox') {
+            if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
+              $core->blog->settings->origineConfig->put($id, true);
+            } else {
+              $core->blog->settings->origineConfig->put($id, false);
+            }
           } else {
-            $core->blog->settings->origineConfig->put($id, false);
+            $core->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
           }
-        } else {
-          $core->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
         }
+      }
+
+    // Resets options.
+    } else {
+      foreach($default_settings as $setting_id => $setting_data) {
+        if ($setting_data['type'] === 'checkbox') {
+          $setting_type = 'boolean';
+        } elseif ($setting_data['type'] === 'select_int') {
+          $setting_type = 'integer';
+        } else {
+          $setting_type = 'string';
+        }
+
+        $core->blog->settings->origineConfig->put(
+          $setting_id,
+          $setting_data['default'],
+          $setting_type,
+          $setting_data['title'],
+          true
+        );
       }
     }
 
@@ -410,19 +432,25 @@ if (!empty($_POST)) {
     else :
     ?>
       <form action="<?php echo $p_url; ?>" method="post">
+        <!-- # Displays the activation checkbox before all other settings. -->
+        <p>
+          <?php echo form::checkbox('active', true, $settings['active']); ?>
+
+          <label class="classic" for="active"><?php echo $default_settings['active']['title']; ?></label>
+        </p>
+
+        <p class="form-note">
+          <?php echo $default_settings['active']['description'] . ' ' . __('Default: unchecked.'); ?>
+        </p>
+
+        <?php unset($default_settings['active']); ?>
+
+        <!-- # Reset settings. -->
+        <p>
+          <input class="delete" name="default" type="submit" value="<?php echo __('Reset options to defaults'); ?>" />
+        </p>
+
         <?php
-        // Displays the activation checkbox before all other settings.
-        echo '<p>';
-        echo form::checkbox('active', true, $settings['active']);
-        echo '<label class="classic" for="active">' . $default_settings['active']['title'] . '</label>';
-        echo '</p>';
-
-        echo '<p class="form-note">';
-        echo $default_settings['active']['description'] . ' ' . __('Default: unchecked.');
-        echo '</p>';
-
-        unset($default_settings['active']);
-
         /**
          * Creates an array which will contain all the settings and there title following the pattern below.
          * 
