@@ -445,11 +445,6 @@ if (!empty($_POST)) {
 
         <?php unset($default_settings['active']); ?>
 
-        <!-- # Reset settings. -->
-        <p>
-          <input class="delete" name="default" type="submit" value="<?php echo __('Reset options to defaults'); ?>" />
-        </p>
-
         <?php
         /**
          * Creates an array which will contain all the settings and there title following the pattern below.
@@ -523,7 +518,7 @@ if (!empty($_POST)) {
         <p>
           <?php echo $core->formNonce(); ?>
 
-          <input type="submit" value="<?php echo __('Save'); ?>" />
+          <input type="submit" value="<?php echo __('Save'); ?>" /> <input class="delete" name="default" type="submit" value="<?php echo __('Reset all options'); ?>" />
         </p>
       </form>
     <?php endif; ?>

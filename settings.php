@@ -208,6 +208,15 @@ class origineConfigSettings {
       'theme'       => 'all',
     ];
 
+    $default_settings['global_meta_social'] = [
+      'title'       => __('Add minimal social markups'),
+      'description' => __('Useful to promote your content on social networks.'),
+      'type'        => 'checkbox',
+      'default'     => 0,
+      'section'     => ['global', 'advanced'],
+      'theme'       => 'all',
+    ];
+
     $default_settings['global_meta_generator'] = [
       'title'       => __('Add <code>generator</code> meta tag'),
       'description' => __("Allows you to add information to your pages without displaying it on your readers' screen."),

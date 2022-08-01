@@ -6,12 +6,16 @@
  * @copyright GPL-3.0
  */
 
+use dcCore;
+
 if (!defined('DC_RC_PATH')) {
   return;
 }
 
 // Behaviors.
+$core->addBehavior('publicHeadContent', ['origineConfig', 'origineMinimalSocialMarkups']);
 $core->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigMetaGenerator']);
+\dcCore::app()->addBehavior('publicEntryBeforeContent', ['origineConfig', 'origineConfigPostIntro']);
 $core->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
 $core->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
 
@@ -26,6 +30,113 @@ $core->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineC
 class origineConfig
 {
   /**
+   * Displays minimal social markups.
+   *
+   * @link https://meiert.com/en/blog/minimal-social-markup/
+   */
+  public static function origineMinimalSocialMarkups()
+  {
+    global $core, $_ctx;
+
+    $title = '';
+    $desc  = '';
+    $img   = '';
+
+    if ($core->blog->settings->origineConfig->active === true) {
+      if ($core->blog->settings->origineConfig->global_meta_social === true) {
+        // Posts and pages.
+        if ($core->url->type == 'post' || $core->url->type == 'pages') {
+          $title = $_ctx->posts->post_title;
+
+          $desc = $_ctx->posts->getExcerpt();
+
+          if ($desc === '') {
+            $desc = $_ctx->posts->getContent();
+          }
+
+          $desc = html::decodeEntities(html::clean($desc));
+          $desc = preg_replace('/\s+/', ' ', $desc);
+          $desc = html::escapeHTML($desc);
+
+          if (strlen($desc) > 180) {
+            $desc = text::cutString($desc, 179) . '…';
+          }
+
+          if (context::EntryFirstImageHelper('o', true, '', true)) {
+            $img = context::EntryFirstImageHelper('o', true, '', true);
+          }
+
+        // Home.
+        } elseif ($core->url->type === 'default' || $core->url->type === 'default-page') {
+          $title = $core->blog->name;
+
+          if (intval(context::PaginationPosition()) > 1 ) {
+            $desc = sprintf(
+              __('Page %s'),
+              context::PaginationPosition()
+            );
+          }
+
+          if ($core->blog->desc !== '') {
+            if ($desc !== '') {
+              $desc .= ' – ';
+            }
+
+            $desc .= $core->blog->desc;
+            $desc  = html::decodeEntities(html::clean($desc));
+            $desc  = preg_replace('/\s+/', ' ', $desc);
+            $desc  = html::escapeHTML($desc);
+
+            if (strlen($desc) > 180) {
+              $desc = text::cutString($desc, 179) . '…';
+            }
+          }
+
+        // Categories.
+        } elseif ($core->url->type === 'category') {
+          $title = $_ctx->categories->cat_title;
+
+          if ($_ctx->categories->cat_desc !== '') {
+            $desc = $_ctx->categories->cat_desc;
+            $desc = html::decodeEntities(html::clean($desc));
+            $desc = preg_replace('/\s+/', ' ', $desc);
+            $desc = html::escapeHTML($desc);
+
+            if (strlen($desc) > 180) {
+              $desc = text::cutString($desc, 179) . '…';
+            }
+          }
+
+        // Tags.
+        } elseif ($core->url->type === 'tag' && $_ctx->meta->meta_type === 'tag') {
+          $title = $_ctx->meta->meta_id;
+
+          $desc = sprintf(
+            __('Posts related to the tag %s'),
+            $title
+          );
+        }
+
+        if ($title !== '') {
+          if ($img !== '') {
+            echo '<meta name=twitter:card content=summary_large_image>' . "\n";
+          }
+
+          echo '<meta property=og:title content="' . html::escapeHTML($title) . '">' . "\n";
+
+          if ($desc !== '') {
+            echo '<meta property="og:description" name="description" content="' . $desc . '">' . "\n";
+          }
+
+          if ($img !== '') {
+            echo '<meta property="og:image" content="' . html::escapeURL($img) . '">' . "\n";
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * Displays some content in the <head> section.
    *
    * Supported tags:
@@ -38,6 +149,18 @@ class origineConfig
     if ($core->blog->settings->origineConfig->active === true) {
       if ($core->blog->settings->origineConfig->global_meta_generator === true) {
         echo '<meta name="generator" content="Dotclear" />' . "\n";
+      }
+    }
+  }
+
+  /**
+   * Displays the excerpt as an introduction before post content.
+   */
+  public static function origineConfigPostIntro()
+  {
+    if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_intro === true) {
+      if (\dcCore::app()->ctx->posts->post_excerpt !== '') {
+        echo '<div id="post-single-excerpt">' . \dcCore::app()->ctx->posts->getExcerpt() . '</div>';
       }
     }
   }
