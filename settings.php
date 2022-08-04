@@ -521,31 +521,9 @@ class origineConfigSettings {
   }
 
   /**
-   * An array of default settings of the plugin.
-   * 
-   * @since origineConfig 1.0
-   */
-  public static function default_settings_v1()
-  {
-    $origine_settings = [
-      // Content
-
-      /*
-      // To enable in the future.
-      'content_share_link_email'      => false,
-      'content_share_link_facebook'   => false,
-      'content_share_link_print'      => false,
-      'content_share_link_whatsapp'   => false,
-      'content_share_link_twitter'    => false,
-      */
-      
-    ];
-
-    return $origine_settings;
-  }
-
-  /**
    * An array of settings to delete from the setting list.
+   * 
+   * @return array An array if setting ID to remove from the database.
    * 
    * @since origineConfig 1.2
    */
