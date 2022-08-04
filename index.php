@@ -428,13 +428,13 @@ if (!empty($_POST)) {
     echo dcPage::breadcrumb(
       [
         html::escapeHTML(\dcCore::app()->blog->name) => '',
-        __('Origine Settings')              => '',
+        __('Origine Settings')                       => '',
       ]
     );
 
     echo dcPage::notices();
 
-    $themes_allowed = ["origine", "origine-mini"];
+    $themes_allowed = ['origine', 'origine-mini'];
 
     if (in_array($theme, $themes_allowed, true) === false) :
       ?>
@@ -449,15 +449,15 @@ if (!empty($_POST)) {
       <?php
     else :
     ?>
-      <form action="<?php echo $p_url; ?>" method="post">
+      <form action=<?php echo $p_url; ?> method=post>
         <!-- # Displays the activation checkbox before all other settings. -->
         <p>
           <?php echo form::checkbox('active', true, $settings['active']); ?>
 
-          <label class="classic" for="active"><?php echo $default_settings['active']['title']; ?></label>
+          <label class=classic for=active><?php echo $default_settings['active']['title']; ?></label>
         </p>
 
-        <p class="form-note">
+        <p class=form-note>
           <?php echo $default_settings['active']['description'] . ' ' . __('Default: unchecked.'); ?>
         </p>
 
@@ -510,7 +510,7 @@ if (!empty($_POST)) {
           echo '</h3>';
 
           foreach ($section_content as $sub_section_id => $setting_id) {
-            echo '<div class="fieldset">';
+            echo '<div class=fieldset>';
 
             // Shows the sub section name, except if its ID is "no-title".
             if (is_string($sub_section_id) === true && $sub_section_id !== 'no-title') {
@@ -536,7 +536,7 @@ if (!empty($_POST)) {
         <p>
           <?php echo \dcCore::app()->formNonce(); ?>
 
-          <input type="submit" value="<?php echo __('Save'); ?>" /> <input class="delete" name="default" type="submit" value="<?php echo __('Reset all options'); ?>" />
+          <input value="<?php echo __('Save'); ?>" /> <input class=delete name=default type=submit value="<?php echo __('Reset all options'); ?>">
         </p>
       </form>
     <?php endif; ?>
