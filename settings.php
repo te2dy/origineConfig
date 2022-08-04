@@ -84,9 +84,7 @@ class origineConfigSettings {
    */
   public static function default_settings($theme = 'origine')
   {
-    global $core;
-
-    $theme = $core->blog->settings->system->theme;
+    $theme = \dcCore::app()->blog->settings->system->theme;
 
     $default_settings = [];
 
@@ -350,6 +348,15 @@ class origineConfigSettings {
       'theme'       => 'origine',
     ];
 
+    $default_settings['content_post_list_comment_link'] = [
+      'title'       => __('Display the number of comments in the post list if the post has comments.'),
+      'description' => '',
+      'type'        => 'checkbox',
+      'default'     => 0,
+      'section'     => ['content', 'comments'],
+      'theme'       => 'origine-mini',
+    ];
+
     $default_settings['content_comment_links'] = [
       'title'       => __('Add a link to the comment feed and trackbacks below the comment section'),
       'description' => '',
@@ -545,6 +552,7 @@ class origineConfigSettings {
   public static function settings_to_unset()
   {
     $settings_to_unset = [
+      'activation',
       'global_activation',
       'post_list_type',
       'sidebar_enabled',

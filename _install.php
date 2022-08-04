@@ -49,6 +49,14 @@ try {
     );
   }
 
+  // Removes unused settings if still exists.
+  $settings_to_unset = origineConfigSettings::settings_to_unset();
+
+  foreach ($settings_to_unset as $setting_id) {
+    $core->blog->settings->origineConfig->dropEvery($setting_id, true);
+  }
+
+  // Sets the new version number of the plugin.
   $core->setVersion('origineConfig', $new_version);
 
   return true;

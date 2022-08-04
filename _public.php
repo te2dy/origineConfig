@@ -13,19 +13,20 @@ if (!defined('DC_RC_PATH')) {
 }
 
 // Behaviors.
-$core->addBehavior('publicHeadContent', ['origineConfig', 'origineMinimalSocialMarkups']);
-$core->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigMetaGenerator']);
+\dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineMinimalSocialMarkups']);
+\dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigMetaGenerator']);
 \dcCore::app()->addBehavior('publicEntryBeforeContent', ['origineConfig', 'origineConfigPostIntro']);
-$core->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
-$core->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
+\dcCore::app()->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
+\dcCore::app()->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
 
 // Values.
-$core->tpl->addValue('origineConfigLogo', ['origineConfig', 'origineConfigLogo']);
-$core->tpl->addValue('origineConfigEntriesAuthorName', ['origineConfig', 'origineConfigEntriesAuthorName']);
-$core->tpl->addValue('origineConfigEntryAuthorNameNextToDate', ['origineConfig', 'origineConfigEntryAuthorNameNextToDate']);
-$core->tpl->addValue('origineConfigEntryAuthorNameSignature', ['origineConfig', 'origineConfigEntryAuthorNameSignature']);
-$core->tpl->addValue('origineConfigEmailAuthor', ['origineConfig', 'origineConfigEmailAuthor']);
-$core->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineConfigEntryFirstImage']);
+\dcCore::app()->tpl->addValue('origineConfigLogo', ['origineConfig', 'origineConfigLogo']);
+\dcCore::app()->tpl->addValue('origineConfigEntriesAuthorName', ['origineConfig', 'origineConfigEntriesAuthorName']);
+\dcCore::app()->tpl->addValue('origineConfigEntryAuthorNameNextToDate', ['origineConfig', 'origineConfigEntryAuthorNameNextToDate']);
+\dcCore::app()->tpl->addValue('origineConfigEntryAuthorNameSignature', ['origineConfig', 'origineConfigEntryAuthorNameSignature']);
+\dcCore::app()->tpl->addValue('origineConfigEmailAuthor', ['origineConfig', 'origineConfigEmailAuthor']);
+\dcCore::app()->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineConfigEntryFirstImage']);
+\dcCore::app()->tpl->addValue('origineConfigCommentLink', ['origineConfig', 'origineConfigCommentLink']);
 
 class origineConfig
 {
@@ -36,22 +37,20 @@ class origineConfig
    */
   public static function origineMinimalSocialMarkups()
   {
-    global $core, $_ctx;
-
     $title = '';
     $desc  = '';
     $img   = '';
 
-    if ($core->blog->settings->origineConfig->active === true) {
-      if ($core->blog->settings->origineConfig->global_meta_social === true) {
+    if (\dcCore::app()->blog->settings->origineConfig->active === true) {
+      if (\dcCore::app()->blog->settings->origineConfig->global_meta_social === true) {
         // Posts and pages.
-        if ($core->url->type == 'post' || $core->url->type == 'pages') {
-          $title = $_ctx->posts->post_title;
+        if (\dcCore::app()->url->type == 'post' || \dcCore::app()->url->type == 'pages') {
+          $title = \dcCore::app()->ctx->posts->post_title;
 
-          $desc = $_ctx->posts->getExcerpt();
+          $desc = \dcCore::app()->ctx->posts->getExcerpt();
 
           if ($desc === '') {
-            $desc = $_ctx->posts->getContent();
+            $desc = \dcCore::app()->ctx->posts->getContent();
           }
 
           $desc = html::decodeEntities(html::clean($desc));
@@ -67,8 +66,8 @@ class origineConfig
           }
 
         // Home.
-        } elseif ($core->url->type === 'default' || $core->url->type === 'default-page') {
-          $title = $core->blog->name;
+        } elseif (\dcCore::app()->url->type === 'default' || \dcCore::app()->url->type === 'default-page') {
+          $title = \dcCore::app()->blog->name;
 
           if (intval(context::PaginationPosition()) > 1 ) {
             $desc = sprintf(
@@ -77,12 +76,12 @@ class origineConfig
             );
           }
 
-          if ($core->blog->desc !== '') {
+          if (\dcCore::app()->blog->desc !== '') {
             if ($desc !== '') {
               $desc .= ' – ';
             }
 
-            $desc .= $core->blog->desc;
+            $desc .= \dcCore::app()->blog->desc;
             $desc  = html::decodeEntities(html::clean($desc));
             $desc  = preg_replace('/\s+/', ' ', $desc);
             $desc  = html::escapeHTML($desc);
@@ -93,11 +92,11 @@ class origineConfig
           }
 
         // Categories.
-        } elseif ($core->url->type === 'category') {
-          $title = $_ctx->categories->cat_title;
+        } elseif (\dcCore::app()->url->type === 'category') {
+          $title = \dcCore::app()->ctx->categories->cat_title;
 
-          if ($_ctx->categories->cat_desc !== '') {
-            $desc = $_ctx->categories->cat_desc;
+          if (\dcCore::app()->ctx->categories->cat_desc !== '') {
+            $desc = \dcCore::app()->ctx->categories->cat_desc;
             $desc = html::decodeEntities(html::clean($desc));
             $desc = preg_replace('/\s+/', ' ', $desc);
             $desc = html::escapeHTML($desc);
@@ -108,8 +107,8 @@ class origineConfig
           }
 
         // Tags.
-        } elseif ($core->url->type === 'tag' && $_ctx->meta->meta_type === 'tag') {
-          $title = $_ctx->meta->meta_id;
+        } elseif (\dcCore::app()->url->type === 'tag' && \dcCore::app()->ctx->meta->meta_type === 'tag') {
+          $title = \dcCore::app()->ctx->meta->meta_id;
 
           $desc = sprintf(
             __('Posts related to the tag %s'),
@@ -144,10 +143,8 @@ class origineConfig
    */
   public static function origineConfigMetaGenerator()
   {
-    global $core;
-
-    if ($core->blog->settings->origineConfig->active === true) {
-      if ($core->blog->settings->origineConfig->global_meta_generator === true) {
+    if (\dcCore::app()->blog->settings->origineConfig->active === true) {
+      if (\dcCore::app()->blog->settings->origineConfig->global_meta_generator === true) {
         echo '<meta name="generator" content="Dotclear" />' . "\n";
       }
     }
@@ -205,45 +202,43 @@ class origineConfig
    */
   public static function publicFooterSocialLinks()
   {
-    global $core;
-
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true) {
+    if (\dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true) {
       $social_links = [];
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_diaspora']) {
-        $social_links['Diaspora'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_diaspora'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_diaspora']) {
+        $social_links['Diaspora'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_diaspora'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_discord']) {
-        $social_links['Discord'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_discord'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_discord']) {
+        $social_links['Discord'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_discord'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_facebook']) {
-        $social_links['Facebook'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_facebook'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_facebook']) {
+        $social_links['Facebook'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_facebook'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_github']) {
-        $social_links['GitHub'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_github'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_github']) {
+        $social_links['GitHub'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_github'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_mastodon']) {
-        $social_links['Mastodon'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_mastodon'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_mastodon']) {
+        $social_links['Mastodon'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_mastodon'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_signal']) {
-        $social_links['Signal'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_signal'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_signal']) {
+        $social_links['Signal'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_signal'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_tiktok']) {
-        $social_links['TikTok'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_tiktok'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_tiktok']) {
+        $social_links['TikTok'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_tiktok'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_twitter']) {
-        $social_links['Twitter'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_twitter'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_twitter']) {
+        $social_links['Twitter'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_twitter'];
       }
 
-      if ($core->blog->settings->origineConfig->origine_settings['footer_social_links_whatsapp']) {
-        $social_links['WhatsApp'] = $core->blog->settings->origineConfig->origine_settings['footer_social_links_whatsapp'];
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_whatsapp']) {
+        $social_links['WhatsApp'] = \dcCore::app()->blog->settings->origineConfig->origine_settings['footer_social_links_whatsapp'];
       }
 
       if (!empty($social_links)) {
@@ -290,11 +285,7 @@ class origineConfig
    */
   /*public static function origineShareLinks()
   {
-    global $core, $_ctx;
-
-    if ($core->blog->settings->origineConfig->origine_settings['content_share_link_twitter'] === true) {
-      global $_ctx;
-
+    if (\dcCore::app()->blog->settings->origineConfig->origine_settings['content_share_link_twitter'] === true) {
       // An array of allowed sites or services to share with.
       $sites_allowed = [
         'email'    => __('Email'),
@@ -317,11 +308,11 @@ class origineConfig
 
       $networks_url = [];
 
-      $post_url   = $_ctx->posts->getURL()   ? $_ctx->posts->getURL()   : '';
-      $post_title = $_ctx->posts->post_title ? $_ctx->posts->post_title : '';
+      $post_url   = \dcCore::app()->ctx->posts->getURL()   ? \dcCore::app()->ctx->posts->getURL()   : '';
+      $post_title = \dcCore::app()->ctx->posts->post_title ? \dcCore::app()->ctx->posts->post_title : '';
 
       // Email.
-      if ($core->blog->settings->origineConfig->origine_settings['content_share_link_email'] === true) {
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['content_share_link_email'] === true) {
         if ($post_url !== '') {
           $networks_url['email'] = 'mailto:?body=' . $post_url;
 
@@ -332,21 +323,21 @@ class origineConfig
       }
 
       // Facebook.
-      if ($core->blog->settings->origineConfig->origine_settings['content_share_link_facebook'] === true) {
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['content_share_link_facebook'] === true) {
         if ($post_url !== '') {
           $networks_url['facebook'] = 'https://www.facebook.com/sharer.php?u' . $post_url;
         }
       }
 
       // Print.
-      if ($core->blog->settings->origineConfig->origine_settings['content_share_link_print'] === true) {
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['content_share_link_print'] === true) {
         if ($post_url !== '') {
           $networks_url['print'] = 'javascript:window.print();';
         }
       }
 
       // WhatsApp.
-      if ($core->blog->settings->origineConfig->origine_settings['content_share_link_whatsapp'] === true) {
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['content_share_link_whatsapp'] === true) {
         if ($post_url !== '') {
           $networks_url['whatsapp'] = 'https://api.whatsapp.com/send?';
 
@@ -359,7 +350,7 @@ class origineConfig
       }
 
       // Twitter.
-      if ($core->blog->settings->origineConfig->origine_settings['content_share_link_twitter'] === true) {
+      if (\dcCore::app()->blog->settings->origineConfig->origine_settings['content_share_link_twitter'] === true) {
         if ($post_url !== '') {
           $networks_url['twitter'] = 'https://twitter.com/share?url=' . $post_url;
 
@@ -410,26 +401,24 @@ class origineConfig
    */
   public static function origineConfigLogo($attr)
   {
-    global $core;
-
-    if ($core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['header_logo_url'] !== ''
+    if (\dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true
+      && \dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url'] !== ''
     ) {
-      $src_image = $core->blog->settings->origineConfig->origine_settings['header_logo_url'] ? html::escapeURL($core->blog->settings->origineConfig->origine_settings['header_logo_url']) : '';
+      $src_image = \dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url'] ? html::escapeURL(\dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url']) : '';
       $srcset    = '';
 
-      $url_public_relative = $core->blog->settings->system->public_url;
-      $public_path         = $core->blog->public_path;
+      $url_public_relative = \dcCore::app()->blog->settings->system->public_url;
+      $public_path         = \dcCore::app()->blog->public_path;
 
       if ($src_image !== '') {
         $image_url_relative = substr($src_image, strpos($src_image, $url_public_relative));
 
         $image_path = $public_path . str_replace($url_public_relative . '/', '/', $image_url_relative);
 
-        if ($core->blog->settings->origineConfig->origine_settings['header_logo_url_2x']
-          && $core->blog->settings->origineConfig->origine_settings['header_logo_url_2x'] !== $src_image
+        if (\dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url_2x']
+          && \dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url_2x'] !== $src_image
         ) {
-          $src_image_2x = html::escapeURL($core->blog->settings->origineConfig->origine_settings['header_logo_url_2x']);
+          $src_image_2x = html::escapeURL(\dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url_2x']);
         } else {
           $src_image_2x = '';
         }
@@ -461,7 +450,7 @@ class origineConfig
         }
 
         if (isset($attr['link_home']) && $attr['link_home'] === '1') {
-          $link_open  = '<a class="site-logo-link" href="' . html::escapeURL($core->blog->url) . '">';
+          $link_open  = '<a class="site-logo-link" href="' . html::escapeURL(\dcCore::app()->blog->url) . '">';
           $link_close = '</a>';
         } else {
           $link_open  = '';
@@ -478,33 +467,31 @@ class origineConfig
    */
   public static function origineConfigEntryAuthorNameNextToDate()
   {
-    global $core;
-
     if (
-      $core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'date'
+      \dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true
+      && \dcCore::app()->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'date'
     ) {
 
-      $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+      $output = '<?php if (\dcCore::app()->ctx->posts->user_displayname || \dcCore::app()->ctx->posts->user_firstname || \dcCore::app()->ctx->posts->user_name ) : ?>';
 
       $output .= ' <span class="post-author-name" rel="author">';
-      $output .= $core->blog->settings->origineConfig->origine_settings['global_separator'] . ' ';
+      $output .= \dcCore::app()->blog->settings->origineConfig->origine_settings['global_separator'] . ' ';
 
-      $output .= '<?php if ($_ctx->posts->user_url) {';
-      $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_url) {';
+      $output .= 'echo "<a href=\"" . \dcCore::app()->ctx->posts->user_url . "\">";';
       $output .= '} ?>';
 
-      $output .= '<?php if ($_ctx->posts->user_displayname) {';
-      $output .= 'echo $_ctx->posts->user_displayname;';
-      $output .= '} elseif ($_ctx->posts->user_firstname) {';
-      $output .= 'echo $_ctx->posts->user_firstname;';
-      $output .= 'if ($_ctx->posts->user_name) {';
-      $output .= 'echo " " . $_ctx->posts->user_name;';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_displayname) {';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_displayname;';
+      $output .= '} elseif (\dcCore::app()->ctx->posts->user_firstname) {';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_firstname;';
+      $output .= 'if (\dcCore::app()->ctx->posts->user_name) {';
+      $output .= 'echo " " . \dcCore::app()->ctx->posts->user_name;';
       $output .= '} } else {';
-      $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_name ? \dcCore::app()->ctx->posts->user_name : "";';
       $output .= '} ?>';
 
-      $output .= '<?php if ($_ctx->posts->user_url) {';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_url) {';
       $output .= 'echo "</a>";';
       $output .= '} ?>';
 
@@ -521,32 +508,30 @@ class origineConfig
    */
   public static function origineConfigEntriesAuthorName()
   {
-    global $core;
-
     if (
-      $core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['content_post_list_author_name'] === true
+      \dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true
+      && \dcCore::app()->blog->settings->origineConfig->origine_settings['content_post_list_author_name'] === true
     ) {
-      $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+      $output = '<?php if (\dcCore::app()->ctx->posts->user_displayname || \dcCore::app()->ctx->posts->user_firstname || \dcCore::app()->ctx->posts->user_name ) : ?>';
 
       $output .= ' <span class="post-author-name" rel="author">';
-      $output .= $core->blog->settings->origineConfig->origine_settings['global_separator'] . ' ';
+      $output .= \dcCore::app()->blog->settings->origineConfig->origine_settings['global_separator'] . ' ';
 
-      $output .= '<?php if ($_ctx->posts->user_url) {';
-      $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_url) {';
+      $output .= 'echo "<a href=\"" . \dcCore::app()->ctx->posts->user_url . "\">";';
       $output .= '} ?>';
 
-      $output .= '<?php if ($_ctx->posts->user_displayname) {';
-      $output .= 'echo $_ctx->posts->user_displayname;';
-      $output .= '} elseif ($_ctx->posts->user_firstname) {';
-      $output .= 'echo $_ctx->posts->user_firstname;';
-      $output .= 'if ($_ctx->posts->user_name) {';
-      $output .= 'echo " " . $_ctx->posts->user_name;';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_displayname) {';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_displayname;';
+      $output .= '} elseif (\dcCore::app()->ctx->posts->user_firstname) {';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_firstname;';
+      $output .= 'if (\dcCore::app()->ctx->posts->user_name) {';
+      $output .= 'echo " " . \dcCore::app()->ctx->posts->user_name;';
       $output .= '} } else {';
-      $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_name ? \dcCore::app()->ctx->posts->user_name : "";';
       $output .= '} ?>';
 
-      $output .= '<?php if ($_ctx->posts->user_url) {';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_url) {';
       $output .= 'echo "</a>";';
       $output .= '} ?>';
 
@@ -563,31 +548,29 @@ class origineConfig
    */
   public static function origineConfigEntryAuthorNameSignature()
   {
-    global $core;
-
     if (
-      $core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'signature'
+      \dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true
+      && \dcCore::app()->blog->settings->origineConfig->origine_settings['content_post_author_name'] === 'signature'
     ) {
-      $output = '<?php if ($_ctx->posts->user_displayname || $_ctx->posts->user_firstname || $_ctx->posts->user_name ) : ?>';
+      $output = '<?php if (\dcCore::app()->ctx->posts->user_displayname || \dcCore::app()->ctx->posts->user_firstname || \dcCore::app()->ctx->posts->user_name ) : ?>';
 
       $output .= '<p class="post-author-name" rel="author">';
 
-      $output .= '<?php if ($_ctx->posts->user_url) {';
-      $output .= 'echo "<a href=\"" . $_ctx->posts->user_url . "\">";';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_url) {';
+      $output .= 'echo "<a href=\"" . \dcCore::app()->ctx->posts->user_url . "\">";';
       $output .= '} ?>';
 
-      $output .= '<?php if ($_ctx->posts->user_displayname) {';
-      $output .= 'echo $_ctx->posts->user_displayname;';
-      $output .= '} elseif ($_ctx->posts->user_firstname) {';
-      $output .= 'echo $_ctx->posts->user_firstname;';
-      $output .= 'if ($_ctx->posts->user_name) {';
-      $output .= 'echo " " . $_ctx->posts->user_name;';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_displayname) {';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_displayname;';
+      $output .= '} elseif (\dcCore::app()->ctx->posts->user_firstname) {';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_firstname;';
+      $output .= 'if (\dcCore::app()->ctx->posts->user_name) {';
+      $output .= 'echo " " . \dcCore::app()->ctx->posts->user_name;';
       $output .= '} } else {';
-      $output .= 'echo $_ctx->posts->user_name ? $_ctx->posts->user_name : "";';
+      $output .= 'echo \dcCore::app()->ctx->posts->user_name ? \dcCore::app()->ctx->posts->user_name : "";';
       $output .= '} ?>';
 
-      $output .= '<?php if ($_ctx->posts->user_url) {';
+      $output .= '<?php if (\dcCore::app()->ctx->posts->user_url) {';
       $output .= 'echo "</a>";';
       $output .= '} ?>';
 
@@ -604,23 +587,20 @@ class origineConfig
    */
   public static function origineConfigEmailAuthor()
   {
-    global $core;
-
     if (
-      $core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['content_post_email_author'] !== 'disabled'
+      \dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true
+      && \dcCore::app()->blog->settings->origineConfig->origine_settings['content_post_email_author'] !== 'disabled'
     ) {
-      $output = '<?php
-        global $core, $_ctx;
-
-        if (
-          $core->blog->settings->origineConfig->origine_settings["content_post_email_author"] === "always"
-          || (
-            $core->blog->settings->origineConfig->origine_settings["content_post_email_author"] === "comments_open"
-            && $_ctx->posts->post_open_comment === "1"
-            && $_ctx->posts->user_email !== ""
-          )
-        ) :
+      $output = '
+      <?php
+      if (
+        \dcCore::app()->blog->settings->origineConfig->origine_settings["content_post_email_author"] === "always"
+        || (
+          \dcCore::app()->blog->settings->origineConfig->origine_settings["content_post_email_author"] === "comments_open"
+          && \dcCore::app()->ctx->posts->post_open_comment === "1"
+          && \dcCore::app()->ctx->posts->user_email !== ""
+        )
+      ) :
       ?>';
 
       $output .= '<div class="comment-private">';
@@ -628,8 +608,8 @@ class origineConfig
       $output .= '<h3 class="reaction-title">' . __('Send a private comment') . '</h3>';
 
       $output .= '<p>';
-      $output .= '<a class="button" href="mailto:<?php echo urlencode($_ctx->posts->user_email); ?>';
-      $output .= '?subject=<?php echo htmlentities(__("Re:") . " " . $_ctx->posts->post_title, ENT_NOQUOTES); ?>';
+      $output .= '<a class="button" href="mailto:<?php echo urlencode(\dcCore::app()->ctx->posts->user_email); ?>';
+      $output .= '?subject=<?php echo htmlentities(__("Re:") . " " . \dcCore::app()->ctx->posts->post_title, ENT_NOQUOTES); ?>';
       $output .= '">';
       $output .= __('Reply to the author by email');
       $output .= '</a>';
@@ -650,14 +630,12 @@ class origineConfig
    */
   public static function origineConfigEntryFirstImage($attr)
   {
-    global $core;
-
     if (
-      $core->blog->settings->origineConfig->origine_settings['activation'] === true
-      && $core->blog->settings->origineConfig->origine_settings['content_post_list_first_image'] === true
+      \dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true
+      && \dcCore::app()->blog->settings->origineConfig->origine_settings['content_post_list_first_image'] === true
     ) {
-      $url_public_relative = $core->blog->settings->system->public_url;
-      $public_path         = $core->blog->public_path;
+      $url_public_relative = \dcCore::app()->blog->settings->system->public_url;
+      $public_path         = \dcCore::app()->blog->public_path;
 
       return '
         <?php
@@ -741,6 +719,31 @@ class origineConfig
         }
         ?>
       ';
+    }
+  }
+
+  /**
+   * DOCUMENTATION.
+   */
+  public static function origineConfigCommentLink()
+  {
+    if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_list_comment_link === true) {
+      return '
+        <?php
+        $nb_comments = intval(\dcCore::app()->ctx->posts->nb_comment);
+        if ($nb_comments > 0) {
+          echo "<a aria-label=\"";
+
+          if ($nb_comments > 1) {
+            printf(__("Link to the %d reactions of this post"), $nb_comments);
+          } else {
+            echo __("Link to the reaction of this post");
+          }
+
+          echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions") . ">";
+          echo "[$nb_comments]</a>";
+        };
+        ?>';
     }
   }
 }

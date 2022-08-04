@@ -6,6 +6,8 @@
  * @copyright GPL-3.0
  */
 
+use dcCore;
+
 if (!defined('DC_CONTEXT_ADMIN')) {
   return;
 }
@@ -115,7 +117,15 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
   return $output;
 }
 
-function option_supported($theme_current, $theme_supported = '')
+/**
+ * Checks if the theme supports the current option.
+ * 
+ * @param string       The current theme id.
+ * @param string|array Themes thats supports the option.
+ * 
+ * @return bool True if the theme supports the option to display.
+ */
+function option_supported($theme_current = '', $theme_supported = '')
 {
   if (
     isset($theme_supported)
@@ -137,15 +147,15 @@ function option_supported($theme_current, $theme_supported = '')
   }
 }
 
-$theme = $core->blog->settings->system->theme;
+$theme = \dcCore::app()->blog->settings->system->theme;
 
 $default_settings = origineConfigSettings::default_settings();
 
-$core->blog->settings->addNamespace('origineConfig');
+\dcCore::app()->blog->settings->addNamespace('origineConfig');
 
 // Adds all default settings values if necessary.
 foreach($default_settings as $setting_id => $setting_data) {
-  if (!$core->blog->settings->origineConfig->$setting_id) {
+  if (!\dcCore::app()->blog->settings->origineConfig->$setting_id) {
     if ($setting_data['type'] === 'checkbox') {
       $setting_type = 'boolean';
     } elseif ($setting_data['type'] === 'select_int') {
@@ -154,7 +164,7 @@ foreach($default_settings as $setting_id => $setting_data) {
       $setting_type = 'string';
     }
 
-    $core->blog->settings->origineConfig->put(
+    \dcCore::app()->blog->settings->origineConfig->put(
       $setting_id,
       $setting_data['default'],
       $setting_type,
@@ -169,11 +179,11 @@ $settings = [];
 
 foreach($default_settings as $setting_id => $setting_data) {
   if ($setting_data['type'] === 'checkbox') {
-    $settings[$setting_id] = (boolean) $core->blog->settings->origineConfig->$setting_id;
+    $settings[$setting_id] = (boolean) \dcCore::app()->blog->settings->origineConfig->$setting_id;
   } elseif ($setting_data['type'] === 'select_int') {
-    $settings[$setting_id] = (integer) $core->blog->settings->origineConfig->$setting_id;
+    $settings[$setting_id] = (integer) \dcCore::app()->blog->settings->origineConfig->$setting_id;
   } else {
-    $settings[$setting_id] = $core->blog->settings->origineConfig->$setting_id;
+    $settings[$setting_id] = \dcCore::app()->blog->settings->origineConfig->$setting_id;
   }
 }
 
@@ -185,12 +195,12 @@ if (!empty($_POST)) {
         if (option_supported($theme, $default_settings[$id]['theme']) === true && $id !== 'global_css') {
           if ($default_settings[$id]['type'] === 'checkbox') {
             if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
-              $core->blog->settings->origineConfig->put($id, true);
+              \dcCore::app()->blog->settings->origineConfig->put($id, true);
             } else {
-              $core->blog->settings->origineConfig->put($id, false);
+              \dcCore::app()->blog->settings->origineConfig->put($id, false);
             }
           } else {
-            $core->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
+            \dcCore::app()->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
           }
         }
       }
@@ -206,7 +216,7 @@ if (!empty($_POST)) {
           $setting_type = 'string';
         }
 
-        $core->blog->settings->origineConfig->put(
+        \dcCore::app()->blog->settings->origineConfig->put(
           $setting_id,
           $setting_data['default'],
           $setting_type,
@@ -359,6 +369,14 @@ if (!empty($_POST)) {
       }
     }
 
+    // Link to reactions in the post list.
+    if (isset($_POST['content_post_list_comment_link']) === true && $_POST['content_post_list_comment_link'] === '1') {
+      $css_array['.post-comment-link']['margin-right'] = '.2rem';
+
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
+    }
+
     // Small screens.
     if (isset($_POST['content_text_align']) === true && $_POST['content_text_align'] === 'justify_not_mobile') {
       $css_array[':root']['--text-align'] = 'left';
@@ -384,19 +402,19 @@ if (!empty($_POST)) {
       $css_array  = [];
     }
 
-    $core->blog->settings->origineConfig->put('css', htmlspecialchars($css, ENT_NOQUOTES));
+    \dcCore::app()->blog->settings->origineConfig->put('css', htmlspecialchars($css, ENT_NOQUOTES));
 
-    $core->blog->triggerBlog();
+    \dcCore::app()->blog->triggerBlog();
 
     // Clears template cache.
-    if ($core->blog->settings->system->tpl_use_cache === true) {
-      $core->emptyTemplatesCache();
+    if (\dcCore::app()->blog->settings->system->tpl_use_cache === true) {
+      \dcCore::app()->emptyTemplatesCache();
     }
 
     dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
     http::redirect($p_url);
   } catch (Exception $e) {
-    $core->error->add($e->getMessage());
+    \dcCore::app()->error->add($e->getMessage());
   }
 }
 ?>
@@ -409,7 +427,7 @@ if (!empty($_POST)) {
     <?php
     echo dcPage::breadcrumb(
       [
-        html::escapeHTML($core->blog->name) => '',
+        html::escapeHTML(\dcCore::app()->blog->name) => '',
         __('Origine Settings')              => '',
       ]
     );
@@ -424,7 +442,7 @@ if (!empty($_POST)) {
           <?php
           printf(
             __('This plugin is only meant to customize themes of the Origine family. To use it, please <a href="%s">install and activate Origine or Origine Mini</a>.'),
-            html::escapeURL($core->adminurl->get('admin.blog.theme'))
+            html::escapeURL(\dcCore::app()->adminurl->get('admin.blog.theme'))
           );
           ?>
         </p>
@@ -516,7 +534,7 @@ if (!empty($_POST)) {
         ?>
 
         <p>
-          <?php echo $core->formNonce(); ?>
+          <?php echo \dcCore::app()->formNonce(); ?>
 
           <input type="submit" value="<?php echo __('Save'); ?>" /> <input class="delete" name="default" type="submit" value="<?php echo __('Reset all options'); ?>" />
         </p>
