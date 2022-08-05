@@ -114,21 +114,22 @@ class origineConfig
         $desc = sprintf(__('Posts related to the tag %s'), $title);
       }
 
-      if ($title !== '') {
-        if ($img !== '') {
+      $title = html::escapeHTML($title);
+      $img   = html::escapeURL($img);
+
+      if ($title) {
+        if ($img) {
           echo '<meta name=twitter:card content=summary_large_image>', "\n";
         }
 
-        echo '<meta property=og:title content="', html::escapeHTML($title) . '">', "\n";
+        echo '<meta property=og:title content="', $title . '">', "\n";
 
-        if ($desc !== '') {
-          // Quotes are required for some social apps.
+        if ($desc) {
           echo '<meta property="og:description" name="description" content="', $desc, '">', "\n";
         }
 
-        if ($img !== '') {
-          // Quotes are required for some social apps.
-          echo '<meta property="og:image" content="', html::escapeURL($img), '">', "\n";
+        if ($img) {
+          echo '<meta property="og:image" content="', $img, '">', "\n";
         }
       }
     }
@@ -141,10 +142,8 @@ class origineConfig
    */
   public static function origineConfigMetaGenerator()
   {
-    if (\dcCore::app()->blog->settings->origineConfig->active === true) {
-      if (\dcCore::app()->blog->settings->origineConfig->global_meta_generator === true) {
-        echo '<meta name=generator content=Dotclear>' . "\n";
-      }
+    if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->global_meta_generator === true) {
+      echo '<meta name=generator content=Dotclear>' . "\n";
     }
   }
 
@@ -153,20 +152,23 @@ class origineConfig
    */
   public static function origineConfigPostIntro()
   {
-    if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_intro === true) {
-      if (\dcCore::app()->ctx->posts->post_excerpt !== '') {
-        echo '<div id=post-single-excerpt>',
-        \dcCore::app()->ctx->posts->getExcerpt(),
-        '</div>';
-      }
+    if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_intro === true && \dcCore::app()->ctx->posts->post_excerpt) {
+      echo '<div id=post-single-excerpt>',
+      \dcCore::app()->ctx->posts->getExcerpt(),
+      '</div>';
     }
   }
 
   /**
    * Retrieves shapes of a spetific SVG icon from its name
    * or an array of SVG icon shpaes.
-   *
-   * @source Simple Icons (https://simpleicons.org/)
+   * 
+   * @source Simple Icons
+   * @link https://simpleicons.org/
+   * 
+   * @param string $icon The name of the icon to retrieve.
+   * 
+   * @return string|array The SVG shapes if $icon is set, or an array of all shapes.
    */
   private static function origineConfigSocialIcons($icon = '')
   {
@@ -190,7 +192,7 @@ class origineConfig
 
     $social_svg['WhatsApp'] = '<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z">';
 
-    if ($icon !== '' && array_key_exists($icon, $social_svg)) {
+    if ($icon && array_key_exists($icon, $social_svg)) {
       return $social_svg[$icon];
     } else {
       return $social_svg;
@@ -282,6 +284,8 @@ class origineConfig
 
   /**
    * Displays links to share the current post.
+   * 
+   * ADD AN OPTION TO DISPLAY THEM ONLY ON DESKTOP (NOT NEEDED ON MOBILE AS A BUTTON ALWAYS EXISTS TO SHARE PAGES).
    */
   /*public static function origineShareLinks()
   {
@@ -401,9 +405,7 @@ class origineConfig
    */
   public static function origineConfigLogo($attr)
   {
-    if (\dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true
-      && \dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url'] !== ''
-    ) {
+    if (\dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true && \dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url']) {
       $src_image = \dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url'] ? html::escapeURL(\dcCore::app()->blog->settings->origineConfig->origine_settings['header_logo_url']) : '';
       $srcset    = '';
 
@@ -598,7 +600,7 @@ class origineConfig
         || (
           \dcCore::app()->blog->settings->origineConfig->origine_settings["content_post_email_author"] === "comments_open"
           && \dcCore::app()->ctx->posts->post_open_comment === "1"
-          && \dcCore::app()->ctx->posts->user_email !== ""
+          && \dcCore::app()->ctx->posts->user_email
         )
       ) :
       ?>';
@@ -632,7 +634,7 @@ class origineConfig
   {
     if (
       \dcCore::app()->blog->settings->origineConfig->origine_settings['activation'] === true
-      && \dcCore::app()->blog->settings->origineConfig->origine_settings['content_post_list_first_image'] === true
+      && \dcCore::app()->blog->settings->origineConfig->content_post_list_first_image === true
     ) {
       $url_public_relative = \dcCore::app()->blog->settings->system->public_url;
       $public_path         = \dcCore::app()->blog->public_path;
@@ -723,25 +725,28 @@ class origineConfig
   }
 
   /**
-   * DOCUMENTATION.
+   * Displays a link to comments in the post list.
+   * 
+   * Only if a least a comment has been published.
+   * 
+   * @return void
    */
   public static function origineConfigCommentLink()
   {
     if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_list_comment_link === true) {
       return '
         <?php
-        $nb_comments = intval(\dcCore::app()->ctx->posts->nb_comment);
-        if ($nb_comments > 0) {
+        if ((int) \dcCore::app()->ctx->posts->nb_comment > 0) {
           echo "<a aria-label=\"";
 
-          if ($nb_comments > 1) {
-            printf(__("Link to the %d reactions of this post"), $nb_comments);
+          if ((int) \dcCore::app()->ctx->posts->nb_comment > 1) {
+            printf(__("Link to the %d reactions of this post"), \dcCore::app()->ctx->posts->nb_comment);
           } else {
             echo __("Link to the reaction of this post");
           }
 
           echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions") . ">",
-          "[$nb_comments]</a>";
+          "[" . \dcCore::app()->ctx->posts->nb_comment . "]</a>";
         };
         ?>';
     }
