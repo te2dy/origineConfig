@@ -34,6 +34,8 @@ class origineConfig
    * Displays minimal social markups.
    *
    * @link https://meiert.com/en/blog/minimal-social-markup/
+   * 
+   * @return void
    */
   public static function origineMinimalSocialMarkups()
   {
@@ -41,18 +43,61 @@ class origineConfig
     $desc  = '';
     $img   = '';
 
-    if (\dcCore::app()->blog->settings->origineConfig->active === true) {
-      if (\dcCore::app()->blog->settings->origineConfig->global_meta_social === true) {
-        // Posts and pages.
-        if (\dcCore::app()->url->type == 'post' || \dcCore::app()->url->type == 'pages') {
-          $title = \dcCore::app()->ctx->posts->post_title;
+    if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->global_meta_social === true) {
+      // Posts and pages.
+      if (\dcCore::app()->url->type == 'post' || \dcCore::app()->url->type == 'pages') {
+        $title = \dcCore::app()->ctx->posts->post_title;
 
-          $desc = \dcCore::app()->ctx->posts->getExcerpt();
+        $desc = \dcCore::app()->ctx->posts->getExcerpt();
 
-          if ($desc === '') {
-            $desc = \dcCore::app()->ctx->posts->getContent();
+        if ($desc === '') {
+          $desc = \dcCore::app()->ctx->posts->getContent();
+        }
+
+        $desc = html::decodeEntities(html::clean($desc));
+        $desc = preg_replace('/\s+/', ' ', $desc);
+        $desc = html::escapeHTML($desc);
+
+        if (strlen($desc) > 180) {
+          $desc = text::cutString($desc, 179) . '…';
+        }
+
+        if (context::EntryFirstImageHelper('o', true, '', true)) {
+          $img = context::EntryFirstImageHelper('o', true, '', true);
+        }
+
+      // Home.
+      } elseif (\dcCore::app()->url->type === 'default' || \dcCore::app()->url->type === 'default-page') {
+        $title = \dcCore::app()->blog->name;
+
+        if (intval(context::PaginationPosition()) > 1 ) {
+          $desc = sprintf(
+            __('Page %s'),
+            context::PaginationPosition()
+          );
+        }
+
+        if (\dcCore::app()->blog->desc !== '') {
+          if ($desc !== '') {
+            $desc .= ' – ';
           }
 
+          $desc .= \dcCore::app()->blog->desc;
+          $desc  = html::decodeEntities(html::clean($desc));
+          $desc  = preg_replace('/\s+/', ' ', $desc);
+          $desc  = html::escapeHTML($desc);
+
+          if (strlen($desc) > 180) {
+            $desc = text::cutString($desc, 179) . '…';
+          }
+        }
+
+      // Categories.
+      } elseif (\dcCore::app()->url->type === 'category') {
+        $title = \dcCore::app()->ctx->categories->cat_title;
+
+        if (\dcCore::app()->ctx->categories->cat_desc !== '') {
+          $desc = \dcCore::app()->ctx->categories->cat_desc;
           $desc = html::decodeEntities(html::clean($desc));
           $desc = preg_replace('/\s+/', ' ', $desc);
           $desc = html::escapeHTML($desc);
@@ -60,86 +105,39 @@ class origineConfig
           if (strlen($desc) > 180) {
             $desc = text::cutString($desc, 179) . '…';
           }
-
-          if (context::EntryFirstImageHelper('o', true, '', true)) {
-            $img = context::EntryFirstImageHelper('o', true, '', true);
-          }
-
-        // Home.
-        } elseif (\dcCore::app()->url->type === 'default' || \dcCore::app()->url->type === 'default-page') {
-          $title = \dcCore::app()->blog->name;
-
-          if (intval(context::PaginationPosition()) > 1 ) {
-            $desc = sprintf(
-              __('Page %s'),
-              context::PaginationPosition()
-            );
-          }
-
-          if (\dcCore::app()->blog->desc !== '') {
-            if ($desc !== '') {
-              $desc .= ' – ';
-            }
-
-            $desc .= \dcCore::app()->blog->desc;
-            $desc  = html::decodeEntities(html::clean($desc));
-            $desc  = preg_replace('/\s+/', ' ', $desc);
-            $desc  = html::escapeHTML($desc);
-
-            if (strlen($desc) > 180) {
-              $desc = text::cutString($desc, 179) . '…';
-            }
-          }
-
-        // Categories.
-        } elseif (\dcCore::app()->url->type === 'category') {
-          $title = \dcCore::app()->ctx->categories->cat_title;
-
-          if (\dcCore::app()->ctx->categories->cat_desc !== '') {
-            $desc = \dcCore::app()->ctx->categories->cat_desc;
-            $desc = html::decodeEntities(html::clean($desc));
-            $desc = preg_replace('/\s+/', ' ', $desc);
-            $desc = html::escapeHTML($desc);
-
-            if (strlen($desc) > 180) {
-              $desc = text::cutString($desc, 179) . '…';
-            }
-          }
-
-        // Tags.
-        } elseif (\dcCore::app()->url->type === 'tag' && \dcCore::app()->ctx->meta->meta_type === 'tag') {
-          $title = \dcCore::app()->ctx->meta->meta_id;
-
-          $desc = sprintf(
-            __('Posts related to the tag %s'),
-            $title
-          );
         }
 
-        if ($title !== '') {
-          if ($img !== '') {
-            echo '<meta name=twitter:card content=summary_large_image>' . "\n";
-          }
+      // Tags.
+      } elseif (\dcCore::app()->url->type === 'tag' && \dcCore::app()->ctx->meta->meta_type === 'tag') {
+        $title = \dcCore::app()->ctx->meta->meta_id;
 
-          echo '<meta property=og:title content="' . html::escapeHTML($title) . '">' . "\n";
+        $desc = sprintf(__('Posts related to the tag %s'), $title);
+      }
 
-          if ($desc !== '') {
-            echo '<meta property="og:description" name="description" content="' . $desc . '">' . "\n";
-          }
+      if ($title !== '') {
+        if ($img !== '') {
+          echo '<meta name=twitter:card content=summary_large_image>', "\n";
+        }
 
-          if ($img !== '') {
-            echo '<meta property="og:image" content="' . html::escapeURL($img) . '">' . "\n";
-          }
+        echo '<meta property=og:title content="', html::escapeHTML($title) . '">', "\n";
+
+        if ($desc !== '') {
+          // Quotes are required for some social apps.
+          echo '<meta property="og:description" name="description" content="', $desc, '">', "\n";
+        }
+
+        if ($img !== '') {
+          // Quotes are required for some social apps.
+          echo '<meta property="og:image" content="', html::escapeURL($img), '">', "\n";
         }
       }
     }
   }
 
   /**
-   * Displays some content in the <head> section.
+   * Displays a meta generator marjup in the <head> section.
    *
-   * Supported tags:
-   * - Generator
+   * @return string The meta generator markup.
    */
   public static function origineConfigMetaGenerator()
   {
@@ -157,7 +155,9 @@ class origineConfig
   {
     if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_intro === true) {
       if (\dcCore::app()->ctx->posts->post_excerpt !== '') {
-        echo '<div id=post-single-excerpt>' . \dcCore::app()->ctx->posts->getExcerpt() . '</div>';
+        echo '<div id=post-single-excerpt>',
+        \dcCore::app()->ctx->posts->getExcerpt(),
+        '</div>';
       }
     }
   }
@@ -740,8 +740,8 @@ class origineConfig
             echo __("Link to the reaction of this post");
           }
 
-          echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions") . ">";
-          echo "[$nb_comments]</a>";
+          echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions") . ">",
+          "[$nb_comments]</a>";
         };
         ?>';
     }

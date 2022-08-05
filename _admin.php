@@ -6,8 +6,6 @@
  * @copyright GPL-3.0
  */
 
-use dcCore;
-
 if (!defined('DC_CONTEXT_ADMIN')) {
   return;
 }
