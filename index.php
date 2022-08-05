@@ -63,12 +63,12 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
     echo '<p>';
 
     if ($default_settings[$setting_id]['type'] === 'checkbox') {
-      $output .= form::checkbox(
+      echo form::checkbox(
         $setting_id,
         true,
         $settings[$setting_id]
-      );
-      echo '<label class="classic" for="' . $setting_id . '">',
+      ),
+      '<label class="classic" for="' . $setting_id . '">',
       $default_settings[$setting_id]['title'],
       '</label>';
     } elseif ($default_settings[$setting_id]['type'] === 'select' || $default_settings[$setting_id]['type'] === 'select_int') {
