@@ -94,15 +94,14 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
     echo '</p>';
 
     // If the setting has a description, displays it as a note.
-    if (isset($default_settings[$setting_id]['description'])) {
-      echo '<p class="form-note">',
-      $default_settings[$setting_id]['description'];
+    if (isset($default_settings[$setting_id]['description']) && $default_settings[$setting_id]['description'] !== '') {
+      echo '<p class="form-note">', $default_settings[$setting_id]['description'];
 
       if ($default_settings[$setting_id]['type'] === 'checkbox') {
         if ($default_settings[$setting_id]['default'] === true) {
-          echo ' ' . __('Default: checked.');
+          echo ' ', __('Default: checked.');
         } else {
-          echo ' ' . __('Default: unchecked.');
+          echo ' ', __('Default: unchecked.');
         }
       }
 
