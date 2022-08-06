@@ -57,8 +57,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
   $output = '';
 
   if (
-    $setting_id && !empty($settings) && !empty($default_settings)
-    && array_key_exists($setting_id, $default_settings) === true
+    $setting_id !== '' && !empty($settings) && !empty($default_settings) && array_key_exists($setting_id, $default_settings) === true
   ) {
     echo '<p>';
 
@@ -95,7 +94,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
     echo '</p>';
 
     // If the setting has a description, displays it as a note.
-    if ($default_settings[$setting_id]['description']) {
+    if (isset($default_settings[$setting_id]['description'])) {
       echo '<p class="form-note">',
       $default_settings[$setting_id]['description'];
 
@@ -317,6 +316,14 @@ if (!empty($_POST)) {
       $css_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
 
       $css_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
+
+      $css       .= origineConfigArrayToCSS($css_array);
+      $css_array  = [];
+    }
+
+    // Border radius.
+    if (isset($_POST['global_css_border_radius']) && $_POST['global_css_border_radius'] === '1') {
+      $css_array['#site-title,input,textarea,.post-selected']['border-radius'] = '.168rem';
 
       $css       .= origineConfigArrayToCSS($css_array);
       $css_array  = [];

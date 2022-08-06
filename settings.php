@@ -26,7 +26,7 @@ class origineConfigSettings {
         'sub_sections' => [
           'fonts'    => __('Fonts'),
           'layout'   => __('Layout'),
-          'colors'   => __('Colors'),
+          'colors'   => __('Colors and other styles'),
           'advanced' => __('Advanced settings'),
         ],
       ],
@@ -200,6 +200,15 @@ class origineConfigSettings {
     $default_settings['global_css_transition'] = [
       'title'       => __('Add a color transition on link hover'),
       'description' => __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.'),
+      'type'        => 'checkbox',
+      'default'     => 0,
+      'section'     => ['global', 'colors'],
+      'theme'       => 'origine-mini',
+    ];
+
+    $default_settings['global_css_border_radius'] = [
+      'title'       => __('Round the corners'),
+      'description' => __('Add a round angle to corner of borders.'),
       'type'        => 'checkbox',
       'default'     => 0,
       'section'     => ['global', 'colors'],
