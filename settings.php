@@ -179,8 +179,8 @@ class origineConfigSettings {
     } else {
       $global_color_secondary_default = 'blue';
       $global_color_secondary_choices = [
-        __('Red')            => 'red',
         __('Blue (default)') => 'blue',
+        __('Red')            => 'red',
         __('Green')          => 'green',
         __('Orange')         => 'orange',
         __('Purple')         => 'purple',
@@ -402,6 +402,15 @@ class origineConfigSettings {
       'default'     => 'content_footer',
       'section'     => ['widgets', 'no-title'],
       'theme'       => 'all',
+    ];
+
+    $default_settings['widgets_search_form'] = [
+      'title'       => __('Add a search form at the top of the navigation widget area'),
+      'description' => '',
+      'type'        => 'checkbox',
+      'default'     => 0,
+      'section'     => ['widgets', 'no-title'],
+      'theme'       => 'origine-mini',
     ];
 
     $default_settings['widgets_extra_enabled'] = [
