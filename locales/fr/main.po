@@ -211,10 +211,16 @@ msgid "Text formatting"
 msgstr "Format du texte"
 
 msgid "Font family"
-msgstr "Famille de police"
+msgstr "Famille de polices"
 
 msgid "Serif (default)"
 msgstr "Avec empattements (par défaut)"
+
+msgid "Serif"
+msgstr "Avec empattements"
+
+msgid "Sans serif (default)"
+msgstr "Sans empattements (par défaut)"
 
 msgid "Sans serif"
 msgstr "Sans empattements"
@@ -245,6 +251,12 @@ msgstr "120 %"
 
 msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
 msgstr "Il est recommandé de ne pas modifier ce paramètre. Une taille de 100 % signifie que les textes de votre site auront la taille définie dans les paramètres du navigateur de chacun de vos visiteurs."
+
+msgid "Font family of post, page and comment content"
+msgstr "Famille de police du contenu des billets, pages et commentaires"
+
+msgid "Same as the main font family (défault)"
+msgstr "Identique à la famille de polices principale (par défaut)"
 
 msgid "Text align"
 msgstr "Alignement du texte"

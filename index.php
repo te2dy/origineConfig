@@ -216,13 +216,19 @@ if (!empty($_POST)) {
     $css       = '';
     $css_array = [];
 
+    $font_serif = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+
+    $font_sans_serif = '-apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif';
+
+    $font_mono = 'Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace';
+
     // Font family.
     if (isset($_POST['global_font_family']) && $_POST['global_font_family'] === 'serif') {
-      $css_array[':root']['--font-family'] = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+      $css_array[':root']['--font-family'] = $font_serif;
     } elseif (isset($_POST['global_font_family']) && $_POST['global_font_family'] === 'sans-serif') {
-      $css_array[':root']['--font-family'] = '-apple-system, BlinkMacSystemFont, "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Ubuntu, Roboto, Noto, Arial, sans-serif';
+      $css_array[':root']['--font-family'] = $font_sans_serif;
     } else {
-      $css_array[':root']['--font-family'] = 'Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace';
+      $css_array[':root']['--font-family'] = $font_mono;
     }
 
     // Font size.
@@ -333,10 +339,26 @@ if (!empty($_POST)) {
       $css_array  = [];
     }
 
+    // Font family of content.
+    if (isset($_POST['content_text_font']) && $_POST['content_text_font'] !== 'same' && $_POST['global_font_family'] !== $_POST['content_text_font']) {
+      if ($_POST['content_text_font'] === 'serif') {
+        $css_array['.text']['font-family'] = $font_serif;
+      } elseif ($_POST['content_text_font'] === 'sans-serif') {
+        $css_array['.text']['font-family'] = $font_sans_serif;
+      } else {
+        $css_array['.text']['font-family'] = $font_mono;
+      }
+
+      if (!empty($css_array)) {
+        $css       .= origineConfigArrayToCSS($css_array);
+        $css_array  = [];
+      }
+    }
+
     // Hyphens.
     if (isset($_POST['content_hyphens']) && $_POST['content_hyphens'] !== 'disabled') {
-      $css_array['.test']['-webkit-hyphens'] = 'auto';
-      $css_array['.test']['-moz-hyphens']    = 'auto';
+      $css_array['.text']['-webkit-hyphens'] = 'auto';
+      $css_array['.text']['-moz-hyphens']    = 'auto';
       $css_array['.text']['-ms-hyphens']     = 'auto';
       $css_array['.text']['hyphens']         = 'auto';
 
@@ -454,7 +476,7 @@ if (!empty($_POST)) {
           <?php
           echo $default_settings['active']['description'],
           ' ',
-          __('Default: unchecked.');
+          __('Default: checked.');
           ?>
         </p>
 

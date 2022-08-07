@@ -92,7 +92,7 @@ class origineConfigSettings {
       'title'       => __('Enable extension settings'),
       'description' => __('If you do not check this box, your settings will be ignored.'),
       'type'        => 'checkbox',
-      'default'     => 0,
+      'default'     => 1,
       'theme'       => 'all',
     ];
 
@@ -286,6 +286,32 @@ class origineConfigSettings {
       'default'     => 0,
       'section'     => ['content', 'post-list'],
       'theme'       => 'origine',
+    ];
+
+    if ($theme === 'origine') {
+      $content_text_font_family_choices = [
+        __('Same as the main font family (default)') => 'same',
+        __('Serif')                                  => 'serif',
+        __('Sans serif')                             => 'sans-serif',
+        __('Monospace')                              => 'monospace',
+      ];
+    } else {
+      $content_text_font_family_choices = [
+        __('Same as the main font family (default)') => 'same',
+        __('Sans serif')                             => 'sans-serif',
+        __('Serif')                                  => 'serif',
+        __('Monospace')                              => 'monospace',
+      ];
+    }
+
+    $default_settings['content_text_font'] = [
+      'title'       => __('Font family of post, page and comment content'),
+      'description' => '',
+      'type'        => 'select',
+      'choices'     => $content_text_font_family_choices,
+      'default'     => 'same',
+      'section'     => ['content', 'text-formatting'],
+      'theme'       => 'all',
     ];
 
     $default_settings['content_text_align'] = [
