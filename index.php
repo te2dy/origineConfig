@@ -232,17 +232,22 @@ if (!empty($_POST)) {
 
     // Secondary color hue.
     $secondary_colors_allowed = [
-      'red'    => '0',
-      'blue'   => '220',
-      'green'  => '120',
-      'orange' => '40',
-      'purple' => '290',
+      'red'         => ['0', '80%', '50%'],
+      'blue'        => ['220', '100%', '45%'],
+      'blue-dark'   => ['240', '95%', '30%'],
+      'blue-france' => ['215', '89%', '14%'],
+      'green'       => ['120', '100%', '20%'],
+      'purple'      => ['290', '75%', '50%'],
     ];
 
     if (array_key_exists($_POST['global_color_secondary'], $secondary_colors_allowed)) {
-      $css_array[':root']['--color-h'] = $secondary_colors_allowed[$_POST['global_color_secondary']];
+      $css_array[':root']['--color-h'] = $secondary_colors_allowed[$_POST['global_color_secondary']][0];
+      $css_array[':root']['--color-s'] = $secondary_colors_allowed[$_POST['global_color_secondary']][1];
+      $css_array[':root']['--color-l'] = $secondary_colors_allowed[$_POST['global_color_secondary']][2];
     } else {
-      $css_array[':root']['--color-h'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']];
+      $css_array[':root']['--color-h'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']][0];
+      $css_array[':root']['--color-s'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']][1];
+      $css_array[':root']['--color-l'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']][2];
     }
 
     // Page width.

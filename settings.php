@@ -172,20 +172,20 @@ class origineConfigSettings {
       $global_color_secondary_choices = [
         __('Red (default)') => 'red',
         __('Blue')          => 'blue',
-        __('Green')         => 'green',
-        __('Orange')        => 'orange',
-        __('Purple')        => 'purple',
       ];
     } else {
       $global_color_secondary_default = 'blue';
       $global_color_secondary_choices = [
         __('Blue (default)') => 'blue',
+        __('Dark blue')      => 'blue-dark',
+        __('French blue')    => 'blue-france',
         __('Red')            => 'red',
-        __('Green')          => 'green',
-        __('Orange')         => 'orange',
         __('Purple')         => 'purple',
+        __('Green')          => 'green',
       ];
     }
+
+    ksort($global_color_secondary_choices);
 
     $default_settings['global_color_secondary'] = [
       'title'       => __('Secondary color'),
