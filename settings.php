@@ -233,6 +233,15 @@ class origineConfigSettings {
       'theme'       => 'all',
     ];
 
+    $default_settings['global_meta_pingback'] = [
+      'title'       => __('Add a pingback link in head'),
+      'description' => '',
+      'type'        => 'checkbox',
+      'default'     => 0,
+      'section'     => ['global', 'advanced'],
+      'theme'       => 'origine-mini',
+    ];
+
     // Header.
     $default_settings['header_align'] = [
       'title'       => __('Header alignment'),

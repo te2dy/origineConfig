@@ -14,7 +14,7 @@ if (!defined('DC_RC_PATH')) {
 
 // Behaviors.
 \dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineMinimalSocialMarkups']);
-\dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigMetaGenerator']);
+\dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigMeta']);
 \dcCore::app()->addBehavior('publicEntryBeforeContent', ['origineConfig', 'origineConfigPostIntro']);
 \dcCore::app()->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
 \dcCore::app()->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
@@ -136,15 +136,23 @@ class origineConfig
   }
 
   /**
-   * Displays a meta generator marjup in the <head> section.
+   * Display some meta markups in head.
    *
-   * @return string The meta generator markup.
+   * @return string Meta markups.
    */
-  public static function origineConfigMetaGenerator()
+  public static function origineConfigMeta()
   {
-    if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->global_meta_generator === true) {
-      echo '<meta name=generator content=Dotclear>' . "\n";
-    }
+    if (\dcCore::app()->blog->settings->origineConfig->active === true) {
+      if (\dcCore::app()->blog->settings->origineConfig->global_meta_generator === true) {
+        echo '<meta name=generator content=Dotclear>', "\n";
+      }
+
+      if (\dcCore::app()->blog->settings->origineConfig->global_meta_pingback === true) {
+        if (\dcCore::app()->blog->url === 'post' && \dcCore::app()->ctx->posts->trackbacksActive() === true) {
+          echo '<link rel=pingback href=', html::escapeURL(\dcCore::app()->blog->url . \dcCore::app()->url->getURLFor('xmlrpc', \dcCore::app()->blog->id)), '>', "\n";
+        }
+      }
+    } 
   }
 
   /**
