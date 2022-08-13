@@ -546,10 +546,10 @@ if (!empty($_POST)) {
         }
 
         $css .= !empty($css_root_array) ? origineConfigArrayToCSS($css_root_array) : '';
-        $css .= !empty($css_root_media_array) ? '@media (prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_media_array) . '}' : '';
+        $css .= !empty($css_root_media_array) ? ' @media (prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_media_array) . '}' : '';
         $css .= !empty($css_main_array) ? origineConfigArrayToCSS($css_main_array) : '';
-        $css .= !empty($css_media_array) ? '@media (max-width: 34em){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
-        $css .= !empty($css_media_contrast_array) ? '@media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
+        $css .= !empty($css_media_array) ? ' @media (max-width: 34em){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
+        $css .= !empty($css_media_contrast_array) ? ' @media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
 
         $css_array = [];
 
