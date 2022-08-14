@@ -222,6 +222,7 @@ if (!empty($_POST)) {
         $css_main_array           = [];
         $css_media_array          = [];
         $css_media_contrast_array = [];
+        $css_media_motion_array   = [];
 
         // Page width.
         $page_width_allowed = [30, 35, 40];
@@ -556,25 +557,21 @@ if (!empty($_POST)) {
             $css_media_array['.text']['hyphenate-limit-last']         = 'unset';
         }
 
+        // Reduced motion.
+        if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
+            $css_media_motion_array['a']['transition']                 = 'none';
+            $css_media_motion_array['a:active, a:hover']['transition'] = 'none';
+
+            $css_media_motion_array['input[type="submit"], .form-submit, .button']['transition']                   = 'none';
+            $css_media_motion_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'none';
+        }
+
         $css .= !empty($css_root_array) ? origineConfigArrayToCSS($css_root_array) : '';
         $css .= !empty($css_root_media_array) ? ' @media (prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_media_array) . '}' : '';
         $css .= !empty($css_main_array) ? origineConfigArrayToCSS($css_main_array) : '';
         $css .= !empty($css_media_array) ? ' @media (max-width: 34em){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
         $css .= !empty($css_media_contrast_array) ? ' @media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
-
-        $css_array = [];
-
-        // Reduced motion.
-        if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
-            $css_array['a']['transition']                 = 'none';
-            $css_array['a:active, a:hover']['transition'] = 'none';
-
-            $css_array['input[type="submit"], .form-submit, .button']['transition']                   = 'none';
-            $css_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'none';
-
-            $css .= ' @media (prefers-reduced-motion:reduce) {' . origineConfigArrayToCSS($css_array) . '}';
-            $css_array  = [];
-        }
+        $css .= !empty($css_media_motion_array) ? ' @media (prefers-reduced-motion:reduce){' . origineConfigArrayToCSS($css_media_motion_array) . '}' : '';
 
         \dcCore::app()->blog->settings->origineConfig->put(
             'css_' . str_replace('-', '_', \dcCore::app()->blog->settings->system->theme),
