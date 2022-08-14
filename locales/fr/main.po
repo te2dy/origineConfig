@@ -30,6 +30,9 @@ msgstr "Re:"
 
 # Comments
 
+msgid "Previewing comment"
+msgstr "Prévisualisation du commentaire"
+
 msgid "comments"
 msgstr "commentaires"
 

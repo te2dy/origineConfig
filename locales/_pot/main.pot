@@ -30,6 +30,9 @@ msgstr ""
 
 # Comments
 
+msgid "Previewing comment"
+msgstr ""
+
 msgid "comments"
 msgstr ""
 
