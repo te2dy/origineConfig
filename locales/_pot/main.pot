@@ -13,25 +13,6 @@ msgstr ""
 
 ## _public.php
 
-# Share links
-msgid "Share:"
-msgstr ""
-
-msgid "Email"
-msgstr ""
-
-msgid "Facebook"
-msgstr ""
-
-msgid "Print"
-msgstr ""
-
-msgid "WhatsApp"
-msgstr ""
-
-msgid "Twitter"
-msgstr ""
-
 # Logo
 msgid "Header image"
 msgstr ""
@@ -72,8 +53,10 @@ msgstr ""
 msgid "Settings have been successfully updated."
 msgstr ""
 
-msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and activate Origine</a>."
+msgid "This plugin is only meant to customize themes of the Origine family. To use it, please <a href=%s>install and activate Origine or Origine Mini</a>."
 msgstr ""
+
+# Activation
 
 msgid "Enable extension settings"
 msgstr ""
@@ -86,7 +69,52 @@ msgstr ""
 msgid "Global"
 msgstr ""
 
-msgid "Appearance"
+msgid "Fonts"
+msgstr ""
+
+msgid "Font family"
+msgstr ""
+
+msgid "Serif (default)"
+msgstr ""
+
+msgid "Serif"
+msgstr ""
+
+msgid "Sans serif (default)"
+msgstr ""
+
+msgid "Sans serif"
+msgstr ""
+
+msgid "Monospace"
+msgstr ""
+
+msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
+msgstr ""
+
+msgid "Font size"
+msgstr ""
+
+msgid "80%"
+msgstr ""
+
+msgid "90%"
+msgstr ""
+
+msgid "100% (recommended)"
+msgstr ""
+
+msgid "110%"
+msgstr ""
+
+msgid "120%"
+msgstr ""
+
+msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
+msgstr ""
+
+msgid "Colors and other styles"
 msgstr ""
 
 msgid "Color scheme"
@@ -101,28 +129,37 @@ msgstr ""
 msgid "Dark"
 msgstr ""
 
-msgid "Link color"
+msgid "When system is selected, the theme will use the color scheme of the user’s settings."
+msgstr ""
+
+msgid "Secondary color"
 msgstr ""
 
 msgid "Red (default)"
 msgstr ""
 
+msgid "Red"
+msgstr ""
+
 msgid "Blue"
 msgstr ""
 
-msgid "Green"
+msgid "Blue (default)"
 msgstr ""
 
-msgid "Orange"
+msgid "Dark blue"
+msgstr ""
+
+msgid "French blue"
 msgstr ""
 
 msgid "Purple"
 msgstr ""
 
-msgid "Separator"
+msgid "Green"
 msgstr ""
 
-msgid "Character(s) used to separate certain elements of the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."
+msgid "Especially used for links."
 msgstr ""
 
 msgid "Add a color transition on link hover"
@@ -132,6 +169,12 @@ msgid "Accessibility: transitions are automatically disabled when the user has r
 msgstr ""
 
 msgid "Advanced settings"
+msgstr ""
+
+msgid "Add minimal social markups"
+msgstr ""
+
+msgid "Useful to promote your content on social networks."
 msgstr ""
 
 msgid "Add <code>generator</code> meta tag"
@@ -198,40 +241,10 @@ msgstr ""
 msgid "Text formatting"
 msgstr ""
 
-msgid "Font family"
+msgid "Font family of post, page and comment content"
 msgstr ""
 
-msgid "Serif (default)"
-msgstr ""
-
-msgid "Sans serif"
-msgstr ""
-
-msgid "Monospace"
-msgstr ""
-
-msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
-msgstr ""
-
-msgid "Font size"
-msgstr ""
-
-msgid "80%"
-msgstr ""
-
-msgid "90%"
-msgstr ""
-
-msgid "100% (recommended)"
-msgstr ""
-
-msgid "110%"
-msgstr ""
-
-msgid "120%"
-msgstr ""
-
-msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
+msgid "Same as the main font family (default)"
 msgstr ""
 
 msgid "Text align"
@@ -273,16 +286,16 @@ msgstr ""
 msgid "Display the author name in the post list"
 msgstr ""
 
-msgid "Share links"
+msgid "Other"
 msgstr ""
 
-msgid "Share links to display:"
+msgid "Global separator"
 msgstr ""
+
+msgid "Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."
+msgstr ""/\"."
 
 msgid "Comments"
-msgstr ""
-
-msgid "Display the number of comments in the post list (only if the post has comments)"
 msgstr ""
 
 msgid "Add a link to the comment feed and trackbacks below the comment section"
@@ -301,7 +314,7 @@ msgid "Always"
 msgstr ""
 
 msgid "If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin."
-msgstr ""
+msgstr ""%s">Signal</a>."
 
 # Widgets
 
@@ -337,10 +350,13 @@ msgstr ""
 msgid "If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting."
 msgstr ""
 
+msgid "Add a link to support Dotclear and Origine"
+msgstr ""
+
 msgid "Footer alignment"
 msgstr ""
 
-msgid "Add a link to support Dotclear and Origine"
+msgid "Social links"
 msgstr ""
 
 msgid "Link to a Diaspora profile"
@@ -370,5 +386,18 @@ msgstr ""
 msgid "A WhatsApp number or a group link"
 msgstr ""
 
+# Submit
+
 msgid "Save"
+msgstr ""
+
+msgid "Reset all settings"
+msgstr ""
+
+msgid "You settings do not work? Do not forget to activate them — see <a href=%s>the first checkbox</a>."
+msgstr ""
+
+# Other translations
+
+msgid "Display the number of comments in the post list (only if the post has comments)"
 msgstr ""

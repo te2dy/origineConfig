@@ -13,25 +13,6 @@ msgstr "Paramètres d’Origine"
 
 ## _public.php
 
-# Share links
-msgid "Share:"
-msgstr "Partager&nbsp;:"
-
-msgid "Email"
-msgstr "Courriel"
-
-msgid "Facebook"
-msgstr "Facebook"
-
-msgid "Print"
-msgstr "Imprimer"
-
-msgid "WhatsApp"
-msgstr "WhatsApp"
-
-msgid "Twitter"
-msgstr "Twitter"
-
 # Logo
 msgid "Header image"
 msgstr "Image d’en-tête"
@@ -72,8 +53,10 @@ msgstr "Par défaut : décoché."
 msgid "Settings have been successfully updated."
 msgstr "Les paramètres ont été enregistrés avec succès."
 
-msgid "This plugin is only meant to customize Origine theme. To use it, please <a href="%s">install and activate Origine</a>."
-msgstr "Cette extension n’a pour but que de personnaliser le thème Origine. Pour l’utiliser, veuillez <a href="%s">installer et activer Origine</a>."
+msgid "This plugin is only meant to customize themes of the Origine family. To use it, please <a href=%s>install and activate Origine or Origine Mini</a>."
+msgstr "Ce <em>plugin</em> n’a pour but que de personnaliser les thèmes de la famille Origine. Pour l’utiliser, veuillez <a href=%s>installer et activer Origine ou Origine Mini</a>."
+
+# Activation
 
 msgid "Enable extension settings"
 msgstr "Activer les paramètres de l’extension"
@@ -86,8 +69,53 @@ msgstr "Si vous ne cochez pas cette case, vos paramètres seront ignorés."
 msgid "Global"
 msgstr "Globaux"
 
-msgid "Appearance"
-msgstr "Apparence"
+msgid "Fonts"
+msgstr "Police d’écriture"
+
+msgid "Font family"
+msgstr "Famille de polices"
+
+msgid "Serif (default)"
+msgstr "Avec empattements (par défaut)"
+
+msgid "Serif"
+msgstr "Avec empattements"
+
+msgid "Sans serif (default)"
+msgstr "Sans empattements (par défaut)"
+
+msgid "Sans serif"
+msgstr "Sans empattements"
+
+msgid "Monospace"
+msgstr "À chasse fixe"
+
+msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
+msgstr "Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargement et d’avoir une continuité graphique avec le système."
+
+msgid "Font size"
+msgstr "Taille de la police"
+
+msgid "80%"
+msgstr "80 %"
+
+msgid "90%"
+msgstr "90 %"
+
+msgid "100% (recommended)"
+msgstr "100 % (recommandé)"
+
+msgid "110%"
+msgstr "110 %"
+
+msgid "120%"
+msgstr "120 %"
+
+msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
+msgstr "Il est recommandé de ne pas modifier ce paramètre. Une taille de 100 % signifie que les textes de votre site auront la taille définie dans les paramètres du navigateur de chacun de vos visiteurs."
+
+msgid "Colors and other styles"
+msgstr "Couleurs et autre styles"
 
 msgid "Color scheme"
 msgstr "Schéma de couleur"
@@ -101,29 +129,38 @@ msgstr "Clair"
 msgid "Dark"
 msgstr "Sombre"
 
-msgid "Link color"
-msgstr "Couleur des liens"
+msgid "When system is selected, the theme will use the color scheme of the user’s settings."
+msgstr "Quand Système est sélectionné, le thème utilisa le schéma de couleurs des paramètres de l’utilisateurs."
+
+msgid "Secondary color"
+msgstr "Couleur secondaire"
 
 msgid "Red (default)"
 msgstr "Rouge (par défaut)"
 
+msgid "Red"
+msgstr "Rouge"
+
 msgid "Blue"
 msgstr "Bleu"
 
-msgid "Green"
-msgstr "Vert"
+msgid "Blue (default)"
+msgstr "Bleu (par défaut)"
 
-msgid "Orange"
-msgstr "Orange"
+msgid "Dark blue"
+msgstr "Bleu foncé"
+
+msgid "French blue"
+msgstr "Bleu de France"
 
 msgid "Purple"
 msgstr "Violet"
 
-msgid "Separator"
-msgstr "Séparateur"
+msgid "Green"
+msgstr "Vert"
 
-msgid "Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."
-msgstr "Caractère(s) utilisé(s) pour séparer certains éléments à l’intérieur du thème (exemple&nbsp;: la date du nom de l’auteur quand ce dernier est affiché). Valeur par défaut : \"/\"."
+msgid "Especially used for links."
+msgstr "Utilisée en particulier pour les liens."
 
 msgid "Add a color transition on link hover"
 msgstr "Ajouter une transition de couleur au survol des liens"
@@ -133,6 +170,12 @@ msgstr "Accessibilité&nbsp;: les transitions sont automatiquement désactivées
 
 msgid "Advanced settings"
 msgstr "Paramètres avancés"
+
+msgid "Add minimal social markups"
+msgstr "Ajouter des balises sociales minimalistes"
+
+msgid "Useful to promote your content on social networks."
+msgstr "Utile pour promouvoir vos contenus sur les réseaux sociaux."
 
 msgid "Add <code>generator</code> meta tag"
 msgstr "Ajouter la balise meta <code>generator</code>"
@@ -198,41 +241,11 @@ msgstr "Seulement si l’affichage des billets est défini sur «&nbsp;standard&
 msgid "Text formatting"
 msgstr "Format du texte"
 
-msgid "Font family"
-msgstr "Famille de police"
+msgid "Font family of post, page and comment content"
+msgstr "Famille de police du contenu des billets, pages et commentaires"
 
-msgid "Serif (default)"
-msgstr "Avec empattements (par défaut)"
-
-msgid "Sans serif"
-msgstr "Sans empattements"
-
-msgid "Monospace"
-msgstr "À chasse fixe"
-
-msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
-msgstr "Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargement et d’avoir une continuité graphique avec le système."
-
-msgid "Font size"
-msgstr "Taille de la police"
-
-msgid "80%"
-msgstr "80 %"
-
-msgid "90%"
-msgstr "90 %"
-
-msgid "100% (recommended)"
-msgstr "100 % (recommandé)"
-
-msgid "110%"
-msgstr "110 %"
-
-msgid "120%"
-msgstr "120 %"
-
-msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
-msgstr "Il est recommandé de ne pas modifier ce paramètre. Une taille de 100 % signifie que les textes de votre site auront la taille définie dans les paramètres du navigateur de chacun de vos visiteurs."
+msgid "Same as the main font family (default)"
+msgstr "Identique à la famille de polices principale (par défaut)"
 
 msgid "Text align"
 msgstr "Alignement du texte"
@@ -273,17 +286,17 @@ msgstr "Sous le billet comme une signature"
 msgid "Display the author name in the post list"
 msgstr "Afficher le nom de l’auteur dans la liste des billets"
 
-msgid "Share links"
-msgstr "Liens de partage"
+msgid "Other"
+msgstr "Autre"
 
-msgid "Share links to display:"
-msgstr "Liens de partage à afficher&nbsp;:"
+msgid "Global separator"
+msgstr "Séparateur global"
+
+msgid "Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."
+msgstr "Caractère(s) utilisé(s) pour séparer certains éléments à l’intérieur du thème (exemple&nbsp;: la date du nom de l’auteur quand ce dernier est affiché). Valeur par défaut : \"/\"."
 
 msgid "Comments"
 msgstr "Commentaires"
-
-msgid "Display the number of comments in the post list (only if the post has comments)"
-msgstr "Afficher le nombre de commentaires dans la liste des billets (seulement si le billet a des commentaires)"
 
 msgid "Add a link to the comment feed and trackbacks below the comment section"
 msgstr "Ajouter un lien vers le fil des commentaires et les rétroliens sous la section des commentaires"
@@ -337,14 +350,17 @@ msgstr "Activer le pied de page"
 msgid "If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting."
 msgstr "Si votre pied de page est vide ou que vous souhaitez tout supprimer au bas de vos pages, décochez ce paramètre."
 
-msgid "Footer alignment"
-msgstr "Alignement du pied de page"
-
 msgid "Add a link to support Dotclear and Origine"
 msgstr "Ajouter un lien pour soutenir Dotclear et Origine"
 
+msgid "Footer alignment"
+msgstr "Alignement du pied de page"
+
+msgid "Social links"
+msgstr "Liens sociaux"
+
 msgid "Link to a Diaspora profile"
-msgstr "Lien vers un profil Diaspora*"
+msgstr "Lien vers un profil Diaspora"
 
 msgid "Link to a Discord server"
 msgstr "Lien vers un serveur Discord"
@@ -370,5 +386,18 @@ msgstr "Un nom d’utilisateur Twitter"
 msgid "A WhatsApp number or a group link"
 msgstr "Un numéro WhatsApp ou un lien de groupe"
 
+# Submit
+
 msgid "Save"
 msgstr "Enregistrer"
+
+msgid "Reset all settings"
+msgstr "Réinitialiser tous les paramètres"
+
+msgid "You settings do not work? Do not forget to activate them — see <a href=%s>the first checkbox</a>."
+msgstr "Vos paramètres ne fonctionnent pas ? N’oubliez pas de les activer – allez voir <a href=%s>le premier paramètre à cocher</a>."
+
+# Other translations
+
+msgid "Display the number of comments in the post list (only if the post has comments)"
+msgstr "Afficher le nombre de commentaires dans la liste des billets (seulement si le billet a des commentaires)"

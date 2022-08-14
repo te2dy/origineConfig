@@ -1,13 +1,13 @@
 <?php
 /**
- * origineConfig, a plugin to customize Origine, a Dotclear theme.
+ * origineConfig, a plugin to customize themes of the Origine family.
  *
  * @copyright Teddy
  * @copyright GPL-3.0
  */
 
 if (!defined('DC_CONTEXT_ADMIN')) {
-  return;
+    return;
 }
 
 include __DIR__ . '/settings.php';
@@ -16,87 +16,52 @@ $new_version = $core->plugins->moduleInfo('origineConfig', 'version');
 $old_version = $core->getVersion('origineConfig');
 
 if (version_compare($old_version, $new_version, '>=')) {
-  return;
+    return;
 }
 
 try {
-  $core->blog->settings->addNamespace('origineConfig');
+    $core->blog->settings->addNamespace('origineConfig');
 
-  /**
-   * Old settings to delete from the database on the next version.
-   *
-   * @since origineConfig 1.0
-   */
-  $settings_to_drop = [
-    'activation',
-    'color_scheme',
-    'link_color',
-    'css_transition',
-    'meta_generator',
-    'header_footer_align',
-    'post_list_type',
-    'widgets_enabled',
-    'footer_enabled',
-    'logo_url',
-    'logo_url_2x',
-    'logo_type',
-    'content_font_family',
-    'content_font_size',
-    'content_text_align',
-    'content_hyphens',
-    'content_share_link_twitter',
-    'post_author_name',
-    'post_list_author_name',
-    'post_list_comments',
-    'comment_links',
-    'post_email_author',
-    'footer_credits',
-    'social_links_diaspora',
-    'social_links_discord',
-    'social_links_facebook',
-    'social_links_github',
-    'social_links_mastodon',
-    'social_links_signal',
-    'social_links_tiktok',
-    'social_links_twitter',
-    'social_links_whatsapp',
-    'origine_styles',
-    'sidebar_enabled',
-  ];
+    /**
+     * Delete the old database entry which contained all the settings.
+     *
+     * To remove after some releases.
+     */
+    $core->blog->settings->origineConfig->drop('origine_settings');
 
-  // Deletes old settings.
-  foreach($settings_to_drop as $setting_id) {
-    $core->blog->settings->origineConfig->dropEvery($setting_id, true);
-  }
+    // Default settings to define in the database.
+    $oc_settings_default = origineConfigSettings::default_settings();
 
-  // Default settings to define in the database.
-  $origine_settings_default = origineConfigSettings::default_settings();
-
-  if (is_array($core->blog->settings->origineConfig->origine_settings) && !empty($core->blog->settings->origineConfig->origine_settings)) {
-    $origine_settings  = $core->blog->settings->origineConfig->origine_settings;
-    $settings_to_unset = origineConfigSettings::settings_to_unset();
-
-    // Deletes outdated settings.
-    if (!empty($settings_to_unset)) {
-      foreach ($settings_to_unset as $setting_id) {
-        if (array_key_exists($setting_id, $origine_settings)) {
-          unset($origine_settings[$setting_id]);
+    foreach($oc_settings_default as $setting_id => $setting_data) {
+        if ($setting_data['type'] === 'checkbox') {
+            $setting_type = 'boolean';
+        } else {
+            $setting_type = 'string';
         }
-      }
+
+        $core->blog->settings->origineConfig->put(
+            $setting_id,
+            $setting_data['default'],
+            $setting_type,
+            $setting_data['title'],
+            false,
+            true
+        );
     }
 
-    $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false, true);
-  } else {
-    $origine_settings = $origine_settings_default;
-  }
+    // Removes unused settings if still exists.
+    $settings_to_unset = origineConfigSettings::settings_to_unset();
 
-  $core->blog->settings->origineConfig->put('origine_settings', $origine_settings, 'array', 'All Origine settings', false, true);
+    foreach ($settings_to_unset as $setting_id) {
+        $core->blog->settings->origineConfig->dropEvery($setting_id, true);
+    }
 
-  $core->setVersion('origineConfig', $new_version);
+    // Sets the new version number of the plugin.
+    $core->setVersion('origineConfig', $new_version);
 
-  return true;
+    return true;
 } catch (Exception $e) {
-  $core->error->add($e->getMessage());
+    $core->error->add($e->getMessage());
 }
 
 return false;
