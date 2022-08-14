@@ -150,12 +150,12 @@ class origineConfigSettings {
             ],
             'default'     => 'system',
             'section'     => ['global', 'layout'],
-            'theme'       => ['origine-mini']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['global_color_scheme'] = [
             'title'       => __('Color scheme'),
-            'description' => __('When system is selected, the theme will use the color scheme of the user’s settings'),
+            'description' => __('When system is selected, the theme will use the color scheme of the user’s settings.'),
             'type'        => 'select',
             'choices'     => [
                 __('System (default)') => 'system',
@@ -171,7 +171,10 @@ class origineConfigSettings {
             $global_color_secondary_default = 'red';
             $global_color_secondary_choices = [
                 __('Red (default)') => 'red',
-                __('Blue')          => 'blue'
+                __('Blue')          => 'blue',
+                __('Green')         => 'green',
+                __('Orange')        => 'orange',
+                __('Purple')        => 'purple'
             ];
         } else {
             $global_color_secondary_default = 'blue';
@@ -203,7 +206,7 @@ class origineConfigSettings {
             'type'        => 'checkbox',
             'default'     => 0,
             'section'     => ['global', 'colors'],
-            'theme'       => ['origine-mini']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['global_css_border_radius'] = [
@@ -489,6 +492,15 @@ class origineConfigSettings {
             'theme'       => ['origine', 'origine-mini']
         ];
 
+        $default_settings['footer_social_links_diaspora'] = [
+            'title'       => __('Link to a Diaspora profile'),
+            'description' => '',
+            'type'        => 'text',
+            'default'     => '',
+            'section'     => ['footer', 'social-links'],
+            'theme'       => ['origine']
+        ];
+
         $default_settings['footer_social_links_discord'] = [
             'title'       => __('Link to a Discord server'),
             'description' => '',
@@ -561,13 +573,22 @@ class origineConfigSettings {
             'theme'       => ['origine']
         ];
 
-        $default_settings['global_css'] = [
-            'title'       => __('All theme styles'),
+        $default_settings['css_origine'] = [
+            'title'       => __('All custom styles of Origine'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
             'section'     => [],
-            'theme'       => ['origine', 'origine-mini']
+            'theme'       => ['origine']
+        ];
+
+        $default_settings['css_origine_mini'] = [
+            'title'       => __('All custom styles of Origine Mini'),
+            'description' => '',
+            'type'        => 'text',
+            'default'     => '',
+            'section'     => [],
+            'theme'       => ['origine-mini']
         ];
 
         return $default_settings;
@@ -609,6 +630,7 @@ class origineConfigSettings {
             'content_post_list_comments',
             'header_widgets_nav',
             'widgets_enabled',
+            'global_css',
         ];
 
         return $settings_to_unset;
