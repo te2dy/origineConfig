@@ -447,33 +447,33 @@ if (!empty($_POST)) {
         // Font family of content.
         if (isset($_POST['content_text_font']) && $_POST['content_text_font'] !== 'same' && $_POST['global_font_family'] !== $_POST['content_text_font']) {
             if ($_POST['content_text_font'] === 'serif') {
-                $css_main_array['.text']['font-family'] = $font_serif;
+                $css_main_array['.content-text']['font-family'] = $font_serif;
             } elseif ($_POST['content_text_font'] === 'sans-serif') {
-                $css_main_array['.text']['font-family'] = $font_sans_serif;
+                $css_main_array['.content-text']['font-family'] = $font_sans_serif;
             } else {
-                $css_main_array['.text']['font-family'] = $font_mono;
+                $css_main_array['.content-text']['font-family'] = $font_mono;
             }
         }
 
         // Hyphens.
         if (isset($_POST['content_hyphens']) && $_POST['content_hyphens'] !== 'disabled') {
-            $css_main_array['.text']['-webkit-hyphens'] = 'auto';
-            $css_main_array['.text']['-moz-hyphens']    = 'auto';
-            $css_main_array['.text']['-ms-hyphens']     = 'auto';
-            $css_main_array['.text']['hyphens']         = 'auto';
+            $css_main_array['.content-text']['-webkit-hyphens'] = 'auto';
+            $css_main_array['.content-text']['-moz-hyphens']    = 'auto';
+            $css_main_array['.content-text']['-ms-hyphens']     = 'auto';
+            $css_main_array['.content-text']['hyphens']         = 'auto';
 
-            $css_main_array['.text']['-webkit-hyphenate-limit-chars'] = '5 2 2';
-            $css_main_array['.text']['-moz-hyphenate-limit-chars']    = '5 2 2';
-            $css_main_array['.text']['-ms-hyphenate-limit-chars']     = '5 2 2';
+            $css_main_array['.content-text']['-webkit-hyphenate-limit-chars'] = '5 2 2';
+            $css_main_array['.content-text']['-moz-hyphenate-limit-chars']    = '5 2 2';
+            $css_main_array['.content-text']['-ms-hyphenate-limit-chars']     = '5 2 2';
 
-            $css_main_array['.text']['-moz-hyphenate-limit-lines'] = '2';
-            $css_main_array['.text']['-ms-hyphenate-limit-lines']  = '2';
-            $css_main_array['.text']['hyphenate-limit-lines']      = '2';
+            $css_main_array['.content-text']['-moz-hyphenate-limit-lines'] = '2';
+            $css_main_array['.content-text']['-ms-hyphenate-limit-lines']  = '2';
+            $css_main_array['.content-text']['hyphenate-limit-lines']      = '2';
 
-            $css_main_array['.text']['-webkit-hyphenate-limit-last'] = 'always';
-            $css_main_array['.text']['-moz-hyphenate-limit-last']    = 'always';
-            $css_main_array['.text']['-ms-hyphenate-limit-last']     = 'always';
-            $css_main_array['.text']['hyphenate-limit-last']         = 'always';
+            $css_main_array['.content-text']['-webkit-hyphenate-limit-last'] = 'always';
+            $css_main_array['.content-text']['-moz-hyphenate-limit-last']    = 'always';
+            $css_main_array['.content-text']['-ms-hyphenate-limit-last']     = 'always';
+            $css_main_array['.content-text']['hyphenate-limit-last']         = 'always';
         }
 
         // Link to reactions in the post list.
@@ -538,23 +538,23 @@ if (!empty($_POST)) {
 
         // Hyphenation.
         if (isset($_POST['content_hyphens']) && $_POST['content_hyphens'] === 'enabled_not_mobile') {
-            $css_media_array['.text']['-webkit-hyphens'] = 'unset';
-            $css_media_array['.text']['-moz-hyphens']    = 'unset';
-            $css_media_array['.text']['-ms-hyphens']     = 'unset';
-            $css_media_array['.text']['hyphens']         = 'unset';
+            $css_media_array['.content-text']['-webkit-hyphens'] = 'unset';
+            $css_media_array['.content-text']['-moz-hyphens']    = 'unset';
+            $css_media_array['.content-text']['-ms-hyphens']     = 'unset';
+            $css_media_array['.content-text']['hyphens']         = 'unset';
 
-            $css_media_array['.text']['-webkit-hyphenate-limit-chars'] = 'unset';
-            $css_media_array['.text']['-moz-hyphenate-limit-chars']    = 'unset';
-            $css_media_array['.text']['-ms-hyphenate-limit-chars']     = 'unset';
+            $css_media_array['.content-text']['-webkit-hyphenate-limit-chars'] = 'unset';
+            $css_media_array['.content-text']['-moz-hyphenate-limit-chars']    = 'unset';
+            $css_media_array['.content-text']['-ms-hyphenate-limit-chars']     = 'unset';
 
-            $css_media_array['.text']['-moz-hyphenate-limit-lines'] = 'unset';
-            $css_media_array['.text']['-ms-hyphenate-limit-lines']  = 'unset';
-            $css_media_array['.text']['hyphenate-limit-lines']      = 'unset';
+            $css_media_array['.content-text']['-moz-hyphenate-limit-lines'] = 'unset';
+            $css_media_array['.content-text']['-ms-hyphenate-limit-lines']  = 'unset';
+            $css_media_array['.content-text']['hyphenate-limit-lines']      = 'unset';
 
-            $css_media_array['.text']['-webkit-hyphenate-limit-last'] = 'unset';
-            $css_media_array['.text']['-moz-hyphenate-limit-last']    = 'unset';
-            $css_media_array['.text']['-ms-hyphenate-limit-last']     = 'unset';
-            $css_media_array['.text']['hyphenate-limit-last']         = 'unset';
+            $css_media_array['.content-text']['-webkit-hyphenate-limit-last'] = 'unset';
+            $css_media_array['.content-text']['-moz-hyphenate-limit-last']    = 'unset';
+            $css_media_array['.content-text']['-ms-hyphenate-limit-last']     = 'unset';
+            $css_media_array['.content-text']['hyphenate-limit-last']         = 'unset';
         }
 
         // Reduced motion.
