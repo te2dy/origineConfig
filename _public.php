@@ -586,16 +586,16 @@ class origineConfig
   {
     if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_email_author !== 'disabled') {
 
-      $output = '<?php if (\dcCore::app()->ctx->posts->user_email && (\dcCore::app()->blog->settings->origineConfig->content_post_email_author === "always" || (\dcCore::app()->blog->settings->origineConfig->content_post_email_author === "comments_open" && \dcCore::app()->ctx->posts->post_open_comment === "1"))) : ?>';
+        $output = '<?php if (isset(\dcCore::app()->ctx->posts->user_email) && (\dcCore::app()->blog->settings->origineConfig->content_post_email_author === "always" || (\dcCore::app()->blog->settings->origineConfig->content_post_email_author === "comments_open" && \dcCore::app()->ctx->posts->post_open_comment === "1"))) : ?>';
 
       $output .= '<div class=comment-private>';
 
       $output .= '<h3 class=reaction-title>' . __('Send a private comment') . '</h3>';
 
       $output .= '<p>';
-      $output .= '<a class=button href=mailto:<?php echo urlencode(\dcCore::app()->ctx->posts->user_email); ?>';
+      $output .= '<a class=button href="mailto:<?php echo urlencode(\dcCore::app()->ctx->posts->user_email); ?>';
       $output .= '?subject=<?php echo htmlentities(__("Re:") . " " . \dcCore::app()->ctx->posts->post_title, ENT_NOQUOTES); ?>';
-      $output .= '>';
+      $output .= '">';
       $output .= __('Reply to the author by email');
       $output .= '</a>';
       $output .= '</p>';
