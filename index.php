@@ -56,9 +56,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
 {
     $output = '';
 
-    if (
-        $setting_id !== '' && !empty($settings) && !empty($default_settings) && array_key_exists($setting_id, $default_settings) === true
-    ) {
+    if ($setting_id !== '' && !empty($settings) && !empty($default_settings) && array_key_exists($setting_id, $default_settings) === true) {
         echo '<p>';
 
         if ($default_settings[$setting_id]['type'] === 'checkbox') {
@@ -171,15 +169,17 @@ if (!empty($_POST)) {
     try {
         if (isset($_POST['default']) === false) {
             // Saves options.
+            $settings_to_ignore = ['css_origine', 'css_origine_mini'];
+
             foreach ($settings as $id => $value) {
-                if (option_supported($theme, $default_settings[$id]['theme']) === true && $id !== 'global_css') {
+                if (option_supported($theme, $default_settings[$id]['theme']) === true && !in_array($id, $settings_to_ignore)) {
                     if ($default_settings[$id]['type'] === 'checkbox') {
                         if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
                             \dcCore::app()->blog->settings->origineConfig->put($id, true);
                         } else {
                             \dcCore::app()->blog->settings->origineConfig->put($id, false);
                         }
-                    } else {
+                    } elseif (isset($_POST[$id])) {
                         \dcCore::app()->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
                     }
                 }
@@ -213,6 +213,8 @@ if (!empty($_POST)) {
          * to save then in the database as a string ($css) with put()
          * formatted via the function origineConfigArrayToCSS().
          */
+        $theme = \dcCore::app()->blog->settings->system->theme;
+
         $css = '';
 
         $css_root_array           = [];
@@ -220,6 +222,63 @@ if (!empty($_POST)) {
         $css_main_array           = [];
         $css_media_array          = [];
         $css_media_contrast_array = [];
+
+        // Page width.
+        $page_width_allowed = [30, 35, 40];
+
+        if (isset($_POST['global_page_width'])) {
+            if (in_array(intval($_POST['global_page_width']), $page_width_allowed, true)) {
+                $css_root_array[':root']['--page-width'] = $_POST['global_page_width'] . 'em';
+            } else {
+                $css_root_array[':root']['--page-width'] = '30em';
+            }
+        }
+
+        // Sets the order of site elements.
+        $structure_order = [2 => '',];
+
+        if (isset($_POST['widgets_nav_position']) && $_POST['widgets_nav_position'] === 'header_content') {
+            $structure_order[2] = '--order-widgets-nav';
+        }
+
+        if ($structure_order[2] === '') {
+            $structure_order[2] = '--order-content';
+        } else {
+            $structure_order[] = '--order-content';
+        }
+
+        if (isset($_POST['widgets_nav_position']) && $_POST['widgets_nav_position'] === 'content_footer') {
+            $structure_order[] = '--order-widgets-nav';
+        }
+
+        if (isset($_POST['widgets_extra_enabled']) && $_POST['widgets_extra_enabled'] === '1') {
+            $structure_order[] = '--order-widgets-extra';
+        }
+
+        if (isset($_POST['footer_enabled']) && $_POST['footer_enabled'] === '1') {
+            $structure_order[] = '--order-footer';
+        }
+
+        $css_root_array[':root']['--order-content'] = array_search('--order-content', $structure_order);
+
+        if (in_array('--order-widgets-nav', $structure_order, true)) {
+            $css_root_array[':root']['--order-widgets-nav'] = array_search('--order-widgets-nav', $structure_order);
+        }
+
+        if (in_array('--order-widgets-extra', $structure_order, true)) {
+            $css_root_array[':root']['--order-widgets-extra'] = array_search('--order-widgets-extra', $structure_order);
+        }
+
+        if (in_array('--order-footer', $structure_order, true)) {
+            $css_root_array[':root']['--order-footer'] = array_search('--order-footer', $structure_order);
+        }
+
+        // Text align
+        if (isset($_POST['content_text_align'])) {
+            if ($_POST['content_text_align'] === 'justify' || $_POST['content_text_align'] === 'justify_not_mobile') {
+                $css_root_array[':root']['--text-align'] = 'justify';
+            }
+        }
 
         $font_serif = '"Iowan Old Style", "Apple Garamond", Baskerville, "Times New Roman", "Droid Serif", Times, "Source Serif Pro", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
 
@@ -247,23 +306,23 @@ if (!empty($_POST)) {
             $link_colors = [
                 'red'        => [
                     'light' => '#de0000',
-                    'dark'    => '#f14646'
+                    'dark'  => '#f14646'
                 ],
                 'blue'     => [
                     'light' => '#0057B7',
-                    'dark'    => '#529ff5'
+                    'dark'  => '#529ff5'
                 ],
                 'green'    => [
                     'light' => '#006400',
-                    'dark'    => '#18af18'
+                    'dark'  => '#18af18'
                 ],
                 'orange' => [
                     'light' => '#ff8c00',
-                    'dark'    => '#ffab2e'
+                    'dark'  => '#ffab2e'
                 ],
                 'purple' => [
                     'light' => '#800080',
-                    'dark'    => '#9a389a'
+                    'dark'  => '#9a389a'
                 ]
             ];
 
@@ -341,65 +400,6 @@ if (!empty($_POST)) {
             }
         }
 
-        // Page width.
-        $page_width_allowed = [30, 35, 40];
-
-        if (isset($_POST['global_page_width'])) {
-            if (in_array(intval($_POST['global_page_width']), $page_width_allowed, true)) {
-                $css_root_array[':root']['--page-width'] = intval($_POST['global_page_width']) . 'em';
-            } else {
-                $css_root_array[':root']['--page-width'] = '30em';
-            }
-        }
-
-        // Sets the order of site elements.
-        $structure_order = [2 => '',];
-
-        if (isset($_POST['widgets_nav_position']) && $_POST['widgets_nav_position'] === 'header_content') {
-            $structure_order[2] = '--order-widgets-nav';
-        }
-
-        if ($structure_order[2] === '') {
-            $structure_order[2] = '--order-content';
-        } else {
-            $structure_order[] = '--order-content';
-        }
-
-        if (isset($_POST['widgets_nav_position']) && $_POST['widgets_nav_position'] === 'content_footer') {
-            $structure_order[] = '--order-widgets-nav';
-        }
-
-        if (isset($_POST['widgets_extra_enabled']) && $_POST['widgets_extra_enabled'] === '1') {
-            $structure_order[] = '--order-widgets-extra';
-        }
-
-        if (isset($_POST['footer_enabled']) && $_POST['footer_enabled'] === '1') {
-            $structure_order[] = '--order-footer';
-        }
-
-        $css_root_array[':root']['--order-content'] = array_search('--order-content', $structure_order);
-
-        if (in_array('--order-widgets-nav', $structure_order, true)) {
-            $css_root_array[':root']['--order-widgets-nav'] = array_search('--order-widgets-nav', $structure_order);
-        }
-
-        if (in_array('--order-widgets-extra', $structure_order, true)) {
-            $css_root_array[':root']['--order-widgets-extra'] = array_search('--order-widgets-extra', $structure_order);
-        }
-
-        if (in_array('--order-footer', $structure_order, true)) {
-            $css_root_array[':root']['--order-footer'] = array_search('--order-footer', $structure_order);
-        }
-
-        // Text align
-        if (isset($_POST['content_text_align'])) {
-            if ($_POST['content_text_align'] === 'justify' || $_POST['content_text_align'] === 'justify_not_mobile') {
-                $css_root_array[':root']['--text-align'] = 'justify';
-            } else{
-                $css_root_array[':root']['--text-align'] = 'left';
-            }
-        }
-
         /**
          * Main styles.
          */
@@ -414,13 +414,28 @@ if (!empty($_POST)) {
         }
 
         // Transitions.
-        if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
-            $css_main_array['a']['transition']                                 = 'all .2s ease-in-out';
-            $css_main_array['a:active, a:hover']['transition'] = 'all .2s ease-in-out';
+        if ($theme = 'origine') {
+            if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
+                $css_main_array['a']['transition']                          = 'all .2s ease-in-out';
+                $css_main_array['a:active, a:focus, a:hover']['transition'] = 'all .2s ease-in-out';
 
-            $css_main_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
+                $css_main_array['a .post-meta, a .post-excerpt']['transition']             = 'all .2s ease-in-out';
+                $css_main_array['a:hover .post-meta, a:hover .post-excerpt']['transition'] = 'all .2s ease-in-out';
 
-            $css_main_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
+                $css_main_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
+
+                $css_main_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
+            }
+
+        } elseif ($theme = 'origine-mini') {
+            if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
+                $css_main_array['a']['transition']                                 = 'all .2s ease-in-out';
+                $css_main_array['a:active, a:hover']['transition'] = 'all .2s ease-in-out';
+
+                $css_main_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
+
+                $css_main_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
+            }
         }
 
         // Border radius.
@@ -441,43 +456,23 @@ if (!empty($_POST)) {
 
         // Hyphens.
         if (isset($_POST['content_hyphens']) && $_POST['content_hyphens'] !== 'disabled') {
-            if ($_POST['content_hyphens'] !== 'enabled_not_mobile') {
-                $css_main_array['.text']['-webkit-hyphens'] = 'auto';
-                $css_main_array['.text']['-moz-hyphens']    = 'auto';
-                $css_main_array['.text']['-ms-hyphens']     = 'auto';
-                $css_main_array['.text']['hyphens']         = 'auto';
+            $css_main_array['.text']['-webkit-hyphens'] = 'auto';
+            $css_main_array['.text']['-moz-hyphens']    = 'auto';
+            $css_main_array['.text']['-ms-hyphens']     = 'auto';
+            $css_main_array['.text']['hyphens']         = 'auto';
 
-                $css_main_array['.text']['-webkit-hyphenate-limit-chars'] = '5 2 2';
-                $css_main_array['.text']['-moz-hyphenate-limit-chars']    = '5 2 2';
-                $css_main_array['.text']['-ms-hyphenate-limit-chars']     = '5 2 2';
+            $css_main_array['.text']['-webkit-hyphenate-limit-chars'] = '5 2 2';
+            $css_main_array['.text']['-moz-hyphenate-limit-chars']    = '5 2 2';
+            $css_main_array['.text']['-ms-hyphenate-limit-chars']     = '5 2 2';
 
-                $css_main_array['.text']['-moz-hyphenate-limit-lines'] = '2';
-                $css_main_array['.text']['-ms-hyphenate-limit-lines']  = '2';
-                $css_main_array['.text']['hyphenate-limit-lines']      = '2';
+            $css_main_array['.text']['-moz-hyphenate-limit-lines'] = '2';
+            $css_main_array['.text']['-ms-hyphenate-limit-lines']  = '2';
+            $css_main_array['.text']['hyphenate-limit-lines']      = '2';
 
-                $css_main_array['.text']['-webkit-hyphenate-limit-last'] = 'always';
-                $css_main_array['.text']['-moz-hyphenate-limit-last']    = 'always';
-                $css_main_array['.text']['-ms-hyphenate-limit-last']     = 'always';
-                $css_main_array['.text']['hyphenate-limit-last']         = 'always';
-            } else {
-                $css_media_array['.text']['-webkit-hyphens'] = 'auto';
-                $css_media_array['.text']['-moz-hyphens']    = 'auto';
-                $css_media_array['.text']['-ms-hyphens']     = 'auto';
-                $css_media_array['.text']['hyphens']         = 'auto';
-
-                $css_media_array['.text']['-webkit-hyphenate-limit-chars'] = '5 2 2';
-                $css_media_array['.text']['-moz-hyphenate-limit-chars']    = '5 2 2';
-                $css_media_array['.text']['-ms-hyphenate-limit-chars']     = '5 2 2';
-
-                $css_media_array['.text']['-moz-hyphenate-limit-lines'] = '2';
-                $css_media_array['.text']['-ms-hyphenate-limit-lines']  = '2';
-                $css_media_array['.text']['hyphenate-limit-lines']      = '2';
-
-                $css_media_array['.text']['-webkit-hyphenate-limit-last'] = 'always';
-                $css_media_array['.text']['-moz-hyphenate-limit-last']    = 'always';
-                $css_media_array['.text']['-ms-hyphenate-limit-last']     = 'always';
-                $css_media_array['.text']['hyphenate-limit-last']         = 'always';
-            }
+            $css_main_array['.text']['-webkit-hyphenate-limit-last'] = 'always';
+            $css_main_array['.text']['-moz-hyphenate-limit-last']    = 'always';
+            $css_main_array['.text']['-ms-hyphenate-limit-last']     = 'always';
+            $css_main_array['.text']['hyphenate-limit-last']         = 'always';
         }
 
         // Link to reactions in the post list.
@@ -542,7 +537,23 @@ if (!empty($_POST)) {
 
         // Hyphenation.
         if (isset($_POST['content_hyphens']) && $_POST['content_hyphens'] === 'enabled_not_mobile') {
-            $css_media_array['.text']['--text-align'] = 'left';
+            $css_media_array['.text']['-webkit-hyphens'] = 'unset';
+            $css_media_array['.text']['-moz-hyphens']    = 'unset';
+            $css_media_array['.text']['-ms-hyphens']     = 'unset';
+            $css_media_array['.text']['hyphens']         = 'unset';
+
+            $css_media_array['.text']['-webkit-hyphenate-limit-chars'] = 'unset';
+            $css_media_array['.text']['-moz-hyphenate-limit-chars']    = 'unset';
+            $css_media_array['.text']['-ms-hyphenate-limit-chars']     = 'unset';
+
+            $css_media_array['.text']['-moz-hyphenate-limit-lines'] = 'unset';
+            $css_media_array['.text']['-ms-hyphenate-limit-lines']  = 'unset';
+            $css_media_array['.text']['hyphenate-limit-lines']      = 'unset';
+
+            $css_media_array['.text']['-webkit-hyphenate-limit-last'] = 'unset';
+            $css_media_array['.text']['-moz-hyphenate-limit-last']    = 'unset';
+            $css_media_array['.text']['-ms-hyphenate-limit-last']     = 'unset';
+            $css_media_array['.text']['hyphenate-limit-last']         = 'unset';
         }
 
         $css .= !empty($css_root_array) ? origineConfigArrayToCSS($css_root_array) : '';
@@ -565,7 +576,10 @@ if (!empty($_POST)) {
             $css_array  = [];
         }
 
-        \dcCore::app()->blog->settings->origineConfig->put('global_css', htmlspecialchars($css, ENT_NOQUOTES));
+        \dcCore::app()->blog->settings->origineConfig->put(
+            'css_' . str_replace('-', '_', \dcCore::app()->blog->settings->system->theme),
+            htmlspecialchars($css, ENT_NOQUOTES)
+        );
 
         \dcCore::app()->blog->triggerBlog();
 
@@ -604,7 +618,7 @@ if (!empty($_POST)) {
                 <p>
                     <?php
                     printf(
-                        __('This plugin is only meant to customize themes of the Origine family. To use it, please <a href="%s">install and activate Origine or Origine Mini</a>.'),
+                        __('This plugin is only meant to customize themes of the Origine family. To use it, please <a href=%s>install and activate Origine or Origine Mini</a>.'),
                         html::escapeURL(\dcCore::app()->adminurl->get('admin.blog.theme'))
                     );
                     ?>
@@ -652,9 +666,11 @@ if (!empty($_POST)) {
                     $setting_page_content[$section_id] = [];
                 }
 
+                $settings_to_ignore = ['css_origine', 'css_origine_mini'];
+
                 // Puts all settings in their sections.
                 foreach($default_settings as $setting_id => $setting_data) {
-                    if (option_supported($theme, $setting_data['theme']) && $setting_id !== 'global_css') {
+                    if (option_supported($theme, $setting_data['theme']) && !in_array($setting_id, $settings_to_ignore, true)) {
                         if (isset($setting_data['section']) && is_array($setting_data['section'])) {
                             if (isset($setting_data['section'][1])) {
                                 $setting_page_content[$setting_data['section'][0]][$setting_data['section'][1]][] = $setting_id;
@@ -703,7 +719,16 @@ if (!empty($_POST)) {
                 <p>
                     <?php echo \dcCore::app()->formNonce(); ?>
 
-                    <input type=submit value="<?php echo __('Save'); ?>"> <input class=delete name=default type=submit value="<?php echo __('Reset all options'); ?>">
+                    <input type=submit value="<?php echo __('Save'); ?>"> <input class=delete name=default type=submit value="<?php echo __('Reset all settings'); ?>">
+                </p>
+
+                <p class="form-note">
+                    <?php
+                    printf(
+                        __('You settings do not work? Do not forget to activate them — see <a href=%s>the first checkbox</a>.'),
+                        '#active'
+                    );
+                    ?>
                 </p>
             </form>
         <?php endif; ?>
