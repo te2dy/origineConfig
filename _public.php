@@ -6,8 +6,6 @@
  * @copyright GPL-3.0
  */
 
-use dcCore;
-
 if (!defined('DC_RC_PATH')) {
   return;
 }
@@ -27,6 +25,8 @@ if (!defined('DC_RC_PATH')) {
 \dcCore::app()->tpl->addValue('origineConfigEmailAuthor', ['origineConfig', 'origineConfigEmailAuthor']);
 \dcCore::app()->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineConfigEntryFirstImage']);
 \dcCore::app()->tpl->addValue('origineConfigCommentLink', ['origineConfig', 'origineConfigCommentLink']);
+
+\dcCore::app()->tpl->addValue('SimpleMenu', ['origineConfig', 'test']);
 
 class origineConfig
 {
