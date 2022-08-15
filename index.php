@@ -441,7 +441,7 @@ if (!empty($_POST)) {
 
         // Border radius.
         if (isset($_POST['global_css_border_radius']) && $_POST['global_css_border_radius'] === '1') {
-            $css_main_array['#site-title,.button,.post-selected,input,textarea,button']['border-radius'] = '.168rem';
+            $css_main_array['#site-title,.button,.post-selected,button,code,input,textarea,pre']['border-radius'] = '.168rem';
         }
 
         // Font family of content.
