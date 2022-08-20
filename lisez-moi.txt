@@ -11,6 +11,13 @@ Cette extension n’aurait pu avoir vu le jour sans les ressources mises à disp
 
 == Notes de version ==
 
+=== 2.1 - X ===
+- Correction : affichage de la valeur par défaut des options à cocher.
+- Correction : désactivation des transitions pour des raisons d’accessibilité.
+- Modification : adoption d’un système de traduction par identifiant.
+- Modification : la classe est text renommée en content-text pour éviter la confusion avec les widgets de texte.
+- Suppression : use dcCore superflu.
+
 === 2.0.1 - 14 août 2022 ===
 - Ajout : option de positionnement des widgets de navigation.
 - Ajout : balises sociales minimalistes.
