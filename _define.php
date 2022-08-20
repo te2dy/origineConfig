@@ -7,16 +7,16 @@
  */
 
 if (!defined('DC_RC_PATH')) {
-  return;
+    return;
 }
 
 $this->registerModule(
-  'origineConfig',                       // Name
-  'A plugin to customize Origine theme', // Description
-  'Teddy',                               // Author
-  '2.0.2.3',                             // Version
-  [
-    'permissions' => 'admin',
-    'type'        => 'plugin'
-  ]
+    'origineConfig',                       // Name
+    'A plugin to customize Origine theme', // Description
+    'Teddy',                               // Author
+    '2.0.2.3',                             // Version
+    [
+        'permissions' => 'admin',
+        'type'        => 'plugin'
+    ]
 );

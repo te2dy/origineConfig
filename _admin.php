@@ -7,13 +7,13 @@
  */
 
 if (!defined('DC_CONTEXT_ADMIN')) {
-  return;
+    return;
 }
 
 $_menu['Plugins']->addItem(
-  __('Origine Settings'),
-  'plugin.php?p=origineConfig',
-  urldecode(dcPage::getPF('origineConfig/img/icon.svg')),
-  preg_match('/plugin.php\?p=origineConfig(&.*)?$/', $_SERVER['REQUEST_URI']),
-  \dcCore::app()->auth->check('admin', \dcCore::app()->blog->id)
+    __('admin-title'),
+    'plugin.php?p=origineConfig',
+    urldecode(dcPage::getPF('origineConfig/img/icon.svg')),
+    preg_match('/plugin.php\?p=origineConfig(&.*)?$/', $_SERVER['REQUEST_URI']),
+    \dcCore::app()->auth->check('admin', \dcCore::app()->blog->id)
 );

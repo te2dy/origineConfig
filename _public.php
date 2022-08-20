@@ -26,7 +26,7 @@ if (!defined('DC_RC_PATH')) {
 \dcCore::app()->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineConfigEntryFirstImage']);
 \dcCore::app()->tpl->addValue('origineConfigCommentLink', ['origineConfig', 'origineConfigCommentLink']);
 
-\dcCore::app()->tpl->addValue('SimpleMenu', ['origineConfig', 'test']);
+//\dcCore::app()->addBehavior('publicTopAfterContent', ['origineConfig', 'origineConfigColorScheme']);
 
 class origineConfig
 {
@@ -71,7 +71,7 @@ class origineConfig
 
         if (intval(context::PaginationPosition()) > 1 ) {
           $desc = sprintf(
-            __('Page %s'),
+            __('meta-social-page-with-number'),
             context::PaginationPosition()
           );
         }
@@ -109,7 +109,7 @@ class origineConfig
       // Tags.
       } elseif (\dcCore::app()->url->type === 'tag' && \dcCore::app()->ctx->meta->meta_type === 'tag') {
         $title = \dcCore::app()->ctx->meta->meta_id;
-        $desc  = sprintf(__('Posts related to the tag %s'), $title);
+        $desc  = sprintf(__('meta-social-tags-post-related'), $title);
       }
 
       $title = html::escapeHTML($title);
@@ -464,7 +464,7 @@ class origineConfig
         }
       }
 
-      return '<div class=site-logo-container>' . $link_open . '<img alt=' . __('Header image') . ' class=site-logo src=' . $src_image . $srcset . $image_size_attr . '>' . $link_close . '</div>';
+      return '<div class=site-logo-container>' . $link_open . '<img alt=' . __('logo-img-alt') . ' class=site-logo src=' . $src_image . $srcset . $image_size_attr . '>' . $link_close . '</div>';
     }
   }
 
@@ -590,13 +590,13 @@ class origineConfig
 
       $output .= '<div class=comment-private>';
 
-      $output .= '<h3 class=reaction-title>' . __('Send a private comment') . '</h3>';
+      $output .= '<h3 class=reaction-title>' . __('private-comment-title') . '</h3>';
 
       $output .= '<p>';
       $output .= '<a class=button href="mailto:<?php echo urlencode(\dcCore::app()->ctx->posts->user_email); ?>';
-      $output .= '?subject=<?php echo htmlentities(__("Re:") . " " . \dcCore::app()->ctx->posts->post_title, ENT_NOQUOTES); ?>';
+      $output .= '?subject=<?php echo htmlentities(__("private-comment-email-prefix") . " " . \dcCore::app()->ctx->posts->post_title, ENT_NOQUOTES); ?>';
       $output .= '">';
-      $output .= __('Reply to the author by email');
+      $output .= __('private-comment-button-text');
       $output .= '</a>';
       $output .= '</p>';
 
@@ -720,15 +720,90 @@ class origineConfig
           echo "<a aria-label=\"";
 
           if ((int) \dcCore::app()->ctx->posts->nb_comment > 1) {
-            printf(__("Link to the %d reactions of this post"), \dcCore::app()->ctx->posts->nb_comment);
+            printf(__("post-list-multiple-reactions-link-aria-label"), \dcCore::app()->ctx->posts->nb_comment);
           } else {
-            echo __("Link to the reaction of this post");
+            echo __("post-list-one-reaction-link-aria-label");
           }
 
-          echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions") . ">",
+          echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions-id") . ">",
           "[" . \dcCore::app()->ctx->posts->nb_comment . "]</a>";
         };
         ?>';
     }
+  }
+
+  /**
+   * TEST
+   */
+  public static function origineConfigColorScheme()
+  {
+    ?>
+        <script>
+            var theme = "light";
+
+    //local storage is used to override OS theme settings
+    if(localStorage.getItem("theme")){
+        if(localStorage.getItem("theme") == "dark"){
+            var theme = "dark";
+        }
+    } else if(!window.matchMedia) {
+        //matchMedia method not supported
+        return false;
+    } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        //OS theme setting detected as dark
+        var theme = "dark";
+    }
+
+    //dark theme preferred, set document with a `data-theme` attribute
+    if (theme=="dark") {
+         document.documentElement.setAttribute("data-theme", "dark");
+    }
+
+            function toggleColorScheme() {
+                if (document.documentElement.classList.contains("light")) {
+                    document.documentElement.classList.remove("light");
+                    document.documentElement.classList.add("dark");
+                } else if (document.documentElement.classList.contains("dark")) {
+                    document.documentElement.classList.remove("dark");
+                    document.documentElement.classList.add("light");
+                } else {
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        document.documentElement.classList.add("light");
+                    } else {
+                        document.documentElement.classList.add("dark");
+                    }
+                }
+            }
+        </script>
+
+        <button id=color-scheme-icon onclick=toggleColorScheme()>Couleurs</button>
+
+        <script>
+            document.getElementById("color-scheme-icon").onload = function(){
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    localStorage.setItem("origine_mini_color_scheme", "dark");
+                } else {
+                    localStorage.setItem("origine_mini_color_scheme", "light");
+                }
+            };
+
+
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.add("light");
+            }
+                /*
+
+                // If The input is empty or its value is equal to the search, disables the submit button.
+                if (document.getElementById("search-form-input").value && document.getElementById("search-form-input").value !== searchQuery) {
+                    document.getElementById("search-submit").disabled = false;
+                } else {
+                    document.getElementById("search-submit").disabled = true;
+                }*/
+        </script>
+
+ <!-- Lire https://stackoverflow.com/questions/56300132/how-to-override-css-prefers-color-scheme-setting-->
+    <?php
   }
 }

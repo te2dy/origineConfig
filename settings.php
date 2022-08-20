@@ -22,42 +22,42 @@ class origineConfigSettings {
     {
         $sections = [
             'global'   => [
-                'name'         => __('Global'),
+                'name'         => __('settings-section-global-name'),
                 'sub_sections' => [
-            'fonts'    => __('Fonts'),
-            'layout'   => __('Layout'),
-            'colors'   => __('Colors and other styles'),
-            'advanced' => __('Advanced settings'),
+            'fonts'    => __('settings-section-global-fonts-title'),
+            'layout'   => __('settings-section-global-layout-title'),
+            'colors'   => __('settings-section-global-colors-title'),
+            'advanced' => __('settings-section-global-advance-title'),
         ],
             ],
             'header' => [
-                'name'         => __('Header'),
+                'name'         => __('settings-section-header-name'),
                 'sub_sections' => [
-                    'layout' => __('Layout'),
-                    'logo'   => __('Logo (beta)'),
+                    'layout' => __('settings-section-header-layout-title'),
+                    'logo'   => __('settings-section-header-logo-title'),
                 ],
             ],
             'content' => [
-                'name'         => __('Content'),
+                'name'         => __('settings-section-content-name'),
                 'sub_sections' => [
-                    'post-list'       => __('Post list'),
-                    'text-formatting' => __('Text formatting'),
-                    'author'          => __('Author'),
-                    'comments'        => __('Comments'),
-                    'other'           => __('Other'),
+                    'post-list'       => __('settings-section-content-postlist-title'),
+                    'text-formatting' => __('settings-section-content-textformatting-title'),
+                    'author'          => __('settings-section-content-author-title'),
+                    'comments'        => __('settings-section-content-reactions-title'),
+                    'other'           => __('settings-section-content-other-title'),
                 ],
             ],
             'widgets' => [
-                'name'         => __('Widgets'),
+                'name'         => __('settings-section-widgets-name'),
                 'sub_sections' => [
                     'no-title' => '',
                 ],
             ],
             'footer' => [
-                'name'         => __('Footer'),
+                'name'         => __('settings-section-footer-name'),
                 'sub_sections' => [
                     'no-title'     => '',
-                    'social-links' => __('Social links'),
+                    'social-links' => __('settings-section-footer-sociallinks-title'),
                 ],
             ],
         ];
@@ -89,8 +89,8 @@ class origineConfigSettings {
         $default_settings = [];
 
         $default_settings['active'] = [
-            'title'       => __('Enable extension settings'),
-            'description' => __('If you do not check this box, your settings will be ignored.'),
+            'title'       => __('settings-option-activation-title'),
+            'description' => __('settings-option-activation-description'),
             'type'        => 'checkbox',
             'default'     => 0,
             'theme'       => ['origine', 'origine-mini']
@@ -100,22 +100,22 @@ class origineConfigSettings {
         if ($theme === 'origine') {
             $content_font_family_default = 'serif';
             $content_font_family_choices = [
-                __('Serif (default)') => 'serif',
-                __('Sans serif')      => 'sans-serif',
-                __('Monospace')       => 'monospace'
+                __('settings-option-global-fontfamily-serif-default') => 'serif',
+                __('settings-option-global-fontfamily-sansserif')     => 'sans-serif',
+                __('settings-option-global-fontfamily-mono')    => 'monospace'
             ];
         } else {
             $content_font_family_default = 'sans-serif';
             $content_font_family_choices = [
-                __('Sans serif (default)') => 'sans-serif',
-                __('Serif')                => 'serif',
-                __('Monospace')            => 'monospace'
+                __('settings-option-global-fontfamily-sansserif-default') => 'sans-serif',
+                __('settings-option-global-fontfamily-serif')             => 'serif',
+                __('settings-option-global-fontfamily-mono')              => 'monospace'
             ];
         }
 
         $default_settings['global_font_family'] = [
-            'title'       => __('Font family'),
-            'description' => __('In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system.'),
+            'title'       => __('settings-option-global-fontfamily-title'),
+            'description' => __('settings-option-global-fontfamily-description'),
             'type'        => 'select',
             'choices'     => $content_font_family_choices,
             'default'     => $content_font_family_default,
@@ -124,15 +124,15 @@ class origineConfigSettings {
         ];
 
         $default_settings['global_font_size'] = [
-            'title'       => __('Font size'),
-            'description' => __('It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors.'),
+            'title'       => __('settings-option-global-fontsize-title'),
+            'description' => __('settings-option-global-fontsize-description'),
             'type'                => 'select_int',
             'choices'     => [
-                __('80%')                => 80,
-                __('90%')                => 90,
-                __('100% (recommended)') => 100,
-                __('110%')               => 110,
-                __('120%')               => 120
+                __('settings-option-global-fontsize-80')          => 80,
+                __('settings-option-global-fontsize-90')          => 90,
+                __('settings-option-global-fontsize-100-default') => 100,
+                __('settings-option-global-fontsize-110')         => 110,
+                __('settings-option-global-fontsize-120')         => 120
             ],
             'default'     => 100,
             'section'     => ['global', 'fonts'],
@@ -140,13 +140,13 @@ class origineConfigSettings {
         ];
 
         $default_settings['global_page_width'] = [
-            'title'       => __('Default page width'),
+            'title'       => __('settings-option-global-pagewidth-title'),
             'description' => '',
             'type'        => 'select_int',
             'choices'     => [
-                __('480px (default)') => 30,
-                __('560px')           => 35,
-                __('640px')           => 40
+                __('settings-option-global-pagewidth-title-480-default') => 30,
+                __('settings-option-global-pagewidth-title-560')         => 35,
+                __('settings-option-global-pagewidth-title-640')         => 40
             ],
             'default'     => 'system',
             'section'     => ['global', 'layout'],
@@ -154,13 +154,13 @@ class origineConfigSettings {
         ];
 
         $default_settings['global_color_scheme'] = [
-            'title'       => __('Color scheme'),
-            'description' => __('When system is selected, the theme will use the color scheme of the user’s settings.'),
+            'title'       => __('settings-option-global-colorscheme-title'),
+            'description' => __('settings-option-global-colorscheme-description'),
             'type'        => 'select',
             'choices'     => [
-                __('System (default)') => 'system',
-                __('Light')            => 'light',
-                __('Dark')             => 'dark'
+                __('settings-option-global-colorscheme-system-default') => 'system',
+                __('settings-option-global-colorscheme-light')          => 'light',
+                __('settings-option-global-colorscheme-dark')           => 'dark'
             ],
             'default'     => 'system',
             'section'     => ['global', 'colors'],
@@ -170,29 +170,29 @@ class origineConfigSettings {
         if ($theme === 'origine') {
             $global_color_secondary_default = 'red';
             $global_color_secondary_choices = [
-                __('Red (default)') => 'red',
-                __('Blue')          => 'blue',
-                __('Green')         => 'green',
-                __('Orange')        => 'orange',
-                __('Purple')        => 'purple'
+                __('settings-option-global-secondarycolor-red-default') => 'red',
+                __('settings-option-global-secondarycolor-blue')        => 'blue',
+                __('settings-option-global-secondarycolor-green')       => 'green',
+                __('settings-option-global-secondarycolor-orange')      => 'orange',
+                __('settings-option-global-secondarycolor-purple')      => 'purple'
             ];
         } else {
             $global_color_secondary_default = 'blue';
             $global_color_secondary_choices = [
-                __('Blue (default)') => 'blue',
-                __('Dark blue')      => 'blue-dark',
-                __('French blue')    => 'blue-france',
-                __('Red')            => 'red',
-                __('Purple')         => 'purple',
-                __('Green')          => 'green'
+                __('settings-option-global-secondarycolor-blue-default') => 'blue',
+                __('settings-option-global-secondarycolor-darkblue')     => 'blue-dark',
+                __('settings-option-global-secondarycolor-frenchblue')   => 'blue-france',
+                __('settings-option-global-secondarycolor-red')          => 'red',
+                __('settings-option-global-secondarycolor-purple')       => 'purple',
+                __('settings-option-global-secondarycolor-green')        => 'green'
             ];
         }
 
         ksort($global_color_secondary_choices);
 
         $default_settings['global_color_secondary'] = [
-            'title'       => __('Secondary color'),
-            'description' => __('Especially used for links.'),
+            'title'       => __('settings-option-global-secondarycolor-title'),
+            'description' => __('settings-option-global-secondarycolor-description'),
             'type'        => 'select',
             'choices'     => $global_color_secondary_choices,
             'default'     => $global_color_secondary_default,
@@ -201,8 +201,8 @@ class origineConfigSettings {
         ];
 
         $default_settings['global_css_transition'] = [
-            'title'       => __('Add a color transition on link hover'),
-            'description' => __('Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion.'),
+            'title'       => __('settings-option-global-colortransition-title'),
+            'description' => __('settings-option-global-colortransition-description'),
             'type'        => 'checkbox',
             'default'     => 0,
             'section'     => ['global', 'colors'],
@@ -210,8 +210,8 @@ class origineConfigSettings {
         ];
 
         $default_settings['global_css_border_radius'] = [
-            'title'       => __('Round the corners'),
-            'description' => __('Add a round angle to corner of borders.'),
+            'title'       => __('settings-option-global-roundcorner-title'),
+            'description' => __('settings-option-global-roundcorner-description'),
             'type'        => 'checkbox',
             'default'     => 0,
             'section'     => ['global', 'colors'],
@@ -219,8 +219,8 @@ class origineConfigSettings {
         ];
 
         $default_settings['global_meta_social'] = [
-            'title'       => __('Add minimal social markups'),
-            'description' => __('Useful to promote your content on social networks.'),
+            'title'       => __('settings-option-global-minimalsocialmarkups-title'),
+            'description' => __('settings-option-global-minimalsocialmarkups-description'),
             'type'        => 'checkbox',
             'default'     => 0,
             'section'     => ['global', 'advanced'],
@@ -228,8 +228,8 @@ class origineConfigSettings {
         ];
 
         $default_settings['global_meta_generator'] = [
-            'title'       => __('Add <code>generator</code> meta tag'),
-            'description' => __("Allows you to add information to your pages without displaying it on your readers' screen."),
+            'title'       => __('settings-option-global-metagenerator-title'),
+            'description' => __('settings-option-global-metagenerator-description'),
             'type'        => 'checkbox',
             'default'     => 0,
             'section'     => ['global', 'advanced'],
@@ -237,7 +237,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['global_meta_pingback'] = [
-            'title'       => __('Add a pingback link in head'),
+            'title'       => __('settings-option-global-metapingback-title'),
             'description' => '',
             'type'        => 'checkbox',
             'default'     => 0,
@@ -247,12 +247,12 @@ class origineConfigSettings {
 
         // Header.
         $default_settings['header_align'] = [
-            'title'       => __('Header alignment'),
+            'title'       => __('settings-option-header-align-title'),
             'description' => '',
             'type'        => 'select',
             'choices'     => [
-                __('Left (default)') => 'left',
-                __('Center')         => 'center'
+                __('settings-option-header-align-left-default') => 'left',
+                __('settings-option-header-align-center')       => 'center'
             ],
             'default'     => 'left',
             'section'     => ['header', 'layout'],
@@ -260,7 +260,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['header_logo_url'] = [
-            'title'       => __('The URL of your logo'),
+            'title'       => __('settings-option-header-logourl-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -269,8 +269,8 @@ class origineConfigSettings {
         ];
 
         $default_settings['header_logo_url_2x'] = [
-            'title'       => __('The URL of your logo for screens with doubled pixel density'),
-            'description' => __('To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one.'),
+            'title'       => __('settings-option-header-logourl2-title'),
+            'description' => __('settings-option-header-logourl2-description'),
             'type'        => 'text',
             'default'     => '',
             'section'     => ['header', 'logo'],
@@ -278,13 +278,13 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_post_list_type'] = [
-            'title'       => __('Displaying of posts'),
+            'title'       => __('settings-option-content-postlisttype-title'),
             'description' => '',
             'type'        => 'select',
             'choices'     => [
-                __('Standard (default)') => 'standard',
-                __('On one line')        => 'short',
-                __('Full post')          => 'full'
+                __('settings-option-content-postlisttype-standard-default') => 'standard',
+                __('settings-option-content-postlisttype-oneline')          => 'short',
+                __('settings-option-content-postlisttype-full')             => 'full'
             ],
             'default'     => 'standard',
             'section'     => ['content', 'post-list'],
@@ -292,7 +292,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_post_list_first_image'] = [
-            'title'       => __('Display the first image of the post (beta)'),
+            'title'       => __('settings-option-content-firstimage-title'),
             'description' => '',
             'type'        => 'checkbox',
             'default'     => 0,
@@ -300,24 +300,15 @@ class origineConfigSettings {
             'theme'       => ['origine']
         ];
 
-        if ($theme === 'origine') {
-            $content_text_font_family_choices = [
-                __('Same as the main font family (default)') => 'same',
-                __('Serif')                                  => 'serif',
-                __('Sans serif')                             => 'sans-serif',
-                __('Monospace')                              => 'monospace'
-            ];
-        } else {
-            $content_text_font_family_choices = [
-                __('Same as the main font family (default)') => 'same',
-                __('Sans serif')                             => 'sans-serif',
-                __('Serif')                                  => 'serif',
-                __('Monospace')                              => 'monospace'
-            ];
-        }
+        $content_text_font_family_choices = [
+            __('settings-option-content-fontfamily-title-same-default') => 'same',
+            __('settings-option-global-fontfamily-serif')              => 'serif',
+            __('settings-option-global-fontfamily-sansserif')          => 'sans-serif',
+            __('settings-option-global-fontfamily-mono')               => 'monospace'
+        ];
 
         $default_settings['content_text_font'] = [
-            'title'       => __('Font family of post, page and comment content'),
+            'title'       => __('settings-option-content-fontfamily-title'),
             'description' => '',
             'type'        => 'select',
             'choices'     => $content_text_font_family_choices,
@@ -327,13 +318,13 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_text_align'] = [
-            'title'       => __('Text align'),
+            'title'       => __('settings-option-content-textalign-title'),
             'description' => '',
             'type'        => 'select',
             'choices'     => [
-                __('Left (default)')                  => 'left',
-                __('Justify')                         => 'justify',
-                __('Justify except on small screens') => 'justify_not_mobile'
+                __('settings-option-content-textalign-left-default')     => 'left',
+                __('settings-option-content-textalign-justify')          => 'justify',
+                __('settings-option-content-textalign-justifynotmobile') => 'justify_not_mobile'
             ],
             'default'     => 'left',
             'section'     => ['content', 'text-formatting'],
@@ -341,13 +332,13 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_hyphens'] = [
-            'title'       => __('Automatic hyphenation'),
+            'title'       => __('settings-option-content-hyphens-title'),
             'description' => '',
             'type'        => 'select',
             'choices'     => [
-                __('Disable (default)')              => 'disabled',
-                __('Enable')                         => 'enabled',
-                __('Enable except on small screens') => 'enabled_not_mobile'
+                __('settings-option-content-hyphens-disabled-default') => 'disabled',
+                __('settings-option-content-hyphens-enabled')          => 'enabled',
+                __('settings-option-content-hyphens-enablednotmobile') => 'enabled_not_mobile'
             ],
             'default'     => 'disabled',
             'section'     => ['content', 'text-formatting'],
@@ -355,13 +346,13 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_post_author_name'] = [
-            'title'       => __('Author name on posts'),
+            'title'       => __('settings-option-content-postauthorname-title'),
             'description' => '',
             'type'        => 'select',
             'choices'     => [
-                __('Not displayed (default)')         => 'disabled',
-                __('Next to the date')                        => 'date',
-                __('Below the post as signature') => 'signature'
+                __('settings-option-content-postauthorname-hidden-default') => 'disabled',
+                __('settings-option-content-postauthorname-date')           => 'date',
+                __('settings-option-content-postauthorname-signature')      => 'signature'
             ],
             'default'     => 'disabled',
             'section'     => ['content', 'author'],
@@ -369,7 +360,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_post_list_author_name'] = [
-            'title'       => __('Display the author name in the post list'),
+            'title'       => __('settings-option-content-postlistauthorname-title'),
             'description' => '',
             'type'        => 'checkbox',
             'default'     => 0,
@@ -378,17 +369,17 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_post_intro'] = [
-            'title'       => __('Display post except as an introduction at the beginning of the posts'),
-            'description' => __('Only if an except has been set.'),
+            'title'       => __('settings-option-content-postintro-title'),
+            'description' => __('settings-option-content-postintro-description'),
             'type'        => 'checkbox',
             'default'     => 0,
             'section'     => ['content', 'other'],
             'theme'       => ['origine-mini']
         ];
 
-        $default_settings['global_separator'] = [
-            'title'       => __('Global separator'),
-            'description' => __("Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."),
+        $default_settings['content_separator'] = [
+            'title'       => __('settings-option-content-separator-title'),
+            'description' => __('settings-option-content-separator-description'),
             'type'        => 'text',
             'default'     => '/',
             'section'     => ['content', 'other'],
@@ -396,7 +387,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_post_list_comment_link'] = [
-            'title'       => __('Display the number of comments in the post list if the post has comments.'),
+            'title'       => __('settings-option-content-postlistcommentlink-title'),
             'description' => '',
             'type'        => 'checkbox',
             'default'     => 0,
@@ -405,7 +396,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_comment_links'] = [
-            'title'       => __('Add a link to the comment feed and trackbacks below the comment section'),
+            'title'       => __('settings-option-content-postcommentfeed-title'),
             'description' => '',
             'type'        => 'checkbox',
             'default'     => 1,
@@ -414,13 +405,13 @@ class origineConfigSettings {
         ];
 
         $default_settings['content_post_email_author'] = [
-            'title'       => __('Allow visitors to send email to authors of posts and pages'),
-            'description' => sprintf(__('If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin.'), 'https://plugins.dotaddict.org/dc2/details/signal'),
+            'title'       => __('settings-option-content-privatecomment-title'),
+            'description' => sprintf(__('settings-option-content-postlistcommentlink-description'), 'https://plugins.dotaddict.org/dc2/details/signal'),
             'type'        => 'select',
             'choices'     => [
-                __('No (default)')                => 'disabled',
-                __('Only when comments are open') => 'comments_open',
-                __('Always')                      => 'always'
+                __('settings-option-content-postlistcommentlink-no-default') => 'disabled',
+                __('settings-option-content-postlistcommentlink-open')       => 'comments_open',
+                __('settings-option-content-postlistcommentlink-always')     => 'always'
             ],
             'default'     => 'disabled',
             'section'     => ['content', 'comments'],
@@ -429,13 +420,13 @@ class origineConfigSettings {
 
         // Widgets.
         $default_settings['widgets_nav_position'] = [
-            'title'       => __('Navigation widgets positioning'),
+            'title'       => __('settings-option-widgets-navposition-title'),
             'description' => '',
             'type'        => 'select',
             'choices'     => [
-                __('Between header and main content')           => 'header_content',
-                __('Between main content and footer (default)') => 'content_footer',
-                __('Disabled')                                  => 'disabled'
+                __('settings-option-widgets-navposition-top')            => 'header_content',
+                __('settings-option-widgets-navposition-bottom-default') => 'content_footer',
+                __('settings-option-widgets-navposition-disabled')       => 'disabled'
             ],
             'default'     => 'content_footer',
             'section'     => ['widgets', 'no-title'],
@@ -443,7 +434,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['widgets_search_form'] = [
-            'title'       => __('Add a search form at the top of the navigation widget area'),
+            'title'       => __('settings-option-widgets-searchform-title'),
             'description' => '',
             'type'        => 'checkbox',
             'default'     => 0,
@@ -452,7 +443,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['widgets_extra_enabled'] = [
-            'title'       => __('Enable the extra widget area'),
+            'title'       => __('settings-option-widgets-extra-title'),
             'description' => '',
             'type'        => 'checkbox',
             'default'     => 1,
@@ -462,8 +453,8 @@ class origineConfigSettings {
 
         // Footer.
         $default_settings['footer_enabled'] = [
-            'title'       => __('Enable the footer'),
-            'description' => __('If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting.'),
+            'title'       => __('settings-option-footer-activation-title'),
+            'description' => __('settings-option-footer-activation-description'),
             'type'        => 'checkbox',
             'default'     => 1,
             'section'     => ['footer', 'no-title'],
@@ -471,7 +462,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_credits'] = [
-            'title'       => __('Add a link to support Dotclear and Origine'),
+            'title'       => __('settings-option-footer-credits-title'),
             'description' => '',
             'type'        => 'checkbox',
             'default'     => 1,
@@ -480,12 +471,12 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_align'] = [
-            'title'       => __('Footer alignment'),
+            'title'       => __('settings-option-footer-align-title'),
             'description' => '',
             'type'        => 'select',
             'choices'     => [
-                __('Left (default)') => 'left',
-                __('Center')         => 'center'
+                __('settings-option-footer-align-left-default') => 'left',
+                __('settings-option-footer-align-center')       => 'center'
             ],
             'default'     => 'left',
             'section'     => ['footer', 'no-title'],
@@ -493,7 +484,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_diaspora'] = [
-            'title'       => __('Link to a Diaspora profile'),
+            'title'       => __('settings-option-footer-sociallinks-diaspora-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -502,7 +493,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_discord'] = [
-            'title'       => __('Link to a Discord server'),
+            'title'       => __('settings-option-footer-sociallinks-discord-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -511,7 +502,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_facebook'] = [
-            'title'       => __('Link to a Facebook profile or page'),
+            'title'       => __('settings-option-footer-sociallinks-facebook-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -520,7 +511,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_github'] = [
-            'title'       => __('Link to a GitHub profile or page'),
+            'title'       => __('settings-option-footer-sociallinks-github-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -529,7 +520,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_mastodon'] = [
-            'title'       => __('Link to a Mastodon profile'),
+            'title'       => __('settings-option-footer-sociallinks-mastodon-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -538,7 +529,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_signal'] = [
-            'title'       => __('A Signal number or a group link'),
+            'title'       => __('settings-option-footer-sociallinks-signal-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -547,7 +538,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_tiktok'] = [
-            'title'       => __('Link to a TikTok profile'),
+            'title'       => __('settings-option-footer-sociallinks-tiktok-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -556,7 +547,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_twitter'] = [
-            'title'       => __('A Twitter username'),
+            'title'       => __('settings-option-footer-sociallinks-twitter-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -565,7 +556,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['footer_social_links_whatsapp'] = [
-            'title'       => __('A WhatsApp number or a group link'),
+            'title'       => __('settings-option-footer-sociallinks-whatsapp-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -574,7 +565,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['css_origine'] = [
-            'title'       => __('All custom styles of Origine'),
+            'title'       => __('settings-option-footer-originestyles-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -583,7 +574,7 @@ class origineConfigSettings {
         ];
 
         $default_settings['css_origine_mini'] = [
-            'title'       => __('All custom styles of Origine Mini'),
+            'title'       => __('settings-option-footer-origineministyles-title'),
             'description' => '',
             'type'        => 'text',
             'default'     => '',
@@ -631,6 +622,7 @@ class origineConfigSettings {
             'header_widgets_nav',
             'widgets_enabled',
             'global_css',
+            'global_separator',
         ];
 
         return $settings_to_unset;

@@ -8,399 +8,438 @@ msgstr ""
 
 ## admin.php, index.php
 
-msgid "Origine Settings"
+msgid "admin-title"
 msgstr "Paramètres d’Origine"
 
 ## _public.php
 
+# Minimal social markups
+msgid "meta-social-page-with-number"
+msgstr "Page %s"
+
+msgid "meta-social-tags-post-related"
+msgstr "Billets relatifs au mot-clé %s"
+
 # Logo
-msgid "Header image"
+msgid "logo-img-alt"
 msgstr "Image d’en-tête"
 
 # Private comments
 
-msgid "Send a private comment"
+msgid "private-comment-title"
 msgstr "Envoyer un commentaire privé"
 
-msgid "Reply to the author by email"
+msgid "private-comment-button-text"
 msgstr "Répondre à l’auteur par courriel"
 
-msgid "Re:"
+msgid "private-comment-email-prefix"
 msgstr "Re:"
 
 # Comments
 
-msgid "Previewing comment"
-msgstr "Prévisualisation du commentaire"
+msgid "post-list-one-reaction-link-aria-label"
+msgstr "Lien vers la réaction à ce billet"
 
-msgid "comments"
-msgstr "commentaires"
-
-msgid "1 comment"
-msgstr "1 commentaire"
-
-msgid "%d comments"
-msgstr "%s commentaires"
+msgid "post-list-multiple-reactions-link-aria-label"
+msgstr "Lien vers les réactions à ce billet"
 
 ## index.php
 
-msgid "Default: empty."
+msgid "option-default-empty"
 msgstr "Par défaut : vide."
 
-msgid "Default: checked."
+msgid "option-default-checked"
 msgstr "Par défaut : coché."
 
-msgid "Default: unchecked."
+msgid "option-default-unchecked"
 msgstr "Par défaut : décoché."
 
-msgid "Settings have been successfully updated."
+msgid "settings-saved-message"
 msgstr "Les paramètres ont été enregistrés avec succès."
 
-msgid "This plugin is only meant to customize themes of the Origine family. To use it, please <a href=%s>install and activate Origine or Origine Mini</a>."
+msgid "admin-access-denied-origine-only"
 msgstr "Ce <em>plugin</em> n’a pour but que de personnaliser les thèmes de la famille Origine. Pour l’utiliser, veuillez <a href=%s>installer et activer Origine ou Origine Mini</a>."
 
-# Activation
-
-msgid "Enable extension settings"
-msgstr "Activer les paramètres de l’extension"
-
-msgid "If you do not check this box, your settings will be ignored."
-msgstr "Si vous ne cochez pas cette case, vos paramètres seront ignorés."
-
-# Global
-
-msgid "Global"
-msgstr "Globaux"
-
-msgid "Fonts"
-msgstr "Police d’écriture"
-
-msgid "Font family"
-msgstr "Famille de polices"
-
-msgid "Serif (default)"
-msgstr "Avec empattements (par défaut)"
-
-msgid "Serif"
-msgstr "Avec empattements"
-
-msgid "Sans serif (default)"
-msgstr "Sans empattements (par défaut)"
-
-msgid "Sans serif"
-msgstr "Sans empattements"
-
-msgid "Monospace"
-msgstr "À chasse fixe"
-
-msgid "In any case, your theme will load system fonts of the device from which your site is viewed. This allows to reduce loading times and to have a graphic continuity with the system."
-msgstr "Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargement et d’avoir une continuité graphique avec le système."
-
-msgid "Font size"
-msgstr "Taille de la police"
-
-msgid "80%"
-msgstr "80 %"
-
-msgid "90%"
-msgstr "90 %"
-
-msgid "100% (recommended)"
-msgstr "100 % (recommandé)"
-
-msgid "110%"
-msgstr "110 %"
-
-msgid "120%"
-msgstr "120 %"
-
-msgid "It is recommended not to change this setting. A size of 100% means that the texts on your site will be the size defined in the browser settings of each of your visitors."
-msgstr "Il est recommandé de ne pas modifier ce paramètre. Une taille de 100 % signifie que les textes de votre site auront la taille définie dans les paramètres du navigateur de chacun de vos visiteurs."
-
-msgid "Colors and other styles"
-msgstr "Couleurs et autre styles"
-
-msgid "Color scheme"
-msgstr "Schéma de couleur"
-
-msgid "System (default)"
-msgstr "Système (par défaut)"
-
-msgid "Light"
-msgstr "Clair"
-
-msgid "Dark"
-msgstr "Sombre"
-
-msgid "When system is selected, the theme will use the color scheme of the user’s settings."
-msgstr "Quand Système est sélectionné, le thème utilisa le schéma de couleurs des paramètres de l’utilisateurs."
-
-msgid "Secondary color"
-msgstr "Couleur secondaire"
-
-msgid "Red (default)"
-msgstr "Rouge (par défaut)"
-
-msgid "Red"
-msgstr "Rouge"
-
-msgid "Blue"
-msgstr "Bleu"
-
-msgid "Blue (default)"
-msgstr "Bleu (par défaut)"
-
-msgid "Dark blue"
-msgstr "Bleu foncé"
-
-msgid "French blue"
-msgstr "Bleu de France"
-
-msgid "Purple"
-msgstr "Violet"
-
-msgid "Green"
-msgstr "Vert"
-
-msgid "Especially used for links."
-msgstr "Utilisée en particulier pour les liens."
-
-msgid "Add a color transition on link hover"
-msgstr "Ajouter une transition de couleur au survol des liens"
-
-msgid "Accessibility: transitions are automatically disabled when the user has requested its system to minimize the amount of non-essential motion."
-msgstr "Accessibilité&nbsp;: les transitions sont automatiquement désactivées quand l’utilisateur a demandé à son système de réduire le nombre d’animations non essentielles."
-
-msgid "Advanced settings"
-msgstr "Paramètres avancés"
-
-msgid "Add minimal social markups"
-msgstr "Ajouter des balises sociales minimalistes"
-
-msgid "Useful to promote your content on social networks."
-msgstr "Utile pour promouvoir vos contenus sur les réseaux sociaux."
-
-msgid "Add <code>generator</code> meta tag"
-msgstr "Ajouter la balise meta <code>generator</code>"
-
-msgid "Allows you to add information to your pages without displaying it on your readers' screen."
-msgstr "Vous permet d’ajouter des informations à vos pages sans les afficher sur l’écran de vos lecteurs."
-
-# Header
-
-msgid "Header"
-msgstr "En-tête"
-
-msgid "Layout"
-msgstr "Mise en page"
-
-msgid "Header alignment"
-msgstr "Alignement de l’en-tête"
-
-msgid "Left (default)"
-msgstr "Gauche (par défaut)"
-
-msgid "Center"
-msgstr "Centre"
-
-msgid "Logo (beta)"
-msgstr "Logo (bêta)"
-
-msgid "The URL of your logo"
-msgstr "L’adresse de votre logo"
-
-msgid "The URL of your logo for screens with doubled pixel density"
-msgstr "L’adresse de votre logo pour les écrans à double densité de pixels"
-
-msgid "To ensure a good display on screens with doubled pixel density (Retina), please provide an image that is twice the size the previous one."
-msgstr "Pour garantir un bon affichage sur les écrans à densité de pixels double (Retina), veuillez fournir une image dont la taille est deux fois supérieure à l’image précédente."
-
-# Content
-
-msgid "Content"
-msgstr "Contenu"
-
-msgid "Post list"
-msgstr "Liste des billets"
-
-msgid "Displaying of posts"
-msgstr "Affichage des billets"
-
-msgid "Standard (default)"
-msgstr "Standard (par défaut)"
-
-msgid "On one line"
-msgstr "Sur une ligne"
-
-msgid "Full post"
-msgstr "Tout le billet"
-
-msgid "Display the first image of the post (beta)"
-msgstr "Afficher la première image de chaque billet (bêta)"
-
-msgid "Only if post displaying is set to "standard"."
-msgstr "Seulement si l’affichage des billets est défini sur «&nbsp;standard&nbsp;»."
-
-msgid "Text formatting"
-msgstr "Format du texte"
-
-msgid "Font family of post, page and comment content"
-msgstr "Famille de police du contenu des billets, pages et commentaires"
-
-msgid "Same as the main font family (default)"
-msgstr "Identique à la famille de polices principale (par défaut)"
-
-msgid "Text align"
-msgstr "Alignement du texte"
-
-msgid "Justify"
-msgstr "Justifié"
-
-msgid "Justify except on small screens"
-msgstr "Justifié, sauf sur les petits écrans"
-
-msgid "Automatic hyphenation"
-msgstr "Césures automatiques"
-
-msgid "Disable (default)"
-msgstr "Désactivé (par défaut)"
-
-msgid "Enable"
-msgstr "Activé"
-
-msgid "Enable except on small screens"
-msgstr "Activé, sauf sur les petits écrans"
-
-msgid "Author"
-msgstr "Auteur"
-
-msgid "Author name on posts"
-msgstr "Nom de l’auteur sur les billets"
-
-msgid "Not displayed (default)"
-msgstr "Non affiché (par défaut)"
-
-msgid "Next to the date"
-msgstr "Après la date"
-
-msgid "Below the post as signature"
-msgstr "Sous le billet comme une signature"
-
-msgid "Display the author name in the post list"
-msgstr "Afficher le nom de l’auteur dans la liste des billets"
-
-msgid "Other"
-msgstr "Autre"
-
-msgid "Global separator"
-msgstr "Séparateur global"
-
-msgid "Character(s) used to separate certain elements inside the theme (example: the date from the author's name when the latter is displayed). Default: \"/\"."
-msgstr "Caractère(s) utilisé(s) pour séparer certains éléments à l’intérieur du thème (exemple&nbsp;: la date du nom de l’auteur quand ce dernier est affiché). Valeur par défaut : \"/\"."
-
-msgid "Comments"
-msgstr "Commentaires"
-
-msgid "Add a link to the comment feed and trackbacks below the comment section"
-msgstr "Ajouter un lien vers le fil des commentaires et les rétroliens sous la section des commentaires"
-
-msgid "Allow visitors to send email to authors of posts and pages"
-msgstr "Autoriser les visiteurs à envoyer des courriels aux auteurs des billets et des pages"
-
-msgid "No (default)"
-msgstr "Non (par défaut)"
-
-msgid "Only when comments are open"
-msgstr "Seulement quand les commentaires sont ouverts"
-
-msgid "Always"
-msgstr "Toujours"
-
-msgid "If this option is enabled, the email address of authors will be made public. If you prefer not to reveal email addresses, try the <a href="%s">Signal</a> plugin."
-msgstr "Si cette option est activée, l’adresse électronique des auteurs sera rendue publique. Si vous préférez ne pas révéler les adresses, essayez l’extension <a href="%s">Signal</a>."
-
-# Widgets
-
-msgid "Widgets"
-msgstr "Widgets"
-
-msgid "Navigation widgets positioning"
-msgstr "Positionnement des widgets de navigation"
-
-msgid "Between header and main content"
-msgstr "Entre l’en-tête et le contenu principal"
-
-msgid "Between main content and footer (default)"
-msgstr "Entre le contenu principal et le pied de page (par défaut)"
-
-msgid "Disabled"
-msgstr "Désactivé"
-
-msgid "Enable the extra widget area"
-msgstr "Activer les widgets du volet d’extra"
-
-msgid "It is recommended to disable empty widget areas to avoid excess space between page elements."
-msgstr "Il est recommandé de désactiver les zones de widgets vides afin d’éviter l’apparition d’espacements excessifs entre les éléments de la page."
-
-# Footer
-
-msgid "Footer"
-msgstr "Pied de page"
-
-msgid "Enable the footer"
-msgstr "Activer le pied de page"
-
-msgid "If your footer is empty or you want to remove everything at the bottom of your pages, uncheck this setting."
-msgstr "Si votre pied de page est vide ou que vous souhaitez tout supprimer au bas de vos pages, décochez ce paramètre."
-
-msgid "Add a link to support Dotclear and Origine"
-msgstr "Ajouter un lien pour soutenir Dotclear et Origine"
-
-msgid "Footer alignment"
-msgstr "Alignement du pied de page"
-
-msgid "Social links"
-msgstr "Liens sociaux"
-
-msgid "Link to a Diaspora profile"
-msgstr "Lien vers un profil Diaspora"
-
-msgid "Link to a Discord server"
-msgstr "Lien vers un serveur Discord"
-
-msgid "Link to a Facebook profile or page"
-msgstr "Lien vers un profil ou une page Facebook"
-
-msgid "Link to a GitHub profile or page"
-msgstr "Lien vers un profil ou une page GitHub"
-
-msgid "Link to a Mastodon profile"
-msgstr "Lien vers un profil Mastodon"
-
-msgid "A Signal number or a group link"
-msgstr "Un numéro Signal ou un lien de groupe"
-
-msgid "Link to a TikTok profile"
-msgstr "Lien vers un profil TikTok"
-
-msgid "A Twitter username"
-msgstr "Un nom d’utilisateur Twitter"
-
-msgid "A WhatsApp number or a group link"
-msgstr "Un numéro WhatsApp ou un lien de groupe"
-
-# Submit
-
-msgid "Save"
+msgid "admin-save-button-text"
 msgstr "Enregistrer"
 
-msgid "Reset all settings"
+msgid "admin-reset-button-text"
 msgstr "Réinitialiser tous les paramètres"
 
-msgid "You settings do not work? Do not forget to activate them — see <a href=%s>the first checkbox</a>."
+msgid "admin-settings-not-working-message"
 msgstr "Vos paramètres ne fonctionnent pas ? N’oubliez pas de les activer – allez voir <a href=%s>le premier paramètre à cocher</a>."
 
-# Other translations
+# settings.php
 
-msgid "Display the number of comments in the post list (only if the post has comments)"
-msgstr "Afficher le nombre de commentaires dans la liste des billets (seulement si le billet a des commentaires)"
+# Sections
+
+msgid "settings-section-global-name"
+msgstr "Paramètres globaux"
+
+msgid "settings-section-global-fonts-title"
+msgstr "Polices d’écriture"
+
+msgid "settings-section-global-layout-title"
+msgstr "Mise en page"
+
+msgid "settings-section-global-colors-title"
+msgstr "Couleurs et apparence"
+
+msgid "settings-section-global-advance-title"
+msgstr "Paramètres avancés"
+
+msgid "settings-section-header-name"
+msgstr "Paramètres d’en-tête"
+
+msgid "settings-section-header-layout-title"
+msgstr "Mise en page"
+
+msgid "settings-section-header-logo-title"
+msgstr "Logo (bêta)"
+
+msgid "settings-section-content-name"
+msgstr "Paramètres du contenu"
+
+msgid "settings-section-content-postlist-title"
+msgstr "Liste des billets"
+
+msgid "settings-section-content-textformatting-title"
+msgstr "Mise en forme du texte"
+
+msgid "settings-section-content-author-title"
+msgstr "Auteur"
+
+msgid "settings-section-content-reactions-title"
+msgstr "Réactions"
+
+msgid "settings-section-content-other-title"
+msgstr "Autres paramètres"
+
+msgid "settings-section-widgets-name"
+msgstr "Paramètres de widgets"
+
+msgid "settings-section-footer-name"
+msgstr "Paramètres du pied de page"
+
+msgid "settings-section-footer-sociallinks-title"
+msgstr "Liens sociaux"
+
+# Settings
+
+msgid "settings-option-activation-title"
+msgstr "Activer les paramètres de l’extension"
+
+msgid "settings-option-activation-description"
+msgstr "Si vous ne cochez pas cette case, vos paramètres seront ignorés."
+
+msgid "settings-option-global-fontfamily-serif-default"
+msgstr "Avec empattements (par défaut)"
+
+msgid "settings-option-global-fontfamily-serif"
+msgstr "Avec empattements"
+
+msgid "settings-option-global-fontfamily-sansserif-default"
+msgstr "Sans empattements (par défaut)"
+
+msgid "settings-option-global-fontfamily-sansserif"
+msgstr "Sans empattements"
+
+msgid "settings-option-global-fontfamily-mono"
+msgstr "À chasse fixe"
+
+msgid "settings-option-global-fontfamily-title"
+msgstr "Famille de polices"
+
+msgid "settings-option-global-fontfamily-description"
+msgstr "Dans tous les cas, votre thème chargera les polices du système de l’appareil à partir duquel votre site est consulté. Cela permet de réduire les temps de chargement et d’avoir une continuité graphique avec le système."
+
+msgid "settings-option-global-fontsize-title"
+msgstr "Taille de la police"
+
+msgid "settings-option-global-fontsize-description"
+msgstr "Il est recommandé de ne pas modifier ce paramètre. Une taille de 100 % signifie que les textes de votre site auront la taille définie dans les paramètres du navigateur de chacun de vos visiteurs."
+
+msgid "settings-option-global-fontsize-80"
+msgstr "80 %"
+
+msgid "settings-option-global-fontsize-90"
+msgstr "90 %"
+
+msgid "settings-option-global-fontsize-100-default"
+msgstr "100 % (recommandé)"
+
+msgid "settings-option-global-fontsize-110"
+msgstr "110 %"
+
+msgid "settings-option-global-fontsize-120"
+msgstr "120 %"
+
+msgid "settings-option-global-fontsize-120"
+msgstr "120 %"
+
+msgid "settings-option-global-pagewidth-title"
+msgstr "Largeur de la page"
+
+msgid "settings-option-global-pagewidth-title-480-default"
+msgstr "480 px (par défaut)"
+
+msgid "settings-option-global-pagewidth-title-560"
+msgstr "560 px"
+
+msgid "settings-option-global-pagewidth-title-640"
+msgstr "640 px"
+
+msgid "settings-option-global-colorscheme-title"
+msgstr "Schéma de couleurs"
+
+msgid "settings-option-global-colorscheme-description"
+msgstr "Quand Système est sélectionné, le thème utilisa le schéma de couleurs des paramètres de l’utilisateurs."
+
+msgid "settings-option-global-colorscheme-system-default"
+msgstr "Système (par défaut)"
+
+msgid "settings-option-global-colorscheme-light"
+msgstr "Clair"
+
+msgid "settings-option-global-colorscheme-dark"
+msgstr "Sombre"
+
+msgid "settings-option-global-secondarycolor-title"
+msgstr "Couleur secondaire"
+
+msgid "settings-option-global-secondarycolor-description"
+msgstr "Notamment utilisée pour colorer les liens."
+
+msgid "settings-option-global-secondarycolor-red-default"
+msgstr "Rouge (par défaut)"
+
+msgid "settings-option-global-secondarycolor-red"
+msgstr "Rouge"
+
+msgid "settings-option-global-secondarycolor-blue-default"
+msgstr "Bleu (par défaut)"
+
+msgid "settings-option-global-secondarycolor-blue"
+msgstr "Bleu"
+
+msgid "settings-option-global-secondarycolor-frenchblue"
+msgstr "Bleu France"
+
+msgid "settings-option-global-secondarycolor-darkblue"
+msgstr "Bleu foncé"
+
+msgid "settings-option-global-secondarycolor-green"
+msgstr "Vert"
+
+msgid "settings-option-global-secondarycolor-orange"
+msgstr "Orange"
+
+msgid "settings-option-global-secondarycolor-purple"
+msgstr "Violet"
+
+msgid "settings-option-global-colortransition-title"
+msgstr "Activer les transitions de couleur"
+
+msgid "settings-option-global-colortransition-description"
+msgstr "Se manifestent lors du survol des liens et des boutons."
+
+msgid "settings-option-global-roundcorner-title"
+msgstr "Arrondir les coins"
+
+msgid "settings-option-global-roundcorner-description"
+msgstr "Par exemple les bordures d’un champ de formulaire."
+
+msgid "settings-option-global-minimalsocialmarkups-title"
+msgstr "Ajouter les balises sociales minimalistes dans l’en-tête"
+
+msgid "settings-option-global-minimalsocialmarkups-description"
+msgstr "Invisibles lors de la navigation, elles permettent un meilleur affichage des billets et des pages lors de leur diffusion sur les réseaux sociaux."
+
+msgid "settings-option-global-metagenerator-title"
+msgstr "Ajouter le métaélément <code>generator</code> à l’en-tête"
+
+msgid "settings-option-global-metagenerator-description"
+msgstr "Permet d’afficher Dotclear dans le code source."
+
+msgid "settings-option-global-metapingback-title"
+msgstr "Ajouter l’adresse de rétroliens dans l’en-tête"
+
+msgid "settings-option-header-align-title"
+msgstr "Alignement de l’en-tête"
+
+msgid "settings-option-header-align-left-default"
+msgstr "À gauche (par défaut)"
+
+msgid "settings-option-header-align-center"
+msgstr "Centré"
+
+msgid "settings-option-header-logourl-title"
+msgstr "Adresse du logo"
+
+msgid "settings-option-header-logourl2-title"
+msgstr "Adresse du logo à double densité de pixels"
+
+msgid "settings-option-header-logourl2-description"
+msgstr "Pour garantir un bon affichage sur les écrans à densité de pixels double (Retina), veuillez fournir une image dont la taille est deux fois supérieure à l’image précédente."
+
+msgid "settings-option-content-postlisttype-title"
+msgstr "Affichage de la liste des billets"
+
+msgid "settings-option-content-postlisttype-standard-default"
+msgstr "Standard (par défaut)"
+
+msgid "settings-option-content-postlisttype-oneline"
+msgstr "Sur une seule ligne"
+
+msgid "settings-option-content-postlisttype-full"
+msgstr "Billet intégral"
+
+msgid "settings-option-content-firstimage-title"
+msgstr "Mettre en avant la première image du billet dans la liste des billets (bêta)"
+
+msgid "settings-option-content-fontfamily-title-same-default"
+msgstr "Identique à la police globale du thème (par défaut)"
+
+msgid "settings-option-content-fontfamily-title"
+msgstr "Police d’écriture du contenu des billets, des pages et des commentaires"
+
+msgid "settings-option-content-textalign-title"
+msgstr "Alignement du texte"
+
+msgid "settings-option-content-textalign-left-default"
+msgstr "À gauche (par défaut)"
+
+msgid "settings-option-content-textalign-justify"
+msgstr "Justifié"
+
+msgid "settings-option-content-textalign-justifynotmobile"
+msgstr "Justifié, sauf sur les petits écrans"
+
+msgid "settings-option-content-hyphens-title"
+msgstr "Césures"
+
+msgid "settings-option-content-hyphens-disabled-default"
+msgstr "Désactivées (par défaut)"
+
+msgid "settings-option-content-hyphens-enabled"
+msgstr "Activées"
+
+msgid "settings-option-content-hyphens-enablednotmobile"
+msgstr "Activées, sauf sur les petits écrans"
+
+msgid "settings-option-content-postauthorname-title"
+msgstr "Nom de l’auteur dans les billets"
+
+msgid "settings-option-content-postauthorname-hidden-default"
+msgstr "Masqué"
+
+msgid "settings-option-content-postauthorname-date"
+msgstr "Affiché après la date"
+
+msgid "settings-option-content-postauthorname-signature"
+msgstr "Affiché comme signature"
+
+msgid "settings-option-content-postlistauthorname-title"
+msgstr "Afficher le nom de l’auteur dans la liste des billets"
+
+msgid "settings-option-content-postintro-title"
+msgstr "Afficher l’extrait comme une introduction dans les billets"
+
+msgid "settings-option-content-postintro-description"
+msgstr "Met en avant l’extrait défini par l’auteur entre le titre et le contenu du billet."
+
+msgid "settings-option-content-separator-title"
+msgstr "Caractère de séparation"
+
+msgid "settings-option-content-separator-description"
+msgstr "Utilisé pour séparer certains éléments du thème. Par défaut&nbsp;: « / »"
+
+msgid "settings-option-content-postlistcommentlink-title"
+msgstr "Afficher un lien vers les réactions au billet"
+
+msgid "settings-option-content-postcommentfeed-title"
+msgstr "Ajouter un lien pour s’abonner aux réactions"
+
+msgid "settings-option-content-privatecomment-title"
+msgstr "Commentaires privés"
+
+msgid "settings-option-content-postlistcommentlink-description"
+msgstr "Si cette option est activée, l’adresse électronique des auteurs sera rendue publique. Si vous préférez ne pas révéler leur adresse, essayez <a href=%s>l’extension Signal</a>."
+
+msgid "settings-option-content-postlistcommentlink-no-default"
+msgstr "Désactivés"
+
+msgid "settings-option-content-postlistcommentlink-open"
+msgstr "Activés, seulement si les commentaires sont ouverts"
+
+msgid "settings-option-content-postlistcommentlink-always"
+msgstr "Toujours activés"
+
+msgid "settings-option-widgets-navposition-title"
+msgstr "Positionnement des widgets de navigation"
+
+msgid "settings-option-widgets-navposition-top"
+msgstr "Entre l’en-tête et le contenu"
+
+msgid "settings-option-widgets-navposition-bottom-default"
+msgstr "Entre le contenu et le pied de page (par défaut)"
+
+msgid "settings-option-widgets-navposition-disabled"
+msgstr "Désactiver cette zone de widgets"
+
+msgid "settings-option-widgets-searchform-title"
+msgstr "Afficher un formulaire de recherche en haut de la zone de widgets de navigation"
+
+msgid "settings-option-widgets-extra-title"
+msgstr "Activer les widgets extra"
+
+msgid "settings-option-footer-activation-title"
+msgstr "Activer le pied de page"
+
+msgid "settings-option-footer-activation-description"
+msgstr "Il est recommandé de décocher cette option si le pied de page ne contient aucun élément."
+
+msgid "settings-option-footer-credits-title"
+msgstr "Afficher une mention à Dotclear et au thème"
+
+msgid "settings-option-footer-align-title"
+msgstr "Alignement du pied de page"
+
+msgid "settings-option-footer-align-left-default"
+msgstr "À gauche (par défaut)"
+
+msgid "settings-option-footer-align-center"
+msgstr "Centré"
+
+msgid "settings-option-footer-sociallinks-diaspora-title"
+msgstr "Adresse d’un profil Diaspora"
+
+msgid "settings-option-footer-sociallinks-discord-title"
+msgstr "Adresse d’un serveur Discord"
+
+msgid "settings-option-footer-sociallinks-facebook-title"
+msgstr "Adresse d’un profil ou d’une page Facebook"
+
+msgid "settings-option-footer-sociallinks-github-title"
+msgstr "Adresse d’un profil ou d’une répertoire sur GitHub"
+
+msgid "settings-option-footer-sociallinks-mastodon-title"
+msgstr "Adresse d’un profil Mastodon"
+
+msgid "settings-option-footer-sociallinks-signal-title"
+msgstr "Adresse d’un compte Signal"
+
+msgid "settings-option-footer-sociallinks-tiktok-title"
+msgstr "Adresse d’un profil TikTok"
+
+msgid "settings-option-footer-sociallinks-twitter-title"
+msgstr "Adresse d’un profil Twitter"
+
+msgid "settings-option-footer-sociallinks-whatsapp-title"
+msgstr "Adresse d’un compte WhatsApp"
+
+msgid "settings-option-footer-originestyles-title"
+msgstr "Styles personnalisés pour Origine"
+
+msgid "settings-option-footer-origineministyles-title"
+msgstr "Styles personnalisés pour Origine Mini"
