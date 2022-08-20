@@ -92,14 +92,14 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
         echo '</p>';
 
         // If the setting has a description, displays it as a note.
-        if (isset($default_settings[$setting_id]['description']) && $default_settings[$setting_id]['description'] !== '') {
+        if ($default_settings[$setting_id]['type'] === 'checkbox' || (isset($default_settings[$setting_id]['description']) && $default_settings[$setting_id]['description'] !== '')) {
             echo '<p class="form-note">', $default_settings[$setting_id]['description'];
 
             if ($default_settings[$setting_id]['type'] === 'checkbox') {
-                if ($default_settings[$setting_id]['default'] === true) {
-                    echo ' ', __('Default: checked.');
+                if ($default_settings[$setting_id]['default'] === 1) {
+                    echo ' ', __('option-default-checked');
                 } else {
-                    echo ' ', __('Default: unchecked.');
+                    echo ' ', __('option-default-unchecked');
                 }
             }
 
@@ -585,7 +585,7 @@ if (!empty($_POST)) {
             \dcCore::app()->emptyTemplatesCache();
         }
 
-        dcPage::addSuccessNotice(__('Settings have been successfully updated.'));
+        dcPage::addSuccessNotice(__('settings-saved-message'));
         http::redirect($p_url);
     } catch (Exception $e) {
         \dcCore::app()->error->add($e->getMessage());
@@ -594,7 +594,7 @@ if (!empty($_POST)) {
 ?>
 <html>
     <head>
-        <title><?php echo __('Origine Settings'); ?></title>
+        <title><?php echo __('admin-title'); ?></title>
     </head>
 
     <body>
@@ -602,7 +602,7 @@ if (!empty($_POST)) {
         echo dcPage::breadcrumb(
             [
                 html::escapeHTML(\dcCore::app()->blog->name) => '',
-                __('Origine Settings')                                             => ''
+                __('admin-title')                            => ''
             ]
         );
 
@@ -615,7 +615,7 @@ if (!empty($_POST)) {
                 <p>
                     <?php
                     printf(
-                        __('This plugin is only meant to customize themes of the Origine family. To use it, please <a href=%s>install and activate Origine or Origine Mini</a>.'),
+                        __('admin-access-denied-origine-only'),
                         html::escapeURL(\dcCore::app()->adminurl->get('admin.blog.theme'))
                     );
                     ?>
@@ -635,7 +635,7 @@ if (!empty($_POST)) {
                     <?php
                     echo $default_settings['active']['description'],
                     ' ',
-                    __('Default: checked.');
+                    __('option-default-checked');
                     ?>
                 </p>
 
@@ -716,13 +716,13 @@ if (!empty($_POST)) {
                 <p>
                     <?php echo \dcCore::app()->formNonce(); ?>
 
-                    <input type=submit value="<?php echo __('Save'); ?>"> <input class=delete name=default type=submit value="<?php echo __('Reset all settings'); ?>">
+                    <input type=submit value="<?php echo __('admin-save-button-text'); ?>"> <input class=delete name=default type=submit value="<?php echo __('admin-reset-button-text'); ?>">
                 </p>
 
                 <p class="form-note">
                     <?php
                     printf(
-                        __('You settings do not work? Do not forget to activate them — see <a href=%s>the first checkbox</a>.'),
+                        __('admin-settings-not-working-message'),
                         '#active'
                     );
                     ?>
