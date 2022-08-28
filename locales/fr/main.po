@@ -106,6 +106,9 @@ msgstr "Liste des billets"
 msgid "settings-section-content-textformatting-title"
 msgstr "Mise en forme du texte"
 
+msgid "settings-section-content-images-title"
+msgstr "Images"
+
 msgid "settings-section-content-author-title"
 msgstr "Auteur"
 
@@ -249,6 +252,12 @@ msgstr "Arrondir les coins"
 msgid "settings-option-global-roundcorner-description"
 msgstr "Par exemple les bordures d’un champ de formulaire."
 
+msgid "settings-option-global-linksunderline-title"
+msgstr "Souligner les liens avec des points"
+
+msgid "settings-option-global-linksunderline-description"
+msgstr "Peut être utile lorsque leur couleur est peu contrastée."
+
 msgid "settings-option-global-minimalsocialmarkups-title"
 msgstr "Ajouter les balises sociales minimalistes dans l’en-tête"
 
@@ -326,6 +335,12 @@ msgstr "Activées"
 
 msgid "settings-option-content-hyphens-enablednotmobile"
 msgstr "Activées, sauf sur les petits écrans"
+
+msgid "settings-option-content-imageswide-title"
+msgstr "Agrandir les images suffisamment larges"
+
+msgid "settings-option-content-imageswide-description"
+msgstr "Permet aux photos de s’afficher en grand dans les billets (utilise JavaScript)."
 
 msgid "settings-option-content-postauthorname-title"
 msgstr "Nom de l’auteur dans les billets"

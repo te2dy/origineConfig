@@ -106,6 +106,9 @@ msgstr "Post list"
 msgid "settings-section-content-textformatting-title"
 msgstr "Text formatting"
 
+msgid "settings-section-content-images-title"
+msgstr "Images"
+
 msgid "settings-section-content-author-title"
 msgstr "Author"
 
@@ -249,6 +252,12 @@ msgstr "Round corners"
 msgid "settings-option-global-roundcorner-description"
 msgstr "For example, the borders of a form field."
 
+msgid "settings-option-global-linksunderline-title"
+msgstr "Underline links with dots"
+
+msgid "settings-option-global-linksunderline-description"
+msgstr "Can be useful when their color is low contrast."
+
 msgid "settings-option-global-minimalsocialmarkups-title"
 msgstr "Add minimal social markups in the document head"
 
@@ -326,6 +335,12 @@ msgstr "Enabled"
 
 msgid "settings-option-content-hyphens-enablednotmobile"
 msgstr "Enabled, except on small screen"
+
+msgid "settings-option-content-imageswide-title"
+msgstr "Expand images that are large enough"
+
+msgid "settings-option-content-imageswide-description"
+msgstr "Allows photos to be displayed in large size in posts (uses JavaScript)."
 
 msgid "settings-option-content-postauthorname-title"
 msgstr "Author's name in posts"

@@ -106,6 +106,9 @@ msgstr ""
 msgid "settings-section-content-textformatting-title"
 msgstr ""
 
+msgid "settings-section-content-images-title"
+msgstr ""
+
 msgid "settings-section-content-author-title"
 msgstr ""
 
@@ -249,6 +252,12 @@ msgstr ""
 msgid "settings-option-global-roundcorner-description"
 msgstr ""
 
+msgid "settings-option-global-linksunderline-title"
+msgstr ""
+
+msgid "settings-option-global-linksunderline-description"
+msgstr ""
+
 msgid "settings-option-global-minimalsocialmarkups-title"
 msgstr ""
 
@@ -325,6 +334,12 @@ msgid "settings-option-content-hyphens-enabled"
 msgstr ""
 
 msgid "settings-option-content-hyphens-enablednotmobile"
+msgstr ""
+
+msgid "settings-option-content-imageswide-title"
+msgstr ""
+
+msgid "settings-option-content-imageswide-description"
 msgstr ""
 
 msgid "settings-option-content-postauthorname-title"
