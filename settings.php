@@ -42,6 +42,7 @@ class origineConfigSettings {
                 'sub_sections' => [
                     'post-list'       => __('settings-section-content-postlist-title'),
                     'text-formatting' => __('settings-section-content-textformatting-title'),
+                    'images'          => __('settings-section-content-images-title'),
                     'author'          => __('settings-section-content-author-title'),
                     'comments'        => __('settings-section-content-reactions-title'),
                     'other'           => __('settings-section-content-other-title'),
@@ -218,6 +219,15 @@ class origineConfigSettings {
             'theme'       => ['origine-mini']
         ];
 
+        $default_settings['global_css_links_underline'] = [
+            'title'       => __('settings-option-global-linksunderline-title'),
+            'description' => __('settings-option-global-linksunderline-description'),
+            'type'        => 'checkbox',
+            'default'     => 0,
+            'section'     => ['global', 'colors'],
+            'theme'       => ['origine-mini']
+        ];
+
         $default_settings['global_meta_social'] = [
             'title'       => __('settings-option-global-minimalsocialmarkups-title'),
             'description' => __('settings-option-global-minimalsocialmarkups-description'),
@@ -244,6 +254,15 @@ class origineConfigSettings {
             'section'     => ['global', 'advanced'],
             'theme'       => ['origine-mini']
         ];
+
+        /*$default_settings['global_meta_json_data'] = [
+            'title'       => __('settings-option-global-jsondata-title'),
+            'description' => __('settings-option-global-jsondata-description'),
+            'type'        => 'checkbox',
+            'default'     => 0,
+            'section'     => ['global', 'advanced'],
+            'theme'       => ['origine', 'origine-mini']
+        ];*/
 
         // Header.
         $default_settings['header_align'] = [
@@ -343,6 +362,15 @@ class origineConfigSettings {
             'default'     => 'disabled',
             'section'     => ['content', 'text-formatting'],
             'theme'       => ['origine', 'origine-mini']
+        ];
+
+        $default_settings['content_images_wide'] = [
+            'title'       => __('settings-option-content-imageswide-title'),
+            'description' => __('settings-option-content-imageswide-description'),
+            'type'        => 'checkbox',
+            'default'     => 0,
+            'section'     => ['content', 'images'],
+            'theme'       => ['origine-mini']
         ];
 
         $default_settings['content_post_author_name'] = [

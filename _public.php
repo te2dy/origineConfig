@@ -13,9 +13,11 @@ if (!defined('DC_RC_PATH')) {
 // Behaviors.
 \dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineMinimalSocialMarkups']);
 \dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigMeta']);
+//\dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigJsonData']);
 \dcCore::app()->addBehavior('publicEntryBeforeContent', ['origineConfig', 'origineConfigPostIntro']);
 \dcCore::app()->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
 \dcCore::app()->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
+\dcCore::app()->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineConfigImagesWide']);
 
 // Values.
 \dcCore::app()->tpl->addValue('origineConfigLogo', ['origineConfig', 'origineConfigLogo']);
@@ -152,6 +154,33 @@ class origineConfig
       }
     } 
   }
+
+    /**
+     * Adds JSON structured data in head.
+     *
+     * @return string Data.
+     */
+    public static function origineConfigJsonData()
+    {
+        // Posts and pages.
+        if (\dcCore::app()->url->type === 'post' || \dcCore::app()->url->type === 'pages') {
+            $data = [
+                '@context' => 'https://schema.org',
+                '@type' => 'BlogPosting',
+                'headline' => \dcCore::app()->ctx->posts->post_title,
+                'datePublished' => "2015-02-05T08:00:00+08:00",
+                'dateModified' => "2015-02-05T09:20:00+08:00",
+                'author' => [
+                    '@type' => 'Person',
+                    'name' => \dcCore::app()->ctx->posts->user_displayname,
+                ],
+            ];
+        }
+
+        if (isset($data) && !empty($data)) {
+            echo '<script type="application/ld+json">', json_encode($data), '</script>';
+        }
+    }
 
   /**
    * Displays the excerpt as an introduction before post content.
@@ -405,6 +434,83 @@ class origineConfig
     }
   }
   */
+
+  /**
+   * Displays wide images.
+   *
+   * If the image width is wider than the page width, the image will overflow to be displayed bigger.
+   *
+   * @return void
+   */
+  public static function origineConfigImagesWide()
+  {
+    if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_images_wide === true) {
+        $page_width = \dcCore::app()->blog->settings->origineConfig->global_page_width ? (int) \dcCore::app()->blog->settings->origineConfig->global_page_width : 480;
+        ?>
+            <script>
+                var pageWidth = <?php echo (int) $page_width; ?>,
+                    fontSize = 0;
+
+                // Help: https://brokul.dev/detecting-the-default-browser-font-size-in-javascript
+                const element = document.createElement('div');
+                element.style.width = '1rem';
+                element.style.display = 'none';
+                document.body.append(element);
+
+                const widthMatch = window
+                    .getComputedStyle(element)
+                    .getPropertyValue('width')
+                    .match(/\d+/);
+
+                element.remove();
+
+                if (widthMatch && widthMatch.length >= 1) {
+                    fontSize = Number(widthMatch[0]);
+                }
+
+                if (fontSize > 0) {
+                    pageWidth *= fontSize;
+                }
+
+                function getMeta(url, callback) {
+                    var img = new Image();
+                    img.src = url;
+                    img.onload = function() { callback(this.width, this.height); }
+                }
+
+                var img = document.body.getElementsByTagName("img"),
+                    i   = 0;
+
+                while (i < img.length) {
+                    let myImg = img[i];
+
+                    getMeta(
+                        myImg.src,
+                        function(width, height) {
+                            let imgWidth = width,
+                                imgHeight = height;
+
+                            // 480 is the page width and apply styles only to lanscape images
+                            if (imgWidth > pageWidth && (imgWidth > imgHeight)) {
+                                if (imgWidth > 900) {
+                                    imgHeight = parseInt(900 * imgHeight / imgWidth);
+                                    imgWidth = 900;
+                                }
+
+                                let myImgStyle = "display:block; margin-left: 50%; transform: translateX(-50%); max-width: 100vw; overflow: hidden;";
+
+                                myImg.setAttribute("style", myImgStyle);
+                                myImg.setAttribute("width", imgWidth);
+                                myImg.setAttribute("height", imgHeight);
+                            }
+                        }
+                    );
+                    i++;
+                }
+            </script>
+        <?php
+    }
+  }
 
   /**
    * Displays a logo in the header.
