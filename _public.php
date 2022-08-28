@@ -499,7 +499,7 @@ class origineConfig
                                     imgWidth = 900;
                                 }
 
-                                let myImgStyle = "display:block; margin-left: 50%; transform: translateX(-50%); max-width: 100vw; overflow: hidden;";
+                                let myImgStyle = "display:block; margin-left: 50%; transform: translateX(-50%); max-width: 100vw;";
 
                                 myImg.setAttribute("style", myImgStyle);
                                 myImg.setAttribute("width", imgWidth);
