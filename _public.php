@@ -445,31 +445,38 @@ class origineConfig
   public static function origineConfigImagesWide()
   {
     if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_images_wide === true) {
-        $page_width = \dcCore::app()->blog->settings->origineConfig->global_page_width ? \dcCore::app()->blog->settings->origineConfig->global_page_width : 480;
+        $page_width_em = \dcCore::app()->blog->settings->origineConfig->global_page_width ? \dcCore::app()->blog->settings->origineConfig->global_page_width : 30;
         ?>
             <script>
-                var pageWidth = parseInt(<?php echo $page_width; ?>),
-                    fontSize = 0;
+                var pageWidthEm = parseInt(<?php echo $page_width_em; ?>),
+                    imgWideWidthEm = pageWidthEm + 10,
+                    pageWidthPx = 0, // To set later.
+                    imgWideWidthPx = 0, // To set later.
+                    fontSize = 0; // To set later.
 
-                // Help: https://brokul.dev/detecting-the-default-browser-font-size-in-javascript
+                /**
+                 * Gets the font size defined by the browser.
+                 *
+                 * @link https://brokul.dev/detecting-the-default-browser-font-size-in-javascript
+                 */
                 const element = document.createElement('div');
                 element.style.width = '1rem';
                 element.style.display = 'none';
                 document.body.append(element);
 
-                const widthMatch = window
-                    .getComputedStyle(element)
-                    .getPropertyValue('width')
-                    .match(/\d+/);
+                const widthMatch = window.getComputedStyle(element).getPropertyValue('width').match(/\d+/);
 
                 element.remove();
 
+                // Sets the font size in px.
                 if (widthMatch && widthMatch.length >= 1) {
-                    fontSize = Number(widthMatch[0]);
+                    fontSizePx = parseInt(widthMatch[0]);
                 }
 
-                if (fontSize > 0) {
-                    pageWidth *= fontSize;
+                // If a font size is set, calculates page and image width in px.
+                if (fontSizePx > 0) {
+                    pageWidthPx = pageWidthEm * fontSizePx;
+                    imgWideWidthPx = imgWideWidthEm * fontSizePx;
                 }
 
                 function getMeta(url, callback) {
@@ -480,9 +487,11 @@ class origineConfig
                     }
                 }
 
+                // Gets all images in the post.
                 var img = document.getElementsByTagName("article")[0].getElementsByTagName("img"),
                     i = 0;
 
+                // Expands each image.
                 while (i < img.length) {
                     let myImg = img[i];
 
@@ -492,21 +501,24 @@ class origineConfig
                             let imgWidth = width,
                                 imgHeight = height;
 
-                            // Apply styles only to lanscape images
-                            if (imgWidth > pageWidth && (imgWidth > imgHeight)) {
-                                if (imgWidth > 900) {
-                                    imgHeight = parseInt(900 * imgHeight / imgWidth);
-                                    imgWidth = 900;
+                            // Applies expand styles only to lanscape images.
+                            if (imgWidth > pageWidthPx && (imgWidth > imgHeight)) {
+                                if (imgWidth > imgWideWidthPx) {
+                                    imgHeight = parseInt(imgWideWidthPx * imgHeight / imgWidth);
+                                    imgWidth = imgWideWidthPx;
                                 }
 
+                                // Defines the styles.
                                 let myImgStyle = "display:block; margin-left: 50%; transform: translateX(-50%); max-width: 100vw;";
 
+                                // Sets the image attributes.
                                 myImg.setAttribute("style", myImgStyle);
                                 myImg.setAttribute("width", imgWidth);
                                 myImg.setAttribute("height", imgHeight);
                             }
                         }
                     );
+
                     i++;
                 }
             </script>
