@@ -445,10 +445,10 @@ class origineConfig
   public static function origineConfigImagesWide()
   {
     if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_images_wide === true) {
-        $page_width = \dcCore::app()->blog->settings->origineConfig->global_page_width ? (int) \dcCore::app()->blog->settings->origineConfig->global_page_width : 480;
+        $page_width = \dcCore::app()->blog->settings->origineConfig->global_page_width ? \dcCore::app()->blog->settings->origineConfig->global_page_width : 480;
         ?>
             <script>
-                var pageWidth = <?php echo (int) $page_width; ?>,
+                var pageWidth = parseInt(<?php echo $page_width; ?>),
                     fontSize = 0;
 
                 // Help: https://brokul.dev/detecting-the-default-browser-font-size-in-javascript
@@ -475,11 +475,13 @@ class origineConfig
                 function getMeta(url, callback) {
                     var img = new Image();
                     img.src = url;
-                    img.onload = function() { callback(this.width, this.height); }
+                    img.onload = function() {
+                        callback(this.width, this.height);
+                    }
                 }
 
-                var img = document.body.getElementsByTagName("img"),
-                    i   = 0;
+                var img = document.getElementsByTagName("article")[0].getElementsByTagName("img"),
+                    i = 0;
 
                 while (i < img.length) {
                     let myImg = img[i];
@@ -490,7 +492,7 @@ class origineConfig
                             let imgWidth = width,
                                 imgHeight = height;
 
-                            // 480 is the page width and apply styles only to lanscape images
+                            // Apply styles only to lanscape images
                             if (imgWidth > pageWidth && (imgWidth > imgHeight)) {
                                 if (imgWidth > 900) {
                                     imgHeight = parseInt(900 * imgHeight / imgWidth);
