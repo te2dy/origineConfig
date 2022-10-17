@@ -586,7 +586,7 @@ if (!empty($_POST)) {
         }
 
         dcPage::addSuccessNotice(__('settings-saved-message'));
-        http::redirect($p_url);
+        http::redirect(\dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
         \dcCore::app()->error->add($e->getMessage());
     }
@@ -623,7 +623,7 @@ if (!empty($_POST)) {
             <?php
         else :
         ?>
-            <form action=<?php echo $p_url; ?> method=post>
+            <form action=<?php echo \dcCore::app()->admin->getPageURL(); ?> method=post>
                 <!-- # Displays the activation checkbox before all other settings. -->
                 <p>
                     <?php echo form::checkbox('active', true, $settings['active']); ?>
