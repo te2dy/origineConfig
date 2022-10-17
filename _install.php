@@ -35,6 +35,8 @@ try {
     foreach($oc_settings_default as $setting_id => $setting_data) {
         if ($setting_data['type'] === 'checkbox') {
             $setting_type = 'boolean';
+        } elseif ($setting_data['type'] === 'select_int') {
+            $setting_type = 'integer';
         } else {
             $setting_type = 'string';
         }
