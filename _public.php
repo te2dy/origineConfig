@@ -452,7 +452,7 @@ class origineConfig
                             imgWideWidthEm = pageWidthEm + 10,
                             pageWidthPx = 0, // To set later.
                             imgWideWidthPx = 0, // To set later.
-                            fontSize = 0; // To set later.
+                            fontSizePx = 0; // To set later.
 
                         /**
                          * Gets the font size defined by the browser.
@@ -495,8 +495,8 @@ class origineConfig
                         while (i < img.length) {
                             let myImg = img[i];
 
-                                getMeta(
-                                    myImg.src,
+                            getMeta(
+                                myImg.src,
                                 function(width, height) {
                                     let imgWidth = width,
                                         imgHeight = height;
@@ -508,7 +508,7 @@ class origineConfig
                                             imgWidth = imgWideWidthPx;
                                         }
 
-                                        // Defines the styles.
+                                        // Defines the styles of the image.
                                         let myImgStyle = "display:block; margin-left: 50%; transform: translateX(-50%); max-width: 100vw;";
 
                                         // Sets the image attributes.

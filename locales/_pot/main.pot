@@ -183,13 +183,16 @@ msgstr ""
 msgid "settings-option-global-pagewidth-title"
 msgstr ""
 
-msgid "settings-option-global-pagewidth-title-480-default"
+msgid "settings-option-global-pagewidth-description"
 msgstr ""
 
-msgid "settings-option-global-pagewidth-title-560"
+msgid "settings-option-global-pagewidth-title-30-default"
 msgstr ""
 
-msgid "settings-option-global-pagewidth-title-640"
+msgid "settings-option-global-pagewidth-title-35"
+msgstr ""
+
+msgid "settings-option-global-pagewidth-title-40"
 msgstr ""
 
 msgid "settings-option-global-colorscheme-title"
@@ -250,12 +253,6 @@ msgid "settings-option-global-roundcorner-title"
 msgstr ""
 
 msgid "settings-option-global-roundcorner-description"
-msgstr ""
-
-msgid "settings-option-global-linksunderline-title"
-msgstr ""
-
-msgid "settings-option-global-linksunderline-description"
 msgstr ""
 
 msgid "settings-option-global-minimalsocialmarkups-title"

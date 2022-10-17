@@ -142,12 +142,12 @@ class origineConfigSettings {
 
         $default_settings['global_page_width'] = [
             'title'       => __('settings-option-global-pagewidth-title'),
-            'description' => '',
+            'description' => __('settings-option-global-pagewidth-description'),
             'type'        => 'select_int',
             'choices'     => [
-                __('settings-option-global-pagewidth-title-480-default') => 30,
-                __('settings-option-global-pagewidth-title-560')         => 35,
-                __('settings-option-global-pagewidth-title-640')         => 40
+                __('settings-option-global-pagewidth-title-30-default') => 30,
+                __('settings-option-global-pagewidth-title-35')         => 35,
+                __('settings-option-global-pagewidth-title-40')         => 40
             ],
             'default'     => 'system',
             'section'     => ['global', 'layout'],
@@ -213,15 +213,6 @@ class origineConfigSettings {
         $default_settings['global_css_border_radius'] = [
             'title'       => __('settings-option-global-roundcorner-title'),
             'description' => __('settings-option-global-roundcorner-description'),
-            'type'        => 'checkbox',
-            'default'     => 0,
-            'section'     => ['global', 'colors'],
-            'theme'       => ['origine-mini']
-        ];
-
-        $default_settings['global_css_links_underline'] = [
-            'title'       => __('settings-option-global-linksunderline-title'),
-            'description' => __('settings-option-global-linksunderline-description'),
             'type'        => 'checkbox',
             'default'     => 0,
             'section'     => ['global', 'colors'],
@@ -651,6 +642,9 @@ class origineConfigSettings {
             'widgets_enabled',
             'global_css',
             'global_separator',
+            'settings-option-global-pagewidth-title-480-default',
+            'settings-option-global-pagewidth-title-560',
+            'settings-option-global-pagewidth-title-640',
         ];
 
         return $settings_to_unset;

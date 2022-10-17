@@ -183,14 +183,17 @@ msgstr "120%"
 msgid "settings-option-global-pagewidth-title"
 msgstr "Page width"
 
-msgid "settings-option-global-pagewidth-title-480-default"
-msgstr "480px (default)"
+msgid "settings-option-global-pagewidth-description"
+msgstr "The width of the page depends on the font size. By default, 30em corresponds to a page width of 480px."
 
-msgid "settings-option-global-pagewidth-title-560"
-msgstr "560px"
+msgid "settings-option-global-pagewidth-title-30-default"
+msgstr "30em (default)"
 
-msgid "settings-option-global-pagewidth-title-640"
-msgstr "640px"
+msgid "settings-option-global-pagewidth-title-35"
+msgstr "35em"
+
+msgid "settings-option-global-pagewidth-title-40"
+msgstr "40em"
 
 msgid "settings-option-global-colorscheme-title"
 msgstr "Color scheme"
@@ -251,12 +254,6 @@ msgstr "Round corners"
 
 msgid "settings-option-global-roundcorner-description"
 msgstr "For example, the borders of a form field."
-
-msgid "settings-option-global-linksunderline-title"
-msgstr "Underline links with dots"
-
-msgid "settings-option-global-linksunderline-description"
-msgstr "Can be useful when their color is low contrast."
 
 msgid "settings-option-global-minimalsocialmarkups-title"
 msgstr "Add minimal social markups in the document head"

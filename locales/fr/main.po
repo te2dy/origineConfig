@@ -183,14 +183,17 @@ msgstr "120 %"
 msgid "settings-option-global-pagewidth-title"
 msgstr "Largeur de la page"
 
-msgid "settings-option-global-pagewidth-title-480-default"
-msgstr "480 px (par défaut)"
+msgid "settings-option-global-pagewidth-description"
+msgstr "La largeur de la page dépend de la taille de la police. Par défaut, 30 em correspond à une largeur de page de 480 px."
 
-msgid "settings-option-global-pagewidth-title-560"
-msgstr "560 px"
+msgid "settings-option-global-pagewidth-title-30-default"
+msgstr "30 em (par défaut)"
 
-msgid "settings-option-global-pagewidth-title-640"
-msgstr "640 px"
+msgid "settings-option-global-pagewidth-title-35"
+msgstr "35 em"
+
+msgid "settings-option-global-pagewidth-title-40"
+msgstr "40 em"
 
 msgid "settings-option-global-colorscheme-title"
 msgstr "Schéma de couleurs"
@@ -251,12 +254,6 @@ msgstr "Arrondir les coins"
 
 msgid "settings-option-global-roundcorner-description"
 msgstr "Par exemple les bordures d’un champ de formulaire."
-
-msgid "settings-option-global-linksunderline-title"
-msgstr "Souligner les liens avec des points"
-
-msgid "settings-option-global-linksunderline-description"
-msgstr "Peut être utile lorsque leur couleur est peu contrastée."
 
 msgid "settings-option-global-minimalsocialmarkups-title"
 msgstr "Ajouter les balises sociales minimalistes dans l’en-tête"
