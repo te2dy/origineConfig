@@ -46,16 +46,14 @@ function origineConfigArrayToCSS($rules)
 /**
  * Displays the input of a setting.
  * 
- * @param string $setting_id             The ID of the setting to display.
- * @param array    $default_settings All default settings.
- * @param array    $settings                 All values of settings set by the user.
+ * @param string $setting_id       The ID of the setting to display.
+ * @param array  $default_settings All default settings.
+ * @param array  $settings         All values of settings set by the user.
  * 
  * @return void
  */
 function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $settings = [])
 {
-    $output = '';
-
     if ($setting_id !== '' && !empty($settings) && !empty($default_settings) && array_key_exists($setting_id, $default_settings) === true) {
         echo '<p>';
 
@@ -65,7 +63,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
                 true,
                 $settings[$setting_id]
             ),
-            '<label class="classic" for="' . $setting_id . '">',
+            '<label class=classic for=' . $setting_id . '>',
             $default_settings[$setting_id]['title'],
             '</label>';
         } elseif ($default_settings[$setting_id]['type'] === 'select' || $default_settings[$setting_id]['type'] === 'select_int') {
@@ -93,7 +91,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
 
         // If the setting has a description, displays it as a note.
         if ($default_settings[$setting_id]['type'] === 'checkbox' || (isset($default_settings[$setting_id]['description']) && $default_settings[$setting_id]['description'] !== '')) {
-            echo '<p class="form-note">', $default_settings[$setting_id]['description'];
+            echo '<p class=form-note>', $default_settings[$setting_id]['description'];
 
             if ($default_settings[$setting_id]['type'] === 'checkbox') {
                 if ($default_settings[$setting_id]['default'] === 1) {
@@ -111,7 +109,7 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
 /**
  * Checks if the theme supports the current option.
  * 
- * @param string             The current theme id.
+ * @param string       The current theme id.
  * @param string|array Themes thats supports the option.
  * 
  * @return bool True if the theme supports the option to display.
@@ -168,9 +166,10 @@ foreach($default_settings as $setting_id => $setting_data) {
 if (!empty($_POST)) {
     try {
         if (isset($_POST['default']) === false) {
-            // Saves options.
+            // Ignores styles.
             $settings_to_ignore = ['css_origine', 'css_origine_mini'];
 
+            // Saves options.
             foreach ($settings as $id => $value) {
                 if (option_supported($theme, $default_settings[$id]['theme']) === true && !in_array($id, $settings_to_ignore)) {
                     if ($default_settings[$id]['type'] === 'checkbox') {
@@ -430,7 +429,7 @@ if (!empty($_POST)) {
 
         } elseif ($theme = 'origine-mini') {
             if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
-                $css_main_array['a']['transition']                                 = 'all .2s ease-in-out';
+                $css_main_array['a']['transition']                 = 'all .2s ease-in-out';
                 $css_main_array['a:active, a:hover']['transition'] = 'all .2s ease-in-out';
 
                 $css_main_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
@@ -719,7 +718,7 @@ if (!empty($_POST)) {
                     <input type=submit value="<?php echo __('admin-save-button-text'); ?>"> <input class=delete name=default type=submit value="<?php echo __('admin-reset-button-text'); ?>">
                 </p>
 
-                <p class="form-note">
+                <p class=form-note>
                     <?php
                     printf(
                         __('admin-settings-not-working-message'),
