@@ -234,6 +234,9 @@ msgstr "Bleu France"
 msgid "settings-option-global-secondarycolor-darkblue"
 msgstr "Bleu foncé"
 
+msgid "settings-option-global-secondarycolor-gray"
+msgstr "Gris"
+
 msgid "settings-option-global-secondarycolor-green"
 msgstr "Vert"
 

@@ -234,6 +234,9 @@ msgstr ""
 msgid "settings-option-global-secondarycolor-darkblue"
 msgstr ""
 
+msgid "settings-option-global-secondarycolor-gray"
+msgstr ""
+
 msgid "settings-option-global-secondarycolor-green"
 msgstr ""
 

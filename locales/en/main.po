@@ -234,6 +234,9 @@ msgstr "French blue"
 msgid "settings-option-global-secondarycolor-darkblue"
 msgstr "Dark blue"
 
+msgid "settings-option-global-secondarycolor-gray"
+msgstr "Gray"
+
 msgid "settings-option-global-secondarycolor-green"
 msgstr "Green"
 
