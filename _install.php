@@ -26,6 +26,8 @@ try {
      * Delete the old database entry which contained all the settings.
      *
      * To remove after some releases.
+     *
+     * @since origineConfig 2.1
      */
     $core->blog->settings->origineConfig->drop('origine_settings');
 
