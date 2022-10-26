@@ -181,11 +181,10 @@ class origineConfigSettings {
             $global_color_secondary_default = 'blue';
             $global_color_secondary_choices = [
                 __('settings-option-global-secondarycolor-blue-default') => 'blue',
-                __('settings-option-global-secondarycolor-darkblue')     => 'blue-dark',
-                __('settings-option-global-secondarycolor-frenchblue')   => 'blue-france',
+                __('settings-option-global-secondarycolor-gray')         => 'gray',
                 __('settings-option-global-secondarycolor-red')          => 'red',
-                __('settings-option-global-secondarycolor-purple')       => 'purple',
-                __('settings-option-global-secondarycolor-green')        => 'green'
+                //__('settings-option-global-secondarycolor-purple')       => 'purple',
+                //__('settings-option-global-secondarycolor-green')        => 'green'
             ];
         }
 

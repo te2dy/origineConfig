@@ -309,7 +309,7 @@ if (!empty($_POST)) {
                     'dark'  => '#f14646'
                 ],
                 'blue'     => [
-                    'light' => '#0057B7',
+                    'light' => '#0057b7',
                     'dark'  => '#529ff5'
                 ],
                 'green'    => [
@@ -379,23 +379,70 @@ if (!empty($_POST)) {
         } elseif ($theme === 'origine-mini') {
             // Secondary color hue.
             $secondary_colors_allowed = [
-                'red'         => ['0', '80%', '50%'],
-                'blue'        => ['220', '100%', '45%'],
-                'blue-dark'   => ['240', '95%', '30%'],
-                'blue-france' => ['215', '89%', '14%'],
-                'green'       => ['120', '100%', '20%'],
-                'purple'      => ['290', '75%', '50%']
+                'blue' => [
+                    /**
+                     * HSL recipe:
+                     * --color-primary: 226, 80%, 45%
+                     * --color-background: 226, 10%, 99%
+                     * --color-text-main: 226, 10%, 20%;
+                     * --color-text-secondary: 226, 5%, 50%;
+                     * --color-border: 226, 20%, 80%;
+                     * --color-input-background: 226, 10%, 95%;
+                     */
+                    '--color-primary'          => '#1742cf',
+                    '--color-background'       => '#fcfcfd',
+                    '--color-text-main'        => '#2e3038',
+                    '--color-text-secondary'   => '#797c86',
+                    '--color-border'           => '#c2c7d6',
+                    '--color-input-background' => '#f1f2f4'
+                ],
+
+                'gray' => [
+                    /**
+                     * HSL recipe:
+                     * --color-primary: 0, 0%, 10%;
+                     * --color-background: 0, 0%, 99%;
+                     * --color-text-main: 0, 0%, 20%;
+                     * --color-text-secondary: 0, 0%, 50%;
+                     * --color-border: 0, 0%, 80%;
+                     * --color-input-background: 0, 0%, 95%;
+                     */
+                    '--color-primary'          => '#1a1a1a',
+                    '--color-background'       => '#fcfcfc',
+                    '--color-text-main'        => '#333333',
+                    '--color-text-secondary'   => '#808080',
+                    '--color-border'           => '#cccccc',
+                    '--color-input-background' => '#f2f2f2'
+                ],
+
+                'red' => [
+                    /**
+                     * HSL recipe:
+                     * --color-primary: 0, 80%, 50%;
+                     * --color-background: 0, 10%, 99%;
+                     * --color-text-main: 0, 10%, 20%;
+                     * --color-text-secondary: 0, 5%, 50%;
+                     * --color-border: 0, 20%, 80%;
+                     * --color-input-background: 0, 10%, 95%;
+                     */
+                    '--color-primary'          => '#e61919',
+                    '--color-background'       => '#fdfcfc',
+                    '--color-text-main'        => '#382e2e',
+                    '--color-text-secondary'   => '#867979',
+                    '--color-border'           => '#d6c2c2',
+                    '--color-input-background' => '#f4f1f1'
+                ]
             ];
 
             if (isset($_POST['global_color_secondary'])) {
                 if (array_key_exists($_POST['global_color_secondary'], $secondary_colors_allowed)) {
-                    $css_root_array[':root']['--color-h'] = $secondary_colors_allowed[$_POST['global_color_secondary']][0];
-                    $css_root_array[':root']['--color-s'] = $secondary_colors_allowed[$_POST['global_color_secondary']][1];
-                    $css_root_array[':root']['--color-l'] = $secondary_colors_allowed[$_POST['global_color_secondary']][2];
+                    foreach ($secondary_colors_allowed[$_POST['global_color_secondary']] as $key => $value) {
+                        $css_root_array[':root'][$key] = $value;
+                    }
                 } else {
-                    $css_root_array[':root']['--color-h'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']][0];
-                    $css_root_array[':root']['--color-s'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']][1];
-                    $css_root_array[':root']['--color-l'] = $secondary_colors_allowed[$default_settings['global_color_secondary']['default']][2];
+                    foreach ($secondary_colors_allowed['blue'] as $key => $value) {
+                        $css_root_array[':root'][$key] = $value;
+                    }
                 }
             }
         }
