@@ -415,6 +415,24 @@ if (!empty($_POST)) {
                     '--color-input-background' => '#f2f2f2'
                 ],
 
+                'green' => [
+                    /**
+                     * HSL recipe:
+                     * --color-primary: 120, 75%, 30%;
+                     * --color-background: 120, 10%, 99%;
+                     * --color-text-main: 120, 10%, 20%;
+                     * --color-text-secondary: 120, 5%, 50%;
+                     * --color-border: 120, 20%, 80%;
+                     * --color-input-background: 120, 10%, 95%;
+                     */
+                    '--color-primary'          => '#138613',
+                    '--color-background'       => '#fcfcfc',
+                    '--color-text-main'        => '#2e382e',
+                    '--color-text-secondary'   => '#798679',
+                    '--color-border'           => '#c2d6c2',
+                    '--color-input-background' => '#f1f4f1'
+                ],
+
                 'red' => [
                     /**
                      * HSL recipe:
