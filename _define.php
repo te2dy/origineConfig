@@ -17,6 +17,7 @@ $this->registerModule(
     '2.1.0.2',                             // Version
     [
         'permissions' => 'admin',
+        'requires'    => [['core', '2.24']],
         'type'        => 'plugin'
     ]
 );
