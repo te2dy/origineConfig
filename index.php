@@ -385,14 +385,14 @@ if (!empty($_POST)) {
                      * --color-primary: 226, 80%, 45%
                      * --color-background: 226, 10%, 99%
                      * --color-text-main: 226, 10%, 20%;
-                     * --color-text-secondary: 226, 5%, 50%;
+                     * --color-text-secondary: 226, 10%, 45%;
                      * --color-border: 226, 20%, 80%;
                      * --color-input-background: 226, 10%, 95%;
                      */
                     '--color-primary'          => '#1742cf',
                     '--color-background'       => '#fcfcfd',
                     '--color-text-main'        => '#2e3038',
-                    '--color-text-secondary'   => '#797c86',
+                    '--color-text-secondary'   => '#676d7e',
                     '--color-border'           => '#c2c7d6',
                     '--color-input-background' => '#f1f2f4'
                 ],
