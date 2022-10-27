@@ -43,6 +43,12 @@ msgstr ""
 msgid "post-list-multiple-reactions-link-aria-label"
 msgstr ""
 
+msgid "post-list-one-reaction"
+msgstr ""
+
+msgid "post-list-multiple-reactions"
+msgstr ""
+
 ## index.php
 
 msgid "option-default-empty"
@@ -301,6 +307,12 @@ msgid "settings-option-content-postlisttype-oneline"
 msgstr ""
 
 msgid "settings-option-content-postlisttype-full"
+msgstr ""
+
+msgid "settings-option-content-postlisttype-oneline-default"
+msgstr ""
+
+msgid "settings-option-content-postlisttype-extended"
 msgstr ""
 
 msgid "settings-option-content-firstimage-title"

@@ -35,13 +35,19 @@ msgstr "Répondre à l’auteur par courriel"
 msgid "private-comment-email-prefix"
 msgstr "Re:"
 
-# Comments
+# Reactions
 
 msgid "post-list-one-reaction-link-aria-label"
 msgstr "Lien vers la réaction à ce billet"
 
 msgid "post-list-multiple-reactions-link-aria-label"
 msgstr "Lien vers les réactions à ce billet"
+
+msgid "post-list-one-reaction"
+msgstr "1 réaction"
+
+msgid "post-list-multiple-reactions"
+msgstr "%s réactions"
 
 ## index.php
 
@@ -302,6 +308,12 @@ msgstr "Sur une seule ligne"
 
 msgid "settings-option-content-postlisttype-full"
 msgstr "Billet intégral"
+
+msgid "settings-option-content-postlisttype-oneline-default"
+msgstr "Sur une seule ligne (par défaut)"
+
+msgid "settings-option-content-postlisttype-extended"
+msgstr "Étendu"
 
 msgid "settings-option-content-firstimage-title"
 msgstr "Mettre en avant la première image du billet dans la liste des billets (bêta)"

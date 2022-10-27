@@ -43,6 +43,12 @@ msgstr "Link to the reaction of this post"
 msgid "post-list-multiple-reactions-link-aria-label"
 msgstr "Link to reactions of this post"
 
+msgid "post-list-one-reaction"
+msgstr "1 reaction"
+
+msgid "post-list-multiple-reactions"
+msgstr "%s reactions"
+
 ## index.php
 
 msgid "option-default-empty"
@@ -302,6 +308,12 @@ msgstr "On one single line"
 
 msgid "settings-option-content-postlisttype-full"
 msgstr "Full post"
+
+msgid "settings-option-content-postlisttype-oneline-default"
+msgstr "On one single line (default)"
+
+msgid "settings-option-content-postlisttype-extended"
+msgstr "Extended"
 
 msgid "settings-option-content-firstimage-title"
 msgstr "Highlight the first image of the post in the post list (beta)"

@@ -285,18 +285,27 @@ class origineConfigSettings {
             'theme'       => ['origine']
         ];
 
+        if ($theme === 'origine') {
+            $content_postlisttype_choices = [
+                __('settings-option-content-postlisttype-standard-default') => 'standard',
+                __('settings-option-content-postlisttype-oneline')          => 'short',
+                __('settings-option-content-postlisttype-full')             => 'full'
+            ];
+        } elseif ($theme === 'origine-mini') {
+            $content_postlisttype_choices = [
+                __('settings-option-content-postlisttype-oneline-default')  => 'short',
+                __('settings-option-content-postlisttype-extended')         => 'extended'
+            ];
+        }
+
         $default_settings['content_post_list_type'] = [
             'title'       => __('settings-option-content-postlisttype-title'),
             'description' => '',
             'type'        => 'select',
-            'choices'     => [
-                __('settings-option-content-postlisttype-standard-default') => 'standard',
-                __('settings-option-content-postlisttype-oneline')          => 'short',
-                __('settings-option-content-postlisttype-full')             => 'full'
-            ],
+            'choices'     => $content_postlisttype_choices,
             'default'     => 'standard',
             'section'     => ['content', 'post-list'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['content_post_list_first_image'] = [
