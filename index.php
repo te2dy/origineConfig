@@ -542,7 +542,13 @@ if (!empty($_POST)) {
 
         // Link to reactions in the post list.
         if (isset($_POST['content_post_list_comment_link']) && $_POST['content_post_list_comment_link'] === '1') {
-            $css_main_array['.post-comment-link']['margin-right'] = '.2rem';
+            if (isset($_POST['content_post_list_type']) && $_POST['content_post_list_type'] !== 'extended') {
+                $css_main_array['.post-comment-link']['margin-right'] = '.2rem';
+            } else {
+                $css_main_array['.post-comment-link']['display'] = 'inline-block';
+                $css_main_array['.post-comment-link']['font-size'] = '.8em';
+                $css_main_array['.post-comment-link']['margin-top'] = '.5rem';
+            }
         }
 
         // Social links.
