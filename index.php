@@ -484,6 +484,7 @@ if (!empty($_POST)) {
             $css_main_array['#site-description']['margin-bottom'] = '0';
 
             $css_media_array['#site-title']['order']            = '1';
+            $css_media_array['#site-description']['flex-basis'] = '100%';
             $css_media_array['#site-description']['margin-top'] = '.25rem';
             $css_media_array['#site-description']['order']      = '2';
             $css_media_array['#site-header nav']['order']       = '3';
