@@ -478,6 +478,17 @@ if (!empty($_POST)) {
             $css_main_array['.site-logo-container']['margin-bottom'] = '.5rem';
         }
 
+        // Blog description.
+        if ($theme === 'origine-mini' && isset($_POST['header_description']) && $_POST['header_description'] === '1') {
+            $css_main_array['#site-description']['font-size']     = '1em';
+            $css_main_array['#site-description']['margin-bottom'] = '0';
+
+            $css_media_array['#site-title']['order']            = '1';
+            $css_media_array['#site-description']['margin-top'] = '.25rem';
+            $css_media_array['#site-description']['order']      = '2';
+            $css_media_array['#site-header nav']['order']       = '3';
+        }
+
         // Transitions.
         if ($theme = 'origine') {
             if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {

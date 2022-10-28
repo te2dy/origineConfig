@@ -100,6 +100,9 @@ msgstr "Header Settings"
 msgid "settings-section-header-layout-title"
 msgstr "Layout"
 
+msgid "settings-section-header-content-title"
+msgstr "Content"
+
 msgid "settings-section-header-logo-title"
 msgstr "Logo (beta)"
 
@@ -296,6 +299,9 @@ msgstr "Dual pixel density logo URL"
 
 msgid "settings-option-header-logourl2-description"
 msgstr "To ensure proper display on dual pixel density displays (Retina), please provide an image that is twice the size of the sta ndard image."
+
+msgid "settings-option-header-description-title"
+msgstr "Display the blog description."
 
 msgid "settings-option-content-postlisttype-title"
 msgstr "Displaying of the post list"

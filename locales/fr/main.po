@@ -100,6 +100,9 @@ msgstr "Paramètres d’en-tête"
 msgid "settings-section-header-layout-title"
 msgstr "Mise en page"
 
+msgid "settings-section-header-content-title"
+msgstr "Contenu"
+
 msgid "settings-section-header-logo-title"
 msgstr "Logo (bêta)"
 
@@ -296,6 +299,9 @@ msgstr "Adresse du logo à double densité de pixels"
 
 msgid "settings-option-header-logourl2-description"
 msgstr "Pour garantir un bon affichage sur les écrans à densité de pixels double (Retina), veuillez fournir une image dont la taille est deux fois supérieure à l’image précédente."
+
+msgid "settings-option-header-description-title"
+msgstr "Afficher la description du blog"
 
 msgid "settings-option-content-postlisttype-title"
 msgstr "Affichage de la liste des billets"

@@ -100,6 +100,9 @@ msgstr ""
 msgid "settings-section-header-layout-title"
 msgstr ""
 
+msgid "settings-section-header-content-title"
+msgstr ""
+
 msgid "settings-section-header-logo-title"
 msgstr ""
 
@@ -295,6 +298,9 @@ msgid "settings-option-header-logourl2-title"
 msgstr ""
 
 msgid "settings-option-header-logourl2-description"
+msgstr ""
+
+msgid "settings-option-header-description-title"
 msgstr ""
 
 msgid "settings-option-content-postlisttype-title"

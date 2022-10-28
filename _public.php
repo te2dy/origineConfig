@@ -27,6 +27,7 @@ if (!defined('DC_RC_PATH')) {
 \dcCore::app()->tpl->addValue('origineConfigEmailAuthor', ['origineConfig', 'origineConfigEmailAuthor']);
 \dcCore::app()->tpl->addValue('origineConfigEntryFirstImage', ['origineConfig', 'origineConfigEntryFirstImage']);
 \dcCore::app()->tpl->addValue('origineConfigCommentLink', ['origineConfig', 'origineConfigCommentLink']);
+\dcCore::app()->tpl->addValue('origineConfigBlogDescription', ['origineConfig', 'origineConfigBlogDescription']);
 
 //\dcCore::app()->addBehavior('publicTopAfterContent', ['origineConfig', 'origineConfigColorScheme']);
 
@@ -84,9 +85,9 @@ class origineConfig
                     }
 
                     $desc .= \dcCore::app()->blog->desc;
-                    $desc    = html::decodeEntities(html::clean($desc));
-                    $desc    = preg_replace('/\s+/', ' ', $desc);
-                    $desc    = html::escapeHTML($desc);
+                    $desc  = html::decodeEntities(html::clean($desc));
+                    $desc  = preg_replace('/\s+/', ' ', $desc);
+                    $desc  = html::escapeHTML($desc);
 
                     if (strlen($desc) > 180) {
                         $desc = text::cutString($desc, 179) . '…';
@@ -950,5 +951,28 @@ class origineConfig
 
             <!-- Lire https://stackoverflow.com/questions/56300132/how-to-override-css-prefers-color-scheme-setting-->
         <?php
+    }
+
+    /**
+     * Displays the blog description if the user wants to.
+     *
+     * @return void
+     */
+    public static function origineConfigBlogDescription()
+    {
+        if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->header_description === true) {
+            $description = '';
+
+            if (\dcCore::app()->blog->desc !== '') {
+                $description .= \dcCore::app()->blog->desc;
+                $description  = html::decodeEntities(html::clean($description));
+                $description  = preg_replace('/\s+/', ' ', $description);
+                $description  = html::escapeHTML($description);
+            }
+
+            if ($description !== '') {
+                return '<h2 id=site-description>' . $description . '</h2>';
+            }
+        }
     }
 }

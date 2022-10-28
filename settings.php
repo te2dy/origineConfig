@@ -33,8 +33,9 @@ class origineConfigSettings {
             'header' => [
                 'name'         => __('settings-section-header-name'),
                 'sub_sections' => [
-                    'layout' => __('settings-section-header-layout-title'),
-                    'logo'   => __('settings-section-header-logo-title'),
+                    'layout'  => __('settings-section-header-layout-title'),
+                    'content' => __('settings-section-header-content-title'),
+                    'logo'    => __('settings-section-header-logo-title'),
                 ],
             ],
             'content' => [
@@ -283,6 +284,15 @@ class origineConfigSettings {
             'default'     => '',
             'section'     => ['header', 'logo'],
             'theme'       => ['origine']
+        ];
+
+        $default_settings['header_description'] = [
+            'title'       => __('settings-option-header-description-title'),
+            'description' => '',
+            'type'        => 'checkbox',
+            'default'     => 0,
+            'section'     => ['header', 'content'],
+            'theme'       => ['origine-mini']
         ];
 
         if ($theme === 'origine') {
