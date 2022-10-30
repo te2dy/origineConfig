@@ -573,11 +573,15 @@ if (!empty($_POST)) {
 
         // Link to reactions in the post list.
         if (isset($_POST['content_post_list_comment_link']) && $_POST['content_post_list_comment_link'] === '1') {
+            $css_main_array['.post-list .post']['flex-wrap'] = 'wrap';
+
             if (isset($_POST['content_post_list_type']) && $_POST['content_post_list_type'] !== 'extended') {
                 $css_main_array['.post-comment-link']['margin-right'] = '.2rem';
+                $css_main_array['.post-comment-link']['flex-basis'] = '100%';
             } else {
-                $css_main_array['.post-comment-link']['display'] = 'inline-block';
-                $css_main_array['.post-comment-link']['font-size'] = '.8em';
+                $css_main_array['.post-comment-link']['display']    = 'inline-block';
+                $css_main_array['.post-comment-link']['flex-basis'] = '100%';
+                $css_main_array['.post-comment-link']['font-size']  = '.8em';
                 $css_main_array['.post-comment-link']['margin-top'] = '.5rem';
             }
         }
@@ -670,7 +674,10 @@ if (!empty($_POST)) {
         $css .= !empty($css_root_array) ? origineConfigArrayToCSS($css_root_array) : '';
         $css .= !empty($css_root_media_array) ? ' @media (prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_media_array) . '}' : '';
         $css .= !empty($css_main_array) ? origineConfigArrayToCSS($css_main_array) : '';
-        $css .= !empty($css_media_array) ? ' @media (max-width: 34em){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
+
+        $media_max_width = isset($_POST['global_page_width']) ? (int) $_POST['global_page_width'] + 4 : '34';
+
+        $css .= !empty($css_media_array) ? ' @media (max-width:' . $media_max_width . 'rem){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
         $css .= !empty($css_media_contrast_array) ? ' @media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
         $css .= !empty($css_media_motion_array) ? ' @media (prefers-reduced-motion:reduce){' . origineConfigArrayToCSS($css_media_motion_array) . '}' : '';
 

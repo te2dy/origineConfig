@@ -854,47 +854,28 @@ class origineConfig
     public static function origineConfigCommentLink($attr)
     {
         if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_list_comment_link === true) {
+            return '
+                <?php
+                if ((int) \dcCore::app()->ctx->posts->nb_comment > 0) {
+                    echo "<a aria-label=\"";
 
-            if (!empty($attr) && $attr['display'] === 'brackets') {
-                return '
-                    <?php
-                    if ((int) \dcCore::app()->ctx->posts->nb_comment > 0) {
-                        echo "<a aria-label=\"";
+                    if ((int) \dcCore::app()->ctx->posts->nb_comment > 1) {
+                        printf(__("post-list-multiple-reactions-link-aria-label"), \dcCore::app()->ctx->posts->nb_comment);
+                    } else {
+                        echo __("post-list-one-reaction-link-aria-label");
+                    }
 
-                        if ((int) \dcCore::app()->ctx->posts->nb_comment > 1) {
-                            printf(__("post-list-multiple-reactions-link-aria-label"), \dcCore::app()->ctx->posts->nb_comment);
-                        } else {
-                            echo __("post-list-one-reaction-link-aria-label");
-                        }
+                    echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions-id") . "><small>";
 
-                        echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions-id") . ">",
-                        "[" . \dcCore::app()->ctx->posts->nb_comment . "]</a>";
-                    };
-                    ?>';
-            } else {
-                return '
-                    <?php
-                    if ((int) \dcCore::app()->ctx->posts->nb_comment > 0) {
-                        echo "<a aria-label=\"";
+                    if ((int) \dcCore::app()->ctx->posts->nb_comment > 1) {
+                        printf(__("post-list-multiple-reactions"), \dcCore::app()->ctx->posts->nb_comment);
+                    } else {
+                        echo __("post-list-one-reaction");
+                    }
 
-                        if ((int) \dcCore::app()->ctx->posts->nb_comment > 1) {
-                            printf(__("post-list-multiple-reactions-link-aria-label"), \dcCore::app()->ctx->posts->nb_comment);
-                        } else {
-                            echo __("post-list-one-reaction-link-aria-label");
-                        }
-
-                        echo "\" class=post-comment-link href=" . \dcCore::app()->ctx->posts->getURL() . "#" . __("reactions-id") . ">";
-
-                        if ((int) \dcCore::app()->ctx->posts->nb_comment > 1) {
-                            printf(__("post-list-multiple-reactions"), \dcCore::app()->ctx->posts->nb_comment);
-                        } else {
-                            echo __("post-list-one-reaction");
-                        }
-
-                        echo "</a>";
-                    };
-                    ?>';
-            }
+                    echo "</small></a>";
+                };
+                ?>';
         }
     }
 
