@@ -21,6 +21,7 @@ if (!defined('DC_RC_PATH')) {
 
 // Values.
 \dcCore::app()->tpl->addValue('origineConfigLogo', ['origineConfig', 'origineConfigLogo']);
+\dcCore::app()->tpl->addValue('origineConfigEntryTime', ['\origineConfig', 'origineConfigEntryTime']);
 \dcCore::app()->tpl->addValue('origineConfigEntriesAuthorName', ['origineConfig', 'origineConfigEntriesAuthorName']);
 \dcCore::app()->tpl->addValue('origineConfigEntryAuthorNameNextToDate', ['origineConfig', 'origineConfigEntryAuthorNameNextToDate']);
 \dcCore::app()->tpl->addValue('origineConfigEntryAuthorNameSignature', ['origineConfig', 'origineConfigEntryAuthorNameSignature']);
@@ -30,6 +31,9 @@ if (!defined('DC_RC_PATH')) {
 \dcCore::app()->tpl->addValue('origineConfigBlogDescription', ['origineConfig', 'origineConfigBlogDescription']);
 
 //\dcCore::app()->addBehavior('publicTopAfterContent', ['origineConfig', 'origineConfigColorScheme']);
+
+// TO USE:
+\dcCore::app()->tpl->addValue('origineMiniPostDateDetails', ['\origineConfig', 'origineMiniPostDateDetails']);
 
 class origineConfig
 {
@@ -590,6 +594,20 @@ class origineConfig
     }
 
     /**
+     * Displays the published time of the post.
+     *
+     * @return void
+     */
+    public static function origineConfigEntryTime($attr)
+    {
+        $format_time = \dcCore::app()->blog->settings->system->time_format;
+
+        if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_list_time === true && !empty($attr['context']) && $attr['context'] === 'post-list') {
+            return ' <?php echo \dcCore::app()->blog->settings->origineConfig->content_separator . " " . \dcCore::app()->ctx->posts->getDate("' . $format_time . '", "creadt"); ?>';
+        }
+    }
+
+    /**
      * Displays the author name of the post after the date.
      */
     public static function origineConfigEntryAuthorNameNextToDate()
@@ -599,7 +617,7 @@ class origineConfig
             $output = '<?php if (\dcCore::app()->ctx->posts->user_displayname || \dcCore::app()->ctx->posts->user_firstname || \dcCore::app()->ctx->posts->user_name ) : ?>';
 
             $output .= ' <span class=post-author-name rel=author>';
-            $output .= \dcCore::app()->blog->settings->origineConfig->global_separator . ' ';
+            $output .= \dcCore::app()->blog->settings->origineConfig->content_separator . ' ';
 
             $output .= '<?php if (\dcCore::app()->ctx->posts->user_url) {';
             $output .= 'echo "<a href=\"" . \dcCore::app()->ctx->posts->user_url . "\">";';
@@ -636,7 +654,7 @@ class origineConfig
             $output = '<?php if (\dcCore::app()->ctx->posts->user_displayname || \dcCore::app()->ctx->posts->user_firstname || \dcCore::app()->ctx->posts->user_name ) : ?>';
 
             $output .= ' <span class="post-author-name" rel="author">';
-            $output .= \dcCore::app()->blog->settings->origineConfig->global_separator . ' ';
+            $output .= \dcCore::app()->blog->settings->origineConfig->content_separator . ' ';
 
             $output .= '<?php if (\dcCore::app()->ctx->posts->user_url) {';
             $output .= 'echo "<a href=\"" . \dcCore::app()->ctx->posts->user_url . "\">";';
@@ -974,5 +992,45 @@ class origineConfig
                 return '<h2 id=site-description>' . $description . '</h2>';
             }
         }
+    }
+
+    /**
+     * Displays the published and modified date and time of a post.
+     *
+     * @return void
+     */
+    public static function origineMiniPostDateDetails()
+    {
+        $format_date = \dcCore::app()->blog->settings->system->date_format;
+        $format_time = \dcCore::app()->blog->settings->system->time_format;
+
+        return '
+            <?php
+            $datetime_creadt = (int) \dcCore::app()->ctx->posts->getDate("%Y%m%d%H%M%S", "creadt");
+            $datetime_upddt  = (int) \dcCore::app()->ctx->posts->getDate("%Y%m%d%H%M%S", "upddt");
+
+            $day_creadt = (int) \dcCore::app()->ctx->posts->getDate("%Y%m%d", "creadt");
+            $day_upddt  = (int) \dcCore::app()->ctx->posts->getDate("%Y%m%d", "upddt");
+
+            echo "<p><small>", sprintf(__("post-time-created"), \dcCore::app()->ctx->posts->getDate("' . $format_time . '", "creadt")), "</small></p>";
+
+            if ($datetime_creadt < $datetime_upddt) {
+                if ($day_creadt < $day_upddt) {
+                    echo "<p><small>", sprintf(__("post-date-time-updated"), \dcCore::app()->ctx->posts->getDate("' . $format_date . '", "upddt"), \dcCore::app()->ctx->posts->getDate("' . $format_time . '", "upddt")), "</small></p>";
+                } else {
+                    echo "<p><small>", sprintf(__("post-time-updated"), \dcCore::app()->ctx->posts->getDate("' . $format_time . '", "upddt")), "</small></p>";
+                }
+            }
+            ?>
+        ';
+        /*
+        <details class="post-date text-secondary">
+          <summary><time aria-label="{{tpl:lang post-date-aria-label}}" datetime={{tpl:EntryDate format="%Y-%m-%dT%H:%m"}}>{{tpl:EntryDate}}{{tpl:origineConfigEntryTime prefix="| "}}</time></summary>
+
+          <div class=details-content>
+            {{tpl:origineMiniPostDateDetails}}
+          </div>
+        </details>
+        */
     }
 }

@@ -42,6 +42,7 @@ class origineConfigSettings {
                 'name'         => __('settings-section-content-name'),
                 'sub_sections' => [
                     'post-list'       => __('settings-section-content-postlist-title'),
+                    'post'            => __('settings-section-content-post-title'),
                     'text-formatting' => __('settings-section-content-textformatting-title'),
                     'images'          => __('settings-section-content-images-title'),
                     'author'          => __('settings-section-content-author-title'),
@@ -327,6 +328,15 @@ class origineConfigSettings {
             'theme'       => ['origine']
         ];
 
+        $default_settings['content_post_list_time'] = [
+            'title'       => __('settings-option-content-postlisttime-title'),
+            'description' => '',
+            'type'        => 'checkbox',
+            'default'     => 0,
+            'section'     => ['content', 'post-list'],
+            'theme'       => ['origine-mini']
+        ];
+
         $content_text_font_family_choices = [
             __('settings-option-content-fontfamily-title-same-default') => 'same',
             __('settings-option-global-fontfamily-serif')              => 'serif',
@@ -404,6 +414,15 @@ class origineConfigSettings {
             'theme'       => ['origine']
         ];
 
+        $default_settings['content_post_time'] = [
+            'title'       => __('settings-option-content-posttime-title'),
+            'description' => '',
+            'type'        => 'checkbox',
+            'default'     => 0,
+            'section'     => ['content', 'other'],
+            'theme'       => ['origine-mini']
+        ];
+
         $default_settings['content_post_intro'] = [
             'title'       => __('settings-option-content-postintro-title'),
             'description' => __('settings-option-content-postintro-description'),
@@ -413,13 +432,19 @@ class origineConfigSettings {
             'theme'       => ['origine-mini']
         ];
 
+        if ($theme === 'origine') {
+            $default_separator = '/';
+        } else {
+            $default_separator = '|';
+        }
+
         $default_settings['content_separator'] = [
             'title'       => __('settings-option-content-separator-title'),
-            'description' => __('settings-option-content-separator-description'),
+            'description' => sprintf(__('settings-option-content-separator-description'), $default_separator),
             'type'        => 'text',
-            'default'     => '/',
+            'default'     => $default_separator,
             'section'     => ['content', 'other'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['content_post_list_comment_link'] = [

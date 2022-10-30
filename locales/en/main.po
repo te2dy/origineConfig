@@ -321,6 +321,9 @@ msgstr "On one single line (default)"
 msgid "settings-option-content-postlisttype-extended"
 msgstr "Extended"
 
+msgid "settings-option-content-postlisttime-title"
+msgstr "Display the time of publication of posts"
+
 msgid "settings-option-content-firstimage-title"
 msgstr "Highlight the first image of the post in the post list (beta)"
 
@@ -381,11 +384,14 @@ msgstr "Display the excerpt as an introduction in the posts"
 msgid "settings-option-content-postintro-description"
 msgstr "Highlights the excerpt defined by the author between the title and the content of the post."
 
+msgid "settings-option-content-posttime-title"
+msgstr "Display the time of publication of the post"
+
 msgid "settings-option-content-separator-title"
 msgstr "Separator"
 
 msgid "settings-option-content-separator-description"
-msgstr "Used to separate certain elements of the theme. Default: \"/\""
+msgstr "Used to separate certain elements of the theme. Default: \"%s\""
 
 msgid "settings-option-content-postlistcommentlink-title"
 msgstr "Display a link to the reactions to the post"

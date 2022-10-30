@@ -531,6 +531,14 @@ if (!empty($_POST)) {
             }
         }
 
+        // Post introduction.
+        if (isset($_POST['content_post_intro']) && $_POST['content_post_intro'] === '1') {
+            $css_main_array['#post-single-excerpt']['margin-bottom'] = '2rem';
+            $css_main_array['#post-single-excerpt']['font-weight']   = '700';
+
+            $css_main_array['#post-single-excerpt strong']['font-weight'] = '900';
+        }
+
         // Hyphens.
         if (isset($_POST['content_hyphens']) && $_POST['content_hyphens'] !== 'disabled') {
             $css_main_array['.content-text']['-webkit-hyphens'] = 'auto';

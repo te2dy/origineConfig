@@ -321,6 +321,9 @@ msgstr ""
 msgid "settings-option-content-postlisttype-extended"
 msgstr ""
 
+msgid "settings-option-content-postlisttime-title"
+msgstr ""
+
 msgid "settings-option-content-firstimage-title"
 msgstr ""
 
@@ -379,6 +382,9 @@ msgid "settings-option-content-postintro-title"
 msgstr ""
 
 msgid "settings-option-content-postintro-description"
+msgstr ""
+
+msgid "settings-option-content-posttime-title"
 msgstr ""
 
 msgid "settings-option-content-separator-title"

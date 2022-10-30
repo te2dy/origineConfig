@@ -321,6 +321,9 @@ msgstr "Sur une seule ligne (par défaut)"
 msgid "settings-option-content-postlisttype-extended"
 msgstr "Étendu"
 
+msgid "settings-option-content-postlisttime-title"
+msgstr "Afficher la date de publication des billets"
+
 msgid "settings-option-content-firstimage-title"
 msgstr "Mettre en avant la première image du billet dans la liste des billets (bêta)"
 
@@ -381,11 +384,14 @@ msgstr "Afficher l’extrait comme une introduction dans les billets"
 msgid "settings-option-content-postintro-description"
 msgstr "Met en avant l’extrait défini par l’auteur entre le titre et le contenu du billet."
 
+msgid "settings-option-content-posttime-title"
+msgstr "Afficher la date de publication du billet"
+
 msgid "settings-option-content-separator-title"
 msgstr "Caractère de séparation"
 
 msgid "settings-option-content-separator-description"
-msgstr "Utilisé pour séparer certains éléments du thème. Par défaut&nbsp;: « / »"
+msgstr "Utilisé pour séparer certains éléments du thème. Par défaut&nbsp;: « %s »"
 
 msgid "settings-option-content-postlistcommentlink-title"
 msgstr "Afficher un lien vers les réactions au billet"
