@@ -324,6 +324,12 @@ msgstr ""
 msgid "settings-option-content-postlisttime-title"
 msgstr ""
 
+msgid "settings-option-content-postlistupdatebadge-title"
+msgstr ""
+
+msgid "settings-option-content-postlistupdatebadge-description"
+msgstr ""
+
 msgid "settings-option-content-firstimage-title"
 msgstr ""
 

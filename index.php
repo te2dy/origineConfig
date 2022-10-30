@@ -560,6 +560,17 @@ if (!empty($_POST)) {
             $css_main_array['.content-text']['hyphenate-limit-last']         = 'always';
         }
 
+        // Update badge.
+        if (isset($_POST['content_post_list_update_badge']) && $_POST['content_post_list_update_badge'] === '1') {
+            $css_main_array['.post-updated .post-title::before']['background-color'] = 'var(--color-primary)';
+            $css_main_array['.post-updated .post-title::before']['border-radius']    = '50%';
+            $css_main_array['.post-updated .post-title::before']['content']          = '" "';
+            $css_main_array['.post-updated .post-title::before']['display']          = 'inline-block';
+            $css_main_array['.post-updated .post-title::before']['height']           = '.5rem';
+            $css_main_array['.post-updated .post-title::before']['margin-right']     = '.25rem';
+            $css_main_array['.post-updated .post-title::before']['width']            = '.5rem';
+         }
+
         // Link to reactions in the post list.
         if (isset($_POST['content_post_list_comment_link']) && $_POST['content_post_list_comment_link'] === '1') {
             if (isset($_POST['content_post_list_type']) && $_POST['content_post_list_type'] !== 'extended') {

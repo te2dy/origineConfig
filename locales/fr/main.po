@@ -322,7 +322,13 @@ msgid "settings-option-content-postlisttype-extended"
 msgstr "Étendu"
 
 msgid "settings-option-content-postlisttime-title"
-msgstr "Afficher la date de publication des billets"
+msgstr "Afficher l’heure de publication des billets"
+
+msgid "settings-option-content-postlistupdatebadge-title"
+msgstr "Afficher une pastille de notification sur les billets récemment publiés ou mis à jour"
+
+msgid "settings-option-content-postlistupdatebadge-description"
+msgstr "Disparaît après 24 heures."
 
 msgid "settings-option-content-firstimage-title"
 msgstr "Mettre en avant la première image du billet dans la liste des billets (bêta)"

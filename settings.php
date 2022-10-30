@@ -337,6 +337,15 @@ class origineConfigSettings {
             'theme'       => ['origine-mini']
         ];
 
+        $default_settings['content_post_list_update_badge'] = [
+            'title'       => __('settings-option-content-postlistupdatebadge-title'),
+            'description' => __('settings-option-content-postlistupdatebadge-description'),
+            'type'        => 'checkbox',
+            'default'     => 0,
+            'section'     => ['content', 'post-list'],
+            'theme'       => ['origine-mini']
+        ];
+
         $content_text_font_family_choices = [
             __('settings-option-content-fontfamily-title-same-default') => 'same',
             __('settings-option-global-fontfamily-serif')              => 'serif',

@@ -21,6 +21,7 @@ if (!defined('DC_RC_PATH')) {
 
 // Values.
 \dcCore::app()->tpl->addValue('origineConfigLogo', ['origineConfig', 'origineConfigLogo']);
+\dcCore::app()->tpl->addValue('origineConfigEntryUpdatedClass', ['origineConfig', 'origineConfigEntryUpdatedClass']);
 \dcCore::app()->tpl->addValue('origineConfigEntryTime', ['\origineConfig', 'origineConfigEntryTime']);
 \dcCore::app()->tpl->addValue('origineConfigEntriesAuthorName', ['origineConfig', 'origineConfigEntriesAuthorName']);
 \dcCore::app()->tpl->addValue('origineConfigEntryAuthorNameNextToDate', ['origineConfig', 'origineConfigEntryAuthorNameNextToDate']);
@@ -594,7 +595,7 @@ class origineConfig
     }
 
     /**
-     * Displays the published time of the post.
+     * Displays the published time of posts in the post list.
      *
      * @return void
      */
@@ -991,6 +992,25 @@ class origineConfig
             if ($description !== '') {
                 return '<h2 id=site-description>' . $description . '</h2>';
             }
+        }
+    }
+
+    /**
+     * Display a badge when a post has been recently update.
+     *
+     * @return void
+     */
+    public static function origineConfigEntryUpdatedClass()
+    {
+        if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_list_update_badge === true) {
+            return '<?php
+                $date_current = strtotime(date("c"));
+                $date_post    = strtotime(\dcCore::app()->ctx->posts->post_upddt);
+
+                if ((($date_current - $date_post) / 3600) < 24) {
+                    echo " post-updated";
+                }
+            ?>';
         }
     }
 
