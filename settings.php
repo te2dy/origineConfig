@@ -550,7 +550,7 @@ class origineConfigSettings {
             ],
             'default'     => 'left',
             'section'     => ['footer', 'no-title'],
-            'theme'       => ['origine', 'origine-mini']
+            'theme'       => ['origine']
         ];
 
         $default_settings['footer_social_links_diaspora'] = [
