@@ -32,7 +32,9 @@ function origineConfigArrayToCSS($rules)
 
             if (is_array($properties) && !empty($properties)) {
                 foreach ($properties as $property => $rule) {
-                    $css .= $property . ':' . str_replace(', ', ',', $rule) . ';';
+                    if ($rule !== '') {
+                        $css .= $property . ':' . str_replace(', ', ',', $rule) . ';';
+                    }
                 }
             }
 
@@ -378,89 +380,103 @@ if (!empty($_POST)) {
             }
         } elseif ($theme === 'origine-mini') {
             // Secondary color hue.
-            $secondary_colors_allowed = [
-                'blue' => [
-                    /**
-                     * HSL recipe:
-                     * --color-primary: 226, 80%, 45%
-                     * --color-background: 226, 10%, 99%
-                     * --color-text-main: 226, 10%, 20%;
-                     * --color-text-secondary: 226, 10%, 45%;
-                     * --color-border: 226, 20%, 80%;
-                     * --color-input-background: 226, 10%, 95%;
-                     */
-                    '--color-primary'          => '#1742cf',
-                    '--color-background'       => '#fcfcfd',
-                    '--color-text-main'        => '#2e3038',
-                    '--color-text-secondary'   => '#676d7e',
-                    '--color-border'           => '#c2c7d6',
-                    '--color-input-background' => '#f1f2f4'
-                ],
+            $secondary_colors_allowed = ['blue', 'gray', 'green', 'red'];
 
-                'gray' => [
-                    /**
-                     * HSL recipe:
-                     * --color-primary: 0, 0%, 10%;
-                     * --color-background: 0, 0%, 99%;
-                     * --color-text-main: 0, 0%, 20%;
-                     * --color-text-secondary: 0, 0%, 50%;
-                     * --color-border: 0, 0%, 80%;
-                     * --color-input-background: 0, 0%, 95%;
-                     */
-                    '--color-primary'          => '#1a1a1a',
-                    '--color-background'       => '#fcfcfc',
-                    '--color-text-main'        => '#333333',
-                    '--color-text-secondary'   => '#808080',
-                    '--color-border'           => '#cccccc',
-                    '--color-input-background' => '#f2f2f2'
-                ],
+            $secondary_colors = [
+                'light' => [
+                    'blue' => [
+                        /**
+                         * HSL recipe:
+                         * --color-primary: 226, 80%, 45%
+                         * --color-background: 226, 10%, 99%
+                         * --color-text-main: 226, 10%, 20%;
+                         * --color-text-secondary: 226, 10%, 45%;
+                         * --color-border: 226, 0%, 80%;
+                         * --color-input-background: 226, 10%, 95%;
+                         */
+                        '--color-primary'          => '#1742cf',
+                        '--color-background'       => '#fcfcfd',
+                        '--color-text-main'        => '#2e3038',
+                        '--color-text-secondary'   => '#676d7e',
+                        '--color-border'           => '#cccccc',
+                        '--color-input-background' => '#f1f2f4'
+                    ],
 
-                'green' => [
-                    /**
-                     * HSL recipe:
-                     * --color-primary: 120, 75%, 30%;
-                     * --color-background: 120, 10%, 99%;
-                     * --color-text-main: 120, 10%, 20%;
-                     * --color-text-secondary: 120, 5%, 50%;
-                     * --color-border: 120, 20%, 80%;
-                     * --color-input-background: 120, 10%, 95%;
-                     */
-                    '--color-primary'          => '#138613',
-                    '--color-background'       => '#fcfcfc',
-                    '--color-text-main'        => '#2e382e',
-                    '--color-text-secondary'   => '#798679',
-                    '--color-border'           => '#c2d6c2',
-                    '--color-input-background' => '#f1f4f1'
-                ],
+                    'gray' => [
+                        /**
+                         * HSL recipe:
+                         * --color-primary: 0, 0%, 10%;
+                         * --color-background: 0, 0%, 99%;
+                         * --color-text-main: 0, 0%, 20%;
+                         * --color-text-secondary: 0, 0%, 50%;
+                         * --color-border: 0, 0%, 80%;
+                         * --color-input-background: 0, 0%, 95%;
+                         */
+                        '--color-primary'          => '#1a1a1a',
+                        '--color-background'       => '#fcfcfc',
+                        '--color-text-main'        => '#333333',
+                        '--color-text-secondary'   => '#808080',
+                        '--color-border'           => '#cccccc',
+                        '--color-input-background' => '#f2f2f2'
+                    ],
 
-                'red' => [
-                    /**
-                     * HSL recipe:
-                     * --color-primary: 0, 80%, 50%;
-                     * --color-background: 0, 10%, 99%;
-                     * --color-text-main: 0, 10%, 20%;
-                     * --color-text-secondary: 0, 5%, 50%;
-                     * --color-border: 0, 20%, 80%;
-                     * --color-input-background: 0, 10%, 95%;
-                     */
-                    '--color-primary'          => '#e61919',
-                    '--color-background'       => '#fdfcfc',
-                    '--color-text-main'        => '#382e2e',
-                    '--color-text-secondary'   => '#867979',
-                    '--color-border'           => '#d6c2c2',
-                    '--color-input-background' => '#f4f1f1'
+                    'green' => [
+                        /**
+                         * HSL recipe:
+                         * --color-primary: 120, 75%, 30%;
+                         * --color-background: 120, 10%, 99%;
+                         * --color-text-main: 120, 10%, 20%;
+                         * --color-text-secondary: 120, 10%, 45%;
+                         * --color-border: 120, 0%, 80%;
+                         * --color-input-background: 120, 10%, 95%;
+                         */
+                        '--color-primary'          => '#138613',
+                        '--color-background'       => '#fcfcfc',
+                        '--color-text-main'        => '#2e382e',
+                        '--color-text-secondary'   => '#676d7e',
+                        '--color-border'           => '#cccccc',
+                        '--color-input-background' => '#f1f4f1'
+                    ],
+
+                    'red' => [
+                        /**
+                         * HSL recipe:
+                         * --color-primary: 0, 80%, 50%;
+                         * --color-background: 0, 10%, 99%;
+                         * --color-text-main: 0, 10%, 20%;
+                         * --color-text-secondary: 0, 5%, 50%;
+                         * --color-border: 0, 0%, 80%;
+                         * --color-input-background: 0, 5%, 95%;
+                         */
+                        '--color-primary'          => '#e61919',
+                        '--color-background'       => '#fdfcfc',
+                        '--color-text-main'        => '#382e2e',
+                        '--color-text-secondary'   => '#867979',
+                        '--color-border'           => '#cccccc',
+                        '--color-input-background' => '#f3f2f2'
+                    ]
+                ],
+                'dark' => [
+                    'blue'  => '#94c9ff',
+                    'gray'  => '#fcfcfc',
+                    'green' => '#adebad',
+                    'red'   => '#f7baba',
                 ]
             ];
 
             if (isset($_POST['global_color_secondary'])) {
-                if (array_key_exists($_POST['global_color_secondary'], $secondary_colors_allowed)) {
-                    foreach ($secondary_colors_allowed[$_POST['global_color_secondary']] as $key => $value) {
+                if (in_array($_POST['global_color_secondary'], $secondary_colors_allowed) === true) {
+                    foreach ($secondary_colors['light'][$_POST['global_color_secondary']] as $key => $value) {
                         $css_root_array[':root'][$key] = $value;
                     }
+
+                    $css_root_media_array[':root']['--color-primary'] = $secondary_colors['dark'][$_POST['global_color_secondary']];
                 } else {
-                    foreach ($secondary_colors_allowed['blue'] as $key => $value) {
+                    foreach ($secondary_colors['light']['blue'] as $key => $value) {
                         $css_root_array[':root'][$key] = $value;
                     }
+
+                    $css_root_media_array[':root']['--color-primary'] = $secondary_colors['dark']['blue'];
                 }
             }
         }
@@ -482,9 +498,9 @@ if (!empty($_POST)) {
         if ($theme === 'origine-mini' && isset($_POST['header_description']) && $_POST['header_description'] === '1') {
             $css_main_array['#site-description']['font-size']     = '1em';
             $css_main_array['#site-description']['margin-bottom'] = '0';
+            $css_main_array['#site-description']['flex-basis'] = '100%';
 
             $css_media_array['#site-title']['order']            = '1';
-            $css_media_array['#site-description']['flex-basis'] = '100%';
             $css_media_array['#site-description']['margin-top'] = '.25rem';
             $css_media_array['#site-description']['order']      = '2';
             $css_media_array['#site-header nav']['order']       = '3';
