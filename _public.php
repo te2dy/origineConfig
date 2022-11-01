@@ -493,7 +493,7 @@ class origineConfig
                             }
                         }
 
-                        // Gets all images in the post.
+                        // Gets all images of the post.
                         var img = document.getElementsByTagName("article")[0].getElementsByTagName("img"),
                             i = 0;
 
@@ -515,7 +515,7 @@ class origineConfig
                                         }
 
                                         // Defines the styles of the image.
-                                        let myImgStyle = "display:block; margin-left: 50%; transform: translateX(-50%); max-width: 100vw;";
+                                        let myImgStyle = "display:block;margin-left:50%;transform:translateX(-50%);max-width:100vw;";
 
                                         // Sets the image attributes.
                                         myImg.setAttribute("style", myImgStyle);
@@ -734,7 +734,7 @@ class origineConfig
 
             $output .= '<p>';
             $output .= '<a class=button href="mailto:<?php echo urlencode(\dcCore::app()->ctx->posts->user_email); ?>';
-            $output .= '?subject=<?php echo htmlentities(__("private-comment-email-prefix") . " " . \dcCore::app()->ctx->posts->post_title, ENT_NOQUOTES); ?>';
+            $output .= '?subject=<?php echo htmlentities(__("private-comment-email-prefix") . " " . \dcCore::app()->ctx->posts->post_title); ?>';
             $output .= '">';
             $output .= __('private-comment-button-text');
             $output .= '</a>';
