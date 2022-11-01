@@ -325,7 +325,7 @@ msgid "settings-option-content-postlisttime-title"
 msgstr "Display the time of publication of posts"
 
 msgid "settings-option-content-postlistupdatebadge-title"
-msgstr "Display a notification badge on recently published or updated posts"
+msgstr "Display a notification badge on recently published or updated posts (beta)"
 
 msgid "settings-option-content-postlistupdatebadge-description"
 msgstr "Disappears after 24 hours."

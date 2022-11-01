@@ -325,7 +325,7 @@ msgid "settings-option-content-postlisttime-title"
 msgstr "Afficher l’heure de publication des billets"
 
 msgid "settings-option-content-postlistupdatebadge-title"
-msgstr "Afficher une pastille de notification sur les billets récemment publiés ou mis à jour"
+msgstr "Afficher une pastille de notification sur les billets récemment publiés ou mis à jour (bêta)"
 
 msgid "settings-option-content-postlistupdatebadge-description"
 msgstr "Disparaît après 24 heures."
@@ -391,7 +391,7 @@ msgid "settings-option-content-postintro-description"
 msgstr "Met en avant l’extrait défini par l’auteur entre le titre et le contenu du billet."
 
 msgid "settings-option-content-posttime-title"
-msgstr "Afficher la date de publication du billet"
+msgstr "Afficher l’heure de publication du billet"
 
 msgid "settings-option-content-separator-title"
 msgstr "Caractère de séparation"
