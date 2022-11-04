@@ -559,7 +559,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['footer_social_links_discord'] = [
@@ -568,7 +568,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['footer_social_links_facebook'] = [
@@ -577,7 +577,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['footer_social_links_github'] = [
@@ -586,7 +586,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['footer_social_links_mastodon'] = [
@@ -595,7 +595,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['footer_social_links_signal'] = [
@@ -604,7 +604,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['footer_social_links_tiktok'] = [
@@ -613,7 +613,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['footer_social_links_twitter'] = [
@@ -622,7 +622,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['footer_social_links_whatsapp'] = [
@@ -631,7 +631,7 @@ class origineConfigSettings {
             'type'        => 'text',
             'default'     => '',
             'section'     => ['footer', 'social-links'],
-            'theme'       => ['origine']
+            'theme'       => ['origine', 'origine-mini']
         ];
 
         $default_settings['css_origine'] = [

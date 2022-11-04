@@ -285,9 +285,14 @@ class origineConfig
             }
 
             if (!empty($social_links)) {
+                if (\dcCore::app()->blog->settings->system->theme === 'origine') {
+                    $class = '"site-footer-line footer-social-links"';
+                } else {
+                    $class = 'footer-social-links';
+                }
                 ?>
 
-                <div class="site-footer-line footer-social-links">
+                <div class=<?php echo $class; ?>>
                     <ul>
                         <?php
                         foreach ($social_links as $site => $link) {
@@ -303,7 +308,7 @@ class origineConfig
                             ?>
 
                             <li>
-                                <a href="<?php echo html::escapeURL($link); ?>">
+                                <a href=<?php echo html::escapeURL($link); ?> rel=me>
                                     <span class=footer-social-links-icon-container>
                                         <svg class=footer-social-links-icon role=img viewBox="0 0 24 24" xmlns=http://www.w3.org/2000/svg>
                                             <title><?php echo html::escapeHTML($site); ?></title>

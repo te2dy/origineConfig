@@ -507,7 +507,7 @@ if (!empty($_POST)) {
         }
 
         // Transitions.
-        if ($theme = 'origine') {
+        if ($theme === 'origine') {
             if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
                 $css_main_array['a']['transition']                          = 'all .2s ease-in-out';
                 $css_main_array['a:active, a:focus, a:hover']['transition'] = 'all .2s ease-in-out';
@@ -520,7 +520,7 @@ if (!empty($_POST)) {
                 $css_main_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
             }
 
-        } elseif ($theme = 'origine-mini') {
+        } elseif ($theme === 'origine-mini') {
             if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
                 $css_main_array['a']['transition']                 = 'all .2s ease-in-out';
                 $css_main_array['a:active, a:hover']['transition'] = 'all .2s ease-in-out';
@@ -533,7 +533,7 @@ if (!empty($_POST)) {
 
         // Border radius.
         if (isset($_POST['global_css_border_radius']) && $_POST['global_css_border_radius'] === '1') {
-            $css_main_array['#site-title,.button,.post-selected,button,code,input,pre,textarea']['border-radius'] = '.168rem';
+            $css_main_array['#site-title,.button,.footer-social-links-icon-container,.post-selected,button,code,input,pre,textarea']['border-radius'] = '.168rem';
         }
 
         // Font family of content.
@@ -606,48 +606,75 @@ if (!empty($_POST)) {
 
         // Social links.
         if (isset($_POST['footer_social_links_diaspora']) || isset($_POST['footer_social_links_discord']) || isset($_POST['footer_social_links_facebook']) || isset($_POST['footer_social_links_github']) || isset($_POST['footer_social_links_mastodon']) || isset($_POST['footer_social_links_signal']) || isset($_POST['footer_social_links_tiktok']) || isset($_POST['footer_social_links_twitter']) || isset($_POST['footer_social_links_whatsapp'])) {
-          $css_main_array['.footer-social-links ul']['list-style']                 = 'none';
-          $css_main_array['.footer-social-links ul']['margin']                     = '0';
-          $css_main_array['.footer-social-links ul']['padding-left']               = '0';
-          $css_main_array['.footer-social-links ul li']['display']                 = 'inline-block';
-          $css_main_array['.footer-social-links ul li']['margin']                  = '.25em';
-          $css_main_array['.footer-social-links ul li:first-child']['margin-left'] = '0';
-          $css_main_array['.footer-social-links ul li:last-child']['margin-right'] = '0';
+            if ($theme === 'origine-mini') {
+                $css_main_array['.footer-social-links']['margin-bottom'] = '1rem';
+            }
 
-          $css_main_array['.footer-social-links a']['display'] = 'inline-block';
+            $css_main_array['.footer-social-links ul']['list-style']                 = 'none';
+            $css_main_array['.footer-social-links ul']['margin']                     = '0';
+            $css_main_array['.footer-social-links ul']['padding-left']               = '0';
+            $css_main_array['.footer-social-links ul li']['display']                 = 'inline-block';
+            $css_main_array['.footer-social-links ul li']['margin']                  = '.25em';
+            $css_main_array['.footer-social-links ul li:first-child']['margin-left'] = '0';
+            $css_main_array['.footer-social-links ul li:last-child']['margin-right'] = '0';
 
-          $css_main_array['.footer-social-links-icon-container']['align-items']      = 'center';
-          $css_main_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
-          $css_main_array['.footer-social-links-icon-container']['border-radius']    = '0.125rem';
-          $css_main_array['.footer-social-links-icon-container']['display']          = 'flex';
-          $css_main_array['.footer-social-links-icon-container']['justify-content']  = 'center';
-          $css_main_array['.footer-social-links-icon-container']['width']            = '1.5rem';
-          $css_main_array['.footer-social-links-icon-container']['height']           = '1.5rem';
+            $css_main_array['.footer-social-links a']['display'] = 'inline-block';
 
-          $css_main_array['.footer-social-links-icon']['border']          = '0';
-          $css_main_array['.footer-social-links-icon']['fill']            = 'var(--color-input-text)';
-          $css_main_array['.footer-social-links-icon']['stroke']          = 'none';
-          $css_main_array['.footer-social-links-icon']['stroke-linecap']  = 'round';
-          $css_main_array['.footer-social-links-icon']['stroke-linejoin'] = 'round';
-          $css_main_array['.footer-social-links-icon']['stroke-width']    = '0';
-          $css_main_array['.footer-social-links-icon']['width']           = '1rem';
+            $css_main_array['.footer-social-links-icon-container']['align-items'] = 'center';
 
-          $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
+            if ($theme === 'origine') {
+                $css_main_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
+            } elseif ($theme === 'origine-mini') {
+                $css_main_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
+            }
 
-          $css_main_array['.footer-social-links a']['border-bottom'] = 'none';
+            if ($theme === 'origine') {
+                $css_main_array['.footer-social-links-icon-container']['border-radius'] = '.125rem';
+            }
 
-          $css_main_array['.footer-social-links a:active, .footer-social-links a:focus, .footer-social-links a:hover']['border-bottom'] = 'none';
+            $css_main_array['.footer-social-links-icon-container']['display']         = 'flex';
+            $css_main_array['.footer-social-links-icon-container']['justify-content'] = 'center';
+            $css_main_array['.footer-social-links-icon-container']['width']           = '1.5rem';
+            $css_main_array['.footer-social-links-icon-container']['height']          = '1.5rem';
 
-          $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
+            $css_main_array['.footer-social-links-icon']['border'] = '0';
 
-          if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === true) {
-            $css_main_array['.footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
-            $css_main_array['.footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
-            $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
-            $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
-          }
+            if ($theme === 'origine') {
+                $css_main_array['.footer-social-links-icon']['fill'] = 'var(--color-input-text)';
+            } elseif ($theme === 'origine-mini') {
+                $css_main_array['.footer-social-links-icon']['fill'] = 'var(--color-text-main)';
+            }
 
-          $css_media_contrast_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-border)';
+            $css_main_array['.footer-social-links-icon']['stroke']          = 'none';
+            $css_main_array['.footer-social-links-icon']['stroke-linecap']  = 'round';
+            $css_main_array['.footer-social-links-icon']['stroke-linejoin'] = 'round';
+            $css_main_array['.footer-social-links-icon']['stroke-width']    = '0';
+            $css_main_array['.footer-social-links-icon']['width']           = '1rem';
+
+            if ($theme === 'origine') {
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
+            } elseif ($theme === 'origine-mini') {
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-primary)';
+            }
+
+            $css_main_array['.footer-social-links a']['border-bottom'] = 'none';
+
+            $css_main_array['.footer-social-links a:active, .footer-social-links a:focus, .footer-social-links a:hover']['border-bottom'] = 'none';
+
+            if ($theme === 'origine') {
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
+            } elseif ($theme === 'origine-mini') {
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-background)';
+            }
+
+            if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === true) {
+                $css_main_array['.footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
+                $css_main_array['.footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
+            }
+
+            $css_media_contrast_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-border)';
         }
 
         /**
