@@ -13,7 +13,6 @@ if (!defined('DC_RC_PATH')) {
 // Behaviors.
 \dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineMinimalSocialMarkups']);
 \dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigMeta']);
-//\dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigJsonData']);
 \dcCore::app()->addBehavior('publicEntryBeforeContent', ['origineConfig', 'origineConfigPostIntro']);
 \dcCore::app()->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
 \dcCore::app()->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
@@ -31,9 +30,9 @@ if (!defined('DC_RC_PATH')) {
 \dcCore::app()->tpl->addValue('origineConfigCommentLink', ['origineConfig', 'origineConfigCommentLink']);
 \dcCore::app()->tpl->addValue('origineConfigBlogDescription', ['origineConfig', 'origineConfigBlogDescription']);
 
+// To be used:
 //\dcCore::app()->addBehavior('publicTopAfterContent', ['origineConfig', 'origineConfigColorScheme']);
-
-// TO USE:
+//\dcCore::app()->addBehavior('publicHeadContent', ['origineConfig', 'origineConfigJsonData']);
 \dcCore::app()->tpl->addValue('origineMiniPostDateDetails', ['\origineConfig', 'origineMiniPostDateDetails']);
 
 class origineConfig
@@ -158,33 +157,6 @@ class origineConfig
                     echo '<link rel=pingback href=', html::escapeURL(\dcCore::app()->blog->url . \dcCore::app()->url->getURLFor('xmlrpc', \dcCore::app()->blog->id)), '>', "\n";
                 }
             }
-        }
-    }
-
-    /**
-     * Adds JSON structured data in head.
-     *
-     * @return string Data.
-     */
-    public static function origineConfigJsonData()
-    {
-        // Posts and pages.
-        if (\dcCore::app()->url->type === 'post' || \dcCore::app()->url->type === 'pages') {
-            $data = [
-                '@context' => 'https://schema.org',
-                '@type' => 'BlogPosting',
-                'headline' => \dcCore::app()->ctx->posts->post_title,
-                'datePublished' => "2015-02-05T08:00:00+08:00",
-                'dateModified' => "2015-02-05T09:20:00+08:00",
-                'author' => [
-                    '@type' => 'Person',
-                    'name' => \dcCore::app()->ctx->posts->user_displayname,
-                ],
-            ];
-        }
-
-        if (isset($data) && !empty($data)) {
-            echo '<script type="application/ld+json">', json_encode($data), '</script>';
         }
     }
 
@@ -997,6 +969,37 @@ class origineConfig
                     echo " post-updated";
                 }
             ?>';
+        }
+    }
+
+    /*************
+     * TEST AREA *
+     *************/
+
+    /**
+     * Adds JSON structured data in head.
+     *
+     * @return string Data.
+     */
+    public static function origineConfigJsonData()
+    {
+        // Posts and pages.
+        if (\dcCore::app()->url->type === 'post' || \dcCore::app()->url->type === 'pages') {
+            $data = [
+                '@context' => 'https://schema.org',
+                '@type' => 'BlogPosting',
+                'headline' => \dcCore::app()->ctx->posts->post_title,
+                'datePublished' => "2015-02-05T08:00:00+08:00",
+                'dateModified' => "2015-02-05T09:20:00+08:00",
+                'author' => [
+                    '@type' => 'Person',
+                    'name' => \dcCore::app()->ctx->posts->user_displayname,
+                ],
+            ];
+        }
+
+        if (isset($data) && !empty($data)) {
+            echo '<script type="application/ld+json">', json_encode($data), '</script>';
         }
     }
 
