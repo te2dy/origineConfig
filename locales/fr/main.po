@@ -373,7 +373,7 @@ msgid "settings-option-content-postauthorname-title"
 msgstr "Nom de l’auteur dans les billets"
 
 msgid "settings-option-content-postauthorname-hidden-default"
-msgstr "Masqué"
+msgstr "Masqué (par défaut)"
 
 msgid "settings-option-content-postauthorname-date"
 msgstr "Affiché après la date"
@@ -412,7 +412,7 @@ msgid "settings-option-content-postlistcommentlink-description"
 msgstr "Si cette option est activée, l’adresse électronique des auteurs sera rendue publique. Si vous préférez ne pas révéler leur adresse, essayez <a href=%s>l’extension Signal</a>."
 
 msgid "settings-option-content-postlistcommentlink-no-default"
-msgstr "Désactivés"
+msgstr "Désactivés (par défaut)"
 
 msgid "settings-option-content-postlistcommentlink-open"
 msgstr "Activés, seulement si les commentaires sont ouverts"

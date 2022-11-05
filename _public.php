@@ -565,10 +565,10 @@ class origineConfig
                 }
 
                 if (getimagesize($image_path)) {
-                    $image_width    = (int) getimagesize($image_path)[0];
+                    $image_width  = (int) getimagesize($image_path)[0];
                     $image_height = (int) getimagesize($image_path)[1];
                 } else {
-                    $image_width    = 0;
+                    $image_width  = 0;
                     $image_height = 0;
                 }
 
@@ -587,15 +587,15 @@ class origineConfig
                 }
 
                 if (isset($attr['link_home']) && $attr['link_home'] === '1') {
-                    $link_open    = '<a class=site-logo-link href=' . html::escapeURL(\dcCore::app()->blog->url) . '>';
+                    $link_open  = '<a class=site-logo-link href=' . html::escapeURL(\dcCore::app()->blog->url) . '>';
                     $link_close = '</a>';
                 } else {
-                    $link_open    = '';
+                    $link_open  = '';
                     $link_close = '';
                 }
             }
 
-            return '<div class=site-logo-container>' . $link_open . '<img alt=' . __('logo-img-alt') . ' class=site-logo src=' . $src_image . $srcset . $image_size_attr . '>' . $link_close . '</div>';
+            return '<div class=site-logo-container>' . $link_open . '<img alt="' . __('logo-img-alt') . '" class=site-logo src=' . $src_image . $srcset . $image_size_attr . '>' . $link_close . '</div>';
         }
     }
 

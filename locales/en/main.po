@@ -373,7 +373,7 @@ msgid "settings-option-content-postauthorname-title"
 msgstr "Author's name in posts"
 
 msgid "settings-option-content-postauthorname-hidden-default"
-msgstr "Hidden"
+msgstr "Hidden (default)"
 
 msgid "settings-option-content-postauthorname-date"
 msgstr "Displayed after the date"
@@ -412,7 +412,7 @@ msgid "settings-option-content-postlistcommentlink-description"
 msgstr "If this option is enabled, the authors' email addresses will be made public. If you prefer not to reveal their address, try <a href=%s>the Signal extension</a>."
 
 msgid "settings-option-content-postlistcommentlink-no-default"
-msgstr "Disabled"
+msgstr "Disabled (default)"
 
 msgid "settings-option-content-postlistcommentlink-open"
 msgstr "Enabled, only if comments are opened"
