@@ -677,10 +677,6 @@ if (!empty($_POST)) {
             $css_media_contrast_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-border)';
         }
 
-        /**
-         * Media queries.
-         */
-
         // Text alignment.
         if (isset($_POST['content_text_align']) && $_POST['content_text_align'] === 'justify_not_mobile') {
             $css_media_array[':root']['--text-align'] = 'left';
@@ -717,14 +713,14 @@ if (!empty($_POST)) {
         }
 
         $css .= !empty($css_root_array) ? origineConfigArrayToCSS($css_root_array) : '';
-        $css .= !empty($css_root_media_array) ? ' @media (prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_media_array) . '}' : '';
+        $css .= !empty($css_root_media_array) ? '@media(prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_media_array) . '}' : '';
         $css .= !empty($css_main_array) ? origineConfigArrayToCSS($css_main_array) : '';
 
         $media_max_width = isset($_POST['global_page_width']) ? (int) $_POST['global_page_width'] + 4 : '34';
 
-        $css .= !empty($css_media_array) ? ' @media (max-width:' . $media_max_width . 'rem){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
-        $css .= !empty($css_media_contrast_array) ? ' @media (prefers-contrast: more), (prefers-contrast: less), (-ms-high-contrast: active), (-ms-high-contrast: black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
-        $css .= !empty($css_media_motion_array) ? ' @media (prefers-reduced-motion:reduce){' . origineConfigArrayToCSS($css_media_motion_array) . '}' : '';
+        $css .= !empty($css_media_array) ? '@media(max-width:' . $media_max_width . 'em){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
+        $css .= !empty($css_media_contrast_array) ? '@media(prefers-contrast:more),(-ms-high-contrast:active),(-ms-high-contrast:black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
+        $css .= !empty($css_media_motion_array) ? '@media(prefers-reduced-motion:reduce){' . origineConfigArrayToCSS($css_media_motion_array) . '}' : '';
 
         \dcCore::app()->blog->settings->origineConfig->put(
             'css_' . str_replace('-', '_', \dcCore::app()->blog->settings->system->theme),
