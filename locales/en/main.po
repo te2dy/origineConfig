@@ -29,6 +29,9 @@ msgstr "Header image"
 msgid "private-comment-title"
 msgstr "Send a private comment"
 
+msgid "private-comment-body-post-url"
+msgstr "Post URL:"
+
 msgid "private-comment-button-text"
 msgstr "Reply to the author by email"
 
@@ -484,7 +487,7 @@ msgid "settings-option-footer-sociallinks-tiktok-title"
 msgstr "TikTok profile URL"
 
 msgid "settings-option-footer-sociallinks-twitter-title"
-msgstr "Twitter profile URL"
+msgstr "Twitter account username"
 
 msgid "settings-option-footer-sociallinks-whatsapp-title"
 msgstr "WhatsApp account URL"

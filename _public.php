@@ -703,25 +703,22 @@ class origineConfig
     {
         if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_email_author !== 'disabled') {
 
-                $output = '<?php if (isset(\dcCore::app()->ctx->posts->user_email) && (\dcCore::app()->blog->settings->origineConfig->content_post_email_author === "always" || (\dcCore::app()->blog->settings->origineConfig->content_post_email_author === "comments_open" && \dcCore::app()->ctx->posts->post_open_comment === "1"))) : ?>';
+            return '<?php
+                if (isset(\dcCore::app()->ctx->posts->user_email) && \dcCore::app()->ctx->posts->user_email !== "" && (\dcCore::app()->blog->settings->origineConfig->content_post_email_author === "always" || (\dcCore::app()->blog->settings->origineConfig->content_post_email_author === "comments_open" && \dcCore::app()->ctx->posts->post_open_comment === "1"))
+                ) {
+                ?>
+                    <div class=comment-private>
+                        <h3 class=reaction-title>' . __('private-comment-title') . '</h3>
 
-            $output .= '<div class=comment-private>';
+                        <?php $body = "<br><br>---<br>' . __('private-comment-body-post-url') . ' " . \dcCore::app()->ctx->posts->getURL(); ?>
 
-            $output .= '<h3 class=reaction-title>' . __('private-comment-title') . '</h3>';
+                        <p>
+                            <a class=button href="mailto:<?php echo urlencode(\dcCore::app()->ctx->posts->user_email); ?>?subject=<?php echo htmlentities(__("private-comment-email-prefix") . " " . \dcCore::app()->ctx->posts->post_title . "&body=" . $body); ?>">' . __('private-comment-button-text') . '</a>
+                        </p>
+                    </div>
 
-            $output .= '<p>';
-            $output .= '<a class=button href="mailto:<?php echo urlencode(\dcCore::app()->ctx->posts->user_email); ?>';
-            $output .= '?subject=<?php echo htmlentities(__("private-comment-email-prefix") . " " . \dcCore::app()->ctx->posts->post_title); ?>';
-            $output .= '">';
-            $output .= __('private-comment-button-text');
-            $output .= '</a>';
-            $output .= '</p>';
-
-            $output .= '</div>';
-
-            $output .= '<?php endif; ?>';
-
-            return $output;
+                <?php }
+            ?>';
         }
     }
 

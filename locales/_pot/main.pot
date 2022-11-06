@@ -29,6 +29,9 @@ msgstr ""
 msgid "private-comment-title"
 msgstr ""
 
+msgid "private-comment-body-post-url"
+msgstr ""
+
 msgid "private-comment-button-text"
 msgstr ""
 

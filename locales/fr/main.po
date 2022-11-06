@@ -29,6 +29,9 @@ msgstr "Image d’en-tête"
 msgid "private-comment-title"
 msgstr "Envoyer un commentaire privé"
 
+msgid "private-comment-body-post-url"
+msgstr "Adresse du billet :"
+
 msgid "private-comment-button-text"
 msgstr "Répondre à l’auteur par courriel"
 
@@ -484,7 +487,7 @@ msgid "settings-option-footer-sociallinks-tiktok-title"
 msgstr "Adresse d’un profil TikTok"
 
 msgid "settings-option-footer-sociallinks-twitter-title"
-msgstr "Adresse d’un profil Twitter"
+msgstr "Nom d’utilisateur d’un compte Twitter"
 
 msgid "settings-option-footer-sociallinks-whatsapp-title"
 msgstr "Adresse d’un compte WhatsApp"
