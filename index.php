@@ -614,7 +614,17 @@ if (!empty($_POST)) {
         }
 
         // Social links.
-        if (isset($_POST['footer_social_links_diaspora']) || isset($_POST['footer_social_links_discord']) || isset($_POST['footer_social_links_facebook']) || isset($_POST['footer_social_links_github']) || isset($_POST['footer_social_links_mastodon']) || isset($_POST['footer_social_links_signal']) || isset($_POST['footer_social_links_tiktok']) || isset($_POST['footer_social_links_twitter']) || isset($_POST['footer_social_links_whatsapp'])) {
+        if (
+            (isset($_POST['footer_social_links_diaspora']) && $_POST['footer_social_links_diaspora'] !== '')
+            || (isset($_POST['footer_social_links_discord']) && $_POST['footer_social_links_discord'] !== '')
+            || (isset($_POST['footer_social_links_facebook']) && $_POST['footer_social_links_facebook'] !== '')
+            || (isset($_POST['footer_social_links_github']) && $_POST['footer_social_links_github'] !== '')
+            || (isset($_POST['footer_social_links_mastodon']) && $_POST['footer_social_links_mastodon'] !== '')
+            || (isset($_POST['footer_social_links_signal']) && $_POST['footer_social_links_signal'] !== '')
+            || (isset($_POST['footer_social_links_tiktok']) && $_POST['footer_social_links_tiktok'] !== '')
+            || (isset($_POST['footer_social_links_twitter']) && $_POST['footer_social_links_twitter'] !== '')
+            || (isset($_POST['footer_social_links_whatsapp']) && $_POST['footer_social_links_whatsapp'] !== '')
+        ) {
             if ($theme === 'origine-mini') {
                 $css_main_array['.footer-social-links']['margin-bottom'] = '1rem';
             }
