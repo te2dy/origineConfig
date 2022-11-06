@@ -519,7 +519,6 @@ if (!empty($_POST)) {
 
                 $css_main_array['input[type="submit"]:active, input[type="submit"]:focus, input[type="submit"]:hover, .button:active, .button:focus, .button:hover, .form-submit:active, .form-submit:focus, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
             }
-
         } elseif ($theme === 'origine-mini') {
             if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === '1') {
                 $css_main_array['a']['transition']                 = 'all .2s ease-in-out';
@@ -528,6 +527,16 @@ if (!empty($_POST)) {
                 $css_main_array['input[type="submit"], .form-submit, .button']['transition'] = 'all .2s ease-in-out';
 
                 $css_main_array['input[type="submit"]:hover, .button:hover, .form-submit:hover']['transition'] = 'all .2s ease-in-out';
+            }
+        }
+
+        // Links underline.
+        if ($theme === 'origine-mini') {
+            if (isset($_POST['global_css_links_underline']) && $_POST['global_css_links_underline'] === '1') {
+                $css_main_array['a']['text-decoration']             = 'underline dotted';
+                $css_main_array['#site-title a']['text-decoration'] = 'none';
+            } else {
+                $css_main_array['a']['text-decoration'] = 'none';
             }
         }
 

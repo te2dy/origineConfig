@@ -261,6 +261,12 @@ msgstr "Activer les transitions de couleur"
 msgid "settings-option-global-colortransition-description"
 msgstr "Se manifestent lors du survol des liens et des boutons."
 
+msgid "settings-option-global-linksunderline-title"
+msgstr "Souligner les liens avec des points"
+
+msgid "settings-option-global-linksunderline-description"
+msgstr "Bon pour l’accessibilité."
+
 msgid "settings-option-global-roundcorner-title"
 msgstr "Arrondir les coins"
 
@@ -385,7 +391,7 @@ msgid "settings-option-content-postlistauthorname-title"
 msgstr "Afficher le nom de l’auteur dans la liste des billets"
 
 msgid "settings-option-content-postintro-title"
-msgstr "Afficher l’extrait comme une introduction dans les billets"
+msgstr "Afficher l’extrait comme une introduction des billets"
 
 msgid "settings-option-content-postintro-description"
 msgstr "Met en avant l’extrait défini par l’auteur entre le titre et le contenu du billet."

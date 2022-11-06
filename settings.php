@@ -24,11 +24,11 @@ class origineConfigSettings {
             'global'   => [
                 'name'         => __('settings-section-global-name'),
                 'sub_sections' => [
-            'fonts'    => __('settings-section-global-fonts-title'),
-            'layout'   => __('settings-section-global-layout-title'),
-            'colors'   => __('settings-section-global-colors-title'),
-            'advanced' => __('settings-section-global-advance-title'),
-        ],
+                    'fonts'    => __('settings-section-global-fonts-title'),
+                    'layout'   => __('settings-section-global-layout-title'),
+                    'colors'   => __('settings-section-global-colors-title'),
+                    'advanced' => __('settings-section-global-advance-title'),
+                ],
             ],
             'header' => [
                 'name'         => __('settings-section-header-name'),
@@ -210,6 +210,15 @@ class origineConfigSettings {
             'theme'       => ['origine', 'origine-mini']
         ];
 
+        $default_settings['global_css_links_underline'] = [
+            'title'       => __('settings-option-global-linksunderline-title'),
+            'description' => __('settings-option-global-linksunderline-description'),
+            'type'        => 'checkbox',
+            'default'     => 0,
+            'section'     => ['global', 'colors'],
+            'theme'       => ['origine-mini']
+        ];
+
         $default_settings['global_css_border_radius'] = [
             'title'       => __('settings-option-global-roundcorner-title'),
             'description' => __('settings-option-global-roundcorner-description'),
@@ -348,9 +357,9 @@ class origineConfigSettings {
 
         $content_text_font_family_choices = [
             __('settings-option-content-fontfamily-title-same-default') => 'same',
-            __('settings-option-global-fontfamily-serif')              => 'serif',
-            __('settings-option-global-fontfamily-sansserif')          => 'sans-serif',
-            __('settings-option-global-fontfamily-mono')               => 'monospace'
+            __('settings-option-global-fontfamily-serif')               => 'serif',
+            __('settings-option-global-fontfamily-sansserif')           => 'sans-serif',
+            __('settings-option-global-fontfamily-mono')                => 'monospace'
         ];
 
         $default_settings['content_text_font'] = [

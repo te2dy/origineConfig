@@ -261,6 +261,12 @@ msgstr ""
 msgid "settings-option-global-colortransition-description"
 msgstr ""
 
+msgid "settings-option-global-linksunderline-title"
+msgstr ""
+
+msgid "settings-option-global-linksunderline-description"
+msgstr ""
+
 msgid "settings-option-global-roundcorner-title"
 msgstr ""
 

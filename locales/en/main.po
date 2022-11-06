@@ -261,6 +261,12 @@ msgstr "Enable color transitions"
 msgid "settings-option-global-colortransition-description"
 msgstr "Appears when hovering over links and buttons."
 
+msgid "settings-option-global-linksunderline-title"
+msgstr "Underline links with dots"
+
+msgid "settings-option-global-linksunderline-description"
+msgstr ""
+
 msgid "settings-option-global-roundcorner-title"
 msgstr "Round corners"
 
@@ -385,7 +391,7 @@ msgid "settings-option-content-postlistauthorname-title"
 msgstr "Display the author's name in the list of posts"
 
 msgid "settings-option-content-postintro-title"
-msgstr "Display the excerpt as an introduction in the posts"
+msgstr "Display the excerpt as an introduction of posts"
 
 msgid "settings-option-content-postintro-description"
 msgstr "Highlights the excerpt defined by the author between the title and the content of the post."
