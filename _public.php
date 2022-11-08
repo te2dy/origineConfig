@@ -151,12 +151,6 @@ class origineConfig
             if (\dcCore::app()->blog->settings->origineConfig->global_meta_generator === true) {
                 echo '<meta name=generator content=Dotclear>', "\n";
             }
-
-            if (\dcCore::app()->blog->settings->origineConfig->global_meta_pingback === true) {
-                if (\dcCore::app()->blog->url === 'post' && \dcCore::app()->ctx->posts->trackbacksActive() === true) {
-                    echo '<link rel=pingback href=', html::escapeURL(\dcCore::app()->blog->url . \dcCore::app()->url->getURLFor('xmlrpc', \dcCore::app()->blog->id)), '>', "\n";
-                }
-            }
         }
     }
 
