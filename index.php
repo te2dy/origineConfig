@@ -384,24 +384,6 @@ if (!empty($_POST)) {
 
             $secondary_colors = [
                 'light' => [
-                    'blue' => [
-                        /**
-                         * HSL recipe:
-                         * --color-primary: 226, 80%, 45%
-                         * --color-background: 226, 10%, 99%
-                         * --color-text-main: 226, 10%, 20%;
-                         * --color-text-secondary: 226, 10%, 45%;
-                         * --color-border: 226, 0%, 80%;
-                         * --color-input-background: 226, 10%, 95%;
-                         */
-                        '--color-primary'          => '#1742cf',
-                        '--color-background'       => '#fcfcfd',
-                        '--color-text-main'        => '#2e3038',
-                        '--color-text-secondary'   => '#676d7e',
-                        '--color-border'           => '#cccccc',
-                        '--color-input-background' => '#f1f2f4'
-                    ],
-
                     'gray' => [
                         /**
                          * HSL recipe:
@@ -464,19 +446,19 @@ if (!empty($_POST)) {
                 ]
             ];
 
-            if (isset($_POST['global_color_secondary'])) {
+            if (isset($_POST['global_color_secondary']) && $_POST['global_color_secondary'] !== 'blue') {
                 if (in_array($_POST['global_color_secondary'], $secondary_colors_allowed) === true) {
                     foreach ($secondary_colors['light'][$_POST['global_color_secondary']] as $key => $value) {
                         $css_root_array[':root'][$key] = $value;
                     }
 
-                    $css_root_media_array[':root']['--color-primary'] = $secondary_colors['dark'][$_POST['global_color_secondary']];
+                    $css_root_media_array[':root']['--color-primary-dark'] = $secondary_colors['dark'][$_POST['global_color_secondary']];
                 } else {
                     foreach ($secondary_colors['light']['blue'] as $key => $value) {
                         $css_root_array[':root'][$key] = $value;
                     }
 
-                    $css_root_media_array[':root']['--color-primary'] = $secondary_colors['dark']['blue'];
+                    $css_root_media_array[':root']['--color-primary-dark'] = $secondary_colors['dark']['blue'];
                 }
             }
         }
