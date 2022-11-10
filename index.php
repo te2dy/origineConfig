@@ -228,11 +228,17 @@ if (!empty($_POST)) {
         // Page width.
         $page_width_allowed = [30, 35, 40];
 
-        if (isset($_POST['global_page_width'])) {
-            if (in_array(intval($_POST['global_page_width']), $page_width_allowed, true)) {
+        if ($theme === 'origine') {
+            if (isset($_POST['global_page_width'])) {
+                if (in_array(intval($_POST['global_page_width']), $page_width_allowed, true)) {
+                    $css_root_array[':root']['--page-width'] = $_POST['global_page_width'] . 'em';
+                } else {
+                    $css_root_array[':root']['--page-width'] = '30em';
+                }
+            }
+        } elseif ($theme === 'origine-mini') {
+            if (isset($_POST['global_page_width']) && (int) $_POST['global_page_width'] !== 30 && in_array(intval($_POST['global_page_width']), $page_width_allowed, true)) {
                 $css_root_array[':root']['--page-width'] = $_POST['global_page_width'] . 'em';
-            } else {
-                $css_root_array[':root']['--page-width'] = '30em';
             }
         }
 
@@ -289,18 +295,30 @@ if (!empty($_POST)) {
         $font_mono = 'Menlo, Consolas, Monaco, "Liberation Mono", "Lucida Console", monospace';
 
         // Font family.
-        if (isset($_POST['global_font_family'])) {
+        if ($theme === 'origine') {
+            if (isset($_POST['global_font_family'])) {
+                if ($_POST['global_font_family'] === 'serif') {
+                    $css_root_array[':root']['--font-family'] = $font_serif;
+                } elseif ($_POST['global_font_family'] === 'sans-serif') {
+                    $css_root_array[':root']['--font-family'] = $font_sans_serif;
+                } else {
+                    $css_root_array[':root']['--font-family'] = $font_mono;
+                }
+            }
+        } elseif ($theme === 'origine-mini') {
             if ($_POST['global_font_family'] === 'serif') {
                 $css_root_array[':root']['--font-family'] = $font_serif;
-            } elseif ($_POST['global_font_family'] === 'sans-serif') {
-                $css_root_array[':root']['--font-family'] = $font_sans_serif;
-            } else {
+            } elseif ($_POST['global_font_family'] === 'mono') {
                 $css_root_array[':root']['--font-family'] = $font_mono;
             }
         }
 
         // Font size.
-        if (isset($_POST['global_font_size']) === true && intval($_POST['global_font_size']) > 0) {
+        if ($theme === 'origine') {
+            if (isset($_POST['global_font_size']) === true && intval($_POST['global_font_size']) > 0) {
+                $css_root_array[':root']['--font-size'] = ($_POST['global_font_size'] / 100) . 'em';
+            }
+        } elseif ($theme === 'origine-mini' && isset($_POST['global_font_size']) === true && (int) $_POST['global_font_size'] !== 100) {
             $css_root_array[':root']['--font-size'] = ($_POST['global_font_size'] / 100) . 'em';
         }
 
@@ -515,10 +533,9 @@ if (!empty($_POST)) {
         // Links underline.
         if ($theme === 'origine-mini') {
             if (isset($_POST['global_css_links_underline']) && $_POST['global_css_links_underline'] === '1') {
-                $css_main_array['a']['text-decoration']             = 'underline dotted';
-                $css_main_array['#site-title a']['text-decoration'] = 'none';
+                $css_main_array[':root']['--link-text-decoration'] = 'underline dotted';
             } else {
-                $css_main_array['a']['text-decoration'] = 'none';
+                $css_main_array[':root']['--link-text-decoration'] = 'none';
             }
         }
 
@@ -670,8 +687,11 @@ if (!empty($_POST)) {
 
             if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === true) {
                 $css_main_array['.footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
+
                 $css_main_array['.footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
+
                 $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['transition'] = 'all .2s ease-in-out';
+
                 $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
             }
 
@@ -679,8 +699,12 @@ if (!empty($_POST)) {
         }
 
         // Text alignment.
-        if (isset($_POST['content_text_align']) && $_POST['content_text_align'] === 'justify_not_mobile') {
-            $css_media_array[':root']['--text-align'] = 'left';
+        if ($theme === 'origine') {
+            if (isset($_POST['content_text_align']) && $_POST['content_text_align'] === 'justify_not_mobile') {
+                $css_media_array[':root']['--text-align'] = 'left';
+            }
+        } elseif ($theme === 'origine-mini') {
+
         }
 
         // Hyphenation.
