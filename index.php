@@ -597,7 +597,12 @@ if (!empty($_POST)) {
             $css_main_array['.post-updated .post-title::before']['height']           = '.5rem';
             $css_main_array['.post-updated .post-title::before']['margin-right']     = '.25rem';
             $css_main_array['.post-updated .post-title::before']['width']            = '.5rem';
-         }
+        }
+
+        // Private comments.
+        if (isset($_POST['content_post_email_author']) && $_POST['content_post_email_author'] !== 'disabled') {
+            $css_main_array['.comment-private']['margin-bottom'] = '2rem';
+        }
 
         // Link to reactions in the post list.
         if (isset($_POST['content_post_list_comment_link']) && $_POST['content_post_list_comment_link'] === '1') {
