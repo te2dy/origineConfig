@@ -590,7 +590,7 @@ if (!empty($_POST)) {
 
         // Update badge.
         if (isset($_POST['content_post_list_update_badge']) && $_POST['content_post_list_update_badge'] === '1') {
-            $css_main_array['.post-updated .post-title::before']['background-color'] = 'var(--color-primary)';
+            $css_main_array['.post-updated .post-title::before']['background-color'] = 'var(--color-primary, #94c9ff)';
             $css_main_array['.post-updated .post-title::before']['border-radius']    = '50%';
             $css_main_array['.post-updated .post-title::before']['content']          = '" "';
             $css_main_array['.post-updated .post-title::before']['display']          = 'inline-block';
@@ -679,7 +679,7 @@ if (!empty($_POST)) {
             if ($theme === 'origine') {
                 $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
             } elseif ($theme === 'origine-mini') {
-                $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-primary)';
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-primary, #94c9ff)';
             }
 
             $css_main_array['.footer-social-links a']['border-bottom'] = 'none';
