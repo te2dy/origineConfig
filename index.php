@@ -267,17 +267,19 @@ if (!empty($_POST)) {
             $structure_order[] = '--order-footer';
         }
 
-        $css_root_array[':root']['--order-content'] = array_search('--order-content', $structure_order);
+        if (array_search('--order-content', $structure_order) !== 2) {
+            $css_root_array[':root']['--order-content'] = array_search('--order-content', $structure_order);
+        }
 
-        if (in_array('--order-widgets-nav', $structure_order, true)) {
+        if (in_array('--order-widgets-nav', $structure_order, true) && array_search('--order-widgets-nav', $structure_order) !== 3) {
             $css_root_array[':root']['--order-widgets-nav'] = array_search('--order-widgets-nav', $structure_order);
         }
 
-        if (in_array('--order-widgets-extra', $structure_order, true)) {
+        if (in_array('--order-widgets-extra', $structure_order, true) && array_search('--order-widgets-extra', $structure_order) !== 4) {
             $css_root_array[':root']['--order-widgets-extra'] = array_search('--order-widgets-extra', $structure_order);
         }
 
-        if (in_array('--order-footer', $structure_order, true)) {
+        if (in_array('--order-footer', $structure_order, true) && array_search('--order-footer', $structure_order) !== 5) {
             $css_root_array[':root']['--order-footer'] = array_search('--order-footer', $structure_order);
         }
 
