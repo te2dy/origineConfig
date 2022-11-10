@@ -701,12 +701,8 @@ if (!empty($_POST)) {
         }
 
         // Text alignment.
-        if ($theme === 'origine') {
-            if (isset($_POST['content_text_align']) && $_POST['content_text_align'] === 'justify_not_mobile') {
-                $css_media_array[':root']['--text-align'] = 'left';
-            }
-        } elseif ($theme === 'origine-mini') {
-
+        if (isset($_POST['content_text_align']) && $_POST['content_text_align'] === 'justify_not_mobile') {
+            $css_media_array[':root']['--text-align'] = 'left';
         }
 
         // Hyphenation.
