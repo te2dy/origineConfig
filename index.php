@@ -559,7 +559,7 @@ if (!empty($_POST)) {
 
         // Post introduction.
         if (isset($_POST['content_post_intro']) && $_POST['content_post_intro'] === '1') {
-            $css_main_array['#post-single-excerpt']['border-bottom'] = '.063rem solid var(--color-border)';
+            $css_main_array['#post-single-excerpt']['border-bottom'] = '.063rem solid var(--color-border, #c2c7d6)';
             $css_main_array['#post-single-excerpt']['font-weight']   = '700';
             $css_main_array['#post-single-excerpt']['margin-bottom'] = '2rem';
             $css_main_array['#post-single-excerpt']['padding-bottom'] = '1rem';
@@ -648,9 +648,9 @@ if (!empty($_POST)) {
             $css_main_array['.footer-social-links-icon-container']['align-items'] = 'center';
 
             if ($theme === 'origine') {
-                $css_main_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
+                $css_main_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background, #f1f2f4)';
             } elseif ($theme === 'origine-mini') {
-                $css_main_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background)';
+                $css_main_array['.footer-social-links-icon-container']['background-color'] = 'var(--color-input-background, #f1f2f4)';
             }
 
             if ($theme === 'origine') {
@@ -667,7 +667,7 @@ if (!empty($_POST)) {
             if ($theme === 'origine') {
                 $css_main_array['.footer-social-links-icon']['fill'] = 'var(--color-input-text)';
             } elseif ($theme === 'origine-mini') {
-                $css_main_array['.footer-social-links-icon']['fill'] = 'var(--color-text-main)';
+                $css_main_array['.footer-social-links-icon']['fill'] = 'var(--color-text-main, #2e3038)';
             }
 
             $css_main_array['.footer-social-links-icon']['stroke']          = 'none';
@@ -689,7 +689,7 @@ if (!empty($_POST)) {
             if ($theme === 'origine') {
                 $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-input-text-hover)';
             } elseif ($theme === 'origine-mini') {
-                $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-background)';
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['fill'] = 'var(--color-background, #fcfcfd)';
             }
 
             if (isset($_POST['global_css_transition']) && $_POST['global_css_transition'] === true) {
@@ -702,7 +702,7 @@ if (!empty($_POST)) {
                 $css_main_array['.footer-social-links a:active .footer-social-links-icon, .footer-social-links a:focus .footer-social-links-icon, .footer-social-links a:hover .footer-social-links-icon']['transition'] = 'all .2s ease-in-out';
             }
 
-            $css_media_contrast_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-border)';
+            $css_media_contrast_array['.footer-social-links-icon-container']['border'] = '1px solid var(--color-border, #c2c7d6)';
         }
 
         // Text alignment.
