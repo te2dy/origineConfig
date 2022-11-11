@@ -421,7 +421,7 @@ class origineConfig
      */
     public static function origineConfigImagesWide()
     {
-        if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_images_wide === true) {
+        if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_images_wide === true && (\dcCore::app()->url->type === 'post' || \dcCore::app()->url->type === 'pages')) {
                 $page_width_em = \dcCore::app()->blog->settings->origineConfig->global_page_width ? \dcCore::app()->blog->settings->origineConfig->global_page_width : 30;
                 ?>
                 <script>window.addEventListener("load",imageWide);window.addEventListener("resize",imageWide);function getMeta(url,callback){var img=new Image();img.src=url;img.addEventListener("load",function(){callback(this.width,this.height)})}
