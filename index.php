@@ -590,7 +590,7 @@ if (!empty($_POST)) {
 
         // Update badge.
         if (isset($_POST['content_post_list_update_badge']) && $_POST['content_post_list_update_badge'] === '1') {
-            $css_main_array['.post-updated .post-title::before']['background-color'] = 'var(--color-primary, #94c9ff)';
+            $css_main_array['.post-updated .post-title::before']['background-color'] = 'var(--color-primary, #1742cf)';
             $css_main_array['.post-updated .post-title::before']['border-radius']    = '50%';
             $css_main_array['.post-updated .post-title::before']['content']          = '" "';
             $css_main_array['.post-updated .post-title::before']['display']          = 'inline-block';
@@ -679,7 +679,7 @@ if (!empty($_POST)) {
             if ($theme === 'origine') {
                 $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-input-background-hover)';
             } elseif ($theme === 'origine-mini') {
-                $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-primary, #94c9ff)';
+                $css_main_array['.footer-social-links a:active .footer-social-links-icon-container, .footer-social-links a:focus .footer-social-links-icon-container, .footer-social-links a:hover .footer-social-links-icon-container']['background-color'] = 'var(--color-primary, #1742cf)';
             }
 
             $css_main_array['.footer-social-links a']['border-bottom'] = 'none';
@@ -741,14 +741,14 @@ if (!empty($_POST)) {
         }
 
         $css .= !empty($css_root_array) ? origineConfigArrayToCSS($css_root_array) : '';
-        $css .= !empty($css_root_media_array) ? '@media(prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_media_array) . '}' : '';
+        $css .= !empty($css_root_media_array) ? '@media (prefers-color-scheme:dark){' . origineConfigArrayToCSS($css_root_media_array) . '}' : '';
         $css .= !empty($css_main_array) ? origineConfigArrayToCSS($css_main_array) : '';
 
         $media_max_width = isset($_POST['global_page_width']) ? (int) $_POST['global_page_width'] + 4 : '34';
 
-        $css .= !empty($css_media_array) ? '@media(max-width:' . $media_max_width . 'em){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
-        $css .= !empty($css_media_contrast_array) ? '@media(prefers-contrast:more),(-ms-high-contrast:active),(-ms-high-contrast:black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
-        $css .= !empty($css_media_motion_array) ? '@media(prefers-reduced-motion:reduce){' . origineConfigArrayToCSS($css_media_motion_array) . '}' : '';
+        $css .= !empty($css_media_array) ? '@media (max-width:' . $media_max_width . 'em){' . origineConfigArrayToCSS($css_media_array) . '}' : '';
+        $css .= !empty($css_media_contrast_array) ? '@media (prefers-contrast:more),(-ms-high-contrast:active),(-ms-high-contrast:black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
+        $css .= !empty($css_media_motion_array) ? '@media (prefers-reduced-motion:reduce){' . origineConfigArrayToCSS($css_media_motion_array) . '}' : '';
 
         \dcCore::app()->blog->settings->origineConfig->put(
             'css_' . str_replace('-', '_', \dcCore::app()->blog->settings->system->theme),
