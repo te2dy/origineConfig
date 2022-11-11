@@ -16,7 +16,7 @@ if (!defined('DC_RC_PATH')) {
 \dcCore::app()->addBehavior('publicEntryBeforeContent', ['origineConfig', 'origineConfigPostIntro']);
 \dcCore::app()->addBehavior('publicFooterContent', ['origineConfig', 'publicFooterSocialLinks']);
 \dcCore::app()->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineShareLinks']);
-\dcCore::app()->addBehavior('publicEntryAfterContent', ['origineConfig', 'origineConfigImagesWide']);
+\dcCore::app()->addBehavior('publicFooterContent', ['origineConfig', 'origineConfigImagesWide']);
 
 // Values.
 \dcCore::app()->tpl->addValue('origineConfigLogo', ['origineConfig', 'origineConfigLogo']);
@@ -425,10 +425,10 @@ class origineConfig
                 $page_width_em = \dcCore::app()->blog->settings->origineConfig->global_page_width ? \dcCore::app()->blog->settings->origineConfig->global_page_width : 30;
                 ?>
                 <script>window.addEventListener("load",imageWide);window.addEventListener("resize",imageWide);function getMeta(url,callback){var img=new Image();img.src=url;img.addEventListener("load",function(){callback(this.width,this.height)})}
-function imageWide(){var pageWidthEm=<?php echo $page_width_em; ?>,imgWideWidthEm=pageWidthEm+10,pageWidthPx=0,imgWideWidthPx=0,fontSizePx=0;const element=document.createElement('div');element.style.width='1rem';element.style.display='none';document.body.append(element);const widthMatch=window.getComputedStyle(element).getPropertyValue('width').match(/\d+/);element.remove();if(widthMatch&&widthMatch.length>=1){fontSizePx=parseInt(widthMatch[0])}
+function imageWide(){var pageWidthEm=parseInt(<?php echo $page_width_em; ?>),imgWideWidthEm=pageWidthEm+10,pageWidthPx=0,imgWideWidthPx=0,fontSizePx=0;const element=document.createElement('div');element.style.width='1rem';element.style.display='none';document.body.append(element);const widthMatch=window.getComputedStyle(element).getPropertyValue('width').match(/\d+/);element.remove();if(widthMatch&&widthMatch.length>=1){fontSizePx=parseInt(widthMatch[0])}
 if(fontSizePx>0){pageWidthPx=pageWidthEm*fontSizePx;imgWideWidthPx=imgWideWidthEm*fontSizePx}
 var img=document.getElementsByTagName("article")[0].getElementsByTagName("img"),i=0;while(i<img.length){let myImg=img[i];getMeta(myImg.src,function(width,height){let imgWidth=width,imgHeight=height,myImgStyle="";if(imgWidth>pageWidthPx&&imgWidth>imgHeight){if(imgWidth>imgWideWidthPx){imgHeight=parseInt(imgWideWidthPx*imgHeight/imgWidth);imgWidth=imgWideWidthPx}
-myImgStyle="display:block;margin-left:50%;transform:translateX(-50%);max-width:100vw;";myImg.setAttribute("style",myImgStyle);if(imgWidth){myImg.setAttribute("width",imgWidth)}
+myImgStyle="display:block;margin-left:50%;transform:translateX(-50%);max-width:95vw;";myImg.setAttribute("style",myImgStyle);if(imgWidth){myImg.setAttribute("width",imgWidth)}
 if(imgHeight){myImg.setAttribute("height",imgHeight)}}});i++}}</script>
             <?php
         }

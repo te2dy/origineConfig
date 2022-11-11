@@ -19,7 +19,7 @@ function getMeta(url, callback) {
 }
 
 function imageWide() {
-  var pageWidthEm    = <?php echo $page_width_em; ?>, // Yes, there is PHP.
+  var pageWidthEm    = parseInt(<?php echo $page_width_em; ?>), // Yes, there is PHP.
       imgWideWidthEm = pageWidthEm + 10,
       pageWidthPx    = 0, // To set later.
       imgWideWidthPx = 0, // To set later.
@@ -75,7 +75,7 @@ function imageWide() {
                   }
 
                   // Defines the styles of the image.
-                  myImgStyle = "display:block;margin-left:50%;transform:translateX(-50%);max-width:100vw;";
+                  myImgStyle = "display:block;margin-left:50%;transform:translateX(-50%);max-width:95vw;";
 
                   // Sets the image attributes.
                   myImg.setAttribute("style", myImgStyle);
