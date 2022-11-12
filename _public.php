@@ -499,14 +499,23 @@ if(imgHeight){myImg.setAttribute("height",imgHeight)}}});i++}}</script>
     /**
      * Displays the published time of posts in the post list.
      *
-     * @return void
+     * @param array $attr Attributes to customize the value.
+     *                    Attribute allowed: context
+     *                    Values allowed:
+     *                    - (string) post-list
+     *                    - (string) post
+     *
+     * @return void The published time of the post.
      */
     public static function origineConfigEntryTime($attr)
     {
-        $format_time = \dcCore::app()->blog->settings->system->time_format;
-
-        if (\dcCore::app()->blog->settings->origineConfig->active === true && \dcCore::app()->blog->settings->origineConfig->content_post_list_time === true && !empty($attr['context']) && $attr['context'] === 'post-list') {
-            return ' <?php echo \dcCore::app()->blog->settings->origineConfig->content_separator . " " . \dcCore::app()->ctx->posts->getDate("' . $format_time . '", "creadt"); ?>';
+        if (\dcCore::app()->blog->settings->origineConfig->active === true && !empty($attr['context'])) {
+            if (
+                (\dcCore::app()->blog->settings->origineConfig->content_post_list_time === true && $attr['context'] === 'post-list')
+                || (\dcCore::app()->blog->settings->origineConfig->content_post_time === true && $attr['context'] === 'post')
+            ) {
+                return ' <?php echo \dcCore::app()->blog->settings->origineConfig->content_separator, " ", \dcCore::app()->ctx->posts->getDate(\dcCore::app()->blog->settings->system->time_format); ?>';
+            }
         }
     }
 
