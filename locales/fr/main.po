@@ -481,7 +481,7 @@ msgid "settings-option-footer-sociallinks-mastodon-title"
 msgstr "Adresse d’un profil Mastodon"
 
 msgid "settings-option-footer-sociallinks-signal-title"
-msgstr "Adresse d’un compte Signal"
+msgstr "Numéro de téléphone Signal"
 
 msgid "settings-option-footer-sociallinks-tiktok-title"
 msgstr "Adresse d’un profil TikTok"
@@ -490,7 +490,7 @@ msgid "settings-option-footer-sociallinks-twitter-title"
 msgstr "Nom d’utilisateur d’un compte Twitter"
 
 msgid "settings-option-footer-sociallinks-whatsapp-title"
-msgstr "Adresse d’un compte WhatsApp"
+msgstr "Numéro de téléphone WhatsApp"
 
 msgid "settings-option-footer-originestyles-title"
 msgstr "Styles personnalisés pour Origine"

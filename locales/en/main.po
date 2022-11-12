@@ -481,7 +481,7 @@ msgid "settings-option-footer-sociallinks-mastodon-title"
 msgstr "Mastodon profile URL"
 
 msgid "settings-option-footer-sociallinks-signal-title"
-msgstr "Signal account URL"
+msgstr "Signal phone number"
 
 msgid "settings-option-footer-sociallinks-tiktok-title"
 msgstr "TikTok profile URL"
@@ -490,7 +490,7 @@ msgid "settings-option-footer-sociallinks-twitter-title"
 msgstr "Twitter account username"
 
 msgid "settings-option-footer-sociallinks-whatsapp-title"
-msgstr "WhatsApp account URL"
+msgstr "WhatsApp phone number"
 
 msgid "settings-option-footer-originestyles-title"
 msgstr "Origine custom styles"
