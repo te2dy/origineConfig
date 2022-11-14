@@ -87,7 +87,7 @@ class origineConfigSettings {
      */
     public static function default_settings($theme = 'origine')
     {
-        $theme = \dcCore::app()->blog->settings->system->theme;
+        $theme = dcCore::app()->blog->settings->system->theme;
 
         $default_settings = [];
 

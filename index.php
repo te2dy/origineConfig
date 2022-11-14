@@ -25,7 +25,7 @@ function origineConfigArrayToCSS($rules)
 
     foreach ($rules as $key => $value) {
         if (is_array($value) && !empty($value)) {
-            $selector     = $key;
+            $selector   = $key;
             $properties = $value;
 
             $css .= str_replace(', ', ',', $selector) . '{';
@@ -70,23 +70,23 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
             '</label>';
         } elseif ($default_settings[$setting_id]['type'] === 'select' || $default_settings[$setting_id]['type'] === 'select_int') {
             echo '<label for="' . $setting_id . '">',
-            $default_settings[$setting_id]['title'],
-            '</label>',
-            form::combo(
-                $setting_id,
-                $default_settings[$setting_id]['choices'],
-                strval($settings[$setting_id])
-            );
+                 $default_settings[$setting_id]['title'],
+                 '</label>',
+                 form::combo(
+                     $setting_id,
+                     $default_settings[$setting_id]['choices'],
+                     strval($settings[$setting_id])
+                 );
         } elseif ($default_settings[$setting_id]['type'] === 'text') {
             echo '<label for="' . $setting_id . '">',
-            $default_settings[$setting_id]['title'],
-            '</label>',
-            form::field(
-                $setting_id,
-                30,
-                255,
-                $settings[$setting_id]
-            );
+                 $default_settings[$setting_id]['title'],
+                 '</label>',
+                 form::field(
+                     $setting_id,
+                     30,
+                     255,
+                     $settings[$setting_id]
+                 );
         }
 
         echo '</p>';
@@ -118,22 +118,22 @@ function origineConfigSettingDisplay($setting_id = '', $default_settings = [], $
  */
 function option_supported($theme_current = '', $theme_supported = '')
 {
-    if ($theme_supported && (is_array($theme_supported) && in_array($theme_current, $theme_supported, true))) {
+    if ($theme_supported && (is_array($theme_supported) === true && in_array($theme_current, $theme_supported, true) === true)) {
         return true;
     } else {
         return false;
     }
 }
 
-$theme = \dcCore::app()->blog->settings->system->theme;
+$theme = dcCore::app()->blog->settings->system->theme;
 
 $default_settings = origineConfigSettings::default_settings();
 
-\dcCore::app()->blog->settings->addNamespace('origineConfig');
+dcCore::app()->blog->settings->addNamespace('origineConfig');
 
 // Adds all default settings values if necessary.
 foreach($default_settings as $setting_id => $setting_data) {
-    if (!\dcCore::app()->blog->settings->origineConfig->$setting_id) {
+    if (!dcCore::app()->blog->settings->origineConfig->$setting_id) {
         if ($setting_data['type'] === 'checkbox') {
             $setting_type = 'boolean';
         } elseif ($setting_data['type'] === 'select_int') {
@@ -142,7 +142,7 @@ foreach($default_settings as $setting_id => $setting_data) {
             $setting_type = 'string';
         }
 
-        \dcCore::app()->blog->settings->origineConfig->put(
+        dcCore::app()->blog->settings->origineConfig->put(
             $setting_id,
             $setting_data['default'],
             $setting_type,
@@ -157,11 +157,11 @@ $settings = [];
 
 foreach($default_settings as $setting_id => $setting_data) {
     if ($setting_data['type'] === 'checkbox') {
-        $settings[$setting_id] = (boolean) \dcCore::app()->blog->settings->origineConfig->$setting_id;
+        $settings[$setting_id] = (boolean) dcCore::app()->blog->settings->origineConfig->$setting_id;
     } elseif ($setting_data['type'] === 'select_int') {
-        $settings[$setting_id] = (integer) \dcCore::app()->blog->settings->origineConfig->$setting_id;
+        $settings[$setting_id] = (integer) dcCore::app()->blog->settings->origineConfig->$setting_id;
     } else {
-        $settings[$setting_id] = \dcCore::app()->blog->settings->origineConfig->$setting_id;
+        $settings[$setting_id] = dcCore::app()->blog->settings->origineConfig->$setting_id;
     }
 }
 
@@ -176,12 +176,12 @@ if (!empty($_POST)) {
                 if (option_supported($theme, $default_settings[$id]['theme']) === true && !in_array($id, $settings_to_ignore)) {
                     if ($default_settings[$id]['type'] === 'checkbox') {
                         if (!empty($_POST[$id]) && intval($_POST[$id]) === 1) {
-                            \dcCore::app()->blog->settings->origineConfig->put($id, true);
+                            dcCore::app()->blog->settings->origineConfig->put($id, true);
                         } else {
-                            \dcCore::app()->blog->settings->origineConfig->put($id, false);
+                            dcCore::app()->blog->settings->origineConfig->put($id, false);
                         }
                     } elseif (isset($_POST[$id])) {
-                        \dcCore::app()->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
+                        dcCore::app()->blog->settings->origineConfig->put($id, trim(html::escapeHTML($_POST[$id])));
                     }
                 }
             }
@@ -197,7 +197,7 @@ if (!empty($_POST)) {
                     $setting_type = 'string';
                 }
 
-                \dcCore::app()->blog->settings->origineConfig->put(
+                dcCore::app()->blog->settings->origineConfig->put(
                     $setting_id,
                     $setting_data['default'],
                     $setting_type,
@@ -214,7 +214,7 @@ if (!empty($_POST)) {
          * to save then in the database as a string ($css) with put()
          * formatted via the function origineConfigArrayToCSS().
          */
-        $theme = \dcCore::app()->blog->settings->system->theme;
+        $theme = dcCore::app()->blog->settings->system->theme;
 
         $css = '';
 
@@ -230,14 +230,14 @@ if (!empty($_POST)) {
 
         if ($theme === 'origine') {
             if (isset($_POST['global_page_width'])) {
-                if (in_array(intval($_POST['global_page_width']), $page_width_allowed, true)) {
+                if (in_array(intval($_POST['global_page_width']), $page_width_allowed, true) === true) {
                     $css_root_array[':root']['--page-width'] = $_POST['global_page_width'] . 'em';
                 } else {
                     $css_root_array[':root']['--page-width'] = '30em';
                 }
             }
         } elseif ($theme === 'origine-mini') {
-            if (isset($_POST['global_page_width']) && (int) $_POST['global_page_width'] !== 30 && in_array(intval($_POST['global_page_width']), $page_width_allowed, true)) {
+            if (isset($_POST['global_page_width']) && (int) $_POST['global_page_width'] !== 30 && in_array(intval($_POST['global_page_width']), $page_width_allowed, true) === true) {
                 $css_root_array[':root']['--page-width'] = $_POST['global_page_width'] . 'em';
             }
         }
@@ -750,22 +750,22 @@ if (!empty($_POST)) {
         $css .= !empty($css_media_contrast_array) ? '@media (prefers-contrast:more),(-ms-high-contrast:active),(-ms-high-contrast:black-on-white){' . origineConfigArrayToCSS($css_media_contrast_array) . '}' : '';
         $css .= !empty($css_media_motion_array) ? '@media (prefers-reduced-motion:reduce){' . origineConfigArrayToCSS($css_media_motion_array) . '}' : '';
 
-        \dcCore::app()->blog->settings->origineConfig->put(
-            'css_' . str_replace('-', '_', \dcCore::app()->blog->settings->system->theme),
+        dcCore::app()->blog->settings->origineConfig->put(
+            'css_' . str_replace('-', '_', dcCore::app()->blog->settings->system->theme),
             htmlspecialchars($css, ENT_NOQUOTES)
         );
 
-        \dcCore::app()->blog->triggerBlog();
+        dcCore::app()->blog->triggerBlog();
 
         // Clears template cache.
-        if (\dcCore::app()->blog->settings->system->tpl_use_cache === true) {
-            \dcCore::app()->emptyTemplatesCache();
+        if (dcCore::app()->blog->settings->system->tpl_use_cache === true) {
+            dcCore::app()->emptyTemplatesCache();
         }
 
         dcPage::addSuccessNotice(__('settings-saved-message'));
-        http::redirect(\dcCore::app()->admin->getPageURL());
+        http::redirect(dcCore::app()->admin->getPageURL());
     } catch (Exception $e) {
-        \dcCore::app()->error->add($e->getMessage());
+        dcCore::app()->error->add($e->getMessage());
     }
 }
 ?>
@@ -778,7 +778,7 @@ if (!empty($_POST)) {
         <?php
         echo dcPage::breadcrumb(
             [
-                html::escapeHTML(\dcCore::app()->blog->name) => '',
+                html::escapeHTML(dcCore::app()->blog->name) => '',
                 __('admin-title')                            => ''
             ]
         );
@@ -793,27 +793,23 @@ if (!empty($_POST)) {
                     <?php
                     printf(
                         __('admin-access-denied-origine-only'),
-                        html::escapeURL(\dcCore::app()->adminurl->get('admin.blog.theme'))
+                        html::escapeURL(dcCore::app()->adminurl->get('admin.blog.theme'))
                     );
                     ?>
                 </p>
             <?php
         else :
         ?>
-            <form action=<?php echo \dcCore::app()->admin->getPageURL(); ?> method=post>
+            <form action=<?php echo dcCore::app()->admin->getPageURL(); ?> method=post>
                 <!-- # Displays the activation checkbox before all other settings. -->
                 <p>
                     <?php echo form::checkbox('active', true, $settings['active']); ?>
 
-                    <label class=classic for=active><?php echo $default_settings['active']['title']; ?></label>
+                    <label class=classic for=active><strong><?php echo $default_settings['active']['title']; ?></strong></label>
                 </p>
 
-                <p class=form-note>
-                    <?php
-                    echo $default_settings['active']['description'],
-                    ' ',
-                    __('option-default-checked');
-                    ?>
+                <p class="form-note warning">
+                    <?php echo $default_settings['active']['description'], ' ', __('option-default-checked'); ?>
                 </p>
 
                 <?php unset($default_settings['active']); ?>
@@ -845,13 +841,13 @@ if (!empty($_POST)) {
                 // Puts all settings in their sections.
                 foreach($default_settings as $setting_id => $setting_data) {
                     if (option_supported($theme, $setting_data['theme']) && !in_array($setting_id, $settings_to_ignore, true)) {
-                        if (isset($setting_data['section']) && is_array($setting_data['section'])) {
-                            if (isset($setting_data['section'][1])) {
+                        if (isset($setting_data['section']) === true && is_array($setting_data['section']) === true) {
+                            if (isset($setting_data['section'][1]) === true) {
                                 $setting_page_content[$setting_data['section'][0]][$setting_data['section'][1]][] = $setting_id;
                             } else {
                                 $setting_page_content[$setting_data['section'][0]][] = $setting_id;
                             }
-                        } elseif (isset($setting_data['section']) && is_string($setting_data['section'])) {
+                        } elseif (isset($setting_data['section']) === true && is_string($setting_data['section']) === true) {
                             $setting_page_content[$setting_data['section'][0]][] = $setting_id;
                         }
                     }
@@ -862,18 +858,14 @@ if (!empty($_POST)) {
 
                 // Displays the title of each sections and put the settings inside.
                 foreach ($setting_page_content as $title_id => $section_content) {
-                    echo '<h3>',
-                    $sections[$title_id]['name'],
-                    '</h3>';
+                    echo '<h3>', $sections[$title_id]['name'], '</h3>';
 
                     foreach ($section_content as $sub_section_id => $setting_id) {
                         echo '<div class=fieldset>';
 
                         // Shows the sub section name, except if its ID is "no-title".
                         if (is_string($sub_section_id) && $sub_section_id !== 'no-title') {
-                            echo '<h4>',
-                            $sections[$title_id]['sub_sections'][$sub_section_id],
-                            '</h4>';
+                            echo '<h4>', $sections[$title_id]['sub_sections'][$sub_section_id], '</h4>';
                         }
 
                         // Displays the option.
@@ -891,18 +883,13 @@ if (!empty($_POST)) {
                 ?>
 
                 <p>
-                    <?php echo \dcCore::app()->formNonce(); ?>
+                    <?php echo dcCore::app()->formNonce(); ?>
 
-                    <input type=submit value="<?php echo __('admin-save-button-text'); ?>"> <input class=delete name=default type=submit value="<?php echo __('admin-reset-button-text'); ?>">
+                    <input type=submit value="<?php echo __('admin-save-button-text'); ?>"> <input class=delete name=default value="<?php echo __('admin-reset-button-text'); ?>" type=submit>
                 </p>
 
                 <p class=form-note>
-                    <?php
-                    printf(
-                        __('admin-settings-not-working-message'),
-                        '#active'
-                    );
-                    ?>
+                    <?php printf(__('admin-settings-not-working-message'), '#active'); ?>
                 </p>
             </form>
         <?php endif; ?>
