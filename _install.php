@@ -12,15 +12,15 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 
 include __DIR__ . '/settings.php';
 
-$new_version = $core->plugins->moduleInfo('origineConfig', 'version');
-$old_version = $core->getVersion('origineConfig');
+$new_version = dcCore::app()->plugins->moduleInfo('origineConfig', 'version');
+$old_version = dcCore::app()->getVersion('origineConfig');
 
 if (version_compare($old_version, $new_version, '>=')) {
     return;
 }
 
 try {
-    $core->blog->settings->addNamespace('origineConfig');
+    dcCore::app()->blog->settings->addNamespace('origineConfig');
 
     /**
      * Delete the old database entry which contained all the settings.
@@ -29,7 +29,7 @@ try {
      *
      * @since origineConfig 2.1
      */
-    $core->blog->settings->origineConfig->drop('origine_settings');
+    dcCore::app()->blog->settings->origineConfig->drop('origine_settings');
 
     // Default settings to define in the database.
     $oc_settings_default = origineConfigSettings::default_settings();
@@ -43,7 +43,7 @@ try {
             $setting_type = 'string';
         }
 
-        $core->blog->settings->origineConfig->put(
+        dcCore::app()->blog->settings->origineConfig->put(
             $setting_id,
             $setting_data['default'],
             $setting_type,
@@ -57,15 +57,15 @@ try {
     $settings_to_unset = origineConfigSettings::settings_to_unset();
 
     foreach ($settings_to_unset as $setting_id) {
-        $core->blog->settings->origineConfig->dropEvery($setting_id, true);
+        dcCore::app()->blog->settings->origineConfig->dropEvery($setting_id, true);
     }
 
     // Sets the new version number of the plugin.
-    $core->setVersion('origineConfig', $new_version);
+    dcCore::app()->setVersion('origineConfig', $new_version);
 
     return true;
 } catch (Exception $e) {
-    $core->error->add($e->getMessage());
+    dcCore::app()->error->add($e->getMessage());
 }
 
 return false;
